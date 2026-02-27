@@ -1,20 +1,20 @@
 [
   {
-    "code": "5",
-    "nom": "Musée d’Art Moderne",
+    "code": "C1",
+    "nom": "Palluel ↔ Gares",
     "horaires": [
-      {"destination": "Centre", "minutes": 5},
-      {"destination": "Centre", "minutes": 12},
-      {"destination": "Centre", "minutes": 19}
+      {"destination": "Gares", "minutes": 5},
+      {"destination": "Palluel", "minutes": 12},
+      {"destination": "Gares", "minutes": 19}
     ]
   },
   {
-    "code": "C1",
-    "nom": "Champ de Mars ↔ Gare",
+    "code": "C2",
+    "nom": "Les Claverins ↔ Gares",
     "horaires": [
-      {"destination": "Gare", "minutes": 3},
-      {"destination": "Gare", "minutes": 10},
-      {"destination": "Gare", "minutes": 18}
+      {"destination": "Gares", "minutes": 3},
+      {"destination": "Les Claverins", "minutes": 10},
+      {"destination": "Gares", "minutes": 18}
     ]
   }
 ]
