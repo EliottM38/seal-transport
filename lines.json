@@ -1,0 +1,20 @@
+[
+  {
+    "code": "5",
+    "nom": "Musée d’Art Moderne",
+    "horaires": [
+      {"destination": "Centre", "minutes": 5},
+      {"destination": "Centre", "minutes": 12},
+      {"destination": "Centre", "minutes": 19}
+    ]
+  },
+  {
+    "code": "C1",
+    "nom": "Champ de Mars ↔ Gare",
+    "horaires": [
+      {"destination": "Gare", "minutes": 3},
+      {"destination": "Gare", "minutes": 10},
+      {"destination": "Gare", "minutes": 18}
+    ]
+  }
+]
