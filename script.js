@@ -1,10 +1,33 @@
-fetch("passages.json")
-.then(r=>r.json())
-.then(data=>{
- const c=document.getElementById("passages");
- data.forEach(p=>{
-  const d=document.createElement("div");
-  d.innerHTML="Ligne "+p.ligne+" → "+p.minutes+" min";
-  c.appendChild(d);
- });
-});
+fetch("lines.json")
+  .then(res => res.json())
+  .then(lines => {
+
+    const select = document.getElementById("lineSelect");
+    const horairesDiv = document.getElementById("horaires");
+
+    // Remplir le menu
+    lines.forEach(line => {
+      const opt = document.createElement("option");
+      opt.value = line.code;
+      opt.textContent = `${line.code} — ${line.nom}`;
+      select.appendChild(opt);
+    });
+
+    // Quand ligne changée
+    select.addEventListener("change", () => {
+
+      const chosen = lines.find(l => l.code === select.value);
+
+      // Effacer ancien contenu
+      horairesDiv.innerHTML = "";
+
+      // Afficher les horaires
+      chosen.horaires.forEach(h => {
+        const div = document.createElement("div");
+        div.textContent = `➡️ ${h.destination} : dans ${h.minutes} min`;
+        horairesDiv.appendChild(div);
+      });
+
+    });
+
+  });
