@@ -27,7 +27,10 @@ fetch("lines.json")
         div.textContent = `➡️ ${h.destination} : dans ${h.minutes} min`;
         horairesDiv.appendChild(div);
       });
-
+fetch("lines.json")
+  .then(res => res.json())
+  .then(lines => { /* votre code */ })
+  .catch(err => console.error("Erreur de chargement :", err));
     });
 
   });
