@@ -31,6 +31,21 @@ fetch("lines.json")
   .then(res => res.json())
   .then(lines => { /* votre code */ })
   .catch(err => console.error("Erreur de chargement :", err));
+      const maintenant = new Date();
+      async function chargerLignes() {
+  try {
+    const res = await fetch("lines.json");
+    const lines = await res.json();
+    // même logique qu'avant
+  } catch (err) {
+    console.error("Erreur :", err);
+  }
+}
+chargerLignes();
+const heurePassage = new Date();
+heurePassage.setHours(h.heure, h.minutes, 0);
+const attente = Math.round((heurePassage - maintenant) / 60000);
+div.textContent = `➡️ ${h.destination} : dans ${attente} min`;
     });
 
   });
