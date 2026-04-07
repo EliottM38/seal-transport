@@ -1,20 +1,35 @@
 [
   {
     "code": "C1",
-    "nom": "Palluel ↔ Gares",
+    "nom": "Echirolles / Crolles",
+    "couleurFond": "#E6F1FB",
+    "couleurTexte": "#0C447C",
     "horaires": [
-      {"destination": "Gares", "minutes": 5},
-      {"destination": "Palluel", "minutes": 12},
-      {"destination": "Gares", "minutes": 19}
+      { "destination": "Crolles Centre", "minutes": 2 },
+      { "destination": "Grenoble Gare", "minutes": 8 },
+      { "destination": "Echirolles Victor Hugo", "minutes": 15 },
+      { "destination": "Crolles Centre", "minutes": 22 }
     ]
   },
   {
     "code": "C2",
-    "nom": "Les Claverins ↔ Gares",
+    "nom": "Meylan / Seyssins",
+    "couleurFond": "#E1F5EE",
+    "couleurTexte": "#085041",
     "horaires": [
-      {"destination": "Gares", "minutes": 3},
-      {"destination": "Les Claverins", "minutes": 10},
-      {"destination": "Gares", "minutes": 18}
+      { "destination": "Meylan Inovallée", "minutes": 4 },
+      { "destination": "Seyssins Les Cottaves", "minutes": 11 },
+      { "destination": "Grenoble HDV", "minutes": 19 }
+    ]
+  },
+  {
+    "code": "TAD",
+    "nom": "Transport à la demande",
+    "couleurFond": "#EEEDFE",
+    "couleurTexte": "#3C3489",
+    "horaires": [
+      { "destination": "Chamrousse Village", "minutes": 35 },
+      { "destination": "Uriage-les-Bains", "minutes": 50 }
     ]
   }
 ]
