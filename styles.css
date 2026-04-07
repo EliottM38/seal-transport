@@ -1,13 +1,158 @@
-body {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   font-family: Arial, sans-serif;
-  margin: 20px;
+}
+
+body {
+  background-color: #f4f4f4;
+  padding: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #185FA5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 h1 {
-  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.app-subtitle {
+  font-size: 12px;
+  color: #666;
+}
+
+/* ── Infotrafic ── */
+.infotrafic {
+  background: #FCEBEB;
+  border: 1px solid #F09595;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #791F1F;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Point clignotant ── */
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E24B4A;
+  flex-shrink: 0;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.15; }
+}
+
+.live-label {
+  font-size: 10px;
+  color: #A32D2D;
+  font-weight: bold;
+}
+
+/* ── Sélecteur de ligne ── */
+.select-wrap {
+  margin-bottom: 1rem;
+}
+
+.select-label {
+  display: block;
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 6px;
 }
 
 select {
-  margin-bottom: 12px;
-  padding: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+/* ── Cartes de passage ── */
+.passage-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.ligne-badge {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 6px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.destination {
+  font-size: 14px;
+  color: #1a1a1a;
+  flex: 1;
+}
+
+/* ── Bloc temps + indicateur en direct ── */
+.temps-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.live-inline {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.temps {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.temps.proche { color: #A32D2D; }
+.temps.normal { color: #185FA5; }
+.temps.loin   { color: #888; }
+
+/* ── Message vide ── */
+.empty {
+  font-size: 13px;
+  color: #aaa;
+  text-align: center;
+  padding: 2rem 0;
 }
