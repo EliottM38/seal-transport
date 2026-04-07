@@ -1,11 +1,12 @@
-fetch("lines.json")
-  .then(res => res.json())
-  .then(lines => {
+async function chargerLignes() {
+  try {
+    const res = await fetch("lines.json");
+    const lines = await res.json();
 
     const select = document.getElementById("lineSelect");
     const horairesDiv = document.getElementById("horaires");
 
-    // Remplir le menu
+    // Remplir le menu déroulant
     lines.forEach(line => {
       const opt = document.createElement("option");
       opt.value = line.code;
@@ -13,39 +14,47 @@ fetch("lines.json")
       select.appendChild(opt);
     });
 
-    // Quand ligne changée
+    // Afficher les passages quand une ligne est choisie
     select.addEventListener("change", () => {
-
       const chosen = lines.find(l => l.code === select.value);
-
-      // Effacer ancien contenu
       horairesDiv.innerHTML = "";
 
-      // Afficher les horaires
+      if (!chosen) {
+        horairesDiv.innerHTML = '<div class="empty">Sélectionnez une ligne pour voir les prochains passages.</div>';
+        return;
+      }
+
       chosen.horaires.forEach(h => {
-        const div = document.createElement("div");
-        div.textContent = `➡️ ${h.destination} : dans ${h.minutes} min`;
-        horairesDiv.appendChild(div);
+        // Déterminer la couleur selon l'urgence
+        let cls = "loin";
+        if (h.minutes <= 5) cls = "proche";
+        else if (h.minutes <= 15) cls = "normal";
+
+        // Créer la carte
+        const card = document.createElement("div");
+        card.className = "passage-card";
+        card.innerHTML = `
+          <span class="ligne-badge" style="background:${chosen.couleurFond};color:${chosen.couleurTexte}">
+            ${chosen.code}
+          </span>
+          <span class="destination">${h.destination}</span>
+          <div class="temps-wrap">
+            <div class="live-inline">
+              <span class="live-dot"></span>
+              <span class="live-label">en direct</span>
+            </div>
+            <span class="temps ${cls}">${h.minutes} min</span>
+          </div>
+        `;
+        horairesDiv.appendChild(card);
       });
-fetch("lines.json")
-  .then(res => res.json())
-  .then(lines => { /* votre code */ })
-  .catch(err => console.error("Erreur de chargement :", err));
-      const maintenant = new Date();
-      async function chargerLignes() {
-  try {
-    const res = await fetch("lines.json");
-    const lines = await res.json();
-    // même logique qu'avant
-  } catch (err) {
-    console.error("Erreur :", err);
-  }
-}
-chargerLignes();
-const heurePassage = new Date();
-heurePassage.setHours(h.heure, h.minutes, 0);
-const attente = Math.round((heurePassage - maintenant) / 60000);
-div.textContent = `➡️ ${h.destination} : dans ${attente} min`;
     });
 
-  });
+  } catch (err) {
+    console.error("Erreur de chargement des lignes :", err);
+    document.getElementById("horaires").innerHTML =
+      '<div class="empty">Impossible de charger les données. Vérifiez le fichier lines.json.</div>';
+  }
+}
+
+chargerLignes();
