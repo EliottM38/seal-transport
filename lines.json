@@ -5,10 +5,13 @@
     "couleurFond": "#E6F1FB",
     "couleurTexte": "#0C447C",
     "horaires": [
-      { "destination": "Crolles Centre", "minutes": 2 },
-      { "destination": "Grenoble Gare", "minutes": 8 },
-      { "destination": "Echirolles Victor Hugo", "minutes": 15 },
-      { "destination": "Crolles Centre", "minutes": 22 }
+      { "destination": "Crolles Centre",        "heure": "07:32" },
+      { "destination": "Grenoble Gare",          "heure": "07:45" },
+      { "destination": "Echirolles Victor Hugo", "heure": "08:01" },
+      { "destination": "Crolles Centre",         "heure": "08:15" },
+      { "destination": "Grenoble Gare",          "heure": "08:28" },
+      { "destination": "Echirolles Victor Hugo", "heure": "08:42" },
+      { "destination": "Crolles Centre",         "heure": "09:00" }
     ]
   },
   {
@@ -17,9 +20,12 @@
     "couleurFond": "#E1F5EE",
     "couleurTexte": "#085041",
     "horaires": [
-      { "destination": "Meylan Inovallée", "minutes": 4 },
-      { "destination": "Seyssins Les Cottaves", "minutes": 11 },
-      { "destination": "Grenoble HDV", "minutes": 19 }
+      { "destination": "Meylan Inovallée",      "heure": "07:38" },
+      { "destination": "Seyssins Les Cottaves", "heure": "07:52" },
+      { "destination": "Grenoble HDV",          "heure": "08:05" },
+      { "destination": "Meylan Inovallée",      "heure": "08:20" },
+      { "destination": "Seyssins Les Cottaves", "heure": "08:35" },
+      { "destination": "Grenoble HDV",          "heure": "08:50" }
     ]
   },
   {
@@ -28,8 +34,10 @@
     "couleurFond": "#EEEDFE",
     "couleurTexte": "#3C3489",
     "horaires": [
-      { "destination": "Chamrousse Village", "minutes": 35 },
-      { "destination": "Uriage-les-Bains", "minutes": 50 }
+      { "destination": "Chamrousse Village", "heure": "08:00" },
+      { "destination": "Uriage-les-Bains",   "heure": "09:30" },
+      { "destination": "Chamrousse Village", "heure": "11:00" },
+      { "destination": "Uriage-les-Bains",   "heure": "14:00" }
     ]
   }
 ]
