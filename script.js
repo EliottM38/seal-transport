@@ -1,11 +1,16 @@
 let toutesLesLignes = [];
 
 // Calcule les minutes restantes avant un passage (ex: "08:15" → 7)
+// Gère aussi les heures après minuit (00:15, 00:30...)
 function minutesAvant(heureStr) {
   const maintenant = new Date();
   const [h, m] = heureStr.split(":").map(Number);
   const passage = new Date();
   passage.setHours(h, m, 0, 0);
+  // Si le passage est plus de 12h dans le passé, c'est qu'il est le lendemain (après minuit)
+  if (passage - maintenant < -12 * 60 * 60 * 1000) {
+    passage.setDate(passage.getDate() + 1);
+  }
   return Math.round((passage - maintenant) / 60000);
 }
 
@@ -22,10 +27,11 @@ function afficherPassages() {
     return;
   }
 
-  // Filtrer uniquement les passages à venir (dans les 60 prochaines minutes)
+  // Afficher les passages dans les 90 prochaines minutes
   const aVenir = chosen.horaires
     .map(h => ({ ...h, minutes: minutesAvant(h.heure) }))
-    .filter(h => h.minutes >= 0 && h.minutes <= 60);
+    .filter(h => h.minutes >= 0 && h.minutes <= 90)
+    .sort((a, b) => a.minutes - b.minutes);
 
   if (aVenir.length === 0) {
     horairesDiv.innerHTML = '<div class="empty">Aucun passage prévu dans la prochaine heure.</div>';
