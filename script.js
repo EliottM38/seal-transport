@@ -20,19 +20,27 @@ async function chargerPassages() {
 
     function afficher() {
       horairesDiv.innerHTML = "";
+
+      // Afficher tous les passages à venir dans les 3 prochaines heures
       const aVenir = ligne.horaires
         .map(h => ({ ...h, minutes: minutesAvant(h.heure) }))
-        .filter(h => h.minutes >= 0 && h.minutes <= 90)
+        .filter(h => h.minutes >= 0 && h.minutes <= 180)
         .sort((a, b) => a.minutes - b.minutes);
 
       if (aVenir.length === 0) {
-        horairesDiv.innerHTML = '<div class="empty">Aucun passage prévu dans la prochaine heure.</div>';
+        horairesDiv.innerHTML = '<div class="empty">Aucun passage prévu prochainement.</div>';
         return;
       }
 
       aVenir.forEach(h => {
         let cls = h.minutes <= 5 ? "proche" : h.minutes <= 15 ? "normal" : "loin";
-        const label = h.minutes === 0 ? "À l'arrêt" : `${h.minutes} min`;
+
+        // Sous 60 min : afficher le temps d'attente. Au-delà : afficher l'heure
+        let label;
+        if (h.minutes === 0)       label = "À l'arrêt";
+        else if (h.minutes <= 60)  label = `${h.minutes} min`;
+        else                       label = h.heure;
+
         const card = document.createElement("div");
         card.className = "passage-card";
         card.innerHTML = `
