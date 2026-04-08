@@ -3,72 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GG Mobilités</title>
+  <title>Accueil — GG Mobilités</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app-header">
-    <div class="logo" style="background:#185FA5">
-      <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
-        <path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/>
-      </svg>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/></svg>
+      </div>
+      GGMobilités
+    </a>
+    <div class="nav-links"><a href="index.html" class="active">Accueil</a><div class="nav-dropdown"><a href="reseau.html" >Le réseau ▾</a><div class="dropdown-menu"><a href="lignes-structurantes.html">Lignes structurantes</a><a href="tad.html">Lignes TAD</a><a href="pl1-gares.html">Ligne nocturne</a><a href="infotrafic.html">Infotrafic</a></div></div><a href="horaires.html" >Horaires</a><div class="nav-dropdown"><a href="tarifs.html" >Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a></div></div><div class="nav-dropdown"><a href="contact.html" >GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div></div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Bienvenue sur GGMobilités</h1>
+  <p>Le réseau de transport urbain de Grenoble et sa région</p>
+  <div class="hero-btns">
+    <a href="horaires.html" class="btn btn-blanc">🕐 Prochains passages</a>
+    <a href="infotrafic.html" class="btn btn-outline">⚠️ Infotrafic</a>
+  </div>
+</div>
+<div class="page">
+  <div class="quick-links">
+    <a href="horaires.html" class="quick-link"><div class="quick-link-icon">🚌</div><span>Horaires</span></a>
+    <a href="infotrafic.html" class="quick-link"><div class="quick-link-icon">⚠️</div><span>Infotrafic</span></a>
+    <a href="tarifs.html" class="quick-link"><div class="quick-link-icon">🎫</div><span>Tarifs</span></a>
+    <a href="reseau.html" class="quick-link"><div class="quick-link-icon">🗺️</div><span>Le réseau</span></a>
+    <a href="contact.html" class="quick-link"><div class="quick-link-icon">✉️</div><span>Contact</span></a>
+    <a href="objets-perdus.html" class="quick-link"><div class="quick-link-icon">🔍</div><span>Objets perdus</span></a>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Infotrafic en cours <span class="live-badge"><span class="live-dot"></span>En direct</span></div>
+    <div class="alerte rouge">
+      <div><div class="alerte-badge">Perturbé</div></div>
+      <div class="alerte-content"><h3>C2 : Travaux Meylan</h3><p>Déviation entre « La Revirée » et « Meylan Mairie ». Arrêt non desservi : Buclos.</p></div>
     </div>
-    <div style="flex:1"><h1>GG Mobilités</h1><p class="app-subtitle">Prochains passages</p></div>
-    
-  </div>
-  <div class="infotrafic">
-    <span class="live-dot"></span>
-    <span><strong>Info trafic</strong> — Ligne C2 perturbée, retard max 5 min.</span>
-  </div>
-
-  <div class="ligne-group">
-    <div class="groupe-titre">Lignes structurantes</div>
-    <a href="c1-palluel.html" class="ligne-card" style="background:#E6F1FB;border-color:#185FA533"><span class="ligne-badge" style="background:#185FA5;color:white">C1</span><span class="ligne-card-nom">Direction Palluel</span><span class="ligne-card-arrow">→</span></a>
-    <a href="c1-gares.html" class="ligne-card" style="background:#E6F1FB;border-color:#185FA533"><span class="ligne-badge" style="background:#185FA5;color:white">C1</span><span class="ligne-card-nom">Direction Gares</span><span class="ligne-card-arrow">→</span></a>
-    <a href="c2-les_claverins.html" class="ligne-card" style="background:#E1F5EE;border-color:#0F6E5633"><span class="ligne-badge" style="background:#0F6E56;color:white">C2</span><span class="ligne-card-nom">Direction Les Claverins</span><span class="ligne-card-arrow">→</span></a>
-    <a href="c2-gares.html" class="ligne-card" style="background:#E1F5EE;border-color:#0F6E5633"><span class="ligne-badge" style="background:#0F6E56;color:white">C2</span><span class="ligne-card-nom">Direction Gares</span><span class="ligne-card-arrow">→</span></a>
-    <a href="c3-la_vallone.html" class="ligne-card" style="background:#FAECE7;border-color:#993C1D33"><span class="ligne-badge" style="background:#993C1D;color:white">C3</span><span class="ligne-card-nom">Direction La Vallone</span><span class="ligne-card-arrow">→</span></a>
-    <a href="c3-gares.html" class="ligne-card" style="background:#FAECE7;border-color:#993C1D33"><span class="ligne-badge" style="background:#993C1D;color:white">C3</span><span class="ligne-card-nom">Direction Gares</span><span class="ligne-card-arrow">→</span></a>
+    <div class="alerte orange">
+      <div><div class="alerte-badge">Perturbé</div></div>
+      <div class="alerte-content"><h3>9 : Contraintes d'exploitation</h3><p>Fréquences augmentées provisoirement avec des véhicules moins capacitaires.</p></div>
+    </div>
+    <a href="infotrafic.html" style="font-size:13px;color:var(--bleu);text-decoration:none;">Voir tout l'infotrafic →</a>
   </div>
 
-  <div class="ligne-group">
-    <div class="groupe-titre">Lignes urbaines</div>
-    <a href="4-lycee_du_gresivaudan.html" class="ligne-card" style="background:#EEEDFE;border-color:#534AB733"><span class="ligne-badge" style="background:#534AB7;color:white">4</span><span class="ligne-card-nom">Direction Lycée du Grésivaudan</span><span class="ligne-card-arrow">→</span></a>
-    <a href="4-gares.html" class="ligne-card" style="background:#EEEDFE;border-color:#534AB733"><span class="ligne-badge" style="background:#534AB7;color:white">4</span><span class="ligne-card-nom">Direction Gares</span><span class="ligne-card-arrow">→</span></a>
-    <a href="5-universites_bibliotheques.html" class="ligne-card" style="background:#EAF3DE;border-color:#3B6D1133"><span class="ligne-badge" style="background:#3B6D11;color:white">5</span><span class="ligne-card-nom">Direction Universités Bibliothèques</span><span class="ligne-card-arrow">→</span></a>
-    <a href="5-le_prisme.html" class="ligne-card" style="background:#EAF3DE;border-color:#3B6D1133"><span class="ligne-badge" style="background:#3B6D11;color:white">5</span><span class="ligne-card-nom">Direction Le Prisme</span><span class="ligne-card-arrow">→</span></a>
-    <a href="6-grandplace.html" class="ligne-card" style="background:#FAEEDA;border-color:#854F0B33"><span class="ligne-badge" style="background:#854F0B;color:white">6</span><span class="ligne-card-nom">Direction Grand'Place</span><span class="ligne-card-arrow">→</span></a>
-    <a href="6-universites_bibliotheques.html" class="ligne-card" style="background:#FAEEDA;border-color:#854F0B33"><span class="ligne-badge" style="background:#854F0B;color:white">6</span><span class="ligne-card-nom">Direction Universités Bibliothèques</span><span class="ligne-card-arrow">→</span></a>
-    <a href="7-victor_hugo.html" class="ligne-card" style="background:#FBEAF0;border-color:#99355633"><span class="ligne-badge" style="background:#993556;color:white">7</span><span class="ligne-card-nom">Direction Victor Hugo</span><span class="ligne-card-arrow">→</span></a>
-    <a href="7-centre_du_graphisme.html" class="ligne-card" style="background:#FBEAF0;border-color:#99355633"><span class="ligne-badge" style="background:#993556;color:white">7</span><span class="ligne-card-nom">Direction Centre du Graphisme</span><span class="ligne-card-arrow">→</span></a>
-    <a href="8-chantefeuille.html" class="ligne-card" style="background:#F1EFE8;border-color:#5F5E5A33"><span class="ligne-badge" style="background:#5F5E5A;color:white">8</span><span class="ligne-card-nom">Direction Chantefeuille</span><span class="ligne-card-arrow">→</span></a>
-    <a href="8-universites_bibliotheques.html" class="ligne-card" style="background:#F1EFE8;border-color:#5F5E5A33"><span class="ligne-badge" style="background:#5F5E5A;color:white">8</span><span class="ligne-card-nom">Direction Universités Bibliothèques</span><span class="ligne-card-arrow">→</span></a>
-    <a href="9-cite_jean_mace.html" class="ligne-card" style="background:#E6F1FB;border-color:#185FA533"><span class="ligne-badge" style="background:#185FA5;color:white">9</span><span class="ligne-card-nom">Direction Cité Jean Macé</span><span class="ligne-card-arrow">→</span></a>
-    <a href="9-lovalie.html" class="ligne-card" style="background:#E6F1FB;border-color:#185FA533"><span class="ligne-badge" style="background:#185FA5;color:white">9</span><span class="ligne-card-nom">Direction L'Ovalie</span><span class="ligne-card-arrow">→</span></a>
-    <a href="10-palais_de_justice_gares.html" class="ligne-card" style="background:#E1F5EE;border-color:#0F6E5633"><span class="ligne-badge" style="background:#0F6E56;color:white">10</span><span class="ligne-card-nom">Direction Palais de Justice Gares</span><span class="ligne-card-arrow">→</span></a>
-    <a href="10-les_claverins.html" class="ligne-card" style="background:#E1F5EE;border-color:#0F6E5633"><span class="ligne-badge" style="background:#0F6E56;color:white">10</span><span class="ligne-card-nom">Direction Les Claverins</span><span class="ligne-card-arrow">→</span></a>
-    <a href="11-verdun_prefecture.html" class="ligne-card" style="background:#FCEBEB;border-color:#A32D2D33"><span class="ligne-badge" style="background:#A32D2D;color:white">11</span><span class="ligne-card-nom">Direction Verdun Préfecture</span><span class="ligne-card-arrow">→</span></a>
-    <a href="11-le_peage.html" class="ligne-card" style="background:#FCEBEB;border-color:#A32D2D33"><span class="ligne-badge" style="background:#A32D2D;color:white">11</span><span class="ligne-card-nom">Direction Le Péage</span><span class="ligne-card-arrow">→</span></a>
+  <div class="section">
+    <div class="section-title">Les lignes structurantes</div>
+    <div class="grid grid-3">
+      <a href="c1-palluel.html" class="card" style="text-decoration:none">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span class="ligne-num" style="background:#185FA5">C1</span>
+          <strong style="font-size:14px">Gares ↔ Palluel</strong>
+        </div>
+        <p style="font-size:13px;color:var(--texte-sec)">Fréquence : 7 min en heure de pointe</p>
+      </a>
+      <a href="c2-les_claverins.html" class="card" style="text-decoration:none">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span class="ligne-num" style="background:#0F6E56">C2</span>
+          <strong style="font-size:14px">Gares ↔ Les Claverins</strong>
+        </div>
+        <p style="font-size:13px;color:var(--texte-sec)">Fréquence : 6 min en heure de pointe</p>
+      </a>
+      <a href="c3-la_vallone.html" class="card" style="text-decoration:none">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span class="ligne-num" style="background:#993C1D">C3</span>
+          <strong style="font-size:14px">Gares ↔ La Vallone</strong>
+        </div>
+        <p style="font-size:13px;color:var(--texte-sec)">Fréquence : 5 min en heure de pointe</p>
+      </a>
+    </div>
   </div>
+</div>
 
-  <div class="ligne-group">
-    <div class="groupe-titre">Lignes de soirée</div>
-    <a href="60-office_de_tourisme.html" class="ligne-card" style="background:#FAEEDA;border-color:#854F0B33"><span class="ligne-badge" style="background:#854F0B;color:white">60</span><span class="ligne-card-nom">Direction Office de Tourisme</span><span class="ligne-card-arrow">→</span></a>
-    <a href="60-grandplace.html" class="ligne-card" style="background:#FAEEDA;border-color:#854F0B33"><span class="ligne-badge" style="background:#854F0B;color:white">60</span><span class="ligne-card-nom">Direction Grand'Place</span><span class="ligne-card-arrow">→</span></a>
-    <a href="61-universites_bibliotheques.html" class="ligne-card" style="background:#EAF3DE;border-color:#3B6D1133"><span class="ligne-badge" style="background:#3B6D11;color:white">61</span><span class="ligne-card-nom">Direction Universités Bibliothèques</span><span class="ligne-card-arrow">→</span></a>
-    <a href="61-gieres_gare_universites.html" class="ligne-card" style="background:#EAF3DE;border-color:#3B6D1133"><span class="ligne-badge" style="background:#3B6D11;color:white">61</span><span class="ligne-card-nom">Direction Gières Gare Universités</span><span class="ligne-card-arrow">→</span></a>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">GGMobilités</div>
+    <div class="footer-links">
+      <a href="contact.html">Contact</a>
+      <a href="infotrafic.html">Infotrafic</a>
+      <a href="tarifs.html">Tarifs</a>
+      <a href="objets-perdus.html">Objets perdus</a>
+    </div>
+    <div class="footer-copy">serviceclient@ggmobilites.fr · Grenoble · V3.0</div>
   </div>
-
-  <div class="ligne-group">
-    <div class="groupe-titre">Ligne nocturne</div>
-    <a href="pl1-gares.html" class="ligne-card" style="background:#2C2C2A;border-color:#2C2C2A33"><span class="ligne-badge" style="background:#2C2C2A;color:white">PL1</span><span class="ligne-card-nom">Direction Gares</span><span class="ligne-card-arrow">→</span></a>
-    <a href="pl1-le_prisme.html" class="ligne-card" style="background:#2C2C2A;border-color:#2C2C2A33"><span class="ligne-badge" style="background:#2C2C2A;color:white">PL1</span><span class="ligne-card-nom">Direction Le Prisme</span><span class="ligne-card-arrow">→</span></a>
-  </div>
-
-  <div class="ligne-group">
-    <div class="groupe-titre">Transport à la demande</div>
-    <a href="tad.html" class="ligne-card" style="background:#EEEDFE;border-color:#AFA9EC"><span class="ligne-badge" style="background:#534AB7;color:white">TAD</span><span class="ligne-card-nom">Sur réservation</span><span class="ligne-card-arrow">→</span></a>
-  </div>
-
+</footer>
 </body>
 </html>
