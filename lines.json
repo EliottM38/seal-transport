@@ -11101,1132 +11101,1132 @@
   },
   {
     "code": "6",
-    "direction": "Terminus A",
-    "nom": "6 → Terminus A",
+    "direction": "Grand'Place",
+    "nom": "6 → Grand'Place",
     "couleurFond": "#FAEEDA",
     "couleurTexte": "#633806",
     "jour": "semaine",
     "horaires": [
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "06:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "06:15"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "06:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "06:45"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "07:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "07:15"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "07:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "07:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "07:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "08:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "08:10"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "08:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "08:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "08:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "08:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:10"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:10"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:10"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:10"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:10"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:10"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:10"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:10"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:10"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:50"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "18:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "18:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "18:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "19:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "19:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "19:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "20:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "20:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "20:40"
       }
     ]
   },
   {
     "code": "6",
-    "direction": "Terminus B",
-    "nom": "6 → Terminus B",
+    "direction": "Universités Bibliothèques",
+    "nom": "6 → Universités Bibliothèques",
     "couleurFond": "#FAEEDA",
     "couleurTexte": "#633806",
     "jour": "semaine",
     "horaires": [
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "06:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "06:27"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "06:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "06:57"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "07:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "07:27"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "07:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "07:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "08:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "08:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "08:22"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "08:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "08:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "08:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:22"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:22"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:22"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:22"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:22"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:22"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:22"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:22"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:22"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "18:02"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "18:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "18:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "18:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "19:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "19:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "19:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "20:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "20:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "20:52"
       }
     ]
   },
   {
     "code": "6",
-    "direction": "Terminus A",
-    "nom": "6 → Terminus A",
+    "direction": "Grand'Place",
+    "nom": "6 → Grand'Place",
     "couleurFond": "#FAEEDA",
     "couleurTexte": "#633806",
     "jour": "samedi",
     "horaires": [
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "07:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "07:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "08:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "08:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:20"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:40"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "18:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "18:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "19:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "19:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "20:00"
       }
     ]
   },
   {
     "code": "6",
-    "direction": "Terminus B",
-    "nom": "6 → Terminus B",
+    "direction": "Universités Bibliothèques",
+    "nom": "6 → Universités Bibliothèques",
     "couleurFond": "#FAEEDA",
     "couleurTexte": "#633806",
     "jour": "samedi",
     "horaires": [
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "07:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "07:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "08:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "08:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:32"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:52"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "18:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "18:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "19:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "19:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "20:12"
       }
     ]
   },
   {
     "code": "6",
-    "direction": "Terminus A",
-    "nom": "6 → Terminus A",
+    "direction": "Grand'Place",
+    "nom": "6 → Grand'Place",
     "couleurFond": "#FAEEDA",
     "couleurTexte": "#633806",
     "jour": "dimanche",
     "horaires": [
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "09:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "10:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "11:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "12:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "13:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "14:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "15:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "16:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "17:30"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "18:00"
       },
       {
-        "destination": "Terminus A",
+        "destination": "Grand'Place",
         "heure": "18:30"
       }
     ]
   },
   {
     "code": "6",
-    "direction": "Terminus B",
-    "nom": "6 → Terminus B",
+    "direction": "Universités Bibliothèques",
+    "nom": "6 → Universités Bibliothèques",
     "couleurFond": "#FAEEDA",
     "couleurTexte": "#633806",
     "jour": "dimanche",
     "horaires": [
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "09:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "10:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "11:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "12:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "13:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "14:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "15:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "16:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "17:42"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "18:12"
       },
       {
-        "destination": "Terminus B",
+        "destination": "Universités Bibliothèques",
         "heure": "18:42"
       }
     ]
