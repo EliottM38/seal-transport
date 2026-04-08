@@ -1,3 +1,10 @@
+function jourType() {
+  const j = new Date().getDay();
+  if (j === 6) return "samedi";
+  if (j === 0) return "dimanche";
+  return "semaine";
+}
+
 function minutesAvant(heureStr) {
   const maintenant = new Date();
   const [h, m] = heureStr.split(":").map(Number);
@@ -15,13 +22,16 @@ async function chargerPassages() {
     const res = await fetch("lines.json");
     const lines = await res.json();
 
-    const ligne = lines.find(l => l.code === CODE && l.direction === DIRECTION);
-    if (!ligne) return;
+    const jour = jourType();
+    const ligne = lines.find(l => l.code === CODE && l.direction === DIRECTION && l.jour === jour);
+
+    if (!ligne) {
+      horairesDiv.innerHTML = '<div class="empty">Pas de circulation aujourd\'hui sur cette ligne.</div>';
+      return;
+    }
 
     function afficher() {
       horairesDiv.innerHTML = "";
-
-      // Afficher tous les passages à venir dans les 3 prochaines heures
       const aVenir = ligne.horaires
         .map(h => ({ ...h, minutes: minutesAvant(h.heure) }))
         .filter(h => h.minutes >= 0 && h.minutes <= 180)
@@ -34,12 +44,10 @@ async function chargerPassages() {
 
       aVenir.forEach(h => {
         let cls = h.minutes <= 5 ? "proche" : h.minutes <= 15 ? "normal" : "loin";
-
-        // Sous 60 min : afficher le temps d'attente. Au-delà : afficher l'heure
         let label;
-        if (h.minutes === 0)       label = "À l'arrêt";
-        else if (h.minutes <= 60)  label = `${h.minutes} min`;
-        else                       label = h.heure;
+        if (h.minutes === 0)      label = "À l'arrêt";
+        else if (h.minutes <= 60) label = `${h.minutes} min`;
+        else                      label = h.heure;
 
         const card = document.createElement("div");
         card.className = "passage-card";
