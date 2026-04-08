@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
   <div class="app-header">
     <div class="logo">
       <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
@@ -16,24 +15,50 @@
     </div>
     <div>
       <h1>GG Mobilités</h1>
-      <p class="app-subtitle">Prochains passages</p>
+      <p class="app-subtitle">Choisissez une ligne</p>
     </div>
   </div>
 
-  <div class="infotrafic" id="infotrafic">
+  <div class="infotrafic">
     <span class="live-dot"></span>
     <span><strong>Info trafic</strong> — Ligne C2 perturbée, retard max 5 min à Grenoble HDV.</span>
   </div>
 
-  <div class="select-wrap">
-    <label class="select-label" for="lineSelect">Choisir une ligne</label>
-    <select id="lineSelect">
-      <option value="">— Sélectionner —</option>
-    </select>
+  <div class="ligne-group">
+    <div class="groupe-titre">Ligne C1</div>
+    <a href="c1-palluel.html" class="ligne-card" style="background:#E6F1FB;border-color:#85B7EB">
+      <span class="ligne-badge" style="background:#185FA5;color:white">C1</span>
+      <span class="ligne-card-nom">Direction Palluel</span>
+      <span class="ligne-card-arrow">→</span>
+    </a>
+    <a href="c1-gares.html" class="ligne-card" style="background:#E6F1FB;border-color:#85B7EB">
+      <span class="ligne-badge" style="background:#185FA5;color:white">C1</span>
+      <span class="ligne-card-nom">Direction Gares</span>
+      <span class="ligne-card-arrow">→</span>
+    </a>
   </div>
 
-  <div id="horaires"></div>
+  <div class="ligne-group">
+    <div class="groupe-titre">Ligne C2</div>
+    <a href="c2-claverins.html" class="ligne-card" style="background:#E1F5EE;border-color:#5DCAA5">
+      <span class="ligne-badge" style="background:#0F6E56;color:white">C2</span>
+      <span class="ligne-card-nom">Direction Les Claverins</span>
+      <span class="ligne-card-arrow">→</span>
+    </a>
+    <a href="c2-gares.html" class="ligne-card" style="background:#E1F5EE;border-color:#5DCAA5">
+      <span class="ligne-badge" style="background:#0F6E56;color:white">C2</span>
+      <span class="ligne-card-nom">Direction Gares</span>
+      <span class="ligne-card-arrow">→</span>
+    </a>
+  </div>
 
-  <script src="script.js"></script>
+  <div class="ligne-group">
+    <div class="groupe-titre">Transport à la demande</div>
+    <a href="tad.html" class="ligne-card" style="background:#EEEDFE;border-color:#AFA9EC">
+      <span class="ligne-badge" style="background:#534AB7;color:white">TAD</span>
+      <span class="ligne-card-nom">Sur réservation</span>
+      <span class="ligne-card-arrow">→</span>
+    </a>
+  </div>
 </body>
 </html>
