@@ -34,7 +34,7 @@ async function chargerPassages() {
       horairesDiv.innerHTML = "";
       const aVenir = ligne.horaires
         .map(h => ({ ...h, minutes: minutesAvant(h.heure) }))
-        .filter(h => h.minutes >= 0 && h.minutes <= 180)
+        .filter(h => h.minutes >= 0 && h.minutes <= 40)
         .sort((a, b) => a.minutes - b.minutes);
 
       if (aVenir.length === 0) {
