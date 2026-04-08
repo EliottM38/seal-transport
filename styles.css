@@ -1,158 +1,41 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+body { background: #f4f4f4; padding: 1.5rem; max-width: 600px; margin: 0 auto; }
 
-body {
-  background-color: #f4f4f4;
-  padding: 1.5rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
+.app-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
+.logo { width: 40px; height: 40px; border-radius: 50%; background: #185FA5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+h1 { font-size: 18px; font-weight: bold; color: #1a1a1a; }
+.app-subtitle { font-size: 12px; color: #666; }
+.retour { font-size: 13px; color: #185FA5; text-decoration: none; white-space: nowrap; }
+.retour:hover { text-decoration: underline; }
 
-/* ── Header ── */
-.app-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 1.25rem;
-}
+.infotrafic { background: #FCEBEB; border: 1px solid #F09595; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #791F1F; display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; }
 
-.logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #185FA5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: #E24B4A; flex-shrink: 0; animation: blink 1.2s ease-in-out infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.15; } }
+.live-label { font-size: 10px; color: #A32D2D; font-weight: bold; }
 
-h1 {
-  font-size: 18px;
-  font-weight: bold;
-  color: #1a1a1a;
-}
+.ligne-group { margin-bottom: 1.25rem; }
+.groupe-titre { font-size: 12px; color: #888; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; }
+.ligne-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 8px; border: 1px solid; text-decoration: none; margin-bottom: 8px; }
+.ligne-card:hover { opacity: 0.85; }
+.ligne-card-nom { font-size: 14px; color: #1a1a1a; flex: 1; }
+.ligne-card-arrow { font-size: 16px; color: #888; }
 
-.app-subtitle {
-  font-size: 12px;
-  color: #666;
-}
+.ligne-badge { font-size: 12px; font-weight: bold; padding: 4px 10px; border-radius: 6px; min-width: 40px; text-align: center; }
 
-/* ── Infotrafic ── */
-.infotrafic {
-  background: #FCEBEB;
-  border: 1px solid #F09595;
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 13px;
-  color: #791F1F;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 1.25rem;
-}
-
-/* ── Point clignotant ── */
-.live-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #E24B4A;
-  flex-shrink: 0;
-  animation: blink 1.2s ease-in-out infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.15; }
-}
-
-.live-label {
-  font-size: 10px;
-  color: #A32D2D;
-  font-weight: bold;
-}
-
-/* ── Sélecteur de ligne ── */
-.select-wrap {
-  margin-bottom: 1rem;
-}
-
-.select-label {
-  display: block;
-  font-size: 13px;
-  color: #444;
-  margin-bottom: 6px;
-}
-
-select {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: white;
-  font-size: 14px;
-  color: #1a1a1a;
-}
-
-/* ── Cartes de passage ── */
-.passage-card {
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.ligne-badge {
-  font-size: 12px;
-  font-weight: bold;
-  padding: 4px 10px;
-  border-radius: 6px;
-  min-width: 40px;
-  text-align: center;
-}
-
-.destination {
-  font-size: 14px;
-  color: #1a1a1a;
-  flex: 1;
-}
-
-/* ── Bloc temps + indicateur en direct ── */
-.temps-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-}
-
-.live-inline {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-
-.temps {
-  font-size: 14px;
-  font-weight: bold;
-}
-
+.passage-card { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.destination { font-size: 14px; color: #1a1a1a; flex: 1; }
+.temps-wrap { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.live-inline { display: flex; align-items: center; gap: 3px; }
+.temps { font-size: 14px; font-weight: bold; }
 .temps.proche { color: #A32D2D; }
 .temps.normal { color: #185FA5; }
-.temps.loin   { color: #888; }
+.temps.loin { color: #888; }
+.empty { font-size: 13px; color: #aaa; text-align: center; padding: 2rem 0; }
 
-/* ── Message vide ── */
-.empty {
-  font-size: 13px;
-  color: #aaa;
-  text-align: center;
-  padding: 2rem 0;
-}
+.reservation-box { background: #EEEDFE; border: 1px solid #AFA9EC; border-radius: 8px; padding: 2rem; text-align: center; }
+.reservation-icon { font-size: 32px; margin-bottom: 1rem; }
+.reservation-titre { font-size: 16px; font-weight: bold; color: #3C3489; margin-bottom: 0.5rem; }
+.reservation-desc { font-size: 13px; color: #534AB7; margin-bottom: 1.25rem; line-height: 1.6; }
+.reservation-btn { display: inline-block; background: #534AB7; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 13px; }
+.reservation-btn:hover { background: #3C3489; }
