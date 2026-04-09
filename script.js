@@ -16,12 +16,16 @@ function minutesAvant(heureStr) {
   return Math.round((passage - maintenant) / 60000);
 }
 
+function heureActuelle() {
+  const n = new Date();
+  return n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0');
+}
+
 async function chargerPassages() {
   const horairesDiv = document.getElementById("horaires");
   try {
     const res = await fetch("lines.json");
     const lines = await res.json();
-
     const jour = jourType();
     const ligne = lines.find(l => l.code === CODE && l.direction === DIRECTION && l.jour === jour);
 
@@ -31,38 +35,117 @@ async function chargerPassages() {
     }
 
     function afficher() {
-      horairesDiv.innerHTML = "";
       const aVenir = ligne.horaires
         .map(h => ({ ...h, minutes: minutesAvant(h.heure) }))
         .filter(h => h.minutes >= 0 && h.minutes <= 40)
         .sort((a, b) => a.minutes - b.minutes);
 
       if (aVenir.length === 0) {
-        horairesDiv.innerHTML = '<div class="empty">Aucun passage prévu prochainement.</div>';
+        horairesDiv.innerHTML = `
+          <div style="text-align:center;padding:3rem 1rem">
+            <div style="font-size:48px;margin-bottom:1rem">🌙</div>
+            <div style="font-family:Syne,sans-serif;font-size:18px;font-weight:700;color:var(--texte);margin-bottom:8px">Fin de service</div>
+            <div style="font-size:14px;color:var(--texte-sec)">Aucun passage prévu dans les 40 prochaines minutes.</div>
+          </div>`;
         return;
       }
 
-      aVenir.forEach(h => {
-        let cls = h.minutes <= 5 ? "proche" : h.minutes <= 15 ? "normal" : "loin";
-        let label;
-        if (h.minutes === 0)      label = "À l'arrêt";
-        else if (h.minutes <= 60) label = `${h.minutes} min`;
-        else                      label = h.heure;
+      let html = `<div style="font-size:12px;color:var(--texte-sec);margin-bottom:1rem;display:flex;align-items:center;gap:6px">
+        <span class="live-dot"></span>
+        Mis à jour à ${heureActuelle()} · ${aVenir.length} prochain${aVenir.length > 1 ? 's passages' : ' passage'}
+      </div>`;
 
-        const card = document.createElement("div");
-        card.className = "passage-card";
-        card.innerHTML = `
-          <span class="ligne-badge" style="background:${ligne.couleurFond};color:${ligne.couleurTexte}">${ligne.code}</span>
-          <span class="destination">${h.destination}</span>
-          <div class="temps-wrap">
-            <div class="live-inline">
-              <span class="live-dot"></span>
-              <span class="live-label">en direct</span>
+      aVenir.forEach((h, i) => {
+        const estPremier = i === 0;
+        const label = h.minutes === 0 ? "À l'arrêt" : `${h.minutes} min`;
+
+        // Couleur et urgence
+        let accentColor, bgColor, borderColor, badgeBg;
+        if (h.minutes === 0) {
+          accentColor = '#E74C3C'; bgColor = 'rgba(231,76,60,0.08)';
+          borderColor = 'rgba(231,76,60,0.4)'; badgeBg = '#E74C3C';
+        } else if (h.minutes <= 5) {
+          accentColor = '#E74C3C'; bgColor = 'rgba(231,76,60,0.05)';
+          borderColor = 'rgba(231,76,60,0.3)'; badgeBg = '#E74C3C';
+        } else if (h.minutes <= 15) {
+          accentColor = 'var(--or)'; bgColor = 'rgba(201,168,76,0.06)';
+          borderColor = 'rgba(201,168,76,0.3)'; badgeBg = 'var(--or)';
+        } else {
+          accentColor = 'var(--texte-sec)'; bgColor = 'var(--noir-card)';
+          borderColor = 'var(--bordure)'; badgeBg = '#3A3A3A';
+        }
+
+        // Barre de progression (0 min = plein, 40 min = vide)
+        const pct = Math.max(0, Math.round((1 - h.minutes / 40) * 100));
+        const barColor = h.minutes <= 5 ? '#E74C3C' : h.minutes <= 15 ? 'var(--or)' : '#3A3A3A';
+
+        if (estPremier) {
+          // Premier passage : carte grande et mise en avant
+          html += `
+          <div style="
+            background:${bgColor};
+            border:1px solid ${borderColor};
+            border-radius:16px;
+            padding:1.5rem;
+            margin-bottom:12px;
+            position:relative;
+            overflow:hidden;
+          ">
+            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--bordure)">
+              <div style="height:3px;width:${pct}%;background:${barColor};transition:width 1s ease;border-radius:2px"></div>
             </div>
-            <span class="temps ${cls}">${label}</span>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+              <span style="
+                background:${ligne.couleurFond};color:${ligne.couleurTexte};
+                font-family:Syne,sans-serif;font-weight:800;font-size:14px;
+                padding:6px 14px;border-radius:8px
+              ">${ligne.code}</span>
+              <span style="font-size:11px;font-weight:700;color:${accentColor};text-transform:uppercase;letter-spacing:0.1em;font-family:Syne,sans-serif">Prochain départ</span>
+              <span class="live-chip" style="margin-left:auto;font-size:10px"><span class="live-dot"></span>En direct</span>
+            </div>
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem">
+              <div>
+                <div style="font-family:Syne,sans-serif;font-size:13px;color:var(--texte-sec);margin-bottom:4px">Direction</div>
+                <div style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;color:var(--texte)">${h.destination}</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:Syne,sans-serif;font-size:42px;font-weight:800;color:${accentColor};line-height:1">${h.minutes === 0 ? '0' : h.minutes}</div>
+                <div style="font-size:13px;color:var(--texte-sec);margin-top:2px">${h.minutes === 0 ? "À l'arrêt" : 'minutes'}</div>
+              </div>
+            </div>
+            <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--bordure);display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:12px;color:var(--texte-sec)">Départ prévu à</span>
+              <span style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;color:var(--texte)">${h.heure}</span>
+            </div>
           </div>`;
-        horairesDiv.appendChild(card);
+        } else {
+          // Passages suivants : cartes compactes
+          html += `
+          <div style="
+            background:${bgColor};
+            border:1px solid ${borderColor};
+            border-radius:12px;
+            padding:12px 16px;
+            margin-bottom:8px;
+            display:flex;
+            align-items:center;
+            gap:12px;
+          ">
+            <span style="
+              background:${badgeBg};color:white;
+              font-family:Syne,sans-serif;font-weight:800;font-size:12px;
+              padding:4px 10px;border-radius:6px;min-width:42px;text-align:center
+            ">${ligne.code}</span>
+            <span style="font-size:14px;color:var(--texte);flex:1;font-weight:500">${h.destination}</span>
+            <div style="text-align:right">
+              <div style="font-family:Syne,sans-serif;font-size:16px;font-weight:800;color:${accentColor}">${label}</div>
+              <div style="font-size:11px;color:var(--texte-sec)">${h.heure}</div>
+            </div>
+          </div>`;
+        }
       });
+
+      horairesDiv.innerHTML = html;
     }
 
     afficher();
@@ -73,5 +156,7 @@ async function chargerPassages() {
     horairesDiv.innerHTML = '<div class="empty">Impossible de charger les données.</div>';
   }
 }
+
+chargerPassages();
 
 chargerPassages();
