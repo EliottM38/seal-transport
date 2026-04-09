@@ -3,25 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>9 → Cité Jean Macé — GG Mobilités</title>
+  <title>9 → Cité Jean Macé — GGMobilités</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app-header">
-    <div class="logo" style="background:#185FA5">
-      <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
-        <path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/>
-      </svg>
-    </div>
-    <div style="flex:1"><h1>9 → Cité Jean Macé</h1><p class="app-subtitle">Prochains passages</p></div>
-    <a href="index.html" class="retour">← Retour</a>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="GGMobilités">
+      GGMobilités
+    </a>
+    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Lignes structurantes</a><a href="plan.html">Plan du réseau</a><a href="tad.html">Lignes TAD</a><a href="pl1-gares.html">Ligne nocturne</a><a href="infotrafic.html">Infotrafic</a></div></div><a href="horaires.html" class="active">Horaires</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div><a href="horaires.html" class="nav-cta">🕐 Horaires</a></div>
   </div>
-  <div class="infotrafic">
-    <span class="live-dot"></span>
-    <span><strong>Info trafic</strong> — Ligne C2 perturbée, retard max 5 min.</span>
+</nav>
+<div class="accent-bar"></div>
+
+<div class="page">
+  <div style="margin-bottom:1.5rem">
+    <a href="horaires.html" style="font-size:13px;color:var(--texte-sec);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:1rem">← Retour aux horaires</a>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <span style="background:#185FA5;color:white;font-family:Syne,sans-serif;font-weight:800;font-size:15px;padding:6px 16px;border-radius:8px">9</span>
+      <h1 style="font-family:Syne,sans-serif;font-size:26px;font-weight:800;color:var(--texte)">Direction Cité Jean Macé</h1>
+      <span class="live-chip" style="margin-left:auto"><span class="live-dot"></span>En direct</span>
+    </div>
+    <p style="color:var(--texte-sec);margin-top:8px;font-size:14px">Mis à jour automatiquement toutes les 30 secondes</p>
   </div>
   <div id="horaires"><div class="empty">Chargement...</div></div>
-  <script>const CODE="9";const DIRECTION="Cité Jean Macé";</script>
-  <script src="script.js"></script>
+</div>
+<script>const CODE="9";const DIRECTION="Cité Jean Macé";</script>
+<script src="script.js"></script>
+
+<footer>
+  <div class="accent-bar"></div>
+  <div style="padding:3rem 2rem">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</div>
+        <p class="footer-desc">Le réseau de transport urbain de Grenoble et sa région. Partenaire de vos déplacements quotidiens.</p>
+      </div>
+      <div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan du réseau</a><a href="infotrafic.html">Infotrafic</a><a href="horaires.html">Horaires</a><a href="tad.html">Transport à la demande</a></div>
+      <div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div>
+      <div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div>
+  </div>
+</footer>
 </body>
 </html>
