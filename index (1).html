@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil — GGMobilités</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="GGMobilités">
+      GGMobilités
+    </a>
+    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Lignes structurantes</a><a href="plan.html">Plan du réseau</a><a href="tad.html">Lignes TAD</a><a href="pl1-gares.html">Ligne nocturne</a><a href="infotrafic.html">Infotrafic</a></div></div><a href="horaires.html">Horaires</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div><a href="horaires.html" class="nav-cta">🕐 Horaires</a></div>
+  </div>
+</nav>
+<div class="accent-bar"></div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label">Réseau urbain de Grenoble</div>
+      <h1>Voyagez facilement<br>avec <span>GGMobilités</span></h1>
+      <p class="hero-desc">Des lignes structurantes aux navettes nocturnes, explorez tout le réseau de transport de l'agglomération grenobloise.</p>
+      <div class="hero-btns">
+        <a href="horaires.html" class="btn btn-or">🕐 Prochains passages</a>
+        <a href="reseau.html" class="btn btn-ghost">Voir le réseau</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-val">14</div><div class="hero-stat-label">Lignes</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">4 296</div><div class="hero-stat-label">Passages/jour</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">5h – 1h</div><div class="hero-stat-label">Amplitude</div></div>
+      </div>
+    </div>
+    <div class="hero-widget">
+      <div class="live-chip" style="margin-bottom:0.75rem"><span class="live-dot"></span>En direct</div>
+      <div class="hero-widget-title">Prochains départs · Gares</div>
+      <div class="hw-ligne"><span class="hw-badge" style="background:#185FA5">C1</span><span class="hw-dest">→ Palluel</span><span class="hw-temps" id="hw-c1">—</span></div>
+      <div class="hw-ligne"><span class="hw-badge" style="background:#0F6E56">C2</span><span class="hw-dest">→ Les Claverins</span><span class="hw-temps" id="hw-c2">—</span></div>
+      <div class="hw-ligne"><span class="hw-badge" style="background:#993C1D">C3</span><span class="hw-dest">→ La Vallone</span><span class="hw-temps" id="hw-c3">—</span></div>
+      <div class="hw-ligne"><span class="hw-badge" style="background:#534AB7">4</span><span class="hw-dest">→ Lycée du Grésivaudan</span><span class="hw-temps" id="hw-4">—</span></div>
+      <div style="margin-top:14px;text-align:right"><a href="horaires.html" style="font-size:12px;color:var(--or);text-decoration:none;font-weight:600">Voir tous les horaires →</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="section">
+    <div class="quick-grid">
+      <a href="horaires.html" class="quick-card"><span class="quick-card-icon">🕐</span><span>Horaires</span></a>
+      <a href="infotrafic.html" class="quick-card"><span class="quick-card-icon">⚠️</span><span>Infotrafic</span></a>
+      <a href="tarifs.html" class="quick-card"><span class="quick-card-icon">🎫</span><span>Tarifs</span></a>
+      <a href="reseau.html" class="quick-card"><span class="quick-card-icon">🗺️</span><span>Le réseau</span></a>
+      <a href="contact.html" class="quick-card"><span class="quick-card-icon">✉️</span><span>Contact</span></a>
+      <a href="objets-perdus.html" class="quick-card"><span class="quick-card-icon">🔍</span><span>Objets perdus</span></a>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Infotrafic <span class="live-chip" style="font-size:11px;vertical-align:middle;margin-left:8px"><span class="live-dot"></span>En direct</span></div>
+      <a href="infotrafic.html" class="section-link">Tout voir →</a>
+    </div>
+    <div class="alerte rouge">
+      <div><div class="alerte-badge">Perturbé</div></div>
+      <div class="alerte-content"><h3>C2 : Travaux Meylan</h3><p>Déviation entre « La Revirée » et « Meylan Mairie ». Arrêt non desservi : Buclos.</p></div>
+    </div>
+    <div class="alerte orange">
+      <div><div class="alerte-badge">Perturbé</div></div>
+      <div class="alerte-content"><h3>9 : Contraintes d'exploitation</h3><p>Fréquences augmentées provisoirement avec des véhicules moins capacitaires.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Lignes structurantes</div>
+      <a href="reseau.html" class="section-link">Tout le réseau →</a>
+    </div>
+    <div class="grid grid-3">
+      <a href="c1-palluel.html" class="card" style="text-decoration:none">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <span class="ligne-num" style="background:#185FA5;font-size:13px;padding:5px 12px;border-radius:8px;font-family:Syne,sans-serif;font-weight:800;color:white">C1</span>
+          <strong style="font-family:Syne,sans-serif;font-size:15px;color:var(--texte)">Gares ↔ Palluel</strong>
+        </div>
+        <p style="font-size:13px;color:var(--texte-sec)">Toutes les 7 min · 5h–0h15</p>
+      </a>
+      <a href="c2-les_claverins.html" class="card" style="text-decoration:none">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <span class="ligne-num" style="background:#0F6E56;font-size:13px;padding:5px 12px;border-radius:8px;font-family:Syne,sans-serif;font-weight:800;color:white">C2</span>
+          <strong style="font-family:Syne,sans-serif;font-size:15px;color:var(--texte)">Gares ↔ Les Claverins</strong>
+        </div>
+        <p style="font-size:13px;color:var(--texte-sec)">Toutes les 6 min · 5h–0h30</p>
+      </a>
+      <a href="c3-la_vallone.html" class="card" style="text-decoration:none">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <span class="ligne-num" style="background:#993C1D;font-size:13px;padding:5px 12px;border-radius:8px;font-family:Syne,sans-serif;font-weight:800;color:white">C3</span>
+          <strong style="font-family:Syne,sans-serif;font-size:15px;color:var(--texte)">Gares ↔ La Vallone</strong>
+        </div>
+        <p style="font-size:13px;color:var(--texte-sec)">Toutes les 5 min · 5h–0h30</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function minutesAvant(h) {
+  const now = new Date(), [hh,mm] = h.split(':').map(Number);
+  const p = new Date(); p.setHours(hh,mm,0,0);
+  if(p-now < -12*3600000) p.setDate(p.getDate()+1);
+  return Math.round((p-now)/60000);
+}
+async function majWidget() {
+  try {
+    const r = await fetch('lines.json');
+    const lines = await r.json();
+    const j = new Date().getDay();
+    const jour = j===6?'samedi':j===0?'dimanche':'semaine';
+    [['C1','Palluel','hw-c1'],['C2','Les Claverins','hw-c2'],['C3','La Vallone','hw-c3'],['4','Lycée du Grésivaudan','hw-4']].forEach(([code,dir,id])=>{
+      const l = lines.find(x=>x.code===code&&x.direction===dir&&x.jour===jour);
+      if(!l) return;
+      const min = l.horaires.map(h=>minutesAvant(h.heure)).filter(m=>m>=0&&m<=40).sort((a,b)=>a-b)[0];
+      const el = document.getElementById(id);
+      if(el) el.textContent = min!=null?(min===0?"À l'arrêt":`${min} min`):'—';
+    });
+  } catch(e){}
+}
+majWidget(); setInterval(majWidget, 30000);
+</script>
+
+<footer>
+  <div class="accent-bar"></div>
+  <div style="padding:3rem 2rem">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</div>
+        <p class="footer-desc">Le réseau de transport urbain de Grenoble et sa région. Partenaire de vos déplacements quotidiens.</p>
+      </div>
+      <div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="infotrafic.html">Infotrafic</a><a href="horaires.html">Horaires</a><a href="tad.html">Transport à la demande</a></div>
+      <div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a></div>
+      <div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a3d
