@@ -43,7 +43,7 @@ nav {
 .nav-logo {
   display: flex; align-items: center; gap: 10px;
   text-decoration: none; color: var(--or);
-  font-family: 'Syne', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800; font-size: 18px;
   margin-right: auto; flex-shrink: 0;
   letter-spacing: -0.3px;
@@ -90,7 +90,7 @@ nav {
   font-size: 13px !important; margin-left: 8px;
   border-bottom: none !important;
   transition: background var(--transition) !important;
-  font-family: 'Syne', sans-serif !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 .nav-cta:hover { background: var(--or-clair) !important; }
 
@@ -119,7 +119,7 @@ nav {
 }
 .hero-label::before { content: ''; width: 20px; height: 1px; background: var(--or); display: inline-block; }
 .hero h1 {
-  font-family: 'Syne', sans-serif; font-size: 50px; font-weight: 800;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 50px; font-weight: 800;
   line-height: 1.1; letter-spacing: -1px; margin-bottom: 1.25rem; color: var(--texte);
 }
 .hero h1 span { color: var(--or); }
@@ -129,7 +129,7 @@ nav {
   padding: 13px 24px; border-radius: var(--radius-sm); font-size: 14px;
   font-weight: 700; text-decoration: none; cursor: pointer; border: none;
   transition: all var(--transition); display: inline-flex; align-items: center; gap: 8px;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 .btn-or { background: var(--or); color: var(--noir); }
 .btn-or:hover { background: var(--or-clair); transform: translateY(-1px); }
@@ -139,7 +139,7 @@ nav {
 }
 .btn-ghost:hover { border-color: var(--or); color: var(--or); }
 .hero-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--bordure); }
-.hero-stat-val { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: var(--or); }
+.hero-stat-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; font-weight: 800; color: var(--or); }
 .hero-stat-label { font-size: 11px; color: var(--texte-sec); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
 
 /* Widget hero */
@@ -148,7 +148,7 @@ nav {
   border-radius: var(--radius); padding: 1.5rem;
 }
 .hero-widget-title {
-  font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700;
   color: var(--texte-sec); text-transform: uppercase; letter-spacing: 0.12em;
   margin-bottom: 1rem;
 }
@@ -158,12 +158,12 @@ nav {
 }
 .hw-ligne:last-child { border-bottom: none; }
 .hw-badge {
-  font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 800;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 800;
   padding: 4px 10px; border-radius: 6px; min-width: 42px;
   text-align: center; color: white;
 }
 .hw-dest { font-size: 13px; color: var(--texte-sec); flex: 1; }
-.hw-temps { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--or); }
+.hw-temps { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; color: var(--or); }
 .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--or); display: inline-block; animation: blink 1.2s ease-in-out infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 .live-chip {
@@ -184,7 +184,7 @@ nav {
 .section { margin: 3rem 0; }
 .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.25rem; }
 .section-title {
-  font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 700;
   color: var(--texte); letter-spacing: -0.3px;
 }
 .section-link { font-size: 13px; color: var(--or); text-decoration: none; margin-left: auto; font-weight: 500; }
@@ -203,7 +203,7 @@ nav {
 }
 .card:hover { border-color: rgba(201,168,76,0.4); box-shadow: 0 8px 32px rgba(201,168,76,0.06); }
 .card-icon { font-size: 24px; margin-bottom: 12px; display: block; }
-.card h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--texte); }
+.card h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--texte); }
 .card p { font-size: 14px; color: var(--texte-sec); line-height: 1.6; }
 
 /* Raccourcis */
@@ -216,7 +216,7 @@ nav {
 }
 .quick-card:hover { border-color: var(--or); color: var(--or); background: var(--or-pale); }
 .quick-card-icon { font-size: 24px; margin-bottom: 8px; display: block; }
-.quick-card span { font-size: 13px; font-weight: 600; font-family: 'Syne', sans-serif; }
+.quick-card span { font-size: 13px; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif; }
 
 /* ── LIGNES ─────────────────────────────────────── */
 .ligne-row {
@@ -228,7 +228,7 @@ nav {
 }
 .ligne-row:hover { border-color: rgba(201,168,76,0.5); background: var(--or-pale); transform: translateX(4px); }
 .ligne-num {
-  font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 800;
   padding: 5px 12px; border-radius: 8px; min-width: 48px;
   text-align: center; color: white;
 }
@@ -251,11 +251,11 @@ nav {
 .alerte-badge {
   font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px;
   text-transform: uppercase; letter-spacing: 0.07em; white-space: nowrap;
-  height: fit-content; font-family: 'Syne', sans-serif;
+  height: fit-content; font-family: 'Plus Jakarta Sans', sans-serif;
 }
 .rouge .alerte-badge { background: rgba(231,76,60,0.15); color: #E74C3C; }
 .orange .alerte-badge { background: rgba(244,196,48,0.15); color: var(--jaune); }
-.alerte-content h3 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--texte); }
+.alerte-content h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--texte); }
 .alerte-content p { font-size: 13px; color: var(--texte-sec); line-height: 1.5; }
 
 /* ── TARIFS ─────────────────────────────────────── */
@@ -268,11 +268,11 @@ nav {
 .titre-couleur {
   width: 52px; height: 52px; border-radius: 50%;
   margin: 0 auto 1rem; display: flex; align-items: center;
-  justify-content: center; font-family: 'Syne', sans-serif;
+  justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 18px; font-weight: 800;
 }
-.titre-card h3 { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 4px; color: var(--texte); }
-.titre-card .prix { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--or); margin: 10px 0 6px; }
+.titre-card h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 4px; color: var(--texte); }
+.titre-card .prix { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800; color: var(--or); margin: 10px 0 6px; }
 .titre-card p { font-size: 13px; color: var(--texte-sec); }
 
 /* ── HORAIRES ─────────────────────────────────────── */
@@ -287,7 +287,7 @@ nav {
 .temps-wrap { display: flex; flex-direction: column; align-items: center; gap: 3px; }
 .live-inline { display: flex; align-items: center; gap: 4px; }
 .live-label { font-size: 9px; color: var(--or); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
-.temps { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+.temps { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; }
 .temps.proche { color: #E74C3C; }
 .temps.normal { color: var(--or); }
 .temps.loin { color: var(--texte-sec); }
@@ -296,7 +296,7 @@ nav {
 /* ── CONTACT ─────────────────────────────────────── */
 .contact-form { background: var(--noir-card); border-radius: var(--radius); border: 1px solid var(--bordure); padding: 2rem; }
 .form-group { margin-bottom: 1.25rem; }
-.form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--texte-sec); margin-bottom: 6px; font-family: 'Syne', sans-serif; }
+.form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--texte-sec); margin-bottom: 6px; font-family: 'Plus Jakarta Sans', sans-serif; }
 .form-group input, .form-group select, .form-group textarea {
   width: 100%; padding: 11px 14px; border-radius: var(--radius-sm);
   border: 1px solid var(--bordure); font-size: 14px; font-family: 'DM Sans', sans-serif;
@@ -312,10 +312,10 @@ nav {
 /* ── FOOTER ─────────────────────────────────────── */
 footer { background: var(--noir); border-top: 1px solid var(--bordure); padding: 3rem 2rem; }
 .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
-.footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: var(--or); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 10px; }
+.footer-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; color: var(--or); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 10px; }
 .footer-logo img { width: 36px; height: 36px; object-fit: contain; }
 .footer-desc { font-size: 13px; color: var(--texte-sec); line-height: 1.7; }
-.footer-col h4 { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; color: var(--texte-sec); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+.footer-col h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; color: var(--texte-sec); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
 .footer-col a { display: block; color: var(--texte-sec); text-decoration: none; font-size: 13px; margin-bottom: 6px; transition: color var(--transition); }
 .footer-col a:hover { color: var(--or); }
 .footer-bottom { max-width: 1200px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--bordure); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--texte-sec); }
@@ -323,7 +323,7 @@ footer { background: var(--noir); border-top: 1px solid var(--bordure); padding:
 /* ── RESERVATION ─────────────────────────────────── */
 .reservation-box { background: var(--noir-card); border-radius: var(--radius); border: 1px solid var(--bordure); padding: 3rem 2rem; text-align: center; max-width: 500px; margin: 0 auto; }
 .reservation-icon { font-size: 48px; margin-bottom: 1rem; }
-.reservation-titre { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: var(--texte); margin-bottom: 0.75rem; }
+.reservation-titre { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 700; color: var(--texte); margin-bottom: 0.75rem; }
 .reservation-desc { font-size: 14px; color: var(--texte-sec); line-height: 1.6; margin-bottom: 1.5rem; }
 
 /* ── RESPONSIVE ─────────────────────────────────── */
