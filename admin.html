@@ -354,14 +354,18 @@ async function pushToGitHub(path, content, message){
 
 async function loadLinesFromGitHub(){
   try{
-    const r=await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/lines.json`,{
-      headers:{'Authorization':`token ${GITHUB_TOKEN}`,'Accept':'application/vnd.github.v3+json'}
+    // Utiliser l'API raw de GitHub pour éviter la limite de taille base64
+    const r=await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/${GITHUB_BRANCH}/lines.json`,{
+      headers:{'Authorization':`token ${GITHUB_TOKEN}`,'Cache-Control':'no-cache'}
     });
-    const j=await r.json();
-    const decoded=decodeURIComponent(escape(atob(j.content.replace(/\n/g,''))));
-    linesData=JSON.parse(decoded);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    linesData=await r.json();
     return linesData;
-  }catch(e){toast('Erreur chargement lines.json',true);return[]}
+  }catch(e){
+    console.error('Erreur lines.json:',e);
+    toast('Erreur chargement lines.json : '+e.message,true);
+    return[];
+  }
 }
 
 // ── HORAIRES EDITOR ─────────────────────────────────────────
@@ -370,13 +374,16 @@ let plagesEditorData = [];
 async function chargerDirections(){
   const code=document.getElementById('hor-code').value;
   const dirSel=document.getElementById('hor-dir');
+  const jourSel=document.getElementById('hor-jour');
   dirSel.innerHTML='<option value="">Chargement...</option>';
-  document.getElementById('hor-jour').innerHTML='<option value="">— Choisir —</option>';
+  jourSel.innerHTML='<option value="">— Choisir —</option>';
   document.getElementById('plages-editor').style.display='none';
   if(!code){dirSel.innerHTML='<option value="">— Choisir d\'abord une ligne —</option>';return;}
-  if(!linesData.length) await loadLinesFromGitHub();
-  const dirs=[...new Set(linesData.filter(l=>l.code===code&&l.direction).map(l=>l.direction))];
-  dirSel.innerHTML='<option value="">— Choisir —</option>'+dirs.map(d=>`<option>${d}</option>`).join('');
+  const data=await loadLinesFromGitHub();
+  if(!data.length){dirSel.innerHTML='<option value="">Erreur de chargement</option>';return;}
+  const dirs=[...new Set(data.filter(l=>l.code===code&&l.direction).map(l=>l.direction))];
+  if(!dirs.length){dirSel.innerHTML='<option value="">Aucune direction trouvée</option>';return;}
+  dirSel.innerHTML='<option value="">— Choisir —</option>'+dirs.map(d=>`<option value="${d}">${d}</option>`).join('');
 }
 
 function chargerJours(){
