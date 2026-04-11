@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — GGMobilités</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bleu:#0A2E5C;--or:#C9A84C;--or-clair:#E8C96A;
+      --rouge:#E74C3C;--orange:#E67E22;--vert:#2ECC71;
+      --fond:#0F0F0F;--card:#1A1A1A;--bordure:#2A2A2A;
+      --texte:#F0EDE6;--texte-sec:#9A9080;
+    }
+    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--fond);color:var(--texte);font-size:14px;min-height:100vh}
+
+    /* LOGIN */
+    .login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+    .login-card{background:var(--card);border:1px solid var(--bordure);border-radius:16px;padding:2.5rem;width:100%;max-width:380px}
+    .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:2rem}
+    .login-logo img{width:48px;height:48px;object-fit:contain}
+    .login-logo-text{font-size:20px;font-weight:800;color:var(--or)}
+    .login-logo-sub{font-size:12px;color:var(--texte-sec);margin-top:2px}
+
+    /* LAYOUT ADMIN */
+    .admin{display:none;min-height:100vh;flex-direction:column}
+    .admin-header{background:var(--bleu);padding:0 2rem;display:flex;align-items:center;gap:12px;height:60px;position:sticky;top:0;z-index:100}
+    .admin-header-logo{display:flex;align-items:center;gap:8px;color:var(--or);font-weight:800;font-size:16px;text-decoration:none}
+    .admin-header-logo img{width:32px;height:32px;object-fit:contain}
+    .admin-user{font-size:12px;color:rgba(255,255,255,0.6);margin-left:auto}
+    .btn-back{color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;margin-right:8px}
+    .btn-back:hover{color:white}
+    .btn-logout{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
+    .btn-logout:hover{background:rgba(255,255,255,0.2)}
+
+    .admin-body{display:flex;flex:1}
+    .sidebar{width:220px;background:var(--card);border-right:1px solid var(--bordure);padding:1.5rem 0;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
+    .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 1.5rem;font-size:13px;font-weight:600;color:var(--texte-sec);cursor:pointer;transition:all 0.15s;border-left:3px solid transparent}
+    .sidebar-item:hover{color:var(--texte);background:rgba(255,255,255,0.03)}
+    .sidebar-item.active{color:var(--or);border-left-color:var(--or);background:rgba(201,168,76,0.06)}
+    .sidebar-icon{font-size:16px;width:20px;text-align:center}
+    .sidebar-section{font-size:10px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.1em;padding:1rem 1.5rem 0.5rem;margin-top:0.5rem}
+
+    .main{flex:1;padding:2rem;max-width:900px}
+    .panel{display:none}
+    .panel.active{display:block}
+
+    /* COMPONENTS */
+    h2{font-size:22px;font-weight:800;color:var(--texte);margin-bottom:1.5rem}
+    .section-title{font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:2rem}
+    .stat-card{background:var(--card);border:1px solid var(--bordure);border-radius:12px;padding:1.25rem;text-align:center}
+    .stat-val{font-size:30px;font-weight:800;color:var(--or)}
+    .stat-label{font-size:11px;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.06em;margin-top:6px}
+
+    .form-card{background:var(--card);border:1px solid var(--bordure);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+    .field{margin-bottom:1rem}
+    .field:last-child{margin-bottom:0}
+    .field label{display:block;font-size:11px;color:var(--texte-sec);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em}
+    .field input,.field select,.field textarea{width:100%;padding:10px 14px;background:#0A0A0A;border:1px solid var(--bordure);border-radius:8px;color:var(--texte);font-size:14px;font-family:inherit;transition:border 0.15s}
+    .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--or)}
+    .field textarea{min-height:90px;resize:vertical}
+    .field select option{background:#1A1A1A}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+    .btn-or{padding:10px 20px;background:var(--or);color:#0A0A0A;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background 0.15s}
+    .btn-or:hover{background:var(--or-clair)}
+    .btn-del{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);color:var(--rouge);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit}
+    .btn-del:hover{background:rgba(231,76,60,0.2)}
+    .btn-ghost{padding:8px 16px;background:transparent;border:1px solid var(--bordure);color:var(--texte-sec);border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit}
+    .btn-ghost:hover{border-color:var(--or);color:var(--or)}
+
+    .alert-card{background:var(--card);border:1px solid var(--bordure);border-radius:10px;padding:14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px}
+    .alert-card.rouge{border-left:3px solid var(--rouge)}
+    .alert-card.orange{border-left:3px solid var(--orange)}
+    .alert-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+    .rouge .alert-badge{background:rgba(231,76,60,0.15);color:var(--rouge)}
+    .orange .alert-badge{background:rgba(230,126,34,0.15);color:var(--orange)}
+    .alert-content{flex:1}
+    .alert-content strong{font-size:14px;display:block;margin-bottom:3px;color:var(--texte)}
+    .alert-content p{font-size:12px;color:var(--texte-sec);line-height:1.4}
+    .badge-ligne{display:inline-block;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:700;color:white}
+
+    .hor-table{width:100%;border-collapse:collapse;font-size:13px;background:var(--card);border-radius:10px;overflow:hidden;border:1px solid var(--bordure)}
+    .hor-table th{text-align:left;padding:10px 14px;font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--bordure);background:#111}
+    .hor-table td{padding:10px 14px;border-bottom:1px solid #111;color:var(--texte)}
+    .hor-table tr:last-child td{border-bottom:none}
+    .hor-table tr:hover td{background:rgba(255,255,255,0.02)}
+
+    .article-card{background:var(--card);border:1px solid var(--bordure);border-radius:10px;padding:1.25rem;margin-bottom:10px}
+    .article-card h4{font-size:15px;font-weight:700;color:var(--texte);margin-bottom:6px}
+    .article-card p{font-size:13px;color:var(--texte-sec);line-height:1.5;margin-bottom:10px}
+
+    .compte-card{background:var(--card);border:1px solid var(--bordure);border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+    .compte-avatar{width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--or);font-size:15px;flex-shrink:0}
+
+    .sync-bar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--texte-sec);background:var(--card);border:1px solid var(--bordure);border-radius:8px;padding:8px 14px;margin-bottom:1.5rem}
+    .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--vert);flex-shrink:0}
+    .sync-dot.loading{background:var(--orange);animation:pulse 1s ease-in-out infinite}
+    .sync-dot.error{background:var(--rouge)}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.2}}
+
+    .activity-item{padding:8px 0;border-bottom:1px solid #111;font-size:12px;color:var(--texte-sec)}
+    .activity-item:last-child{border-bottom:none}
+
+    .toast-wrap{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:8px}
+    .toast{background:var(--card);border:1px solid var(--vert);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--vert);animation:slideIn 0.2s ease}
+    .toast.err{border-color:var(--rouge);color:var(--rouge)}
+    @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+    .err-msg{font-size:12px;color:var(--rouge);margin-top:8px;display:none}
+
+    @media(max-width:700px){
+      .sidebar{display:none}
+      .form-row{grid-template-columns:1fr}
+      .main{padding:1.25rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-wrap">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="logo.png" alt="GGMobilités">
+      <div><div class="login-logo-text">GGMobilités</div><div class="login-logo-sub">Espace administration</div></div>
+    </div>
+    <div class="field"><label>Identifiant</label><input type="text" id="lu" placeholder="votre identifiant" autocomplete="username"></div>
+    <div class="field"><label>Mot de passe</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password"></div>
+    <div class="err-msg" id="lerr">Identifiant ou mot de passe incorrect.</div>
+    <button class="btn-or" style="width:100%;margin-top:1.25rem" onclick="tryLogin()" id="btn-login">Se connecter</button>
+    <div style="text-align:center;margin-top:1rem"><a href="index.html" style="font-size:12px;color:var(--texte-sec);text-decoration:none">← Retour au site</a></div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="admin" id="admin">
+  <div class="admin-header">
+    <a href="index.html" class="admin-header-logo">
+      <img src="logo.png" alt="GGMobilités">
+      GGMobilités Admin
+    </a>
+    <span class="admin-user" id="admin-label"></span>
+    <a href="index.html" class="btn-back">← Site public</a>
+    <button class="btn-logout" onclick="logout()">Déconnexion</button>
+  </div>
+  <div class="admin-body">
+    <div class="sidebar">
+      <div class="sidebar-section">Navigation</div>
+      <div class="sidebar-item active" onclick="switchTab('dashboard')"><span class="sidebar-icon">📊</span>Tableau de bord</div>
+      <div class="sidebar-item" onclick="switchTab('infotrafic')"><span class="sidebar-icon">⚠️</span>Infotrafic</div>
+      <div class="sidebar-item" onclick="switchTab('horaires')"><span class="sidebar-icon">🕐</span>Horaires</div>
+      <div class="sidebar-item" onclick="switchTab('articles')"><span class="sidebar-icon">📰</span>Actualités</div>
+      <div class="sidebar-section">Paramètres</div>
+      <div class="sidebar-item" onclick="switchTab('comptes')"><span class="sidebar-icon">👥</span>Comptes</div>
+    </div>
+    <div class="main">
+
+      <!-- DASHBOARD -->
+      <div class="panel active" id="panel-dashboard">
+        <h2>Tableau de bord</h2>
+        <div class="sync-bar"><span class="sync-dot" id="sync-dot"></span><span id="sync-label">Connexion à JSONBin...</span></div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-val" id="s-alertes">—</div><div class="stat-label">Alertes actives</div></div>
+          <div class="stat-card"><div class="stat-val" id="s-articles">—</div><div class="stat-label">Articles publiés</div></div>
+          <div class="stat-card"><div class="stat-val" id="s-modifs">—</div><div class="stat-label">Modifs horaires</div></div>
+          <div class="stat-card"><div class="stat-val">14</div><div class="stat-label">Lignes</div></div>
+        </div>
+        <div class="section-title">Activité récente</div>
+        <div class="form-card" id="activity-log" style="padding:0.5rem 1.5rem">
+          <div class="activity-item">Chargement...</div>
+        </div>
+      </div>
+
+      <!-- INFOTRAFIC -->
+      <div class="panel" id="panel-infotrafic">
+        <h2>Infotrafic</h2>
+        <div class="section-title">Nouvelle alerte</div>
+        <div class="form-card">
+          <div class="form-row" style="margin-bottom:12px">
+            <div class="field" style="margin:0"><label>Ligne concernée</label>
+              <select id="it-ligne">
+                <option>C1</option><option>C2</option><option>C3</option>
+                <option>4</option><option>5</option><option>6</option><option>7</option>
+                <option>8</option><option>9</option><option>10</option><option>11</option>
+                <option>60</option><option>61</option><option>PL1</option>
+              </select>
+            </div>
+            <div class="field" style="margin:0"><label>Niveau</label>
+              <select id="it-niveau">
+                <option value="rouge">Perturbé (rouge)</option>
+                <option value="orange">Information (orange)</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label>Titre</label><input type="text" id="it-titre" placeholder="Ex : Travaux secteur Meylan"></div>
+          <div class="field"><label>Description</label><textarea id="it-desc" placeholder="Détails de la perturbation..."></textarea></div>
+          <button class="btn-or" onclick="addAlerte()">Publier l'alerte</button>
+        </div>
+        <div class="section-title">Alertes actives</div>
+        <div id="alertes-list"></div>
+      </div>
+
+      <!-- HORAIRES -->
+      <div class="panel" id="panel-horaires">
+        <h2>Modifications d'horaires</h2>
+        <div class="section-title">Nouvelle modification</div>
+        <div class="form-card">
+          <div class="form-row" style="margin-bottom:12px">
+            <div class="field" style="margin:0"><label>Ligne</label>
+              <select id="hl">
+                <option>C1</option><option>C2</option><option>C3</option>
+                <option>4</option><option>5</option><option>6</option><option>7</option>
+                <option>8</option><option>9</option><option>10</option><option>11</option>
+                <option>60</option><option>61</option><option>PL1</option>
+              </select>
+            </div>
+            <div class="field" style="margin:0"><label>Direction</label><input type="text" id="hd" placeholder="Ex : Palluel"></div>
+          </div>
+          <div class="form-row" style="margin-bottom:12px">
+            <div class="field" style="margin:0"><label>Jour</label>
+              <select id="hj"><option value="semaine">Semaine</option><option value="samedi">Samedi</option><option value="dimanche">Dimanche</option></select>
+            </div>
+            <div class="field" style="margin:0"><label>Type</label>
+              <select id="ht"><option value="suppression">Suppression de passage</option><option value="ajout">Ajout de passage</option><option value="decalage">Décalage général</option></select>
+            </div>
+          </div>
+          <div class="field"><label>Détail</label><textarea id="hdet" placeholder="Ex : Suppression du passage 08:15 — cause : grève"></textarea></div>
+          <button class="btn-or" onclick="addModif()">Enregistrer</button>
+        </div>
+        <div class="section-title">Modifications en cours</div>
+        <div id="horaires-list"></div>
+      </div>
+
+      <!-- ARTICLES -->
+      <div class="panel" id="panel-articles">
+        <h2>Actualités</h2>
+        <div class="section-title">Nouvel article</div>
+        <div class="form-card">
+          <div class="field"><label>Titre</label><input type="text" id="at" placeholder="Titre de l'article"></div>
+          <div class="form-row" style="margin-bottom:12px">
+            <div class="field" style="margin:0"><label>Catégorie</label>
+              <select id="ac">
+                <option value="actualite">Actualité</option>
+                <option value="travaux">Travaux</option>
+                <option value="evenement">Événement</option>
+                <option value="info-reseau">Info réseau</option>
+              </select>
+            </div>
+            <div class="field" style="margin:0"><label>Date</label><input type="date" id="ad"></div>
+          </div>
+          <div class="field"><label>Contenu</label><textarea id="acont" style="min-height:120px" placeholder="Rédigez votre article..."></textarea></div>
+          <button class="btn-or" onclick="addArticle()">Publier l'article</button>
+        </div>
+        <div class="section-title">Articles publiés</div>
+        <div id="articles-list"></div>
+      </div>
+
+      <!-- COMPTES -->
+      <div class="panel" id="panel-comptes">
+        <h2>Gestion des comptes</h2>
+        <div class="section-title">Comptes existants</div>
+        <div id="comptes-list" style="margin-bottom:2rem"></div>
+        <div class="section-title">Nouveau compte</div>
+        <div class="form-card">
+          <div class="form-row" style="margin-bottom:12px">
+            <div class="field" style="margin:0"><label>Identifiant</label><input type="text" id="nu" placeholder="identifiant"></div>
+            <div class="field" style="margin:0"><label>Mot de passe</label><input type="password" id="np" placeholder="••••••••"></div>
+          </div>
+          <div class="field"><label>Rôle</label>
+            <select id="nr">
+              <option value="admin">Administrateur (accès complet)</option>
+              <option value="infotrafic">Infotrafic uniquement</option>
+              <option value="articles">Articles uniquement</option>
+            </select>
+          </div>
+          <button class="btn-or" onclick="addCompte()">Créer le compte</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+const BIN_ID = "69d95af5aaba882197e64b7e";
+const API_KEY = "$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
+const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+const LC = {C1:"#185FA5",C2:"#0F6E56",C3:"#993C1D","4":"#534AB7","5":"#3B6D11","6":"#854F0B","7":"#993556","8":"#5F5E5A","9":"#185FA5","10":"#0F6E56","11":"#A32D2D","60":"#412402","61":"#3B6D11",PL1:"#2C2C2A"};
+const CATS = {actualite:"Actualité",travaux:"Travaux",evenement:"Événement","info-reseau":"Info réseau"};
+const ROLES = {admin:"Administrateur",infotrafic:"Infotrafic",articles:"Articles"};
+
+const COMPTES_DEFAULT = [
+  {user:"admin",pass:"ggadmin2026",role:"admin",nom:"Administrateur"},
+  {user:"eliott",pass:"eliott123",role:"admin",nom:"Eliott"},
+];
+
+let db = {alertes:[],articles:[],horaires_modifs:[],comptes:[...COMPTES_DEFAULT],activity:[]};
+let currentUser = null;
+let saving = false;
+
+// ── SYNC ────────────────────────────────────────────────────
+function setSyncStatus(s){
+  const dot=document.getElementById('sync-dot');
+  const lbl=document.getElementById('sync-label');
+  if(s==='ok'){dot.className='sync-dot';lbl.textContent='Synchronisé · '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
+  else if(s==='loading'){dot.className='sync-dot loading';lbl.textContent='Synchronisation en cours...'}
+  else{dot.className='sync-dot error';lbl.textContent='Erreur de synchronisation'}
+}
+
+async function loadDB(){
+  setSyncStatus('loading');
+  try{
+    const r=await fetch(API_URL+'/latest',{headers:{'X-Master-Key':API_KEY}});
+    const j=await r.json();
+    const rec=j.record||{};
+    db.alertes=rec.alertes||[];
+    db.articles=rec.articles||[];
+    db.horaires_modifs=rec.horaires_modifs||[];
+    db.activity=rec.activity||[];
+    if(rec.comptes&&rec.comptes.length) db.comptes=rec.comptes;
+    setSyncStatus('ok');
+    renderAll();
+  }catch(e){setSyncStatus('error');toast('Erreur de connexion à JSONBin',true)}
+}
+
+async function saveDB(){
+  if(saving) return;
+  saving=true; setSyncStatus('loading');
+  try{
+    await fetch(API_URL,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':API_KEY},
+      body:JSON.stringify({alertes:db.alertes,articles:db.articles,horaires_modifs:db.horaires_modifs,comptes:db.comptes,activity:db.activity})
+    });
+    setSyncStatus('ok');
+  }catch(e){setSyncStatus('error');toast('Erreur de sauvegarde',true)}
+  saving=false;
+}
+
+function log(msg){
+  const t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  db.activity.unshift(`[${t}] ${currentUser?.nom||''} — ${msg}`);
+  if(db.activity.length>30) db.activity=db.activity.slice(0,30);
+}
+
+function toast(msg,err=false){
+  const wrap=document.getElementById('toast-wrap');
+  const el=document.createElement('div');
+  el.className='toast'+(err?' err':'');
+  el.textContent=msg; wrap.appendChild(el);
+  setTimeout(()=>el.remove(),3000);
+}
+
+// ── AUTH ────────────────────────────────────────────────────
+function tryLogin(){
+  const u=document.getElementById('lu').value.trim();
+  const p=document.getElementById('lp').value;
+  const c=db.comptes.find(x=>x.user===u&&x.pass===p);
+  if(!c){document.getElementById('lerr').style.display='block';return;}
+  currentUser=c;
+  document.getElementById('login-wrap').style.display='none';
+  document.getElementById('admin').style.display='flex';
+  document.getElementById('admin-label').textContent=c.nom+' · '+c.role;
+  document.getElementById('ad').value=new Date().toISOString().split('T')[0];
+  if(c.role==='infotrafic'){
+    document.querySelectorAll('.sidebar-item').forEach((s,i)=>{if(i!==0&&i!==1)s.style.display='none'});
+  } else if(c.role==='articles'){
+    document.querySelectorAll('.sidebar-item').forEach((s,i)=>{if(i!==0&&i!==3)s.style.display='none'});
+  }
+  renderAll();
+}
+
+function logout(){
+  currentUser=null;
+  document.getElementById('login-wrap').style.display='flex';
+  document.getElementById('admin').style.display='none';
+  document.getElementById('lu').value='';
+  document.getElementById('lp').value='';
+  document.getElementById('lerr').style.display='none';
+  document.querySelectorAll('.sidebar-item').forEach(s=>s.style.display='');
+}
+
+document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin()});
+
+// ── TABS ────────────────────────────────────────────────────
+function switchTab(n){
+  const names=['dashboard','infotrafic','horaires','articles','comptes'];
+  document.querySelectorAll('.sidebar-item').forEach((s,i)=>s.classList.toggle('active',names[i]===n));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+n));
+}
+
+// ── RENDER ──────────────────────────────────────────────────
+function renderAll(){
+  document.getElementById('s-alertes').textContent=db.alertes.length;
+  document.getElementById('s-articles').textContent=db.articles.length;
+  document.getElementById('s-modifs').textContent=db.horaires_modifs.length;
+  const al=document.getElementById('activity-log');
+  al.innerHTML=db.activity.length
+    ?db.activity.slice(0,10).map(a=>`<div class="activity-item">${a}</div>`).join('')
+    :'<div class="activity-item">Aucune activité récente.</div>';
+  renderAlertes(); renderHoraires(); renderArticles(); renderComptes();
+}
+
+function renderAlertes(){
+  const el=document.getElementById('alertes-list');
+  if(!db.alertes.length){el.innerHTML='<div style="color:var(--texte-sec);font-size:13px;padding:1rem 0">Aucune alerte active. Le réseau circule normalement.</div>';return;}
+  el.innerHTML=db.alertes.map((a,i)=>`
+    <div class="alert-card ${a.niveau}">
+      <div><div class="alert-badge">${a.niveau==='rouge'?'Perturbé':'Info'}</div>
+        <div style="margin-top:8px"><span class="badge-ligne" style="background:${LC[a.ligne]||'#555'}">${a.ligne}</span></div>
+      </div>
+      <div class="alert-content">
+        <strong>${a.titre}</strong><p>${a.desc}</p>
+        <div style="font-size:11px;color:var(--texte-sec);margin-top:6px">📅 ${a.date} · ✍️ ${a.auteur||'—'}</div>
+      </div>
+      <button class="btn-del" onclick="delAlerte(${i})">Supprimer</button>
+    </div>`).join('');
+}
+
+async function addAlerte(){
+  const l=document.getElementById('it-ligne').value;
+  const n=document.getElementById('it-niveau').value;
+  const t=document.getElementById('it-titre').value.trim();
+  const d=document.getElementById('it-desc').value.trim();
+  if(!t||!d){toast('Remplissez le titre et la description.',true);return;}
+  db.alertes.push({ligne:l,niveau:n,titre:t,desc:d,date:new Date().toLocaleDateString('fr-FR'),auteur:currentUser?.nom});
+  document.getElementById('it-titre').value='';
+  document.getElementById('it-desc').value='';
+  log(`Alerte publiée : ${t} (ligne ${l})`);
+  renderAll(); await saveDB(); toast('Alerte publiée !');
+}
+
+async function delAlerte(i){
+  if(!confirm(`Supprimer l'alerte "${db.alertes[i].titre}" ?`)) return;
+  log(`Alerte supprimée : ${db.alertes[i].titre}`);
+  db.alertes.splice(i,1); renderAll(); await saveDB(); toast('Alerte supprimée.');
+}
+
+function renderHoraires(){
+  const el=document.getElementById('horaires-list');
+  if(!db.horaires_modifs.length){el.innerHTML='<div style="color:var(--texte-sec);font-size:13px;padding:1rem 0">Aucune modification en cours.</div>';return;}
+  el.innerHTML=`<table class="hor-table"><thead><tr><th>Ligne</th><th>Direction</th><th>Jour</th><th>Type</th><th>Détail</th><th></th></tr></thead><tbody>`+
+    db.horaires_modifs.map((m,i)=>`<tr>
+      <td><span class="badge-ligne" style="background:${LC[m.ligne]||'#555'}">${m.ligne}</span></td>
+      <td>${m.direction}</td><td>${m.jour}</td>
+      <td style="color:${m.type==='suppression'?'var(--rouge)':m.type==='ajout'?'var(--vert)':'var(--or)'};font-weight:600">${m.type}</td>
+      <td style="color:var(--texte-sec);font-size:12px">${m.detail}</td>
+      <td><button class="btn-del" onclick="delModif(${i})">✕</button></td>
+    </tr>`).join('')+'</tbody></table>';
+}
+
+async function addModif(){
+  const l=document.getElementById('hl').value;
+  const d=document.getElementById('hd').value.trim();
+  const j=document.getElementById('hj').value;
+  const t=document.getElementById('ht').value;
+  const det=document.getElementById('hdet').value.trim();
+  if(!d||!det){toast('Remplissez tous les champs.',true);return;}
+  db.horaires_modifs.push({ligne:l,direction:d,jour:j,type:t,detail:det,auteur:currentUser?.nom});
+  document.getElementById('hd').value=''; document.getElementById('hdet').value='';
+  log(`Modif horaire : ${t} ligne ${l} → ${d}`);
+  renderAll(); await saveDB(); toast('Modification enregistrée !');
+}
+
+async function delModif(i){
+  log(`Modif supprimée : ${db.horaires_modifs[i].ligne}`);
+  db.horaires_modifs.splice(i,1); renderAll(); await saveDB(); toast('Modification supprimée.');
+}
+
+function renderArticles(){
+  const el=document.getElementById('articles-list');
+  if(!db.articles.length){el.innerHTML='<div style="color:var(--texte-sec);font-size:13px;padding:1rem 0">Aucun article publié.</div>';return;}
+  el.innerHTML=db.articles.map((a,i)=>`
+    <div class="article-card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="background:rgba(201,168,76,0.15);color:var(--or);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase">${CATS[a.cat]||a.cat}</span>
+        <span style="font-size:11px;color:var(--texte-sec)">${a.date}</span>
+        ${a.auteur?`<span style="font-size:11px;color:var(--texte-sec)">· ${a.auteur}</span>`:''}
+      </div>
+      <h4>${a.titre}</h4>
+      <p>${a.contenu.slice(0,160)}${a.contenu.length>160?'...':''}</p>
+      <button class="btn-del" onclick="delArticle(${i})">Supprimer</button>
+    </div>`).join('');
+}
+
+async function addArticle(){
+  const t=document.getElementById('at').value.trim();
+  const c=document.getElementById('ac').value;
+  const d=document.getElementById('ad').value||new Date().toLocaleDateString('fr-FR');
+  const cont=document.getElementById('acont').value.trim();
+  if(!t||!cont){toast('Remplissez le titre et le contenu.',true);return;}
+  db.articles.unshift({titre:t,cat:c,date:d,contenu:cont,auteur:currentUser?.nom});
+  document.getElementById('at').value=''; document.getElementById('acont').value='';
+  log(`Article publié : ${t}`);
+  renderAll(); await saveDB(); toast('Article publié !');
+}
+
+async function delArticle(i){
+  if(!confirm(`Supprimer l'article "${db.articles[i].titre}" ?`)) return;
+  log(`Article supprimé : ${db.articles[i].titre}`);
+  db.articles.splice(i,1); renderAll(); await saveDB(); toast('Article supprimé.');
+}
+
+function renderComptes(){
+  const el=document.getElementById('comptes-list');
+  el.innerHTML=db.comptes.map((c,i)=>`
+    <div class="compte-card">
+      <div class="compte-avatar">${c.nom[0]}</div>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:14px;color:var(--texte)">${c.nom}</div>
+        <div style="font-size:12px;color:var(--texte-sec)">${c.user} · ${ROLES[c.role]||c.role}</div>
+      </div>
+      ${i>0?`<button class="btn-del" onclick="delCompte(${i})">Supprimer</button>`:'<span style="font-size:11px;color:var(--texte-sec)">Compte principal</span>'}
+    </div>`).join('');
+}
+
+async function addCompte(){
+  const u=document.getElementById('nu').value.trim();
+  const p=document.getElementById('np').value;
+  const r=document.getElementById('nr').value;
+  if(!u||!p){toast('Remplissez tous les champs.',true);return;}
+  if(db.comptes.find(c=>c.user===u)){toast('Cet identifiant existe déjà.',true);return;}
+  const nom=u.charAt(0).toUpperCase()+u.slice(1);
+  db.comptes.push({user:u,pass:p,role:r,nom});
+  document.getElementById('nu').value=''; document.getElementById('np').value='';
+  log(`Compte créé : ${u} (${r})`);
+  renderAll(); await saveDB(); toast('Compte créé !');
+}
+
+async function delCompte(i){
+  if(!confirm(`Supprimer le compte "${db.comptes[i].user}" ?`)) return;
+  log(`Compte supprimé : ${db.comptes[i].user}`);
+  db.comptes.splice(i,1); renderAll(); await saveDB(); toast('Compte supprimé.');
+}
+
+loadDB();
+</script>
+</body>
+</html>
