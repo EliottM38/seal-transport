@@ -34,11 +34,9 @@
     <span style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:5px 12px;font-size:12px;color:var(--texte-sec)">📅 <strong style="color:var(--texte)">Lun–Sam</strong></span>
   </div>
 
-  
-  <div style="background:var(--noir-card);border:1px solid var(--bordure);border-left:4px solid #2ECC71;border-radius:0 12px 12px 0;padding:1rem 1.25rem 1rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:12px">
-    <span style="color:#2ECC71;font-size:18px">✓</span>
-    <span style="font-size:14px;color:var(--texte-sec)">Circulation <strong style="color:#2ECC71">normale</strong> sur cette ligne</span>
-  </div>
+  <div style="font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem">Infotrafic</div>
+  <div id="infotrafic-ligne"></div>
+
   
   <div style="margin-bottom:2.5rem">
     <div style="font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">Schéma de la ligne</div>
@@ -66,6 +64,7 @@
     <div id="horaires-1"><div class="empty" style="padding:1.5rem 0">Chargement...</div></div>
   </div>
 </div>
+
 <footer>
   <div class="accent-bar"></div>
   <div style="padding:3rem 2rem">
@@ -81,10 +80,12 @@
     <div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div>
   </div>
 </footer>
+
+<script src="data-loader.js"></script>
+<script>injecterInfotrafic("61");</script>
 <script>
 const LIGNE_CODE = "61";
 const LIGNE_COULEUR = "#3B6D11";
-const LIGNE_COULEUR_FOND = "#3B6D1122";
 const DIRECTIONS = [["Universités Bibliothèques","Universités Bibliothèques","horaires-0"],["Gières Gare Universités","Gières Gare Universités","horaires-1"]];
 
 function jourType(){
@@ -133,7 +134,7 @@ function renderPassages(aVenir, divId){
           <div><div style="font-size:13px;color:var(--texte-sec);margin-bottom:4px">Direction</div><div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;color:var(--texte)">${h.destination}</div></div>
           <div style="text-align:right"><div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:42px;font-weight:800;color:${ac};line-height:1">${estArret?'0':h.minutes}</div><div style="font-size:13px;color:var(--texte-sec);margin-top:2px">${estArret?"À l'arrêt":'minutes'}</div></div>
         </div>
-        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--bordure);display:flex;justify-content:space-between;align-items:center">
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--bordure);display:flex;justify-content:space-between">
           <span style="font-size:12px;color:var(--texte-sec)">Départ prévu à</span>
           <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;color:var(--texte)">${h.heure}</span>
         </div>
@@ -172,7 +173,6 @@ async function chargerTout(){
     afficher();
     setInterval(afficher,30000);
   } catch(e){
-    console.error(e);
     DIRECTIONS.forEach(([,,divId])=>{
       const d=document.getElementById(divId);
       if(d) d.innerHTML='<div class="empty">Impossible de charger les données.</div>';
