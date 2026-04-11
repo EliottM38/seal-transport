@@ -16,63 +16,52 @@
       --texte:#F0EDE6;--texte-sec:#9A9080;
     }
     body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--fond);color:var(--texte);font-size:14px;min-height:100vh}
-
-    /* LOGIN */
     .login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
     .login-card{background:var(--card);border:1px solid var(--bordure);border-radius:16px;padding:2.5rem;width:100%;max-width:380px}
     .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:2rem}
     .login-logo img{width:48px;height:48px;object-fit:contain}
-    .login-logo-text{font-size:20px;font-weight:800;color:var(--or)}
-    .login-logo-sub{font-size:12px;color:var(--texte-sec);margin-top:2px}
-
-    /* LAYOUT ADMIN */
+    .login-title{font-size:20px;font-weight:800;color:var(--or)}
+    .login-sub{font-size:12px;color:var(--texte-sec);margin-top:2px}
     .admin{display:none;min-height:100vh;flex-direction:column}
     .admin-header{background:var(--bleu);padding:0 2rem;display:flex;align-items:center;gap:12px;height:60px;position:sticky;top:0;z-index:100}
-    .admin-header-logo{display:flex;align-items:center;gap:8px;color:var(--or);font-weight:800;font-size:16px;text-decoration:none}
-    .admin-header-logo img{width:32px;height:32px;object-fit:contain}
+    .admin-logo{display:flex;align-items:center;gap:8px;color:var(--or);font-weight:800;font-size:16px}
+    .admin-logo img{width:32px;height:32px;object-fit:contain}
     .admin-user{font-size:12px;color:rgba(255,255,255,0.6);margin-left:auto}
     .btn-back{color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;margin-right:8px}
     .btn-back:hover{color:white}
     .btn-logout{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
-    .btn-logout:hover{background:rgba(255,255,255,0.2)}
-
     .admin-body{display:flex;flex:1}
     .sidebar{width:220px;background:var(--card);border-right:1px solid var(--bordure);padding:1.5rem 0;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
+    .sidebar-section{font-size:10px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.1em;padding:1rem 1.5rem 0.5rem}
     .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 1.5rem;font-size:13px;font-weight:600;color:var(--texte-sec);cursor:pointer;transition:all 0.15s;border-left:3px solid transparent}
     .sidebar-item:hover{color:var(--texte);background:rgba(255,255,255,0.03)}
     .sidebar-item.active{color:var(--or);border-left-color:var(--or);background:rgba(201,168,76,0.06)}
     .sidebar-icon{font-size:16px;width:20px;text-align:center}
-    .sidebar-section{font-size:10px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.1em;padding:1rem 1.5rem 0.5rem;margin-top:0.5rem}
-
-    .main{flex:1;padding:2rem;max-width:900px}
-    .panel{display:none}
-    .panel.active{display:block}
-
-    /* COMPONENTS */
+    .main{flex:1;padding:2rem;max-width:960px}
+    .panel{display:none}.panel.active{display:block}
     h2{font-size:22px;font-weight:800;color:var(--texte);margin-bottom:1.5rem}
-    .section-title{font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem}
+    .section-title{font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;margin-top:1.5rem}
     .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:2rem}
     .stat-card{background:var(--card);border:1px solid var(--bordure);border-radius:12px;padding:1.25rem;text-align:center}
-    .stat-val{font-size:30px;font-weight:800;color:var(--or)}
+    .stat-val{font-size:28px;font-weight:800;color:var(--or)}
     .stat-label{font-size:11px;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.06em;margin-top:6px}
-
-    .form-card{background:var(--card);border:1px solid var(--bordure);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+    .form-card{background:var(--card);border:1px solid var(--bordure);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
     .field{margin-bottom:1rem}
-    .field:last-child{margin-bottom:0}
     .field label{display:block;font-size:11px;color:var(--texte-sec);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em}
     .field input,.field select,.field textarea{width:100%;padding:10px 14px;background:#0A0A0A;border:1px solid var(--bordure);border-radius:8px;color:var(--texte);font-size:14px;font-family:inherit;transition:border 0.15s}
     .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--or)}
     .field textarea{min-height:90px;resize:vertical}
     .field select option{background:#1A1A1A}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-
+    .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
     .btn-or{padding:10px 20px;background:var(--or);color:#0A0A0A;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background 0.15s}
     .btn-or:hover{background:var(--or-clair)}
+    .btn-or:disabled{opacity:0.5;cursor:not-allowed}
     .btn-del{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);color:var(--rouge);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit}
     .btn-del:hover{background:rgba(231,76,60,0.2)}
     .btn-ghost{padding:8px 16px;background:transparent;border:1px solid var(--bordure);color:var(--texte-sec);border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit}
     .btn-ghost:hover{border-color:var(--or);color:var(--or)}
-
+    .badge-ligne{display:inline-block;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:700;color:white}
     .alert-card{background:var(--card);border:1px solid var(--bordure);border-radius:10px;padding:14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px}
     .alert-card.rouge{border-left:3px solid var(--rouge)}
     .alert-card.orange{border-left:3px solid var(--orange)}
@@ -82,42 +71,35 @@
     .alert-content{flex:1}
     .alert-content strong{font-size:14px;display:block;margin-bottom:3px;color:var(--texte)}
     .alert-content p{font-size:12px;color:var(--texte-sec);line-height:1.4}
-    .badge-ligne{display:inline-block;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:700;color:white}
-
     .hor-table{width:100%;border-collapse:collapse;font-size:13px;background:var(--card);border-radius:10px;overflow:hidden;border:1px solid var(--bordure)}
-    .hor-table th{text-align:left;padding:10px 14px;font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--bordure);background:#111}
+    .hor-table th{text-align:left;padding:10px 14px;font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;border-bottom:1px solid var(--bordure);background:#111}
     .hor-table td{padding:10px 14px;border-bottom:1px solid #111;color:var(--texte)}
     .hor-table tr:last-child td{border-bottom:none}
-    .hor-table tr:hover td{background:rgba(255,255,255,0.02)}
-
     .article-card{background:var(--card);border:1px solid var(--bordure);border-radius:10px;padding:1.25rem;margin-bottom:10px}
     .article-card h4{font-size:15px;font-weight:700;color:var(--texte);margin-bottom:6px}
     .article-card p{font-size:13px;color:var(--texte-sec);line-height:1.5;margin-bottom:10px}
-
     .compte-card{background:var(--card);border:1px solid var(--bordure);border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
     .compte-avatar{width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--or);font-size:15px;flex-shrink:0}
-
     .sync-bar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--texte-sec);background:var(--card);border:1px solid var(--bordure);border-radius:8px;padding:8px 14px;margin-bottom:1.5rem}
     .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--vert);flex-shrink:0}
     .sync-dot.loading{background:var(--orange);animation:pulse 1s ease-in-out infinite}
     .sync-dot.error{background:var(--rouge)}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.2}}
-
     .activity-item{padding:8px 0;border-bottom:1px solid #111;font-size:12px;color:var(--texte-sec)}
     .activity-item:last-child{border-bottom:none}
-
     .toast-wrap{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:8px}
     .toast{background:var(--card);border:1px solid var(--vert);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--vert);animation:slideIn 0.2s ease}
     .toast.err{border-color:var(--rouge);color:var(--rouge)}
     @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
     .err-msg{font-size:12px;color:var(--rouge);margin-top:8px;display:none}
-
-    @media(max-width:700px){
-      .sidebar{display:none}
-      .form-row{grid-template-columns:1fr}
-      .main{padding:1.25rem}
-    }
+    .ligne-freq-card{background:var(--card);border:1px solid var(--bordure);border-radius:12px;padding:1.25rem;margin-bottom:12px}
+    .ligne-freq-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;cursor:pointer}
+    .freq-plage{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:center;margin-bottom:8px;background:#111;border-radius:8px;padding:10px}
+    .freq-plage input{background:#0A0A0A;border:1px solid var(--bordure);border-radius:6px;color:var(--texte);padding:6px 10px;font-size:13px;font-family:inherit;width:100%}
+    .freq-plage input:focus{outline:none;border-color:var(--or)}
+    .info-box{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:1rem 1.25rem;font-size:13px;color:var(--texte-sec);margin-bottom:1.5rem;line-height:1.6}
+    .info-box strong{color:var(--or)}
+    @media(max-width:700px){.sidebar{display:none}.form-row,.form-row-3{grid-template-columns:1fr}.main{padding:1.25rem}}
   </style>
 </head>
 <body>
@@ -127,12 +109,12 @@
   <div class="login-card">
     <div class="login-logo">
       <img src="logo.png" alt="GGMobilités">
-      <div><div class="login-logo-text">GGMobilités</div><div class="login-logo-sub">Espace administration</div></div>
+      <div><div class="login-title">GGMobilités</div><div class="login-sub">Espace administration</div></div>
     </div>
     <div class="field"><label>Identifiant</label><input type="text" id="lu" placeholder="votre identifiant" autocomplete="username"></div>
     <div class="field"><label>Mot de passe</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password"></div>
     <div class="err-msg" id="lerr">Identifiant ou mot de passe incorrect.</div>
-    <button class="btn-or" style="width:100%;margin-top:1.25rem" onclick="tryLogin()" id="btn-login">Se connecter</button>
+    <button class="btn-or" style="width:100%;margin-top:1.25rem" onclick="tryLogin()">Se connecter</button>
     <div style="text-align:center;margin-top:1rem"><a href="index.html" style="font-size:12px;color:var(--texte-sec);text-decoration:none">← Retour au site</a></div>
   </div>
 </div>
@@ -140,10 +122,7 @@
 <!-- ADMIN -->
 <div class="admin" id="admin">
   <div class="admin-header">
-    <a href="index.html" class="admin-header-logo">
-      <img src="logo.png" alt="GGMobilités">
-      GGMobilités Admin
-    </a>
+    <div class="admin-logo"><img src="logo.png" alt="">GGMobilités Admin</div>
     <span class="admin-user" id="admin-label"></span>
     <a href="index.html" class="btn-back">← Site public</a>
     <button class="btn-logout" onclick="logout()">Déconnexion</button>
@@ -163,7 +142,7 @@
       <!-- DASHBOARD -->
       <div class="panel active" id="panel-dashboard">
         <h2>Tableau de bord</h2>
-        <div class="sync-bar"><span class="sync-dot" id="sync-dot"></span><span id="sync-label">Connexion à JSONBin...</span></div>
+        <div class="sync-bar"><span class="sync-dot" id="sync-dot"></span><span id="sync-label">Connexion...</span></div>
         <div class="stats-grid">
           <div class="stat-card"><div class="stat-val" id="s-alertes">—</div><div class="stat-label">Alertes actives</div></div>
           <div class="stat-card"><div class="stat-val" id="s-articles">—</div><div class="stat-label">Articles publiés</div></div>
@@ -182,7 +161,7 @@
         <div class="section-title">Nouvelle alerte</div>
         <div class="form-card">
           <div class="form-row" style="margin-bottom:12px">
-            <div class="field" style="margin:0"><label>Ligne concernée</label>
+            <div class="field" style="margin:0"><label>Ligne</label>
               <select id="it-ligne">
                 <option>C1</option><option>C2</option><option>C3</option>
                 <option>4</option><option>5</option><option>6</option><option>7</option>
@@ -207,33 +186,37 @@
 
       <!-- HORAIRES -->
       <div class="panel" id="panel-horaires">
-        <h2>Modifications d'horaires</h2>
-        <div class="section-title">Nouvelle modification</div>
-        <div class="form-card">
-          <div class="form-row" style="margin-bottom:12px">
-            <div class="field" style="margin:0"><label>Ligne</label>
-              <select id="hl">
-                <option>C1</option><option>C2</option><option>C3</option>
-                <option>4</option><option>5</option><option>6</option><option>7</option>
-                <option>8</option><option>9</option><option>10</option><option>11</option>
-                <option>60</option><option>61</option><option>PL1</option>
-              </select>
-            </div>
-            <div class="field" style="margin:0"><label>Direction</label><input type="text" id="hd" placeholder="Ex : Palluel"></div>
-          </div>
-          <div class="form-row" style="margin-bottom:12px">
-            <div class="field" style="margin:0"><label>Jour</label>
-              <select id="hj"><option value="semaine">Semaine</option><option value="samedi">Samedi</option><option value="dimanche">Dimanche</option></select>
-            </div>
-            <div class="field" style="margin:0"><label>Type</label>
-              <select id="ht"><option value="suppression">Suppression de passage</option><option value="ajout">Ajout de passage</option><option value="decalage">Décalage général</option></select>
-            </div>
-          </div>
-          <div class="field"><label>Détail</label><textarea id="hdet" placeholder="Ex : Suppression du passage 08:15 — cause : grève"></textarea></div>
-          <button class="btn-or" onclick="addModif()">Enregistrer</button>
+        <h2>Modification des horaires</h2>
+        <div class="info-box">
+          <strong>Comment ça marche ?</strong><br>
+          Sélectionnez une ligne, une direction et un jour. Modifiez les plages horaires (heure début, heure fin, fréquence en minutes). Cliquez <strong>Sauvegarder</strong> — le site se met à jour automatiquement en quelques secondes.
         </div>
-        <div class="section-title">Modifications en cours</div>
-        <div id="horaires-list"></div>
+        <div class="form-row" style="margin-bottom:1.5rem">
+          <div class="field" style="margin:0"><label>Ligne</label>
+            <select id="hor-code" onchange="chargerDirections()">
+              <option value="">— Choisir —</option>
+              <option>C1</option><option>C2</option><option>C3</option>
+              <option>4</option><option>5</option><option>6</option><option>7</option>
+              <option>8</option><option>9</option><option>10</option><option>11</option>
+              <option>60</option><option>61</option><option>PL1</option>
+            </select>
+          </div>
+          <div class="field" style="margin:0"><label>Direction</label>
+            <select id="hor-dir" onchange="chargerJours()"><option value="">— Choisir d'abord une ligne —</option></select>
+          </div>
+          <div class="field" style="margin:0"><label>Jour</label>
+            <select id="hor-jour" onchange="chargerPlages()"><option value="">— Choisir —</option></select>
+          </div>
+        </div>
+        <div id="plages-editor" style="display:none">
+          <div class="section-title">Plages horaires</div>
+          <div id="plages-list"></div>
+          <button class="btn-ghost" onclick="ajouterPlage()" style="margin-bottom:1.5rem">+ Ajouter une plage</button>
+          <div style="display:flex;gap:12px;align-items:center">
+            <button class="btn-or" onclick="sauvegarderHoraires()" id="btn-save-hor">Sauvegarder sur GitHub</button>
+            <span id="save-status" style="font-size:13px;color:var(--texte-sec)"></span>
+          </div>
+        </div>
       </div>
 
       <!-- ARTICLES -->
@@ -289,36 +272,39 @@
 <div class="toast-wrap" id="toast-wrap"></div>
 
 <script>
-const BIN_ID = "69d95af5aaba882197e64b7e";
-const API_KEY = "$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
-const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+// ── CONFIG ──────────────────────────────────────────────────
+const JSONBIN_ID  = "69d95af5aaba882197e64b7e";
+const JSONBIN_KEY = "$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
+const GITHUB_TOKEN = "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";
+const GITHUB_REPO  = "EliottM38/GG-Mobilites";
+const GITHUB_BRANCH = "main";
 
 const LC = {C1:"#185FA5",C2:"#0F6E56",C3:"#993C1D","4":"#534AB7","5":"#3B6D11","6":"#854F0B","7":"#993556","8":"#5F5E5A","9":"#185FA5","10":"#0F6E56","11":"#A32D2D","60":"#412402","61":"#3B6D11",PL1:"#2C2C2A"};
 const CATS = {actualite:"Actualité",travaux:"Travaux",evenement:"Événement","info-reseau":"Info réseau"};
 const ROLES = {admin:"Administrateur",infotrafic:"Infotrafic",articles:"Articles"};
-
 const COMPTES_DEFAULT = [
   {user:"admin",pass:"ggadmin2026",role:"admin",nom:"Administrateur"},
   {user:"eliott",pass:"eliott123",role:"admin",nom:"Eliott"},
 ];
 
 let db = {alertes:[],articles:[],horaires_modifs:[],comptes:[...COMPTES_DEFAULT],activity:[]};
+let linesData = [];
 let currentUser = null;
 let saving = false;
 
-// ── SYNC ────────────────────────────────────────────────────
+// ── SYNC JSONBIN ────────────────────────────────────────────
 function setSyncStatus(s){
   const dot=document.getElementById('sync-dot');
   const lbl=document.getElementById('sync-label');
   if(s==='ok'){dot.className='sync-dot';lbl.textContent='Synchronisé · '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
-  else if(s==='loading'){dot.className='sync-dot loading';lbl.textContent='Synchronisation en cours...'}
+  else if(s==='loading'){dot.className='sync-dot loading';lbl.textContent='Synchronisation...'}
   else{dot.className='sync-dot error';lbl.textContent='Erreur de synchronisation'}
 }
 
 async function loadDB(){
   setSyncStatus('loading');
   try{
-    const r=await fetch(API_URL+'/latest',{headers:{'X-Master-Key':API_KEY}});
+    const r=await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_ID}/latest`,{headers:{'X-Master-Key':JSONBIN_KEY}});
     const j=await r.json();
     const rec=j.record||{};
     db.alertes=rec.alertes||[];
@@ -328,23 +314,204 @@ async function loadDB(){
     if(rec.comptes&&rec.comptes.length) db.comptes=rec.comptes;
     setSyncStatus('ok');
     renderAll();
-  }catch(e){setSyncStatus('error');toast('Erreur de connexion à JSONBin',true)}
+  }catch(e){setSyncStatus('error');toast('Erreur connexion JSONBin',true)}
 }
 
 async function saveDB(){
   if(saving) return;
   saving=true; setSyncStatus('loading');
   try{
-    await fetch(API_URL,{
+    await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_ID}`,{
       method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':API_KEY},
+      headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
       body:JSON.stringify({alertes:db.alertes,articles:db.articles,horaires_modifs:db.horaires_modifs,comptes:db.comptes,activity:db.activity})
     });
     setSyncStatus('ok');
-  }catch(e){setSyncStatus('error');toast('Erreur de sauvegarde',true)}
+  }catch(e){setSyncStatus('error');toast('Erreur sauvegarde',true)}
   saving=false;
 }
 
+// ── GITHUB API ──────────────────────────────────────────────
+async function getFileSha(path){
+  const r=await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${path}`,{
+    headers:{'Authorization':`token ${GITHUB_TOKEN}`,'Accept':'application/vnd.github.v3+json'}
+  });
+  const j=await r.json();
+  return j.sha;
+}
+
+async function pushToGitHub(path, content, message){
+  const sha = await getFileSha(path);
+  const encoded = btoa(unescape(encodeURIComponent(content)));
+  const r = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${path}`,{
+    method:'PUT',
+    headers:{'Authorization':`token ${GITHUB_TOKEN}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+    body:JSON.stringify({message, content:encoded, sha, branch:GITHUB_BRANCH})
+  });
+  if(!r.ok) throw new Error(`GitHub error: ${r.status}`);
+  return r.json();
+}
+
+async function loadLinesFromGitHub(){
+  try{
+    const r=await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/lines.json`,{
+      headers:{'Authorization':`token ${GITHUB_TOKEN}`,'Accept':'application/vnd.github.v3+json'}
+    });
+    const j=await r.json();
+    const decoded=decodeURIComponent(escape(atob(j.content.replace(/\n/g,''))));
+    linesData=JSON.parse(decoded);
+    return linesData;
+  }catch(e){toast('Erreur chargement lines.json',true);return[]}
+}
+
+// ── HORAIRES EDITOR ─────────────────────────────────────────
+let plagesEditorData = [];
+
+async function chargerDirections(){
+  const code=document.getElementById('hor-code').value;
+  const dirSel=document.getElementById('hor-dir');
+  dirSel.innerHTML='<option value="">Chargement...</option>';
+  document.getElementById('hor-jour').innerHTML='<option value="">— Choisir —</option>';
+  document.getElementById('plages-editor').style.display='none';
+  if(!code){dirSel.innerHTML='<option value="">— Choisir d\'abord une ligne —</option>';return;}
+  if(!linesData.length) await loadLinesFromGitHub();
+  const dirs=[...new Set(linesData.filter(l=>l.code===code&&l.direction).map(l=>l.direction))];
+  dirSel.innerHTML='<option value="">— Choisir —</option>'+dirs.map(d=>`<option>${d}</option>`).join('');
+}
+
+function chargerJours(){
+  const code=document.getElementById('hor-code').value;
+  const dir=document.getElementById('hor-dir').value;
+  const jourSel=document.getElementById('hor-jour');
+  document.getElementById('plages-editor').style.display='none';
+  if(!dir){jourSel.innerHTML='<option value="">— Choisir —</option>';return;}
+  const jours=[...new Set(linesData.filter(l=>l.code===code&&l.direction===dir).map(l=>l.jour))];
+  const ordre=['semaine','samedi','dimanche'];
+  jours.sort((a,b)=>ordre.indexOf(a)-ordre.indexOf(b));
+  jourSel.innerHTML='<option value="">— Choisir —</option>'+jours.map(j=>`<option>${j}</option>`).join('');
+}
+
+function chargerPlages(){
+  const code=document.getElementById('hor-code').value;
+  const dir=document.getElementById('hor-dir').value;
+  const jour=document.getElementById('hor-jour').value;
+  if(!code||!dir||!jour){document.getElementById('plages-editor').style.display='none';return;}
+
+  const ligneDonnee=linesData.find(l=>l.code===code&&l.direction===dir&&l.jour===jour);
+  if(!ligneDonnee){document.getElementById('plages-editor').style.display='none';return;}
+
+  // Reconstruire les plages depuis les horaires
+  const horaires=ligneDonnee.horaires||[];
+  plagesEditorData=detecterPlages(horaires);
+  renderPlages();
+  document.getElementById('plages-editor').style.display='block';
+}
+
+function detecterPlages(horaires){
+  if(!horaires.length) return [{debut:'05:00',fin:'23:00',freq:10}];
+  const plages=[];
+  let i=0;
+  while(i<horaires.length-1){
+    const h1=horaires[i].heure,h2=horaires[i+1].heure;
+    const diff=diffMinutes(h1,h2);
+    let j=i+1;
+    while(j<horaires.length-1&&diffMinutes(horaires[j].heure,horaires[j+1].heure)===diff) j++;
+    plages.push({debut:h1,fin:horaires[j].heure,freq:diff});
+    i=j;
+  }
+  return plages.length?plages:[{debut:'05:00',fin:'23:00',freq:10}];
+}
+
+function diffMinutes(h1,h2){
+  const [a,b]=h1.split(':').map(Number);
+  let [c,d]=h2.split(':').map(Number);
+  let m1=a*60+b,m2=c*60+d;
+  if(m2<m1) m2+=1440;
+  return m2-m1;
+}
+
+function renderPlages(){
+  const el=document.getElementById('plages-list');
+  el.innerHTML=plagesEditorData.map((p,i)=>`
+    <div class="freq-plage">
+      <div>
+        <div style="font-size:10px;color:var(--texte-sec);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em">Début</div>
+        <input type="time" value="${p.debut}" onchange="plagesEditorData[${i}].debut=this.value">
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--texte-sec);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em">Fin</div>
+        <input type="time" value="${p.fin}" onchange="plagesEditorData[${i}].fin=this.value">
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--texte-sec);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em">Fréquence (min)</div>
+        <input type="number" min="1" max="120" value="${p.freq}" onchange="plagesEditorData[${i}].freq=parseInt(this.value)">
+      </div>
+      <button class="btn-del" onclick="plagesEditorData.splice(${i},1);renderPlages()" style="margin-top:18px">✕</button>
+    </div>`).join('');
+}
+
+function ajouterPlage(){
+  const derniere=plagesEditorData[plagesEditorData.length-1];
+  plagesEditorData.push({debut:derniere?derniere.fin:'19:00',fin:'23:00',freq:15});
+  renderPlages();
+}
+
+function genererHoraires(plages, destination){
+  const horaires=[];
+  for(const p of plages){
+    let [h,m]=p.debut.split(':').map(Number);
+    let [hf,mf]=p.fin.split(':').map(Number);
+    let fin=hf*60+mf;
+    if(fin<h*60+m) fin+=1440;
+    let cur=h*60+m;
+    while(cur<=fin){
+      const hh=Math.floor(cur/60)%24;
+      const mm=cur%60;
+      horaires.push({destination,heure:`${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`});
+      cur+=parseInt(p.freq);
+    }
+  }
+  return horaires;
+}
+
+async function sauvegarderHoraires(){
+  const code=document.getElementById('hor-code').value;
+  const dir=document.getElementById('hor-dir').value;
+  const jour=document.getElementById('hor-jour').value;
+  const btn=document.getElementById('btn-save-hor');
+  const status=document.getElementById('save-status');
+
+  btn.disabled=true; btn.textContent='Sauvegarde...';
+  status.textContent=''; status.style.color='var(--texte-sec)';
+
+  try{
+    if(!linesData.length) await loadLinesFromGitHub();
+    const idx=linesData.findIndex(l=>l.code===code&&l.direction===dir&&l.jour===jour);
+    if(idx===-1) throw new Error('Ligne non trouvée');
+
+    const destination=linesData[idx].horaires[0]?.destination||dir;
+    const nouveauxHoraires=genererHoraires(plagesEditorData,destination);
+    linesData[idx].horaires=nouveauxHoraires;
+
+    const content=JSON.stringify(linesData,null,2);
+    await pushToGitHub('lines.json',content,`Admin: modification horaires ${code} → ${dir} (${jour})`);
+
+    log(`Horaires modifiés : ${code} → ${dir} (${jour}) — ${nouveauxHoraires.length} passages`);
+    await saveDB();
+    renderAll();
+    status.textContent=`✓ ${nouveauxHoraires.length} passages sauvegardés — Vercel redéploie dans ~30s`;
+    status.style.color='var(--vert)';
+    toast('Horaires mis à jour sur GitHub !');
+  }catch(e){
+    console.error(e);
+    status.textContent='Erreur : '+e.message;
+    status.style.color='var(--rouge)';
+    toast('Erreur lors de la sauvegarde',true);
+  }
+  btn.disabled=false; btn.textContent='Sauvegarder sur GitHub';
+}
+
+// ── LOG ─────────────────────────────────────────────────────
 function log(msg){
   const t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
   db.activity.unshift(`[${t}] ${currentUser?.nom||''} — ${msg}`);
@@ -354,9 +521,8 @@ function log(msg){
 function toast(msg,err=false){
   const wrap=document.getElementById('toast-wrap');
   const el=document.createElement('div');
-  el.className='toast'+(err?' err':'');
-  el.textContent=msg; wrap.appendChild(el);
-  setTimeout(()=>el.remove(),3000);
+  el.className='toast'+(err?' err':''); el.textContent=msg; wrap.appendChild(el);
+  setTimeout(()=>el.remove(),3500);
 }
 
 // ── AUTH ────────────────────────────────────────────────────
@@ -375,6 +541,7 @@ function tryLogin(){
   } else if(c.role==='articles'){
     document.querySelectorAll('.sidebar-item').forEach((s,i)=>{if(i!==0&&i!==3)s.style.display='none'});
   }
+  loadLinesFromGitHub();
   renderAll();
 }
 
@@ -382,15 +549,13 @@ function logout(){
   currentUser=null;
   document.getElementById('login-wrap').style.display='flex';
   document.getElementById('admin').style.display='none';
-  document.getElementById('lu').value='';
-  document.getElementById('lp').value='';
+  document.getElementById('lu').value=''; document.getElementById('lp').value='';
   document.getElementById('lerr').style.display='none';
   document.querySelectorAll('.sidebar-item').forEach(s=>s.style.display='');
 }
 
 document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin()});
 
-// ── TABS ────────────────────────────────────────────────────
 function switchTab(n){
   const names=['dashboard','infotrafic','horaires','articles','comptes'];
   document.querySelectorAll('.sidebar-item').forEach((s,i)=>s.classList.toggle('active',names[i]===n));
@@ -406,12 +571,12 @@ function renderAll(){
   al.innerHTML=db.activity.length
     ?db.activity.slice(0,10).map(a=>`<div class="activity-item">${a}</div>`).join('')
     :'<div class="activity-item">Aucune activité récente.</div>';
-  renderAlertes(); renderHoraires(); renderArticles(); renderComptes();
+  renderAlertes(); renderArticles(); renderComptes();
 }
 
 function renderAlertes(){
   const el=document.getElementById('alertes-list');
-  if(!db.alertes.length){el.innerHTML='<div style="color:var(--texte-sec);font-size:13px;padding:1rem 0">Aucune alerte active. Le réseau circule normalement.</div>';return;}
+  if(!db.alertes.length){el.innerHTML='<div style="color:var(--texte-sec);font-size:13px;padding:1rem 0">Aucune alerte active.</div>';return;}
   el.innerHTML=db.alertes.map((a,i)=>`
     <div class="alert-card ${a.niveau}">
       <div><div class="alert-badge">${a.niveau==='rouge'?'Perturbé':'Info'}</div>
@@ -419,7 +584,7 @@ function renderAlertes(){
       </div>
       <div class="alert-content">
         <strong>${a.titre}</strong><p>${a.desc}</p>
-        <div style="font-size:11px;color:var(--texte-sec);margin-top:6px">📅 ${a.date} · ✍️ ${a.auteur||'—'}</div>
+        <div style="font-size:11px;color:var(--texte-sec);margin-top:6px">${a.date} · ${a.auteur||'—'}</div>
       </div>
       <button class="btn-del" onclick="delAlerte(${i})">Supprimer</button>
     </div>`).join('');
@@ -432,47 +597,15 @@ async function addAlerte(){
   const d=document.getElementById('it-desc').value.trim();
   if(!t||!d){toast('Remplissez le titre et la description.',true);return;}
   db.alertes.push({ligne:l,niveau:n,titre:t,desc:d,date:new Date().toLocaleDateString('fr-FR'),auteur:currentUser?.nom});
-  document.getElementById('it-titre').value='';
-  document.getElementById('it-desc').value='';
-  log(`Alerte publiée : ${t} (ligne ${l})`);
+  document.getElementById('it-titre').value=''; document.getElementById('it-desc').value='';
+  log(`Alerte : ${t} (ligne ${l})`);
   renderAll(); await saveDB(); toast('Alerte publiée !');
 }
 
 async function delAlerte(i){
-  if(!confirm(`Supprimer l'alerte "${db.alertes[i].titre}" ?`)) return;
+  if(!confirm(`Supprimer "${db.alertes[i].titre}" ?`)) return;
   log(`Alerte supprimée : ${db.alertes[i].titre}`);
   db.alertes.splice(i,1); renderAll(); await saveDB(); toast('Alerte supprimée.');
-}
-
-function renderHoraires(){
-  const el=document.getElementById('horaires-list');
-  if(!db.horaires_modifs.length){el.innerHTML='<div style="color:var(--texte-sec);font-size:13px;padding:1rem 0">Aucune modification en cours.</div>';return;}
-  el.innerHTML=`<table class="hor-table"><thead><tr><th>Ligne</th><th>Direction</th><th>Jour</th><th>Type</th><th>Détail</th><th></th></tr></thead><tbody>`+
-    db.horaires_modifs.map((m,i)=>`<tr>
-      <td><span class="badge-ligne" style="background:${LC[m.ligne]||'#555'}">${m.ligne}</span></td>
-      <td>${m.direction}</td><td>${m.jour}</td>
-      <td style="color:${m.type==='suppression'?'var(--rouge)':m.type==='ajout'?'var(--vert)':'var(--or)'};font-weight:600">${m.type}</td>
-      <td style="color:var(--texte-sec);font-size:12px">${m.detail}</td>
-      <td><button class="btn-del" onclick="delModif(${i})">✕</button></td>
-    </tr>`).join('')+'</tbody></table>';
-}
-
-async function addModif(){
-  const l=document.getElementById('hl').value;
-  const d=document.getElementById('hd').value.trim();
-  const j=document.getElementById('hj').value;
-  const t=document.getElementById('ht').value;
-  const det=document.getElementById('hdet').value.trim();
-  if(!d||!det){toast('Remplissez tous les champs.',true);return;}
-  db.horaires_modifs.push({ligne:l,direction:d,jour:j,type:t,detail:det,auteur:currentUser?.nom});
-  document.getElementById('hd').value=''; document.getElementById('hdet').value='';
-  log(`Modif horaire : ${t} ligne ${l} → ${d}`);
-  renderAll(); await saveDB(); toast('Modification enregistrée !');
-}
-
-async function delModif(i){
-  log(`Modif supprimée : ${db.horaires_modifs[i].ligne}`);
-  db.horaires_modifs.splice(i,1); renderAll(); await saveDB(); toast('Modification supprimée.');
 }
 
 function renderArticles(){
@@ -483,7 +616,6 @@ function renderArticles(){
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
         <span style="background:rgba(201,168,76,0.15);color:var(--or);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase">${CATS[a.cat]||a.cat}</span>
         <span style="font-size:11px;color:var(--texte-sec)">${a.date}</span>
-        ${a.auteur?`<span style="font-size:11px;color:var(--texte-sec)">· ${a.auteur}</span>`:''}
       </div>
       <h4>${a.titre}</h4>
       <p>${a.contenu.slice(0,160)}${a.contenu.length>160?'...':''}</p>
@@ -499,12 +631,12 @@ async function addArticle(){
   if(!t||!cont){toast('Remplissez le titre et le contenu.',true);return;}
   db.articles.unshift({titre:t,cat:c,date:d,contenu:cont,auteur:currentUser?.nom});
   document.getElementById('at').value=''; document.getElementById('acont').value='';
-  log(`Article publié : ${t}`);
+  log(`Article : ${t}`);
   renderAll(); await saveDB(); toast('Article publié !');
 }
 
 async function delArticle(i){
-  if(!confirm(`Supprimer l'article "${db.articles[i].titre}" ?`)) return;
+  if(!confirm(`Supprimer "${db.articles[i].titre}" ?`)) return;
   log(`Article supprimé : ${db.articles[i].titre}`);
   db.articles.splice(i,1); renderAll(); await saveDB(); toast('Article supprimé.');
 }
@@ -527,11 +659,11 @@ async function addCompte(){
   const p=document.getElementById('np').value;
   const r=document.getElementById('nr').value;
   if(!u||!p){toast('Remplissez tous les champs.',true);return;}
-  if(db.comptes.find(c=>c.user===u)){toast('Cet identifiant existe déjà.',true);return;}
+  if(db.comptes.find(c=>c.user===u)){toast('Identifiant déjà utilisé.',true);return;}
   const nom=u.charAt(0).toUpperCase()+u.slice(1);
   db.comptes.push({user:u,pass:p,role:r,nom});
   document.getElementById('nu').value=''; document.getElementById('np').value='';
-  log(`Compte créé : ${u} (${r})`);
+  log(`Compte créé : ${u}`);
   renderAll(); await saveDB(); toast('Compte créé !');
 }
 
