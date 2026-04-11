@@ -30,11 +30,11 @@
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:2rem">
     <div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:12px;padding:1rem;text-align:center">
-      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:#E74C3C">2</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:#E74C3C" id="count-perturb">—</div>
       <div style="font-size:11px;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.06em">Perturbées</div>
     </div>
     <div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:12px;padding:1rem;text-align:center">
-      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:var(--or)">12</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:var(--or)" id="count-normal">—</div>
       <div style="font-size:11px;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.06em">Normales</div>
     </div>
     <div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:12px;padding:1rem;text-align:center">
@@ -44,39 +44,13 @@
   </div>
 
   <div style="font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">Perturbations en cours</div>
-
-  <div class="alerte rouge" style="margin-bottom:12px">
-    <div><div class="alerte-badge">Perturbé</div></div>
-    <div class="alerte-content">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="background:#0F6E56;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:3px 10px;border-radius:6px">C2</span>
-        <h3 style="margin:0">Travaux Meylan</h3>
-      </div>
-      <p>Déviation entre « La Revirée » et « Meylan Mairie ». Arrêt non desservi : Buclos.</p>
-      <a href="ligne-c2.html" style="font-size:12px;color:var(--or);text-decoration:none;display:inline-block;margin-top:8px">Voir la fiche ligne C2 →</a>
-    </div>
+  <div id="alertes-dynamiques">
+    <div style="font-size:14px;color:var(--texte-sec);padding:1rem 0">Chargement...</div>
   </div>
 
-  <div class="alerte orange" style="margin-bottom:2rem">
-    <div><div class="alerte-badge">Perturbé</div></div>
-    <div class="alerte-content">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="background:#185FA5;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:3px 10px;border-radius:6px">9</span>
-        <h3 style="margin:0">Contraintes d'exploitation</h3>
-      </div>
-      <p>Fréquences augmentées provisoirement avec des véhicules moins capacitaires.</p>
-      <a href="ligne-9.html" style="font-size:12px;color:var(--or);text-decoration:none;display:inline-block;margin-top:8px">Voir la fiche ligne 9 →</a>
-    </div>
-  </div>
-
-  <div style="font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">Lignes en circulation normale</div>
-  <div style="display:flex;flex-wrap:wrap;gap:8px">
-<a href="ligne-c1.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#185FA5;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">C1</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-c3.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#993C1D;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">C3</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-4.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#534AB7;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">4</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-5.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#3B6D11;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">5</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-6.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#854F0B;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">6</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-7.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#993556;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">7</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-8.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#5F5E5A;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">8</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-10.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#0F6E56;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">10</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-11.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#A32D2D;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">11</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-60.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#412402;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">60</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-61.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#3B6D11;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">61</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a><a href="ligne-pl1.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px"><span style="background:#2C2C2A;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">PL1</span><span style="font-size:12px;color:var(--texte-sec)">Normal</span><span style="color:#2ECC71;font-size:14px">✓</span></a>
-  </div>
+  <div style="font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.12em;margin:2rem 0 1rem">Lignes en circulation normale</div>
+  <div id="lignes-normales" style="display:flex;flex-wrap:wrap;gap:8px"></div>
 </div>
-<script>
-document.getElementById('maj-time').textContent = 'Dernière mise à jour : ' + new Date().toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
-</script>
 
 <footer>
   <div class="accent-bar"></div>
@@ -93,5 +67,44 @@ document.getElementById('maj-time').textContent = 'Dernière mise à jour : ' + 
     <div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div>
   </div>
 </footer>
+<script src="data-loader.js"></script>
+
+<script>
+const LC = {C1:"#185FA5",C2:"#0F6E56",C3:"#993C1D","4":"#534AB7","5":"#3B6D11","6":"#854F0B","7":"#993556","8":"#5F5E5A","9":"#185FA5","10":"#0F6E56","11":"#A32D2D","60":"#412402","61":"#3B6D11",PL1:"#2C2C2A"};
+const TOUTES = ["C1","C2","C3","4","5","6","7","8","9","10","11","60","61","PL1"];
+
+async function chargerInfotrafic() {
+  document.getElementById('maj-time').textContent = 'Dernière mise à jour : ' + new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  const data = await chargerData();
+  const alertes = data.alertes || [];
+  const lignesPerturb = alertes.map(a => a.ligne);
+  const lignesNormales = TOUTES.filter(l => !lignesPerturb.includes(l));
+
+  document.getElementById('count-perturb').textContent = lignesPerturb.length;
+  document.getElementById('count-normal').textContent = lignesNormales.length;
+
+  // Alertes
+  const el = document.getElementById('alertes-dynamiques');
+  if (!alertes.length) {
+    el.innerHTML = '<div style="background:var(--noir-card);border:1px solid var(--bordure);border-left:4px solid #2ECC71;border-radius:0 12px 12px 0;padding:1rem 1.5rem;display:flex;align-items:center;gap:12px"><span style="color:#2ECC71;font-size:20px">✓</span><span style="font-size:14px;color:var(--texte-sec)">Aucune perturbation — toutes les lignes circulent normalement.</span></div>';
+  } else {
+    el.innerHTML = '';
+    await injecterInfotraficGlobal();
+  }
+
+  // Lignes normales
+  document.getElementById('lignes-normales').innerHTML = lignesNormales.map(l =>
+    `<a href="ligne-${l.toLowerCase()}.html" style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:8px;padding:6px 14px;text-decoration:none;display:flex;align-items:center;gap:6px">
+      <span style="background:${LC[l]};color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px;padding:2px 8px;border-radius:5px">${l}</span>
+      <span style="font-size:12px;color:var(--texte-sec)">Normal</span>
+      <span style="color:#2ECC71;font-size:14px">✓</span>
+    </a>`
+  ).join('');
+}
+
+chargerInfotrafic();
+setInterval(chargerInfotrafic, 60000);
+</script>
+
 </body>
 </html>
