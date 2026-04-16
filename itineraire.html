@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Itinéraires — GGMobilités</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .itin-box { background:var(--noir-card); border:1px solid var(--bordure); border-radius:var(--radius); padding:1.5rem; margin-bottom:1rem; }
+    .itin-input-wrap { position:relative; }
+    .itin-input {
+      width:100%; padding:12px 16px 12px 44px; border-radius:var(--radius-sm);
+      border:1px solid var(--bordure); background:var(--noir); color:var(--texte);
+      font-size:14px; font-family:'DM Sans',sans-serif; transition:border 0.2s;
+    }
+    .itin-input:focus { outline:none; border-color:var(--or); }
+    .itin-input-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:18px; }
+    .autocomplete-list {
+      position:absolute; top:100%; left:0; right:0; z-index:100;
+      background:var(--noir-card); border:1px solid var(--or);
+      border-top:none; border-radius:0 0 var(--radius-sm) var(--radius-sm);
+      max-height:220px; overflow-y:auto;
+    }
+    .autocomplete-item {
+      padding:10px 16px; font-size:13px; color:var(--texte-sec);
+      cursor:pointer; border-bottom:1px solid var(--bordure); transition:background 0.15s;
+      display:flex; align-items:center; gap:8px;
+    }
+    .autocomplete-item:hover, .autocomplete-item.selected { background:var(--or-pale); color:var(--or); }
+    .autocomplete-item:last-child { border-bottom:none; }
+    .tab-btns { display:flex; gap:8px; margin-bottom:1.5rem; }
+    .tab-btn {
+      flex:1; padding:10px; border-radius:var(--radius-sm); font-size:13px;
+      font-weight:700; font-family:'Syne',sans-serif; cursor:pointer;
+      border:1px solid var(--bordure); background:var(--noir-card); color:var(--texte-sec);
+      transition:all 0.2s;
+    }
+    .tab-btn.active { background:var(--or); color:var(--noir); border-color:var(--or); }
+    .swap-btn {
+      display:flex; align-items:center; justify-content:center;
+      width:36px; height:36px; border-radius:50%; background:var(--or-pale);
+      border:1px solid rgba(201,168,76,0.3); cursor:pointer; font-size:18px;
+      margin:8px auto; transition:all 0.2s;
+    }
+    .swap-btn:hover { background:var(--or); }
+    .search-btn {
+      width:100%; padding:13px; border-radius:var(--radius-sm);
+      background:var(--or); color:var(--noir); font-family:'Syne',sans-serif;
+      font-weight:700; font-size:15px; border:none; cursor:pointer;
+      transition:all 0.2s; margin-top:1rem;
+    }
+    .search-btn:hover { background:var(--or-clair); }
+    .search-btn:disabled { background:#3A3A3A; color:var(--texte-sec); cursor:not-allowed; }
+
+    /* Résultats */
+    .result-card {
+      background:var(--noir-card); border:1px solid var(--bordure);
+      border-radius:var(--radius); padding:1.25rem; margin-bottom:12px;
+      transition:border 0.2s; cursor:pointer;
+    }
+    .result-card:hover { border-color:rgba(201,168,76,0.4); }
+    .result-card.best { border-color:rgba(201,168,76,0.5); }
+    .result-header { display:flex; align-items:center; gap:10px; margin-bottom:1rem; }
+    .result-badge {
+      font-family:'Syne',sans-serif; font-size:11px; font-weight:700;
+      padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.07em;
+    }
+    .badge-rapide { background:rgba(0,168,107,0.15); color:#00A86B; }
+    .badge-direct { background:rgba(201,168,76,0.15); color:var(--or); }
+    .result-temps {
+      font-family:'Syne',sans-serif; font-size:24px; font-weight:800; color:var(--texte);
+      margin-left:auto;
+    }
+    .etape {
+      display:flex; gap:12px; padding:10px 0;
+      border-bottom:1px solid var(--bordure);
+    }
+    .etape:last-child { border-bottom:none; }
+    .etape-ligne-col { display:flex; flex-direction:column; align-items:center; flex-shrink:0; }
+    .etape-badge {
+      font-family:'Syne',sans-serif; font-size:12px; font-weight:800;
+      padding:4px 10px; border-radius:6px; color:white; min-width:40px; text-align:center;
+    }
+    .etape-trait { width:2px; flex:1; margin:4px 0; min-height:20px; }
+    .etape-content { flex:1; }
+    .etape-from { font-size:14px; font-weight:600; color:var(--texte); }
+    .etape-to { font-size:13px; color:var(--texte-sec); margin-top:2px; }
+    .etape-temps { font-size:12px; color:var(--texte-sec); margin-top:4px; }
+    .correspondance {
+      display:flex; align-items:center; gap:8px;
+      padding:8px 12px; margin:4px 0;
+      background:rgba(201,168,76,0.06); border-radius:6px;
+      font-size:12px; color:var(--texte-sec);
+    }
+    .loading { text-align:center; padding:2rem; color:var(--texte-sec); font-size:14px; }
+    .error-msg { background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3); border-radius:var(--radius-sm); padding:1rem; color:#E74C3C; font-size:14px; margin-top:1rem; }
+    .arret-proche {
+      display:flex; align-items:center; gap:10px; padding:10px 14px;
+      background:var(--noir); border-radius:var(--radius-sm);
+      border:1px solid var(--bordure); margin-bottom:6px;
+      cursor:pointer; transition:all 0.15s;
+    }
+    .arret-proche:hover { border-color:var(--or); background:var(--or-pale); }
+    .arret-proche-dist { font-size:11px; color:var(--texte-sec); margin-left:auto; }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="GGMobilités"> GGMobilités
+    </a>
+    <div class="nav-links">
+      <div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Lignes structurantes</a><a href="plan.html">Plan du réseau</a><a href="tad.html">Lignes TAD</a><a href="pl1-gares.html">Ligne nocturne</a><a href="infotrafic.html">Infotrafic</a></div></div>
+      <a href="horaires.html">Horaires</a>
+      <div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div></div>
+      <div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div>
+      <a href="horaires.html" class="nav-cta">🕐 Horaires</a>
+    </div>
+  </div>
+</nav>
+<div class="accent-bar"></div>
+
+<div class="page">
+  <div style="margin-bottom:2rem">
+    <h1 style="font-family:Syne,sans-serif;font-size:32px;font-weight:800;margin-bottom:6px;color:var(--texte)">Recherche d'itinéraires</h1>
+    <p style="color:var(--texte-sec)">Trouvez le meilleur trajet sur le réseau GGMobilités</p>
+  </div>
+
+  <!-- Onglets mode -->
+  <div class="tab-btns">
+    <button class="tab-btn active" id="tab-arret" onclick="setMode('arret')">🚏 Arrêt → Arrêt</button>
+    <button class="tab-btn" id="tab-adresse" onclick="setMode('adresse')">📍 Adresse libre</button>
+  </div>
+
+  <!-- Formulaire arrêt → arrêt -->
+  <div id="form-arret" class="itin-box">
+    <div class="itin-input-wrap" style="margin-bottom:0.5rem">
+      <span class="itin-input-icon">🟢</span>
+      <input class="itin-input" id="input-depart" placeholder="Arrêt de départ..." autocomplete="off" oninput="autocomplete(this,'list-depart','depart')" onkeydown="navAuto(event,'list-depart','depart')">
+      <div class="autocomplete-list" id="list-depart" style="display:none"></div>
+    </div>
+    <div class="swap-btn" onclick="swapArrets()" title="Inverser">⇅</div>
+    <div class="itin-input-wrap">
+      <span class="itin-input-icon">🔴</span>
+      <input class="itin-input" id="input-arrivee" placeholder="Arrêt d'arrivée..." autocomplete="off" oninput="autocomplete(this,'list-arrivee','arrivee')" onkeydown="navAuto(event,'list-arrivee','arrivee')">
+      <div class="autocomplete-list" id="list-arrivee" style="display:none"></div>
+    </div>
+    <button class="search-btn" onclick="rechercherItineraire()" id="btn-search">🔍 Rechercher</button>
+  </div>
+
+  <!-- Formulaire adresse libre -->
+  <div id="form-adresse" class="itin-box" style="display:none">
+    <div class="itin-input-wrap" style="margin-bottom:0.5rem">
+      <span class="itin-input-icon">🟢</span>
+      <input class="itin-input" id="input-adresse-dep" placeholder="Adresse de départ..." autocomplete="off">
+    </div>
+    <div style="text-align:center;margin:4px 0">
+      <button onclick="maPosition()" style="font-size:12px;color:var(--or);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif">📍 Utiliser ma position</button>
+    </div>
+    <div class="swap-btn" onclick="swapAdresses()">⇅</div>
+    <div class="itin-input-wrap">
+      <span class="itin-input-icon">🔴</span>
+      <input class="itin-input" id="input-adresse-arr" placeholder="Adresse d'arrivée..." autocomplete="off">
+    </div>
+    <button class="search-btn" onclick="rechercherParAdresse()" id="btn-search-adr">🔍 Rechercher</button>
+  </div>
+
+  <!-- Zone résultats -->
+  <div id="resultats"></div>
+</div>
+
+<footer>
+  <div class="accent-bar"></div>
+  <div style="padding:3rem 2rem">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</div>
+        <p class="footer-desc">Le réseau de transport urbain de Grenoble et sa région.</p>
+      </div>
+      <div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan du réseau</a><a href="infotrafic.html">Infotrafic</a></div>
+      <div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="agences.html">Agences</a></div>
+      <div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div>
+  </div>
+</footer>
+
+<script>
+// ── Données ──────────────────────────────────────────────────
+let GRAPHE = null;
+let ARRETS = [];
+let selectedDepart = null, selectedArrivee = null;
+let selectedAdresseDep = null, selectedAdresseArr = null;
+let modeActuel = 'arret';
+let autoIdx = {depart: -1, arrivee: -1};
+
+async function chargerGraphe() {
+  const res = await fetch('lines.json');
+  const lines = await res.json();
+
+  // Construire graphe depuis lines.json
+  const arretSet = new Set();
+  const graphe = {};
+  const arretLignes = {};
+
+  lines.forEach(line => {
+    if (!line.arrets || !line.arrets.length) return;
+    const { code, direction, couleurFond, couleurTexte } = line;
+
+    line.arrets.forEach((a, i) => {
+      arretSet.add(a.nom);
+      if (!arretLignes[a.nom]) arretLignes[a.nom] = [];
+      if (!arretLignes[a.nom].find(l => l.code === code && l.direction === direction)) {
+        arretLignes[a.nom].push({ code, direction, couleurFond, couleurTexte });
+      }
+
+      if (i < line.arrets.length - 1) {
+        const suivant = line.arrets[i + 1];
+        if (!graphe[a.nom]) graphe[a.nom] = [];
+        // Temps depuis les passages
+        let temps = 2;
+        try {
+          const h1 = a.passages[0].split(':').map(Number);
+          const h2 = suivant.passages[0].split(':').map(Number);
+          temps = Math.max(1, (h2[0]*60+h2[1]) - (h1[0]*60+h1[1]));
+        } catch(e) {}
+        graphe[a.nom].push({ to: suivant.nom, temps, code, direction, couleurFond, couleurTexte });
+      }
+    });
+  });
+
+  ARRETS = [...arretSet].sort();
+  GRAPHE = { graphe, arretLignes };
+}
+
+chargerGraphe();
+
+// ── Modes ────────────────────────────────────────────────────
+function setMode(mode) {
+  modeActuel = mode;
+  document.getElementById('form-arret').style.display = mode === 'arret' ? 'block' : 'none';
+  document.getElementById('form-adresse').style.display = mode === 'adresse' ? 'block' : 'none';
+  document.getElementById('tab-arret').classList.toggle('active', mode === 'arret');
+  document.getElementById('tab-adresse').classList.toggle('active', mode === 'adresse');
+  document.getElementById('resultats').innerHTML = '';
+}
+
+// ── Autocomplete ─────────────────────────────────────────────
+function autocomplete(input, listId, field) {
+  const q = input.value.toLowerCase().trim();
+  const list = document.getElementById(listId);
+  if (field === 'depart') selectedDepart = null;
+  else selectedArrivee = null;
+
+  if (q.length < 2) { list.style.display = 'none'; return; }
+
+  const matches = ARRETS.filter(a => a.toLowerCase().includes(q)).slice(0, 8);
+  if (!matches.length) { list.style.display = 'none'; return; }
+
+  autoIdx[field] = -1;
+  list.innerHTML = matches.map(a => {
+    const lignes = (GRAPHE?.arretLignes[a] || []).map(l =>
+      `<span style="background:${l.couleurFond};color:${l.couleurTexte};font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;font-family:Syne,sans-serif">${l.code}</span>`
+    ).join(' ');
+    return `<div class="autocomplete-item" onclick="selectArret('${a.replace(/'/g,"\\'")}','${field}')">
+      <span style="flex:1">${a}</span><span style="display:flex;gap:3px">${lignes}</span>
+    </div>`;
+  }).join('');
+  list.style.display = 'block';
+
+  document.addEventListener('click', function hide(e) {
+    if (!e.target.closest(`#${listId}`) && !e.target.closest(`#input-${field === 'depart' ? 'depart' : 'arrivee'}`)) {
+      list.style.display = 'none';
+      document.removeEventListener('click', hide);
+    }
+  });
+}
+
+function navAuto(e, listId, field) {
+  const items = document.querySelectorAll(`#${listId} .autocomplete-item`);
+  if (!items.length) return;
+  if (e.key === 'ArrowDown') { autoIdx[field] = Math.min(autoIdx[field]+1, items.length-1); }
+  else if (e.key === 'ArrowUp') { autoIdx[field] = Math.max(autoIdx[field]-1, 0); }
+  else if (e.key === 'Enter' && autoIdx[field] >= 0) { items[autoIdx[field]].click(); return; }
+  else if (e.key === 'Escape') { document.getElementById(listId).style.display = 'none'; return; }
+  items.forEach((it, i) => it.classList.toggle('selected', i === autoIdx[field]));
+}
+
+function selectArret(nom, field) {
+  if (field === 'depart') {
+    selectedDepart = nom;
+    document.getElementById('input-depart').value = nom;
+    document.getElementById('list-depart').style.display = 'none';
+  } else {
+    selectedArrivee = nom;
+    document.getElementById('input-arrivee').value = nom;
+    document.getElementById('list-arrivee').style.display = 'none';
+  }
+}
+
+function swapArrets() {
+  const d = document.getElementById('input-depart').value;
+  const a = document.getElementById('input-arrivee').value;
+  document.getElementById('input-depart').value = a;
+  document.getElementById('input-arrivee').value = d;
+  [selectedDepart, selectedArrivee] = [selectedArrivee, selectedDepart];
+}
+
+function swapAdresses() {
+  const d = document.getElementById('input-adresse-dep').value;
+  const a = document.getElementById('input-adresse-arr').value;
+  document.getElementById('input-adresse-dep').value = a;
+  document.getElementById('input-adresse-arr').value = d;
+  [selectedAdresseDep, selectedAdresseArr] = [selectedAdresseArr, selectedAdresseDep];
+}
+
+// ── Algorithme Dijkstra ──────────────────────────────────────
+function dijkstra(depart, arrivee, critere = 'temps') {
+  const graphe = GRAPHE.graphe;
+  const dist = {};
+  const prev = {};
+  const visited = new Set();
+  const queue = [[0, depart, null, null, null]]; // [cout, noeud, prev_noeud, ligne, direction]
+
+  dist[depart] = 0;
+
+  while (queue.length) {
+    queue.sort((a, b) => a[0] - b[0]);
+    const [cout, noeud, prevNoeud, ligne, direction] = queue.shift();
+
+    if (visited.has(noeud)) continue;
+    visited.add(noeud);
+    prev[noeud] = { from: prevNoeud, ligne, direction, cout };
+
+    if (noeud === arrivee) break;
+
+    for (const voisin of (graphe[noeud] || [])) {
+      if (visited.has(voisin.to)) continue;
+      // Coût : temps OU correspondances
+      let cout_sup = voisin.temps;
+      if (critere === 'correspondances') {
+        // Pénaliser les changements de ligne
+        const ligneActuelle = prev[noeud]?.ligne;
+        cout_sup = (ligneActuelle && ligneActuelle !== voisin.code) ? 15 : 1;
+      }
+      const newCout = cout + cout_sup;
+      if (newCout < (dist[voisin.to] ?? Infinity)) {
+        dist[voisin.to] = newCout;
+        queue.push([newCout, voisin.to, noeud, voisin.code, voisin.direction]);
+      }
+    }
+  }
+
+  if (!prev[arrivee]) return null;
+
+  // Reconstruire le chemin
+  const chemin = [];
+  let noeud = arrivee;
+  while (noeud && prev[noeud]?.from !== undefined) {
+    chemin.unshift({ arret: noeud, ligne: prev[noeud].ligne, direction: prev[noeud].direction });
+    noeud = prev[noeud].from;
+  }
+  if (noeud) chemin.unshift({ arret: noeud, ligne: null, direction: null });
+
+  return { chemin, cout: dist[arrivee] };
+}
+
+// ── Regrouper chemin en étapes par ligne ─────────────────────
+function regrouperEtapes(chemin) {
+  if (!chemin || chemin.length < 2) return [];
+  const etapes = [];
+  let i = 1;
+  while (i < chemin.length) {
+    const ligne = chemin[i].ligne;
+    const direction = chemin[i].direction;
+    const from = chemin[i-1].arret;
+    let j = i;
+    while (j < chemin.length && chemin[j].ligne === ligne && chemin[j].direction === direction) j++;
+    const to = chemin[j-1].arret;
+    const nbArrets = j - i;
+    // Trouver la couleur
+    const li = GRAPHE.arretLignes[from]?.find(l => l.code === ligne && l.direction === direction)
+            || GRAPHE.arretLignes[to]?.find(l => l.code === ligne);
+    etapes.push({ from, to, ligne, direction, nbArrets, couleurFond: li?.couleurFond || '#333', couleurTexte: li?.couleurTexte || 'white' });
+    i = j;
+    if (j < chemin.length) i = j; // correspondance
+  }
+  return etapes;
+}
+
+// ── Calculer temps total réel ────────────────────────────────
+function tempsTotal(chemin) {
+  let t = 0;
+  const graphe = GRAPHE.graphe;
+  for (let i = 0; i < chemin.length - 1; i++) {
+    const from = chemin[i].arret;
+    const to = chemin[i+1].arret;
+    const ligne = chemin[i+1].ligne;
+    const arc = graphe[from]?.find(a => a.to === to && a.code === ligne);
+    t += arc?.temps || 2;
+  }
+  return t;
+}
+
+// ── Afficher résultats ───────────────────────────────────────
+function afficherResultats(resultats, depart, arrivee) {
+  const div = document.getElementById('resultats');
+  if (!resultats.length) {
+    div.innerHTML = `<div class="error-msg">❌ Aucun itinéraire trouvé entre <strong>${depart}</strong> et <strong>${arrivee}</strong>. Ces arrêts ne sont peut-être pas connectés sur le réseau.</div>`;
+    return;
+  }
+
+  let html = `<div style="font-family:Syne,sans-serif;font-size:13px;color:var(--texte-sec);margin-bottom:1rem;font-weight:600">${resultats.length} itinéraire${resultats.length>1?'s':''} trouvé${resultats.length>1?'s':''}</div>`;
+
+  resultats.forEach((r, ri) => {
+    const etapes = regrouperEtapes(r.chemin);
+    const temps = tempsTotal(r.chemin);
+    const nbCorrespondances = etapes.length - 1;
+    const isBest = ri === 0;
+
+    // Ligne résumé
+    const lignesResume = etapes.map(e =>
+      `<span style="background:${e.couleurFond};color:${e.couleurTexte};font-family:Syne,sans-serif;font-size:12px;font-weight:800;padding:3px 10px;border-radius:6px">${e.ligne}</span>`
+    ).join('<span style="color:var(--texte-sec);font-size:12px;margin:0 4px">→</span>');
+
+    html += `<div class="result-card ${isBest?'best':''}">
+      <div class="result-header">
+        <span class="result-badge ${r.critere === 'temps' ? 'badge-rapide' : 'badge-direct'}">${r.critere === 'temps' ? '⚡ Le plus rapide' : '↔ Moins de changements'}</span>
+        ${isBest ? '<span style="font-size:11px;color:var(--or);font-weight:600">Recommandé</span>' : ''}
+        <span class="result-temps">${temps} min</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:1rem;flex-wrap:wrap">${lignesResume}</div>
+      <div style="font-size:12px;color:var(--texte-sec);margin-bottom:1rem">${nbCorrespondances} correspondance${nbCorrespondances>1?'s':''} · ${etapes.reduce((s,e)=>s+e.nbArrets,0)} arrêts</div>`;
+
+    etapes.forEach((e, ei) => {
+      html += `<div class="etape">
+        <div class="etape-ligne-col">
+          <div class="etape-badge" style="background:${e.couleurFond};color:${e.couleurTexte}">${e.ligne}</div>
+          <div class="etape-trait" style="background:${e.couleurFond}"></div>
+        </div>
+        <div class="etape-content">
+          <div class="etape-from">🟢 ${e.from}</div>
+          <div class="etape-to">🔴 ${e.to}</div>
+          <div class="etape-temps">Direction ${e.direction} · ${e.nbArrets} arrêt${e.nbArrets>1?'s':''}</div>
+        </div>
+      </div>`;
+      if (ei < etapes.length - 1) {
+        html += `<div class="correspondance">🔄 Correspondance à <strong style="color:var(--texte)">${e.to}</strong> → prendre la ligne <strong style="color:var(--or)">${etapes[ei+1].ligne}</strong></div>`;
+      }
+    });
+
+    html += `</div>`;
+  });
+
+  div.innerHTML = html;
+}
+
+// ── Recherche arrêt → arrêt ──────────────────────────────────
+function rechercherItineraire() {
+  const dep = selectedDepart || document.getElementById('input-depart').value.trim();
+  const arr = selectedArrivee || document.getElementById('input-arrivee').value.trim();
+
+  if (!dep || !arr) {
+    document.getElementById('resultats').innerHTML = '<div class="error-msg">⚠️ Veuillez saisir un arrêt de départ et d\'arrivée.</div>';
+    return;
+  }
+  if (!GRAPHE) {
+    document.getElementById('resultats').innerHTML = '<div class="loading">Chargement des données...</div>';
+    return;
+  }
+  if (dep === arr) {
+    document.getElementById('resultats').innerHTML = '<div class="error-msg">⚠️ Le départ et l\'arrivée sont identiques.</div>';
+    return;
+  }
+
+  // Vérifier que les arrêts existent
+  if (!ARRETS.includes(dep)) {
+    document.getElementById('resultats').innerHTML = `<div class="error-msg">⚠️ Arrêt "<strong>${dep}</strong>" introuvable. Vérifiez l'orthographe.</div>`;
+    return;
+  }
+  if (!ARRETS.includes(arr)) {
+    document.getElementById('resultats').innerHTML = `<div class="error-msg">⚠️ Arrêt "<strong>${arr}</strong>" introuvable. Vérifiez l'orthographe.</div>`;
+    return;
+  }
+
+  document.getElementById('resultats').innerHTML = '<div class="loading">🔍 Recherche en cours...</div>';
+
+  // Lancer les deux recherches
+  setTimeout(() => {
+    const r1 = dijkstra(dep, arr, 'temps');
+    const r2 = dijkstra(dep, arr, 'correspondances');
+
+    const resultats = [];
+    if (r1) resultats.push({ ...r1, critere: 'temps' });
+    if (r2 && JSON.stringify(r2.chemin) !== JSON.stringify(r1?.chemin)) {
+      resultats.push({ ...r2, critere: 'correspondances' });
+    }
+
+    afficherResultats(resultats, dep, arr);
+  }, 100);
+}
+
+// ── Recherche par adresse ────────────────────────────────────
+async function geocoderAdresse(adresse) {
+  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(adresse + ', Grenoble, Isère, France')}&format=json&limit=1&countrycodes=fr`;
+  const r = await fetch(url, { headers: { 'User-Agent': 'GGMobilites/1.0' } });
+  const data = await r.json();
+  if (data.length) return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon), label: data[0].display_name };
+  return null;
+}
+
+// Charger les coordonnées des arrêts (approximation depuis les passages)
+// On utilise Nominatim pour chaque arrêt à la demande
+const coordsCache = {};
+
+async function coordsArret(nom) {
+  if (coordsCache[nom]) return coordsCache[nom];
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent('arrêt ' + nom + ', Grenoble, Isère')}&format=json&limit=1&countrycodes=fr`;
+    const r = await fetch(url, { headers: { 'User-Agent': 'GGMobilites/1.0' } });
+    const data = await r.json();
+    if (data.length) {
+      const c = { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+      coordsCache[nom] = c;
+      return c;
+    }
+  } catch(e) {}
+  return null;
+}
+
+function distanceKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2-lat1) * Math.PI/180;
+  const dLon = (lon2-lon1) * Math.PI/180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+async function arretsProches(lat, lon, n = 5) {
+  const resultats = [];
+  // Géocoder un échantillon d'arrêts clés pour trouver les plus proches
+  const arretsCles = ['Gares', 'Victor Hugo', 'Grand\'Place', 'Verdun Préfecture', 'Universités Bibliothèques',
+    'Palais de Justice Gares', 'Chavant', 'Félix Viallet', 'Cité Jean Macé', 'Le Prisme',
+    'Seyssinet Pariset Mairie', 'Gières Gare Universités', 'Meylan Mairie', 'Les Claverins', 'L\'Ovalie',
+    'Vif Mairie', 'Le Péage', 'Chantefeuille', 'Les Béalières', 'La Valonne',
+    'Lycée du Grésivaudan', 'Palluel', 'Oxford', 'Docteur Mazet', 'Alsace Lorraine',
+    'Pont de Claix Mairie', 'Vizille Lycée', 'Uriage Gare', 'Vaulnaveys Le Haut Le Village'
+  ];
+
+  for (const nom of arretsCles) {
+    const c = await coordsArret(nom);
+    if (c) {
+      const d = distanceKm(lat, lon, c.lat, c.lon);
+      resultats.push({ nom, dist: d, coords: c });
+    }
+    await new Promise(r => setTimeout(r, 200));
+  }
+
+  return resultats.sort((a,b) => a.dist - b.dist).slice(0, n);
+}
+
+async function rechercherParAdresse() {
+  const adrDep = document.getElementById('input-adresse-dep').value.trim();
+  const adrArr = document.getElementById('input-adresse-arr').value.trim();
+
+  if (!adrDep || !adrArr) {
+    document.getElementById('resultats').innerHTML = '<div class="error-msg">⚠️ Veuillez renseigner les deux adresses.</div>';
+    return;
+  }
+
+  document.getElementById('resultats').innerHTML = '<div class="loading">📍 Géocodage des adresses...</div>';
+
+  try {
+    const [coordDep, coordArr] = await Promise.all([
+      selectedAdresseDep || geocoderAdresse(adrDep),
+      selectedAdresseArr || geocoderAdresse(adrArr)
+    ]);
+
+    if (!coordDep) {
+      document.getElementById('resultats').innerHTML = `<div class="error-msg">❌ Adresse de départ introuvable : <strong>${adrDep}</strong></div>`;
+      return;
+    }
+    if (!coordArr) {
+      document.getElementById('resultats').innerHTML = `<div class="error-msg">❌ Adresse d'arrivée introuvable : <strong>${adrArr}</strong></div>`;
+      return;
+    }
+
+    document.getElementById('resultats').innerHTML = '<div class="loading">🔍 Recherche des arrêts proches...</div>';
+
+    const [procheDep, procheArr] = await Promise.all([
+      arretsProches(coordDep.lat, coordDep.lon, 3),
+      arretsProches(coordArr.lat, coordArr.lon, 3)
+    ]);
+
+    // Afficher les arrêts proches pour que l'utilisateur choisisse
+    let html = `
+      <div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--texte);margin-bottom:1rem">
+        Arrêts les plus proches de votre départ
+      </div>`;
+    procheDep.forEach(a => {
+      html += `<div class="arret-proche" onclick="lancerDepuisArrets('${a.nom.replace(/'/g,"\\'")}', null, '${adrArr.replace(/'/g,"\\'")}')">
+        <span style="font-size:16px">🟢</span>
+        <div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--texte)">${a.nom}</div></div>
+        <span class="arret-proche-dist">~${(a.dist*1000).toFixed(0)} m</span>
+      </div>`;
+    });
+
+    html += `<div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--texte);margin:1.5rem 0 1rem">
+        Arrêts les plus proches de votre destination
+      </div>`;
+    procheArr.forEach(a => {
+      html += `<div class="arret-proche" onclick="lancerDepuisArrets(null, '${a.nom.replace(/'/g,"\\'")}', '${adrDep.replace(/'/g,"\\'")}')">
+        <span style="font-size:16px">🔴</span>
+        <div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--texte)">${a.nom}</div></div>
+        <span class="arret-proche-dist">~${(a.dist*1000).toFixed(0)} m</span>
+      </div>`;
+    });
+
+    html += `<div style="margin-top:1.5rem">
+      <button class="search-btn" onclick="lancerItineraire('${procheDep[0]?.nom.replace(/'/g,"\\'")}','${procheArr[0]?.nom.replace(/'/g,"\\'")}')">
+        🔍 Calculer le meilleur itinéraire
+      </button>
+    </div>`;
+
+    document.getElementById('resultats').innerHTML = html;
+
+    // Auto-calculer avec les 1ers arrêts
+    if (procheDep[0] && procheArr[0]) {
+      setTimeout(() => lancerItineraire(procheDep[0].nom, procheArr[0].nom), 500);
+    }
+
+  } catch(e) {
+    document.getElementById('resultats').innerHTML = `<div class="error-msg">❌ Erreur lors de la recherche : ${e.message}</div>`;
+  }
+}
+
+function lancerItineraire(dep, arr) {
+  const r1 = dijkstra(dep, arr, 'temps');
+  const r2 = dijkstra(dep, arr, 'correspondances');
+  const resultats = [];
+  if (r1) resultats.push({ ...r1, critere: 'temps' });
+  if (r2 && JSON.stringify(r2.chemin) !== JSON.stringify(r1?.chemin)) resultats.push({ ...r2, critere: 'correspondances' });
+
+  // Ajouter résultats après les arrêts proches
+  const divR = document.getElementById('resultats');
+  const existing = divR.innerHTML;
+  const sep = '<div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--texte);margin:1.5rem 0 1rem">Itinéraires proposés</div>';
+
+  let html = sep;
+  if (!resultats.length) {
+    html += '<div class="error-msg">❌ Aucun itinéraire trouvé entre ces arrêts.</div>';
+  } else {
+    resultats.forEach((r, ri) => {
+      const etapes = regrouperEtapes(r.chemin);
+      const temps = tempsTotal(r.chemin);
+      const nbCorrespondances = etapes.length - 1;
+      const lignesResume = etapes.map(e =>
+        `<span style="background:${e.couleurFond};color:${e.couleurTexte};font-family:Syne,sans-serif;font-size:12px;font-weight:800;padding:3px 10px;border-radius:6px">${e.ligne}</span>`
+      ).join('<span style="color:var(--texte-sec);font-size:12px;margin:0 4px">→</span>');
+
+      html += `<div class="result-card ${ri===0?'best':''}">
+        <div class="result-header">
+          <span class="result-badge ${r.critere==='temps'?'badge-rapide':'badge-direct'}">${r.critere==='temps'?'⚡ Le plus rapide':'↔ Moins de changements'}</span>
+          <span class="result-temps">${temps} min</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:1rem;flex-wrap:wrap">${lignesResume}</div>
+        <div style="font-size:12px;color:var(--texte-sec);margin-bottom:1rem">${nbCorrespondances} correspondance${nbCorrespondances>1?'s':''}</div>`;
+
+      etapes.forEach((e, ei) => {
+        html += `<div class="etape">
+          <div class="etape-ligne-col">
+            <div class="etape-badge" style="background:${e.couleurFond};color:${e.couleurTexte}">${e.ligne}</div>
+            <div class="etape-trait" style="background:${e.couleurFond}"></div>
+          </div>
+          <div class="etape-content">
+            <div class="etape-from">🟢 ${e.from}</div>
+            <div class="etape-to">🔴 ${e.to}</div>
+            <div class="etape-temps">Direction ${e.direction} · ${e.nbArrets} arrêt${e.nbArrets>1?'s':''}</div>
+          </div>
+        </div>`;
+        if (ei < etapes.length-1) html += `<div class="correspondance">🔄 Correspondance à <strong style="color:var(--texte)">${e.to}</strong> → ligne <strong style="color:var(--or)">${etapes[ei+1].ligne}</strong></div>`;
+      });
+      html += '</div>';
+    });
+  }
+
+  divR.innerHTML = existing.split(sep)[0] + html;
+}
+
+function lancerDepuisArrets(dep, arr, autreAdresse) {
+  if (!dep) {
+    setMode('arret');
+    document.getElementById('input-arrivee').value = arr;
+    selectedArrivee = arr;
+    document.getElementById('input-depart').focus();
+  } else if (!arr) {
+    setMode('arret');
+    document.getElementById('input-depart').value = dep;
+    selectedDepart = dep;
+    document.getElementById('input-arrivee').focus();
+  }
+}
+
+async function maPosition() {
+  if (!navigator.geolocation) {
+    alert("Géolocalisation non supportée par votre navigateur.");
+    return;
+  }
+  document.getElementById('input-adresse-dep').value = '📍 Localisation en cours...';
+  navigator.geolocation.getCurrentPosition(pos => {
+    const { latitude, longitude } = pos.coords;
+    selectedAdresseDep = { lat: latitude, lon: longitude };
+    document.getElementById('input-adresse-dep').value = `📍 Ma position (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`;
+  }, () => {
+    document.getElementById('input-adresse-dep').value = '';
+    alert("Impossible d'obtenir votre position.");
+  });
+}
+</script>
+</body>
+</html>
