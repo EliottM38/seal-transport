@@ -8,115 +8,91 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <style>
-    .itin-box { background:var(--noir-card); border:1px solid var(--bordure); border-radius:var(--radius); padding:1.5rem; margin-bottom:1rem; }
-    .itin-input-wrap { position:relative; }
+    .itin-layout { display:grid; grid-template-columns:420px 1fr; gap:1.5rem; align-items:start; }
+    @media(max-width:900px){ .itin-layout{grid-template-columns:1fr} }
+
+    .itin-box { background:var(--noir-card); border:1px solid var(--bordure); border-radius:var(--radius); padding:1.5rem; }
+    .itin-input-wrap { position:relative; margin-bottom:8px; }
     .itin-input {
       width:100%; padding:12px 16px 12px 44px; border-radius:var(--radius-sm);
       border:1px solid var(--bordure); background:var(--noir); color:var(--texte);
       font-size:14px; font-family:'DM Sans',sans-serif; transition:border 0.2s;
     }
     .itin-input:focus { outline:none; border-color:var(--or); }
-    .itin-input-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:18px; }
-    .autocomplete-list {
-      position:absolute; top:100%; left:0; right:0; z-index:100;
+    .itin-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:18px; pointer-events:none; }
+
+    .ac-list {
+      position:absolute; top:100%; left:0; right:0; z-index:1000;
       background:var(--noir-card); border:1px solid var(--or);
       border-top:none; border-radius:0 0 var(--radius-sm) var(--radius-sm);
-      max-height:220px; overflow-y:auto;
+      max-height:240px; overflow-y:auto; box-shadow:0 8px 24px rgba(0,0,0,0.4);
     }
-    .autocomplete-item {
-      padding:10px 16px; font-size:13px; color:var(--texte-sec);
-      cursor:pointer; border-bottom:1px solid var(--bordure); transition:background 0.15s;
-      display:flex; align-items:center; gap:8px;
+    .ac-item {
+      padding:10px 14px; font-size:13px; color:var(--texte-sec);
+      cursor:pointer; border-bottom:1px solid var(--bordure);
+      display:flex; align-items:center; gap:8px; transition:background 0.1s;
     }
-    .autocomplete-item:hover, .autocomplete-item.selected { background:var(--or-pale); color:var(--or); }
-    .autocomplete-item:last-child { border-bottom:none; }
-    .tab-btns { display:flex; gap:8px; margin-bottom:1.5rem; }
-    .tab-btn {
-      flex:1; padding:10px; border-radius:var(--radius-sm); font-size:13px;
-      font-weight:700; font-family:'Syne',sans-serif; cursor:pointer;
-      border:1px solid var(--bordure); background:var(--noir-card); color:var(--texte-sec);
-      transition:all 0.2s;
-    }
+    .ac-item:hover, .ac-item.sel { background:var(--or-pale); color:var(--texte); }
+    .ac-item-lignes { display:flex; gap:3px; margin-left:auto; flex-shrink:0; }
+    .ac-badge { font-family:'Syne',sans-serif; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px; color:white; }
+    .ac-type { font-size:10px; color:var(--texte-sec); background:rgba(255,255,255,0.05); padding:2px 6px; border-radius:4px; }
+
+    .tab-btns { display:flex; gap:8px; margin-bottom:1.25rem; }
+    .tab-btn { flex:1; padding:9px; border-radius:var(--radius-sm); font-size:13px; font-weight:700; font-family:'Syne',sans-serif; cursor:pointer; border:1px solid var(--bordure); background:var(--noir-card); color:var(--texte-sec); transition:all 0.2s; }
     .tab-btn.active { background:var(--or); color:var(--noir); border-color:var(--or); }
-    .swap-btn {
-      display:flex; align-items:center; justify-content:center;
-      width:36px; height:36px; border-radius:50%; background:var(--or-pale);
-      border:1px solid rgba(201,168,76,0.3); cursor:pointer; font-size:18px;
-      margin:8px auto; transition:all 0.2s;
-    }
+
+    .swap-btn { display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; background:var(--or-pale); border:1px solid rgba(201,168,76,0.3); cursor:pointer; font-size:16px; margin:6px auto; transition:all 0.2s; }
     .swap-btn:hover { background:var(--or); }
-    .search-btn {
-      width:100%; padding:13px; border-radius:var(--radius-sm);
-      background:var(--or); color:var(--noir); font-family:'Syne',sans-serif;
-      font-weight:700; font-size:15px; border:none; cursor:pointer;
-      transition:all 0.2s; margin-top:1rem;
-    }
+
+    .search-btn { width:100%; padding:13px; border-radius:var(--radius-sm); background:var(--or); color:var(--noir); font-family:'Syne',sans-serif; font-weight:700; font-size:14px; border:none; cursor:pointer; transition:all 0.2s; margin-top:1rem; }
     .search-btn:hover { background:var(--or-clair); }
-    .search-btn:disabled { background:#3A3A3A; color:var(--texte-sec); cursor:not-allowed; }
+    .search-btn:disabled { background:#2A2A2A; color:var(--texte-sec); cursor:not-allowed; }
+
+    /* Carte */
+    #carte { height:420px; border-radius:var(--radius); border:1px solid var(--bordure); overflow:hidden; background:var(--noir-card); }
+    .carte-placeholder { height:420px; border-radius:var(--radius); border:1px solid var(--bordure); background:var(--noir-card); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; color:var(--texte-sec); }
 
     /* Résultats */
-    .result-card {
-      background:var(--noir-card); border:1px solid var(--bordure);
-      border-radius:var(--radius); padding:1.25rem; margin-bottom:12px;
-      transition:border 0.2s; cursor:pointer;
-    }
-    .result-card:hover { border-color:rgba(201,168,76,0.4); }
-    .result-card.best { border-color:rgba(201,168,76,0.5); }
-    .result-header { display:flex; align-items:center; gap:10px; margin-bottom:1rem; }
-    .result-badge {
-      font-family:'Syne',sans-serif; font-size:11px; font-weight:700;
-      padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.07em;
-    }
-    .badge-rapide { background:rgba(0,168,107,0.15); color:#00A86B; }
-    .badge-direct { background:rgba(201,168,76,0.15); color:var(--or); }
-    .result-temps {
-      font-family:'Syne',sans-serif; font-size:24px; font-weight:800; color:var(--texte);
-      margin-left:auto;
-    }
-    .etape {
-      display:flex; gap:12px; padding:10px 0;
-      border-bottom:1px solid var(--bordure);
-    }
+    .result-card { background:var(--noir-card); border:1px solid var(--bordure); border-radius:var(--radius); padding:1.25rem; margin-bottom:10px; cursor:pointer; transition:border 0.2s; }
+    .result-card:hover, .result-card.active { border-color:rgba(201,168,76,0.5); }
+    .result-card.best { border-color:rgba(201,168,76,0.35); }
+    .result-header { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+    .rbadge { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; padding:3px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.06em; }
+    .rbadge-rapide { background:rgba(0,200,120,0.15); color:#00C878; }
+    .rbadge-direct { background:rgba(201,168,76,0.15); color:var(--or); }
+    .result-temps-gros { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:var(--texte); margin-left:auto; }
+
+    .etape { display:flex; gap:10px; padding:8px 0; border-bottom:1px solid var(--bordure); }
     .etape:last-child { border-bottom:none; }
-    .etape-ligne-col { display:flex; flex-direction:column; align-items:center; flex-shrink:0; }
-    .etape-badge {
-      font-family:'Syne',sans-serif; font-size:12px; font-weight:800;
-      padding:4px 10px; border-radius:6px; color:white; min-width:40px; text-align:center;
-    }
-    .etape-trait { width:2px; flex:1; margin:4px 0; min-height:20px; }
-    .etape-content { flex:1; }
-    .etape-from { font-size:14px; font-weight:600; color:var(--texte); }
-    .etape-to { font-size:13px; color:var(--texte-sec); margin-top:2px; }
-    .etape-temps { font-size:12px; color:var(--texte-sec); margin-top:4px; }
-    .correspondance {
-      display:flex; align-items:center; gap:8px;
-      padding:8px 12px; margin:4px 0;
-      background:rgba(201,168,76,0.06); border-radius:6px;
-      font-size:12px; color:var(--texte-sec);
-    }
+    .etape-col { display:flex; flex-direction:column; align-items:center; flex-shrink:0; width:44px; }
+    .etape-badge { font-family:'Syne',sans-serif; font-size:11px; font-weight:800; padding:4px 6px; border-radius:6px; color:white; text-align:center; width:100%; }
+    .etape-trait { width:2px; flex:1; min-height:16px; margin:3px 0; border-radius:1px; }
+    .etape-from { font-size:13px; font-weight:600; color:var(--texte); }
+    .etape-to { font-size:12px; color:var(--texte-sec); margin-top:2px; }
+    .etape-info { font-size:11px; color:var(--texte-sec); margin-top:3px; }
+    .corresp { display:flex; align-items:center; gap:6px; padding:6px 10px; margin:3px 0; background:rgba(201,168,76,0.05); border-radius:6px; font-size:12px; color:var(--texte-sec); }
+
+    .error-msg { background:rgba(231,76,60,0.08); border:1px solid rgba(231,76,60,0.25); border-radius:var(--radius-sm); padding:1rem; color:#E74C3C; font-size:14px; }
     .loading { text-align:center; padding:2rem; color:var(--texte-sec); font-size:14px; }
-    .error-msg { background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3); border-radius:var(--radius-sm); padding:1rem; color:#E74C3C; font-size:14px; margin-top:1rem; }
-    .arret-proche {
-      display:flex; align-items:center; gap:10px; padding:10px 14px;
-      background:var(--noir); border-radius:var(--radius-sm);
-      border:1px solid var(--bordure); margin-bottom:6px;
-      cursor:pointer; transition:all 0.15s;
-    }
-    .arret-proche:hover { border-color:var(--or); background:var(--or-pale); }
-    .arret-proche-dist { font-size:11px; color:var(--texte-sec); margin-left:auto; }
+
+    .pos-btn { font-size:12px; color:var(--or); background:none; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; padding:4px 0; }
+    .pos-btn:hover { color:var(--or-clair); }
+
+    .lignes-resume { display:flex; align-items:center; gap:4px; flex-wrap:wrap; margin-bottom:8px; }
   </style>
 </head>
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="logo.png" alt="GGMobilités"> GGMobilités
-    </a>
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</a>
     <div class="nav-links">
-      <div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Lignes structurantes</a><a href="plan.html">Plan du réseau</a><a href="tad.html">Lignes TAD</a><a href="pl1-gares.html">Ligne nocturne</a><a href="infotrafic.html">Infotrafic</a></div></div>
+      <div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan du réseau</a><a href="tad.html">TAD</a><a href="infotrafic.html">Infotrafic</a></div></div>
       <a href="horaires.html">Horaires</a>
-      <div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div></div>
+      <a href="itineraire.html" class="active">Itinéraires</a>
+      <div class="nav-dropdown"><a href="tarifs.html">Tarifs ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div></div>
       <div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div>
       <a href="horaires.html" class="nav-cta">🕐 Horaires</a>
     </div>
@@ -125,600 +101,514 @@
 <div class="accent-bar"></div>
 
 <div class="page">
-  <div style="margin-bottom:2rem">
-    <h1 style="font-family:Syne,sans-serif;font-size:32px;font-weight:800;margin-bottom:6px;color:var(--texte)">Recherche d'itinéraires</h1>
-    <p style="color:var(--texte-sec)">Trouvez le meilleur trajet sur le réseau GGMobilités</p>
+  <div style="margin-bottom:1.5rem">
+    <h1 style="font-family:Syne,sans-serif;font-size:28px;font-weight:800;margin-bottom:4px;color:var(--texte)">Recherche d'itinéraires</h1>
+    <p style="color:var(--texte-sec);font-size:14px">Trouvez le meilleur trajet sur le réseau GGMobilités</p>
   </div>
 
-  <!-- Onglets mode -->
-  <div class="tab-btns">
-    <button class="tab-btn active" id="tab-arret" onclick="setMode('arret')">🚏 Arrêt → Arrêt</button>
-    <button class="tab-btn" id="tab-adresse" onclick="setMode('adresse')">📍 Adresse libre</button>
-  </div>
+  <div class="itin-layout">
+    <!-- Panneau gauche : formulaire + résultats -->
+    <div>
+      <div class="itin-box" style="margin-bottom:1rem">
+        <div class="tab-btns">
+          <button class="tab-btn active" id="tab-arret" onclick="setMode('arret')">🚏 Par arrêt</button>
+          <button class="tab-btn" id="tab-adresse" onclick="setMode('adresse')">📍 Par adresse</button>
+        </div>
 
-  <!-- Formulaire arrêt → arrêt -->
-  <div id="form-arret" class="itin-box">
-    <div class="itin-input-wrap" style="margin-bottom:0.5rem">
-      <span class="itin-input-icon">🟢</span>
-      <input class="itin-input" id="input-depart" placeholder="Arrêt de départ..." autocomplete="off" oninput="autocomplete(this,'list-depart','depart')" onkeydown="navAuto(event,'list-depart','depart')">
-      <div class="autocomplete-list" id="list-depart" style="display:none"></div>
-    </div>
-    <div class="swap-btn" onclick="swapArrets()" title="Inverser">⇅</div>
-    <div class="itin-input-wrap">
-      <span class="itin-input-icon">🔴</span>
-      <input class="itin-input" id="input-arrivee" placeholder="Arrêt d'arrivée..." autocomplete="off" oninput="autocomplete(this,'list-arrivee','arrivee')" onkeydown="navAuto(event,'list-arrivee','arrivee')">
-      <div class="autocomplete-list" id="list-arrivee" style="display:none"></div>
-    </div>
-    <button class="search-btn" onclick="rechercherItineraire()" id="btn-search">🔍 Rechercher</button>
-  </div>
+        <!-- Mode arrêt -->
+        <div id="form-arret">
+          <div class="itin-input-wrap">
+            <span class="itin-icon">🟢</span>
+            <input class="itin-input" id="dep-arret" placeholder="Arrêt de départ..." autocomplete="off">
+            <div class="ac-list" id="ac-dep" style="display:none"></div>
+          </div>
+          <div class="swap-btn" onclick="swap('arret')">⇅</div>
+          <div class="itin-input-wrap">
+            <span class="itin-icon">🔴</span>
+            <input class="itin-input" id="arr-arret" placeholder="Arrêt d'arrivée..." autocomplete="off">
+            <div class="ac-list" id="ac-arr" style="display:none"></div>
+          </div>
+        </div>
 
-  <!-- Formulaire adresse libre -->
-  <div id="form-adresse" class="itin-box" style="display:none">
-    <div class="itin-input-wrap" style="margin-bottom:0.5rem">
-      <span class="itin-input-icon">🟢</span>
-      <input class="itin-input" id="input-adresse-dep" placeholder="Adresse de départ..." autocomplete="off">
-    </div>
-    <div style="text-align:center;margin:4px 0">
-      <button onclick="maPosition()" style="font-size:12px;color:var(--or);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif">📍 Utiliser ma position</button>
-    </div>
-    <div class="swap-btn" onclick="swapAdresses()">⇅</div>
-    <div class="itin-input-wrap">
-      <span class="itin-input-icon">🔴</span>
-      <input class="itin-input" id="input-adresse-arr" placeholder="Adresse d'arrivée..." autocomplete="off">
-    </div>
-    <button class="search-btn" onclick="rechercherParAdresse()" id="btn-search-adr">🔍 Rechercher</button>
-  </div>
+        <!-- Mode adresse -->
+        <div id="form-adresse" style="display:none">
+          <div class="itin-input-wrap">
+            <span class="itin-icon">🟢</span>
+            <input class="itin-input" id="dep-adr" placeholder="Adresse de départ..." autocomplete="off">
+            <div class="ac-list" id="ac-dep-adr" style="display:none"></div>
+          </div>
+          <div style="text-align:center;margin:2px 0">
+            <button class="pos-btn" onclick="maPosition()">📍 Utiliser ma position GPS</button>
+          </div>
+          <div class="swap-btn" onclick="swap('adresse')">⇅</div>
+          <div class="itin-input-wrap">
+            <span class="itin-icon">🔴</span>
+            <input class="itin-input" id="arr-adr" placeholder="Adresse d'arrivée..." autocomplete="off">
+            <div class="ac-list" id="ac-arr-adr" style="display:none"></div>
+          </div>
+        </div>
 
-  <!-- Zone résultats -->
-  <div id="resultats"></div>
+        <button class="search-btn" id="btn-search" onclick="rechercher()">🔍 Rechercher un itinéraire</button>
+      </div>
+
+      <div id="resultats"></div>
+    </div>
+
+    <!-- Panneau droit : carte -->
+    <div style="position:sticky;top:80px">
+      <div class="carte-placeholder" id="carte-placeholder">
+        <div style="font-size:40px">🗺️</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--texte)">Carte de l'itinéraire</div>
+        <div style="font-size:13px">Le trajet s'affichera ici après la recherche</div>
+      </div>
+      <div id="carte" style="display:none"></div>
+    </div>
+  </div>
 </div>
 
 <footer>
   <div class="accent-bar"></div>
-  <div style="padding:3rem 2rem">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</div>
-        <p class="footer-desc">Le réseau de transport urbain de Grenoble et sa région.</p>
-      </div>
-      <div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan du réseau</a><a href="infotrafic.html">Infotrafic</a></div>
-      <div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="agences.html">Agences</a></div>
-      <div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a></div>
+  <div style="padding:2rem">
+    <div class="footer-bottom" style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;font-size:12px;color:var(--texte-sec)">
+      <span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span>
     </div>
-    <div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div>
   </div>
 </footer>
 
 <script>
-// ── Données ──────────────────────────────────────────────────
-let GRAPHE = null;
-let ARRETS = [];
-let selectedDepart = null, selectedArrivee = null;
-let selectedAdresseDep = null, selectedAdresseArr = null;
+// ── Données globales ─────────────────────────────────────────
+let LINES = null, GRAPHE = {}, ARRET_LIGNES = {}, ARRETS = [];
+let selDep = null, selArr = null;
+let carte = null, layerItin = null;
 let modeActuel = 'arret';
-let autoIdx = {depart: -1, arrivee: -1};
 
-async function chargerGraphe() {
+// Coordonnées des arrêts
+const COORDS = {"Gares":[45.1907,5.7153],"Félix Viallet":[45.1893,5.7145],"Victor Hugo":[45.1872,5.7253],"Docteur Mazet":[45.188,5.7198],"Docteur Martin":[45.1863,5.727],"Chavant":[45.1842,5.7285],"Verdun Préfecture":[45.1916,5.7243],"Alsace Lorraine":[45.1892,5.7167],"Estacade Condorcet":[45.1876,5.7152],"Vallier Libération":[45.1861,5.7136],"Vallier Catane":[45.1838,5.7098],"Vallier Docteur Calmette":[45.1848,5.7117],"Paix":[45.193,5.7221],"Île Verte":[45.1952,5.7289],"Cité Jean Macé":[45.1928,5.7128],"Arago":[45.192,5.7142],"Durand-Savoyat":[45.195,5.7108],"Marie-Louise Paris CEA":[45.1965,5.7095],"Oxford":[45.2015,5.7052],"Pique Pierre":[45.206,5.7025],"Rue de la Gare":[45.2082,5.701],"Louis Gagnière":[45.2115,5.6995],"Cap des H'":[45.215,5.6978],"Les Glairaux":[45.2175,5.6962],"Belledonne":[45.2195,5.6948],"Pont de Vence":[45.222,5.693],"La Pinéa Saint Robert":[45.2255,5.691],"Karben":[45.2278,5.6892],"Rafour":[45.2295,5.6875],"Palluel":[45.2318,5.6858],"Grenoble Hôtel de Ville":[45.1852,5.7278],"Sablons":[45.183,5.7305],"Carronnerie Île d'Amour":[45.1845,5.735],"Plaie Fleurie":[45.1862,5.7395],"Aiguinards Hexagone":[45.1878,5.7425],"La Revirée":[45.191,5.7462],"Buclos":[45.1945,5.7505],"Meylan Mairie":[45.1978,5.7542],"Maison de la Musique":[45.2008,5.7578],"Malacher":[45.2035,5.761],"Les Béalières":[45.2065,5.7648],"Charlaix Maupertuis":[45.2095,5.7682],"Busserolles":[45.2128,5.7715],"Baudonnière":[45.2165,5.7752],"INRIA":[45.2198,5.7785],"Croix Verte":[45.2218,5.7808],"Pré Millet":[45.2235,5.7825],"Le Prieuré":[45.2252,5.7842],"Les Claverins":[45.2275,5.7862],"Alliés":[45.187,5.7158],"Louise Michel":[45.1858,5.7142],"Stade Lesdiguières":[45.184,5.7128],"Quinzaine":[45.1818,5.7115],"Bayard":[45.1798,5.7102],"Écureuil":[45.1778,5.7088],"L'Étoile":[45.1758,5.7075],"Clos Dominique":[45.1735,5.7062],"Îles de Mars":[45.1712,5.7048],"L'Amphi":[45.1692,5.7035],"Irène Joliot Curie":[45.1672,5.7022],"Marceline":[45.1652,5.7008],"Pont de Claix Mairie":[45.1595,5.6985],"Pont Rouge":[45.1558,5.6962],"Carrière":[45.1535,5.6948],"Pré de l'Orme":[45.1512,5.6935],"Le Rochefort":[45.1478,5.6918],"Saint Ange":[45.1445,5.6902],"Rond Point de l'Europe":[45.1418,5.6888],"L'Oriel":[45.1398,5.6875],"République":[45.1355,5.6848],"Pélissière":[45.1308,5.6818],"Argenson":[45.1282,5.6802],"Caserne":[45.1258,5.6788],"La Colombe":[45.1232,5.6772],"Vif Mairie":[45.1198,5.6748],"Rivalta":[45.1168,5.6728],"La Masségu":[45.1135,5.6705],"La Valonne":[45.1098,5.6682],"Hôpital Couples Enfants":[45.1968,5.7312],"Commandant Nal":[45.2005,5.7352],"Musée Hébert":[45.2042,5.7392],"Centre Théologique":[45.2078,5.7432],"Le Cèdre":[45.2095,5.7458],"Jules Flandrin":[45.2112,5.7485],"Grésivaudan":[45.2128,5.7512],"Revirée Sayettes":[45.2145,5.7538],"Chaumetière":[45.2168,5.7565],"Saint Jean Bosco":[45.2195,5.7592],"Lycée du Grésivaudan Bachais":[45.2215,5.7615],"Lycée du Grésivaudan":[45.2235,5.7638],"Notre Dame Musée":[45.1945,5.7268],"Ancien Échevé":[45.1932,5.7255],"Le Prisme":[45.1738,5.6952],"Mas des Îles":[45.1758,5.6975],"Grand Pré":[45.1778,5.6998],"Fauconnière":[45.1798,5.7022],"Seyssinet Pariset Mairie":[45.1818,5.7048],"Driant":[45.1848,5.7298],"Auguste Ravier":[45.1858,5.7338],"Palais des Sports":[45.1865,5.7378],"Flandrin-Valmy":[45.1872,5.7418],"Péri-Brosselette":[45.1878,5.7448],"Neyrpic Belledonne":[45.1885,5.7488],"Clinique Belledonne":[45.1892,5.7518],"Champ Roman":[45.1898,5.7558],"Les Apilles":[45.1905,5.7598],"Universités Bibliothèques":[45.1912,5.7638],"Grand'Place":[45.1678,5.7152],"Pôle Sud Alpexpo":[45.1658,5.7178],"Alpexpo":[45.1635,5.7205],"François Quensay":[45.1615,5.7228],"Les Ruires Boétie":[45.1598,5.7258],"Odyssée":[45.1578,5.7285],"Avenue de Poisat":[45.1558,5.7312],"Champ Fila":[45.1538,5.7342],"Centre Socio-Culturel":[45.1518,5.7372],"Le Carina":[45.1498,5.7402],"Croix du Pâtre":[45.1852,5.7448],"Romain Rolland":[45.1868,5.7478],"Potié":[45.1882,5.7508],"Étienne Grappe":[45.1895,5.7538],"Parc Jo Baluchon":[45.1908,5.7568],"Paul Langevin":[45.1918,5.7598],"Pierre Courtade":[45.1928,5.7628],"Coli":[45.1938,5.7658],"Porte du Grésivaudan":[45.1948,5.7688],"Le Sonnant":[45.1958,5.7718],"Le Chamandier":[45.1968,5.7748],"Bois Taillis":[45.1978,5.7778],"Gières Gare Universités":[45.1942,5.7728],"Plaine des Sports":[45.1928,5.7698],"Vignate":[45.1918,5.7668],"Universités Biologies":[45.1912,5.7648],"Caserne de Bonne":[45.1858,5.7262],"Henri Frenay":[45.1845,5.7272],"Gustave Rivet":[45.1832,5.7282],"Rue des Déportés":[45.1818,5.7292],"Capuche":[45.1802,5.7302],"Eugène Sue":[45.1785,5.7312],"Stalingrad Alliés":[45.1768,5.7322],"Clos d'Or":[45.1752,5.7332],"Massenet":[45.1735,5.7342],"École Beauvert":[45.1718,5.7352],"Maupassant":[45.1702,5.7362],"Verlaine":[45.1682,5.7372],"Maison des Anciens":[45.1662,5.7382],"Edmond Esmonin":[45.1642,5.7392],"Avenue de l'Europe":[45.1622,5.7402],"Raymond Chanas":[45.1595,5.7422],"Collège des Saules":[45.1572,5.7442],"Général de Gaulle":[45.1548,5.7462],"Val d'Eybens":[45.1522,5.7482],"Les Javaux":[45.1495,5.7502],"Eybens le Bourg":[45.1468,5.7522],"Eybens Mairie":[45.1442,5.7542],"Le Crêt":[45.1418,5.7562],"Lagay":[45.1392,5.7582],"Bresson Mairie":[45.1365,5.7602],"Les Vignes":[45.1338,5.7622],"La Maritelle":[45.1305,5.7648],"Hôpital Sud":[45.1278,5.7668],"Écoles Hospitalières":[45.1252,5.7688],"Le Château":[45.1228,5.7708],"Antoine Polotti":[45.1205,5.7728],"La Rampe Centre Ville":[45.1178,5.7748],"Marie Curie":[45.1152,5.7768],"Auguste Delaune":[45.1128,5.7788],"Centre du Graphisme":[45.1102,5.7808],"Edelweiss":[45.1922,5.7758],"Pont de Venon":[45.1928,5.7788],"La Combe":[45.1895,5.7818],"Les Terrats":[45.1865,5.7848],"Le Chenil":[45.1832,5.7878],"Le Maupas":[45.1798,5.7908],"Les Peiffendes":[45.1762,5.7938],"Croisement 6":[45.1725,5.7968],"Uriage Gare":[45.1688,5.7998],"Route de Saint Martin":[45.1652,5.8028],"La Tuilerie":[45.1618,5.8058],"Les Alberges":[45.1582,5.8088],"Les Guichards":[45.1545,5.8118],"École Jules Bruant":[45.1508,5.8148],"Vaulnaveys Le Haut Le Village":[45.1472,5.8178],"Marchandises":[45.1435,5.8208],"Maison Blanche":[45.1398,5.8238],"Vaulnaveys Le Bas Le Village":[45.1355,5.8268],"Chemin des Cottes":[45.1315,5.8298],"Les Travers":[45.1278,5.8328],"Le Pont du Mas":[45.1238,5.8358],"Les Corniers":[45.1195,5.8388],"Les Allas":[45.1152,5.8418],"Chantefeuille":[45.1108,5.8448],"Cémoi":[45.1832,5.7058],"Berriat le Magasin":[45.1818,5.7072],"École Diderot":[45.1805,5.7085],"Cité Internationale":[45.1792,5.7098],"Martyrs Résistance":[45.2042,5.7032],"L'Argentière":[45.2075,5.6985],"Marat":[45.2108,5.6938],"Charmettes":[45.2125,5.6912],"Rue Pasteur":[45.2142,5.6888],"Curie Vercors":[45.1778,5.6978],"Louis Maisonnat":[45.1758,5.6958],"Les Îles":[45.1738,5.6938],"Bergès Vercors":[45.1808,5.6925],"Karl Marx":[45.1798,5.6908],"Jean Prévost":[45.1782,5.6888],"La Poya":[45.1765,5.6868],"Les Pies":[45.1748,5.6848],"Pré Fleury":[45.1728,5.6828],"Trefforine":[45.1708,5.6808],"Place de la Libération":[45.1688,5.6788],"Le Gua":[45.1668,5.6768],"L'Ovalie":[45.1645,5.6748],"Palais de Justice Gares":[45.1898,5.7138],"Rosa Parks":[45.1848,5.7048],"Docteur Schweitzer":[45.1832,5.7032],"MIN":[45.1812,5.7015],"Flaubert Clos d'Or":[45.1792,5.6998],"Malherbe":[45.1772,5.6982],"Louis Jouvet":[45.1752,5.6965],"Teisseire":[45.1732,5.6948],"Paul Coat":[45.1712,5.6932],"André Argouges":[45.1692,5.6915],"Suzanne Noël Les Bains":[45.1672,5.6898],"Edison":[45.1652,5.6882],"Clemenceau":[45.1632,5.6865],"Flandrin Valmy":[45.1875,5.7428],"Croix Rouge":[45.1882,5.7458],"Rue Henri Revoy":[45.1888,5.7488],"Maison Communale":[45.1895,5.7518],"Taillefer":[45.1922,5.7678],"Saint Mury":[45.2258,5.7665],"Les Jaillières":[45.2275,5.7688],"La Détourbe":[45.2292,5.7712],"Avenue du Général de Gaulle":[45.2312,5.7738],"La Gare":[45.2332,5.7762],"Saint Bruno":[45.1902,5.7182],"Pont du Vercors":[45.1788,5.7062],"Drac":[45.1748,5.6982],"Comboire":[45.1695,5.6908],"Carrière de Champagier":[45.1622,5.6848],"Pont de Champ":[45.1555,5.6788],"Jarie La Gare RN85":[45.1478,5.6728],"Avenue Maurice Thorez":[45.1418,5.6672],"L'Alliance":[45.1388,5.6648],"Place du Château":[45.1298,5.6598],"Vizille Lycée":[45.1238,5.6548],"Le Péage":[45.1158,5.6478],"Office de Tourisme":[45.1922,5.7168],"Rue Voltaire":[45.1915,5.7175],"Place de Metz":[45.1908,5.7188],"Place d'Apvril":[45.1901,5.7198],"Place André Malraux":[45.1892,5.7212],"Maréchal Joffre":[45.1882,5.7225],"Albert 1er de Belgique":[45.1872,5.7238],"Paul Janet":[45.1858,5.7252],"Rue Mallifaud":[45.1842,5.7268],"Roger Guigue":[45.1825,5.7285],"MC2 Maison de la Culture":[45.1808,5.7302],"Les Colibris":[45.1778,5.7338],"La Bruyère":[45.1758,5.7362],"Reynoard":[45.1738,5.7388],"Collège Olympique":[45.1712,5.7415],"Ensimag":[45.1918,5.7648],"Rue de la Chimie":[45.1925,5.7658],"Épicéa":[45.1932,5.7668],"Université IUT STAPS":[45.1938,5.7678],"Papetrie":[45.1945,5.7688],"Berges":[45.1952,5.7698],"Piscine":[45.1958,5.7708],"Ampère":[45.1965,5.7718],"IPAG":[45.1972,5.7728],"Glaciologie":[45.1978,5.7738],"Les Taillées Universités":[45.1985,5.7748],"Bâtiment 1000":[45.1992,5.7758],"Résidences":[45.1998,5.7768],"Condiac Universités":[45.2005,5.7778],"Plaines des Sports":[45.1932,5.7708],"Gières Gare Université":[45.1942,5.7728],"Esclangon":[45.1802,5.7112]};
+
+// ── Chargement données ───────────────────────────────────────
+async function init() {
   const res = await fetch('lines.json');
-  const lines = await res.json();
-
-  // Construire graphe depuis lines.json
-  const arretSet = new Set();
-  const graphe = {};
-  const arretLignes = {};
-
-  lines.forEach(line => {
-    if (!line.arrets || !line.arrets.length) return;
+  LINES = await res.json();
+  LINES.forEach(line => {
+    if (!line.arrets?.length || line.jour !== 'semaine') return;
     const { code, direction, couleurFond, couleurTexte } = line;
-
     line.arrets.forEach((a, i) => {
-      arretSet.add(a.nom);
-      if (!arretLignes[a.nom]) arretLignes[a.nom] = [];
-      if (!arretLignes[a.nom].find(l => l.code === code && l.direction === direction)) {
-        arretLignes[a.nom].push({ code, direction, couleurFond, couleurTexte });
-      }
-
+      if (!ARRET_LIGNES[a.nom]) ARRET_LIGNES[a.nom] = [];
+      if (!ARRET_LIGNES[a.nom].find(l => l.code === code && l.direction === direction))
+        ARRET_LIGNES[a.nom].push({ code, direction, couleurFond, couleurTexte });
       if (i < line.arrets.length - 1) {
-        const suivant = line.arrets[i + 1];
-        if (!graphe[a.nom]) graphe[a.nom] = [];
-        // Temps depuis les passages
+        const b = line.arrets[i+1];
+        if (!GRAPHE[a.nom]) GRAPHE[a.nom] = [];
         let temps = 2;
         try {
-          const h1 = a.passages[0].split(':').map(Number);
-          const h2 = suivant.passages[0].split(':').map(Number);
-          temps = Math.max(1, (h2[0]*60+h2[1]) - (h1[0]*60+h1[1]));
-        } catch(e) {}
-        graphe[a.nom].push({ to: suivant.nom, temps, code, direction, couleurFond, couleurTexte });
+          const [h1,m1] = a.passages[0].split(':').map(Number);
+          const [h2,m2] = b.passages[0].split(':').map(Number);
+          temps = Math.max(1, (h2*60+m2)-(h1*60+m1));
+        } catch(e){}
+        GRAPHE[a.nom].push({ to: b.nom, temps, code, direction, couleurFond, couleurTexte });
       }
     });
   });
+  ARRETS = Object.keys(ARRET_LIGNES).sort();
 
-  ARRETS = [...arretSet].sort();
-  GRAPHE = { graphe, arretLignes };
+  // Activer les inputs
+  setupInput('dep-arret', 'ac-dep', 'arr');
+  setupInput('arr-arret', 'ac-arr', 'dep');
+  setupInput('dep-adr', 'ac-dep-adr', null, true);
+  setupInput('arr-adr', 'ac-arr-adr', null, true);
 }
 
-chargerGraphe();
-
-// ── Modes ────────────────────────────────────────────────────
-function setMode(mode) {
-  modeActuel = mode;
-  document.getElementById('form-arret').style.display = mode === 'arret' ? 'block' : 'none';
-  document.getElementById('form-adresse').style.display = mode === 'adresse' ? 'block' : 'none';
-  document.getElementById('tab-arret').classList.toggle('active', mode === 'arret');
-  document.getElementById('tab-adresse').classList.toggle('active', mode === 'adresse');
-  document.getElementById('resultats').innerHTML = '';
-}
+init();
 
 // ── Autocomplete ─────────────────────────────────────────────
-function autocomplete(input, listId, field) {
-  const q = input.value.toLowerCase().trim();
+function setupInput(inputId, listId, otherField, isAdresse = false) {
+  const input = document.getElementById(inputId);
   const list = document.getElementById(listId);
-  if (field === 'depart') selectedDepart = null;
-  else selectedArrivee = null;
+  let idx = -1, debounceT;
 
-  if (q.length < 2) { list.style.display = 'none'; return; }
+  input.addEventListener('input', () => {
+    clearTimeout(debounceT);
+    debounceT = setTimeout(() => showAc(input, list, idx, isAdresse), isAdresse ? 400 : 100);
+    if (inputId === 'dep-arret') selDep = null;
+    if (inputId === 'arr-arret') selArr = null;
+  });
 
-  const matches = ARRETS.filter(a => a.toLowerCase().includes(q)).slice(0, 8);
-  if (!matches.length) { list.style.display = 'none'; return; }
+  input.addEventListener('keydown', e => {
+    const items = list.querySelectorAll('.ac-item');
+    if (e.key === 'ArrowDown') { idx = Math.min(idx+1, items.length-1); highlight(items, idx); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { idx = Math.max(idx-1, 0); highlight(items, idx); e.preventDefault(); }
+    else if (e.key === 'Enter' && idx >= 0) { items[idx].click(); }
+    else if (e.key === 'Escape') list.style.display = 'none';
+  });
 
-  autoIdx[field] = -1;
-  list.innerHTML = matches.map(a => {
-    const lignes = (GRAPHE?.arretLignes[a] || []).map(l =>
-      `<span style="background:${l.couleurFond};color:${l.couleurTexte};font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;font-family:Syne,sans-serif">${l.code}</span>`
-    ).join(' ');
-    return `<div class="autocomplete-item" onclick="selectArret('${a.replace(/'/g,"\\'")}','${field}')">
-      <span style="flex:1">${a}</span><span style="display:flex;gap:3px">${lignes}</span>
-    </div>`;
-  }).join('');
-  list.style.display = 'block';
-
-  document.addEventListener('click', function hide(e) {
-    if (!e.target.closest(`#${listId}`) && !e.target.closest(`#input-${field === 'depart' ? 'depart' : 'arrivee'}`)) {
-      list.style.display = 'none';
-      document.removeEventListener('click', hide);
-    }
+  document.addEventListener('click', e => {
+    if (!e.target.closest(`#${listId}`) && !e.target.closest(`#${inputId}`)) list.style.display = 'none';
   });
 }
 
-function navAuto(e, listId, field) {
-  const items = document.querySelectorAll(`#${listId} .autocomplete-item`);
-  if (!items.length) return;
-  if (e.key === 'ArrowDown') { autoIdx[field] = Math.min(autoIdx[field]+1, items.length-1); }
-  else if (e.key === 'ArrowUp') { autoIdx[field] = Math.max(autoIdx[field]-1, 0); }
-  else if (e.key === 'Enter' && autoIdx[field] >= 0) { items[autoIdx[field]].click(); return; }
-  else if (e.key === 'Escape') { document.getElementById(listId).style.display = 'none'; return; }
-  items.forEach((it, i) => it.classList.toggle('selected', i === autoIdx[field]));
+async function showAc(input, list, idx, isAdresse) {
+  const q = input.value.trim();
+  if (q.length < 2) { list.style.display = 'none'; return; }
+
+  let items = [];
+  if (isAdresse) {
+    // Mélanger arrêts + suggestions nominatim
+    const arretMatches = ARRETS.filter(a => a.toLowerCase().includes(q.toLowerCase())).slice(0, 4);
+    items = arretMatches.map(a => ({
+      label: a, type: 'arrêt',
+      lignes: ARRET_LIGNES[a] || [],
+      isArret: true
+    }));
+
+    // Nominatim async
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q + ', Grenoble, Isère')}&format=json&limit=4&countrycodes=fr&addressdetails=1`;
+      const r = await fetch(url, { headers: { 'User-Agent': 'GGMobilites/1.0' } });
+      const data = await r.json();
+      data.forEach(d => {
+        const label = d.display_name.split(',').slice(0,3).join(',');
+        items.push({ label, type: 'adresse', lat: parseFloat(d.lat), lon: parseFloat(d.lon), isArret: false });
+      });
+    } catch(e) {}
+  } else {
+    const matches = ARRETS.filter(a => a.toLowerCase().includes(q.toLowerCase())).slice(0, 8);
+    items = matches.map(a => ({ label: a, type: 'arrêt', lignes: ARRET_LIGNES[a] || [], isArret: true }));
+  }
+
+  if (!items.length) { list.style.display = 'none'; return; }
+
+  list.innerHTML = items.map((item, i) => {
+    const badgesHtml = (item.lignes || []).slice(0, 5).map(l =>
+      `<span class="ac-badge" style="background:${l.couleurFond};color:${l.couleurTexte}">${l.code}</span>`
+    ).join('');
+    return `<div class="ac-item" data-idx="${i}" onclick="selectItem('${input.id}', '${list.id}', ${JSON.stringify(item).replace(/'/g,"&#39;")})">
+      <span style="font-size:14px">${item.type==='arrêt'?'🚏':'📍'}</span>
+      <span style="flex:1;font-size:13px">${item.label}</span>
+      <div class="ac-item-lignes">${badgesHtml}</div>
+    </div>`;
+  }).join('');
+  list.style.display = 'block';
+  idx = -1;
 }
 
-function selectArret(nom, field) {
-  if (field === 'depart') {
-    selectedDepart = nom;
-    document.getElementById('input-depart').value = nom;
-    document.getElementById('list-depart').style.display = 'none';
+function highlight(items, idx) {
+  items.forEach((it, i) => it.classList.toggle('sel', i === idx));
+}
+
+function selectItem(inputId, listId, item) {
+  document.getElementById(inputId).value = item.label;
+  document.getElementById(listId).style.display = 'none';
+  if (inputId === 'dep-arret') selDep = item.isArret ? item.label : null;
+  if (inputId === 'arr-arret') selArr = item.isArret ? item.label : null;
+  if (inputId === 'dep-adr') selDep = item;
+  if (inputId === 'arr-adr') selArr = item;
+}
+
+// ── Mode ─────────────────────────────────────────────────────
+function setMode(m) {
+  modeActuel = m;
+  document.getElementById('form-arret').style.display = m === 'arret' ? 'block' : 'none';
+  document.getElementById('form-adresse').style.display = m === 'adresse' ? 'block' : 'none';
+  document.getElementById('tab-arret').classList.toggle('active', m === 'arret');
+  document.getElementById('tab-adresse').classList.toggle('active', m === 'adresse');
+  selDep = selArr = null;
+}
+
+function swap(mode) {
+  if (mode === 'arret') {
+    const d = document.getElementById('dep-arret').value;
+    document.getElementById('dep-arret').value = document.getElementById('arr-arret').value;
+    document.getElementById('arr-arret').value = d;
+    [selDep, selArr] = [selArr, selDep];
   } else {
-    selectedArrivee = nom;
-    document.getElementById('input-arrivee').value = nom;
-    document.getElementById('list-arrivee').style.display = 'none';
+    const d = document.getElementById('dep-adr').value;
+    document.getElementById('dep-adr').value = document.getElementById('arr-adr').value;
+    document.getElementById('arr-adr').value = d;
+    [selDep, selArr] = [selArr, selDep];
   }
 }
 
-function swapArrets() {
-  const d = document.getElementById('input-depart').value;
-  const a = document.getElementById('input-arrivee').value;
-  document.getElementById('input-depart').value = a;
-  document.getElementById('input-arrivee').value = d;
-  [selectedDepart, selectedArrivee] = [selectedArrivee, selectedDepart];
+// ── Géolocalisation ──────────────────────────────────────────
+function maPosition() {
+  if (!navigator.geolocation) { alert('Géolocalisation non supportée.'); return; }
+  document.getElementById('dep-adr').value = '📍 Localisation...';
+  navigator.geolocation.getCurrentPosition(pos => {
+    selDep = { lat: pos.coords.latitude, lon: pos.coords.longitude, isArret: false, label: 'Ma position' };
+    document.getElementById('dep-adr').value = '📍 Ma position';
+  }, () => {
+    document.getElementById('dep-adr').value = '';
+    alert("Impossible d'obtenir votre position.");
+  });
 }
 
-function swapAdresses() {
-  const d = document.getElementById('input-adresse-dep').value;
-  const a = document.getElementById('input-adresse-arr').value;
-  document.getElementById('input-adresse-dep').value = a;
-  document.getElementById('input-adresse-arr').value = d;
-  [selectedAdresseDep, selectedAdresseArr] = [selectedAdresseArr, selectedAdresseDep];
+// ── Géocodage adresse ────────────────────────────────────────
+async function geocoder(adresse) {
+  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(adresse + ', Grenoble, Isère, France')}&format=json&limit=1&countrycodes=fr`;
+  const r = await fetch(url, { headers: { 'User-Agent': 'GGMobilites/1.0' } });
+  const data = await r.json();
+  if (data.length) return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+  return null;
 }
 
-// ── Algorithme Dijkstra ──────────────────────────────────────
-function dijkstra(depart, arrivee, critere = 'temps') {
-  const graphe = GRAPHE.graphe;
-  const dist = {};
+function distKm(lat1, lon1, lat2, lon2) {
+  const R = 6371, dLat = (lat2-lat1)*Math.PI/180, dLon = (lon2-lon1)*Math.PI/180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function arretLePlusProche(lat, lon) {
+  let best = null, bestD = Infinity;
+  for (const [nom, c] of Object.entries(COORDS)) {
+    if (!ARRET_LIGNES[nom]) continue;
+    const d = distKm(lat, lon, c[0], c[1]);
+    if (d < bestD) { bestD = d; best = nom; }
+  }
+  return { nom: best, dist: bestD };
+}
+
+// ── Dijkstra ─────────────────────────────────────────────────
+function dijkstra(dep, arr, critere = 'temps') {
+  const dist = { [dep]: 0 };
   const prev = {};
   const visited = new Set();
-  const queue = [[0, depart, null, null, null]]; // [cout, noeud, prev_noeud, ligne, direction]
-
-  dist[depart] = 0;
+  const queue = [[0, dep, null, null, null]];
 
   while (queue.length) {
-    queue.sort((a, b) => a[0] - b[0]);
-    const [cout, noeud, prevNoeud, ligne, direction] = queue.shift();
-
+    queue.sort((a,b) => a[0]-b[0]);
+    const [cout, noeud, pNoeud, ligne, dir] = queue.shift();
     if (visited.has(noeud)) continue;
     visited.add(noeud);
-    prev[noeud] = { from: prevNoeud, ligne, direction, cout };
+    prev[noeud] = { from: pNoeud, ligne, dir, cout };
+    if (noeud === arr) break;
 
-    if (noeud === arrivee) break;
-
-    for (const voisin of (graphe[noeud] || [])) {
-      if (visited.has(voisin.to)) continue;
-      // Coût : temps OU correspondances
-      let cout_sup = voisin.temps;
-      if (critere === 'correspondances') {
-        // Pénaliser les changements de ligne
-        const ligneActuelle = prev[noeud]?.ligne;
-        cout_sup = (ligneActuelle && ligneActuelle !== voisin.code) ? 15 : 1;
-      }
-      const newCout = cout + cout_sup;
-      if (newCout < (dist[voisin.to] ?? Infinity)) {
-        dist[voisin.to] = newCout;
-        queue.push([newCout, voisin.to, noeud, voisin.code, voisin.direction]);
+    for (const v of (GRAPHE[noeud] || [])) {
+      if (visited.has(v.to)) continue;
+      const ligneActuelle = prev[noeud]?.ligne;
+      let coutSup = critere === 'correspondances'
+        ? (ligneActuelle && ligneActuelle !== v.code ? 20 : 1)
+        : v.temps;
+      const nc = cout + coutSup;
+      if (nc < (dist[v.to] ?? Infinity)) {
+        dist[v.to] = nc; queue.push([nc, v.to, noeud, v.code, v.direction]);
       }
     }
   }
 
-  if (!prev[arrivee]) return null;
-
-  // Reconstruire le chemin
+  if (!prev[arr]) return null;
   const chemin = [];
-  let noeud = arrivee;
-  while (noeud && prev[noeud]?.from !== undefined) {
-    chemin.unshift({ arret: noeud, ligne: prev[noeud].ligne, direction: prev[noeud].direction });
-    noeud = prev[noeud].from;
-  }
-  if (noeud) chemin.unshift({ arret: noeud, ligne: null, direction: null });
-
-  return { chemin, cout: dist[arrivee] };
+  let n = arr;
+  while (n && prev[n]) { chemin.unshift({ arret: n, ...prev[n] }); n = prev[n].from; }
+  if (n) chemin.unshift({ arret: n, ligne: null, dir: null, from: null });
+  return { chemin, cout: dist[arr] };
 }
 
-// ── Regrouper chemin en étapes par ligne ─────────────────────
-function regrouperEtapes(chemin) {
-  if (!chemin || chemin.length < 2) return [];
-  const etapes = [];
+function etapes(chemin) {
+  const res = [];
   let i = 1;
   while (i < chemin.length) {
-    const ligne = chemin[i].ligne;
-    const direction = chemin[i].direction;
+    const { ligne, dir } = chemin[i];
     const from = chemin[i-1].arret;
     let j = i;
-    while (j < chemin.length && chemin[j].ligne === ligne && chemin[j].direction === direction) j++;
+    while (j < chemin.length && chemin[j].ligne === ligne && chemin[j].dir === dir) j++;
     const to = chemin[j-1].arret;
-    const nbArrets = j - i;
-    // Trouver la couleur
-    const li = GRAPHE.arretLignes[from]?.find(l => l.code === ligne && l.direction === direction)
-            || GRAPHE.arretLignes[to]?.find(l => l.code === ligne);
-    etapes.push({ from, to, ligne, direction, nbArrets, couleurFond: li?.couleurFond || '#333', couleurTexte: li?.couleurTexte || 'white' });
+    const li = GRAPHE[from]?.find(a => a.code === ligne) || GRAPHE[to]?.find(a => a.code === ligne);
+    res.push({ from, to, ligne, dir, nb: j-i, couleurFond: li?.couleurFond||'#444', couleurTexte: li?.couleurTexte||'white' });
     i = j;
-    if (j < chemin.length) i = j; // correspondance
   }
-  return etapes;
+  return res;
 }
 
-// ── Calculer temps total réel ────────────────────────────────
-function tempsTotal(chemin) {
+function tempsReel(chemin) {
   let t = 0;
-  const graphe = GRAPHE.graphe;
-  for (let i = 0; i < chemin.length - 1; i++) {
-    const from = chemin[i].arret;
-    const to = chemin[i+1].arret;
-    const ligne = chemin[i+1].ligne;
-    const arc = graphe[from]?.find(a => a.to === to && a.code === ligne);
+  for (let i = 0; i < chemin.length-1; i++) {
+    const arc = GRAPHE[chemin[i].arret]?.find(a => a.to === chemin[i+1].arret && a.code === chemin[i+1].ligne);
     t += arc?.temps || 2;
   }
   return t;
 }
 
-// ── Afficher résultats ───────────────────────────────────────
-function afficherResultats(resultats, depart, arrivee) {
+// ── Recherche principale ─────────────────────────────────────
+async function rechercher() {
   const div = document.getElementById('resultats');
+  div.innerHTML = '<div class="loading">🔍 Calcul en cours...</div>';
+
+  let dep, arr;
+
+  if (modeActuel === 'arret') {
+    dep = selDep || document.getElementById('dep-arret').value.trim();
+    arr = selArr || document.getElementById('arr-arret').value.trim();
+    if (!dep || !arr) { div.innerHTML = '<div class="error-msg">⚠️ Veuillez renseigner départ et arrivée.</div>'; return; }
+    if (!ARRETS.includes(dep)) { div.innerHTML = `<div class="error-msg">⚠️ Arrêt "<strong>${dep}</strong>" introuvable.</div>`; return; }
+    if (!ARRETS.includes(arr)) { div.innerHTML = `<div class="error-msg">⚠️ Arrêt "<strong>${arr}</strong>" introuvable.</div>`; return; }
+  } else {
+    div.innerHTML = '<div class="loading">📍 Géocodage des adresses...</div>';
+    let coordDep = selDep?.lat ? selDep : null;
+    let coordArr = selArr?.lat ? selArr : null;
+    if (!coordDep) coordDep = await geocoder(document.getElementById('dep-adr').value.trim());
+    if (!coordArr) coordArr = await geocoder(document.getElementById('arr-adr').value.trim());
+    if (!coordDep || !coordArr) { div.innerHTML = '<div class="error-msg">❌ Adresse introuvable.</div>'; return; }
+    const proche1 = arretLePlusProche(coordDep.lat, coordDep.lon);
+    const proche2 = arretLePlusProche(coordArr.lat, coordArr.lon);
+    dep = proche1.nom;
+    arr = proche2.nom;
+    // Afficher info arrêts proches
+    div.innerHTML = `<div style="font-size:12px;color:var(--texte-sec);margin-bottom:1rem;padding:10px;background:var(--or-pale);border-radius:8px;border:1px solid rgba(201,168,76,0.2)">
+      🟢 Arrêt de départ le plus proche : <strong style="color:var(--texte)">${dep}</strong> (~${(proche1.dist*1000).toFixed(0)} m)<br>
+      🔴 Arrêt d'arrivée le plus proche : <strong style="color:var(--texte)">${arr}</strong> (~${(proche2.dist*1000).toFixed(0)} m)
+    </div>`;
+  }
+
+  // Calculer les 2 itinéraires
+  setTimeout(() => {
+    const r1 = dijkstra(dep, arr, 'temps');
+    const r2 = dijkstra(dep, arr, 'correspondances');
+    const resultats = [];
+    if (r1) resultats.push({ ...r1, critere: 'temps' });
+    if (r2 && JSON.stringify(r2.chemin.map(c=>c.arret)) !== JSON.stringify(r1?.chemin.map(c=>c.arret)))
+      resultats.push({ ...r2, critere: 'correspondances' });
+    afficherResultats(resultats, dep, arr);
+  }, 50);
+}
+
+// ── Affichage résultats ──────────────────────────────────────
+function afficherResultats(resultats, dep, arr) {
+  const div = document.getElementById('resultats');
+  const existing = div.innerHTML;
+
   if (!resultats.length) {
-    div.innerHTML = `<div class="error-msg">❌ Aucun itinéraire trouvé entre <strong>${depart}</strong> et <strong>${arrivee}</strong>. Ces arrêts ne sont peut-être pas connectés sur le réseau.</div>`;
+    div.innerHTML = existing + '<div class="error-msg">❌ Aucun itinéraire trouvé. Les deux arrêts ne sont peut-être pas connectés.</div>';
     return;
   }
 
-  let html = `<div style="font-family:Syne,sans-serif;font-size:13px;color:var(--texte-sec);margin-bottom:1rem;font-weight:600">${resultats.length} itinéraire${resultats.length>1?'s':''} trouvé${resultats.length>1?'s':''}</div>`;
+  let html = existing + `<div style="font-family:Syne,sans-serif;font-size:13px;color:var(--texte-sec);margin-bottom:0.75rem;font-weight:600">${resultats.length} itinéraire${resultats.length>1?'s':''} · de <strong style="color:var(--texte)">${dep}</strong> à <strong style="color:var(--texte)">${arr}</strong></div>`;
 
   resultats.forEach((r, ri) => {
-    const etapes = regrouperEtapes(r.chemin);
-    const temps = tempsTotal(r.chemin);
-    const nbCorrespondances = etapes.length - 1;
-    const isBest = ri === 0;
+    const et = etapes(r.chemin);
+    const temps = tempsReel(r.chemin);
+    const nbCorr = et.length - 1;
 
-    // Ligne résumé
-    const lignesResume = etapes.map(e =>
-      `<span style="background:${e.couleurFond};color:${e.couleurTexte};font-family:Syne,sans-serif;font-size:12px;font-weight:800;padding:3px 10px;border-radius:6px">${e.ligne}</span>`
-    ).join('<span style="color:var(--texte-sec);font-size:12px;margin:0 4px">→</span>');
+    const lignesHtml = et.map(e =>
+      `<span class="ac-badge" style="background:${e.couleurFond};color:${e.couleurTexte};font-size:12px;padding:3px 10px">${e.ligne}</span>`
+    ).join(`<span style="color:var(--texte-sec);font-size:11px;margin:0 3px">→</span>`);
 
-    html += `<div class="result-card ${isBest?'best':''}">
+    html += `<div class="result-card ${ri===0?'best':''}" onclick="afficherSurCarte(${ri})" id="rcard-${ri}">
       <div class="result-header">
-        <span class="result-badge ${r.critere === 'temps' ? 'badge-rapide' : 'badge-direct'}">${r.critere === 'temps' ? '⚡ Le plus rapide' : '↔ Moins de changements'}</span>
-        ${isBest ? '<span style="font-size:11px;color:var(--or);font-weight:600">Recommandé</span>' : ''}
-        <span class="result-temps">${temps} min</span>
+        <span class="rbadge ${r.critere==='temps'?'rbadge-rapide':'rbadge-direct'}">${r.critere==='temps'?'⚡ Plus rapide':'↔ Moins de changements'}</span>
+        ${ri===0?'<span style="font-size:10px;color:var(--or);font-weight:600">★ Recommandé</span>':''}
+        <span class="result-temps-gros">${temps} min</span>
       </div>
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:1rem;flex-wrap:wrap">${lignesResume}</div>
-      <div style="font-size:12px;color:var(--texte-sec);margin-bottom:1rem">${nbCorrespondances} correspondance${nbCorrespondances>1?'s':''} · ${etapes.reduce((s,e)=>s+e.nbArrets,0)} arrêts</div>`;
+      <div class="lignes-resume">${lignesHtml}</div>
+      <div style="font-size:12px;color:var(--texte-sec);margin-bottom:10px">${nbCorr} correspondance${nbCorr>1?'s':''} · ${et.reduce((s,e)=>s+e.nb,0)} arrêts</div>`;
 
-    etapes.forEach((e, ei) => {
+    et.forEach((e, ei) => {
       html += `<div class="etape">
-        <div class="etape-ligne-col">
+        <div class="etape-col">
           <div class="etape-badge" style="background:${e.couleurFond};color:${e.couleurTexte}">${e.ligne}</div>
           <div class="etape-trait" style="background:${e.couleurFond}"></div>
         </div>
         <div class="etape-content">
           <div class="etape-from">🟢 ${e.from}</div>
           <div class="etape-to">🔴 ${e.to}</div>
-          <div class="etape-temps">Direction ${e.direction} · ${e.nbArrets} arrêt${e.nbArrets>1?'s':''}</div>
+          <div class="etape-info">Direction ${e.dir} · ${e.nb} arrêt${e.nb>1?'s':''}</div>
         </div>
       </div>`;
-      if (ei < etapes.length - 1) {
-        html += `<div class="correspondance">🔄 Correspondance à <strong style="color:var(--texte)">${e.to}</strong> → prendre la ligne <strong style="color:var(--or)">${etapes[ei+1].ligne}</strong></div>`;
-      }
+      if (ei < et.length-1)
+        html += `<div class="corresp">🔄 Correspondance → prendre la ligne <strong style="color:var(--or)">${et[ei+1].ligne}</strong> à <strong style="color:var(--texte)">${e.to}</strong></div>`;
     });
-
-    html += `</div>`;
+    html += `<div style="font-size:11px;color:var(--texte-sec);margin-top:8px;text-align:center">Cliquez pour voir sur la carte</div></div>`;
   });
 
   div.innerHTML = html;
+
+  // Stocker pour la carte
+  window._resultats = resultats;
+  window._dep = dep;
+  window._arr = arr;
+
+  // Afficher automatiquement le 1er sur la carte
+  afficherSurCarte(0);
 }
 
-// ── Recherche arrêt → arrêt ──────────────────────────────────
-function rechercherItineraire() {
-  const dep = selectedDepart || document.getElementById('input-depart').value.trim();
-  const arr = selectedArrivee || document.getElementById('input-arrivee').value.trim();
+// ── Carte Leaflet ────────────────────────────────────────────
+const COULEURS_LIGNE = {'C1':'#185FA5','C2':'#0F6E56','C3':'#993C1D','4':'#534AB7','5':'#3B6D11','6':'#854F0B','7':'#993556','8':'#5F5E5A','9':'#185FA5','10':'#0F6E56','11':'#A32D2D','60':'#412402','61':'#3B6D11','PL1':'#2C2C2A'};
 
-  if (!dep || !arr) {
-    document.getElementById('resultats').innerHTML = '<div class="error-msg">⚠️ Veuillez saisir un arrêt de départ et d\'arrivée.</div>';
-    return;
-  }
-  if (!GRAPHE) {
-    document.getElementById('resultats').innerHTML = '<div class="loading">Chargement des données...</div>';
-    return;
-  }
-  if (dep === arr) {
-    document.getElementById('resultats').innerHTML = '<div class="error-msg">⚠️ Le départ et l\'arrivée sont identiques.</div>';
-    return;
-  }
+function afficherSurCarte(idx) {
+  // Highlight card
+  document.querySelectorAll('.result-card').forEach((c, i) => c.classList.toggle('active', i === idx));
 
-  // Vérifier que les arrêts existent
-  if (!ARRETS.includes(dep)) {
-    document.getElementById('resultats').innerHTML = `<div class="error-msg">⚠️ Arrêt "<strong>${dep}</strong>" introuvable. Vérifiez l'orthographe.</div>`;
-    return;
+  const r = window._resultats?.[idx];
+  if (!r) return;
+
+  // Afficher carte
+  document.getElementById('carte-placeholder').style.display = 'none';
+  document.getElementById('carte').style.display = 'block';
+
+  // Init carte
+  if (!carte) {
+    carte = L.map('carte', { zoomControl: true, attributionControl: false });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19
+    }).addTo(carte);
+    L.control.attribution({ prefix: '© OpenStreetMap · CartoDB' }).addTo(carte);
   }
-  if (!ARRETS.includes(arr)) {
-    document.getElementById('resultats').innerHTML = `<div class="error-msg">⚠️ Arrêt "<strong>${arr}</strong>" introuvable. Vérifiez l'orthographe.</div>`;
-    return;
-  }
+  if (layerItin) layerItin.clearLayers();
+  layerItin = L.layerGroup().addTo(carte);
 
-  document.getElementById('resultats').innerHTML = '<div class="loading">🔍 Recherche en cours...</div>';
+  const et = etapes(r.chemin);
+  const bounds = [];
 
-  // Lancer les deux recherches
-  setTimeout(() => {
-    const r1 = dijkstra(dep, arr, 'temps');
-    const r2 = dijkstra(dep, arr, 'correspondances');
+  et.forEach(e => {
+    const couleur = COULEURS_LIGNE[e.ligne] || '#C9A84C';
+    // Trouver tous les arrêts de cette étape dans le chemin
+    const idxFrom = r.chemin.findIndex(c => c.arret === e.from);
+    const idxTo = r.chemin.findIndex(c => c.arret === e.to);
+    const troncon = r.chemin.slice(idxFrom, idxTo + 1);
 
-    const resultats = [];
-    if (r1) resultats.push({ ...r1, critere: 'temps' });
-    if (r2 && JSON.stringify(r2.chemin) !== JSON.stringify(r1?.chemin)) {
-      resultats.push({ ...r2, critere: 'correspondances' });
+    const points = troncon
+      .map(c => COORDS[c.arret])
+      .filter(Boolean)
+      .map(c => [c[0], c[1]]);
+
+    if (points.length >= 2) {
+      // Ligne du trajet
+      L.polyline(points, { color: couleur, weight: 5, opacity: 0.9, lineJoin: 'round' }).addTo(layerItin);
+      points.forEach(p => bounds.push(p));
     }
 
-    afficherResultats(resultats, dep, arr);
-  }, 100);
-}
-
-// ── Recherche par adresse ────────────────────────────────────
-async function geocoderAdresse(adresse) {
-  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(adresse + ', Grenoble, Isère, France')}&format=json&limit=1&countrycodes=fr`;
-  const r = await fetch(url, { headers: { 'User-Agent': 'GGMobilites/1.0' } });
-  const data = await r.json();
-  if (data.length) return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon), label: data[0].display_name };
-  return null;
-}
-
-// Charger les coordonnées des arrêts (approximation depuis les passages)
-// On utilise Nominatim pour chaque arrêt à la demande
-const coordsCache = {};
-
-async function coordsArret(nom) {
-  if (coordsCache[nom]) return coordsCache[nom];
-  try {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent('arrêt ' + nom + ', Grenoble, Isère')}&format=json&limit=1&countrycodes=fr`;
-    const r = await fetch(url, { headers: { 'User-Agent': 'GGMobilites/1.0' } });
-    const data = await r.json();
-    if (data.length) {
-      const c = { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
-      coordsCache[nom] = c;
-      return c;
-    }
-  } catch(e) {}
-  return null;
-}
-
-function distanceKm(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = (lat2-lat1) * Math.PI/180;
-  const dLon = (lon2-lon1) * Math.PI/180;
-  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-}
-
-async function arretsProches(lat, lon, n = 5) {
-  const resultats = [];
-  // Géocoder un échantillon d'arrêts clés pour trouver les plus proches
-  const arretsCles = ['Gares', 'Victor Hugo', 'Grand\'Place', 'Verdun Préfecture', 'Universités Bibliothèques',
-    'Palais de Justice Gares', 'Chavant', 'Félix Viallet', 'Cité Jean Macé', 'Le Prisme',
-    'Seyssinet Pariset Mairie', 'Gières Gare Universités', 'Meylan Mairie', 'Les Claverins', 'L\'Ovalie',
-    'Vif Mairie', 'Le Péage', 'Chantefeuille', 'Les Béalières', 'La Valonne',
-    'Lycée du Grésivaudan', 'Palluel', 'Oxford', 'Docteur Mazet', 'Alsace Lorraine',
-    'Pont de Claix Mairie', 'Vizille Lycée', 'Uriage Gare', 'Vaulnaveys Le Haut Le Village'
-  ];
-
-  for (const nom of arretsCles) {
-    const c = await coordsArret(nom);
-    if (c) {
-      const d = distanceKm(lat, lon, c.lat, c.lon);
-      resultats.push({ nom, dist: d, coords: c });
-    }
-    await new Promise(r => setTimeout(r, 200));
-  }
-
-  return resultats.sort((a,b) => a.dist - b.dist).slice(0, n);
-}
-
-async function rechercherParAdresse() {
-  const adrDep = document.getElementById('input-adresse-dep').value.trim();
-  const adrArr = document.getElementById('input-adresse-arr').value.trim();
-
-  if (!adrDep || !adrArr) {
-    document.getElementById('resultats').innerHTML = '<div class="error-msg">⚠️ Veuillez renseigner les deux adresses.</div>';
-    return;
-  }
-
-  document.getElementById('resultats').innerHTML = '<div class="loading">📍 Géocodage des adresses...</div>';
-
-  try {
-    const [coordDep, coordArr] = await Promise.all([
-      selectedAdresseDep || geocoderAdresse(adrDep),
-      selectedAdresseArr || geocoderAdresse(adrArr)
-    ]);
-
-    if (!coordDep) {
-      document.getElementById('resultats').innerHTML = `<div class="error-msg">❌ Adresse de départ introuvable : <strong>${adrDep}</strong></div>`;
-      return;
-    }
-    if (!coordArr) {
-      document.getElementById('resultats').innerHTML = `<div class="error-msg">❌ Adresse d'arrivée introuvable : <strong>${adrArr}</strong></div>`;
-      return;
-    }
-
-    document.getElementById('resultats').innerHTML = '<div class="loading">🔍 Recherche des arrêts proches...</div>';
-
-    const [procheDep, procheArr] = await Promise.all([
-      arretsProches(coordDep.lat, coordDep.lon, 3),
-      arretsProches(coordArr.lat, coordArr.lon, 3)
-    ]);
-
-    // Afficher les arrêts proches pour que l'utilisateur choisisse
-    let html = `
-      <div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--texte);margin-bottom:1rem">
-        Arrêts les plus proches de votre départ
-      </div>`;
-    procheDep.forEach(a => {
-      html += `<div class="arret-proche" onclick="lancerDepuisArrets('${a.nom.replace(/'/g,"\\'")}', null, '${adrArr.replace(/'/g,"\\'")}')">
-        <span style="font-size:16px">🟢</span>
-        <div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--texte)">${a.nom}</div></div>
-        <span class="arret-proche-dist">~${(a.dist*1000).toFixed(0)} m</span>
-      </div>`;
+    // Marqueurs arrêts intermédiaires
+    troncon.forEach((c, ci) => {
+      const coord = COORDS[c.arret];
+      if (!coord) return;
+      const isFirst = c.arret === e.from;
+      const isLast = c.arret === e.to;
+      if (isFirst || isLast) {
+        L.circleMarker([coord[0], coord[1]], {
+          radius: isFirst || isLast ? 8 : 4,
+          fillColor: couleur, color: '#fff', weight: 2,
+          fillOpacity: 1
+        }).bindTooltip(c.arret, { permanent: false, direction: 'top', className: 'leaflet-tooltip-custom' })
+          .addTo(layerItin);
+      }
     });
-
-    html += `<div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--texte);margin:1.5rem 0 1rem">
-        Arrêts les plus proches de votre destination
-      </div>`;
-    procheArr.forEach(a => {
-      html += `<div class="arret-proche" onclick="lancerDepuisArrets(null, '${a.nom.replace(/'/g,"\\'")}', '${adrDep.replace(/'/g,"\\'")}')">
-        <span style="font-size:16px">🔴</span>
-        <div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--texte)">${a.nom}</div></div>
-        <span class="arret-proche-dist">~${(a.dist*1000).toFixed(0)} m</span>
-      </div>`;
-    });
-
-    html += `<div style="margin-top:1.5rem">
-      <button class="search-btn" onclick="lancerItineraire('${procheDep[0]?.nom.replace(/'/g,"\\'")}','${procheArr[0]?.nom.replace(/'/g,"\\'")}')">
-        🔍 Calculer le meilleur itinéraire
-      </button>
-    </div>`;
-
-    document.getElementById('resultats').innerHTML = html;
-
-    // Auto-calculer avec les 1ers arrêts
-    if (procheDep[0] && procheArr[0]) {
-      setTimeout(() => lancerItineraire(procheDep[0].nom, procheArr[0].nom), 500);
-    }
-
-  } catch(e) {
-    document.getElementById('resultats').innerHTML = `<div class="error-msg">❌ Erreur lors de la recherche : ${e.message}</div>`;
-  }
-}
-
-function lancerItineraire(dep, arr) {
-  const r1 = dijkstra(dep, arr, 'temps');
-  const r2 = dijkstra(dep, arr, 'correspondances');
-  const resultats = [];
-  if (r1) resultats.push({ ...r1, critere: 'temps' });
-  if (r2 && JSON.stringify(r2.chemin) !== JSON.stringify(r1?.chemin)) resultats.push({ ...r2, critere: 'correspondances' });
-
-  // Ajouter résultats après les arrêts proches
-  const divR = document.getElementById('resultats');
-  const existing = divR.innerHTML;
-  const sep = '<div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--texte);margin:1.5rem 0 1rem">Itinéraires proposés</div>';
-
-  let html = sep;
-  if (!resultats.length) {
-    html += '<div class="error-msg">❌ Aucun itinéraire trouvé entre ces arrêts.</div>';
-  } else {
-    resultats.forEach((r, ri) => {
-      const etapes = regrouperEtapes(r.chemin);
-      const temps = tempsTotal(r.chemin);
-      const nbCorrespondances = etapes.length - 1;
-      const lignesResume = etapes.map(e =>
-        `<span style="background:${e.couleurFond};color:${e.couleurTexte};font-family:Syne,sans-serif;font-size:12px;font-weight:800;padding:3px 10px;border-radius:6px">${e.ligne}</span>`
-      ).join('<span style="color:var(--texte-sec);font-size:12px;margin:0 4px">→</span>');
-
-      html += `<div class="result-card ${ri===0?'best':''}">
-        <div class="result-header">
-          <span class="result-badge ${r.critere==='temps'?'badge-rapide':'badge-direct'}">${r.critere==='temps'?'⚡ Le plus rapide':'↔ Moins de changements'}</span>
-          <span class="result-temps">${temps} min</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:1rem;flex-wrap:wrap">${lignesResume}</div>
-        <div style="font-size:12px;color:var(--texte-sec);margin-bottom:1rem">${nbCorrespondances} correspondance${nbCorrespondances>1?'s':''}</div>`;
-
-      etapes.forEach((e, ei) => {
-        html += `<div class="etape">
-          <div class="etape-ligne-col">
-            <div class="etape-badge" style="background:${e.couleurFond};color:${e.couleurTexte}">${e.ligne}</div>
-            <div class="etape-trait" style="background:${e.couleurFond}"></div>
-          </div>
-          <div class="etape-content">
-            <div class="etape-from">🟢 ${e.from}</div>
-            <div class="etape-to">🔴 ${e.to}</div>
-            <div class="etape-temps">Direction ${e.direction} · ${e.nbArrets} arrêt${e.nbArrets>1?'s':''}</div>
-          </div>
-        </div>`;
-        if (ei < etapes.length-1) html += `<div class="correspondance">🔄 Correspondance à <strong style="color:var(--texte)">${e.to}</strong> → ligne <strong style="color:var(--or)">${etapes[ei+1].ligne}</strong></div>`;
-      });
-      html += '</div>';
-    });
-  }
-
-  divR.innerHTML = existing.split(sep)[0] + html;
-}
-
-function lancerDepuisArrets(dep, arr, autreAdresse) {
-  if (!dep) {
-    setMode('arret');
-    document.getElementById('input-arrivee').value = arr;
-    selectedArrivee = arr;
-    document.getElementById('input-depart').focus();
-  } else if (!arr) {
-    setMode('arret');
-    document.getElementById('input-depart').value = dep;
-    selectedDepart = dep;
-    document.getElementById('input-arrivee').focus();
-  }
-}
-
-async function maPosition() {
-  if (!navigator.geolocation) {
-    alert("Géolocalisation non supportée par votre navigateur.");
-    return;
-  }
-  document.getElementById('input-adresse-dep').value = '📍 Localisation en cours...';
-  navigator.geolocation.getCurrentPosition(pos => {
-    const { latitude, longitude } = pos.coords;
-    selectedAdresseDep = { lat: latitude, lon: longitude };
-    document.getElementById('input-adresse-dep').value = `📍 Ma position (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`;
-  }, () => {
-    document.getElementById('input-adresse-dep').value = '';
-    alert("Impossible d'obtenir votre position.");
   });
+
+  // Marqueur départ
+  const cDep = COORDS[window._dep];
+  const cArr = COORDS[window._arr];
+  if (cDep) {
+    L.marker([cDep[0], cDep[1]], { icon: L.divIcon({ className:'', html:`<div style="background:#00C878;width:14px;height:14px;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.4)"></div>`, iconSize:[14,14], iconAnchor:[7,7] }) })
+      .bindPopup(`<strong>Départ</strong><br>${window._dep}`)
+      .addTo(layerItin);
+    bounds.push([cDep[0], cDep[1]]);
+  }
+  if (cArr) {
+    L.marker([cArr[0], cArr[1]], { icon: L.divIcon({ className:'', html:`<div style="background:#E74C3C;width:14px;height:14px;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.4)"></div>`, iconSize:[14,14], iconAnchor:[7,7] }) })
+      .bindPopup(`<strong>Arrivée</strong><br>${window._arr}`)
+      .addTo(layerItin);
+    bounds.push([cArr[0], cArr[1]]);
+  }
+
+  if (bounds.length) carte.fitBounds(bounds, { padding: [30, 30] });
 }
 </script>
 </body>
