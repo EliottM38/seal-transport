@@ -1,323 +1,323 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin — GGMobilités</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    :root{--bleu:#0A2E5C;--or:#C9A84C;--or-c:#E8C96A;--rouge:#E74C3C;--orange:#E67E22;--vert:#2ECC71;--fond:#0F0F0F;--card:#1A1A1A;--bord:#2A2A2A;--tx:#F0EDE6;--txs:#9A9080}
-    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--fond);color:var(--tx);font-size:14px;min-height:100vh}
-    .login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
-    .login-card{background:var(--card);border:1px solid var(--bord);border-radius:16px;padding:2.5rem;width:100%;max-width:380px}
-    .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:2rem}
-    .login-logo img{width:52px;height:52px;object-fit:contain;background:transparent}
-    .login-title{font-size:20px;font-weight:800;color:var(--or)}
-    .login-sub{font-size:12px;color:var(--txs);margin-top:2px}
-    .admin{display:none;min-height:100vh;flex-direction:column}
-    .admin-header{background:var(--bleu);padding:0 2rem;display:flex;align-items:center;gap:12px;height:60px;position:sticky;top:0;z-index:100}
-    .admin-logo{display:flex;align-items:center;gap:8px;color:var(--or);font-weight:800;font-size:16px}
-    .admin-logo img{width:34px;height:34px;object-fit:contain;background:transparent}
-    .admin-user{font-size:12px;color:rgba(255,255,255,0.6);margin-left:auto}
-    .btn-back{color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;margin-right:8px}.btn-back:hover{color:white}
-    .btn-logout{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
-    .admin-body{display:flex;flex:1}
-    .sidebar{width:220px;background:var(--card);border-right:1px solid var(--bord);padding:1.5rem 0;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
-    .sidebar-section{font-size:10px;font-weight:700;color:var(--txs);text-transform:uppercase;letter-spacing:0.1em;padding:1rem 1.5rem 0.5rem}
-    .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 1.5rem;font-size:13px;font-weight:600;color:var(--txs);cursor:pointer;transition:all 0.15s;border-left:3px solid transparent}
-    .sidebar-item:hover{color:var(--tx);background:rgba(255,255,255,0.03)}
-    .sidebar-item.active{color:var(--or);border-left-color:var(--or);background:rgba(201,168,76,0.06)}
-    .sidebar-icon{font-size:16px;width:20px;text-align:center}
-    .main{flex:1;padding:2rem;max-width:980px}
-    .panel{display:none}.panel.active{display:block}
-    h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
-    .stitle{font-size:11px;font-weight:700;color:var(--txs);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;margin-top:1.5rem}
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:2rem}
-    .stat-card{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:1.25rem;text-align:center}
-    .stat-val{font-size:28px;font-weight:800;color:var(--or)}
-    .stat-label{font-size:11px;color:var(--txs);text-transform:uppercase;letter-spacing:0.06em;margin-top:6px}
-    .fcard{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
-    .field{margin-bottom:1rem}
-    .field label{display:block;font-size:11px;color:var(--txs);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em}
-    .field input,.field select,.field textarea{width:100%;padding:10px 14px;background:#0A0A0A;border:1px solid var(--bord);border-radius:8px;color:var(--tx);font-size:14px;font-family:inherit;transition:border 0.15s}
-    .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--or)}
-    .field textarea{min-height:90px;resize:vertical}
-    .field select option{background:#1A1A1A}
-    .fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-    .btn-or{padding:10px 20px;background:var(--or);color:#0A0A0A;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background 0.15s}
-    .btn-or:hover{background:var(--or-c)}.btn-or:disabled{opacity:0.5;cursor:not-allowed}
-    .btn-del{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);color:var(--rouge);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit}
-    .btn-del:hover{background:rgba(231,76,60,0.2)}
-    .btn-ghost{padding:8px 16px;background:transparent;border:1px solid var(--bord);color:var(--txs);border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit}
-    .btn-ghost:hover{border-color:var(--or);color:var(--or)}
-    .badge-ligne{display:inline-block;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:700;color:white}
-    .alert-card{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px}
-    .alert-card.rouge{border-left:3px solid var(--rouge)}.alert-card.orange{border-left:3px solid var(--orange)}
-    .alert-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
-    .rouge .alert-badge{background:rgba(231,76,60,0.15);color:var(--rouge)}.orange .alert-badge{background:rgba(230,126,34,0.15);color:var(--orange)}
-    .alert-content{flex:1}.alert-content strong{font-size:14px;display:block;margin-bottom:3px;color:var(--tx)}.alert-content p{font-size:12px;color:var(--txs);line-height:1.4}
-    .article-card{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:1.25rem;margin-bottom:10px}
-    .article-card h4{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:6px}.article-card p{font-size:13px;color:var(--txs);line-height:1.5;margin-bottom:10px}
-    .compte-card{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
-    .compte-avatar{width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--or);font-size:15px;flex-shrink:0}
-    .sync-bar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txs);background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:8px 14px;margin-bottom:1.5rem}
-    .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--vert);flex-shrink:0}
-    .sync-dot.loading{background:var(--orange);animation:pulse 1s ease-in-out infinite}.sync-dot.error{background:var(--rouge)}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.2}}
-    .activity-item{padding:8px 0;border-bottom:1px solid #111;font-size:12px;color:var(--txs)}.activity-item:last-child{border-bottom:none}
-    .toast-wrap{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:8px}
-    .toast{background:var(--card);border:1px solid var(--vert);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--vert);animation:slideIn 0.2s ease}
-    .toast.err{border-color:var(--rouge);color:var(--rouge)}
-    @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-    .err-msg{font-size:12px;color:var(--rouge);margin-top:8px;display:none}
-    .info-box{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:1rem 1.25rem;font-size:13px;color:var(--txs);margin-bottom:1.5rem;line-height:1.6}
-    .info-box strong{color:var(--or)}
-    /* Horaires */
-    .hor-step{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
-    .hor-step h3{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-    .step-num{width:22px;height:22px;border-radius:50%;background:var(--or);color:#0A0A0A;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .passage-list{max-height:300px;overflow-y:auto;border:1px solid var(--bord);border-radius:8px;margin-bottom:1rem}
-    .passage-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #111;font-size:13px}
-    .passage-row:last-child{border-bottom:none}
-    .passage-row:hover{background:rgba(255,255,255,0.02)}
-    .plage-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end;background:#111;border-radius:8px;padding:10px;margin-bottom:8px}
-    .plage-row .field{margin:0}
-    /* Agences */
-    .agence-card{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:1rem;margin-bottom:8px}
-    /* Images */
-    .img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:1rem}
-    .img-thumb{background:#111;border-radius:8px;aspect-ratio:16/9;overflow:hidden;position:relative;border:1px solid var(--bord)}
-    .img-thumb img{width:100%;height:100%;object-fit:cover}
-    .img-del{position:absolute;top:4px;right:4px;background:rgba(231,76,60,0.9);border:none;color:white;border-radius:4px;font-size:11px;cursor:pointer;padding:2px 6px}
-    .drop-zone{border:2px dashed var(--bord);border-radius:10px;padding:2rem;text-align:center;color:var(--txs);cursor:pointer;transition:all 0.2s;margin-bottom:1rem}
-    .drop-zone:hover,.drop-zone.over{border-color:var(--or);color:var(--or)}
-    /* Popup */
-    .popup-preview{background:#111;border-radius:10px;padding:1.5rem;margin-top:1rem;border:1px solid var(--bord)}
-    @media(max-width:700px){.sidebar{display:none}.fr2,.fr3{grid-template-columns:1fr}.main{padding:1.25rem}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — GGMobilités</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--b:#0A2E5C;--or:#C9A84C;--orc:#E8C96A;--r:#E74C3C;--o:#E67E22;--g:#27AE60;
+--bg:#0F0F0F;--card:#1A1A1A;--bord:#2A2A2A;--tx:#F0EDE6;--txs:#9A9080}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);font-size:14px}
+/* LOGIN */
+.lw{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+.lc{background:var(--card);border:1px solid var(--bord);border-radius:16px;padding:2.5rem;width:100%;max-width:380px}
+.ll{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
+.ll img{width:56px;height:56px;object-fit:contain}
+.lt{font-size:20px;font-weight:800;color:var(--or)}
+.ls{font-size:12px;color:var(--txs);margin-top:2px}
+/* ADMIN */
+.adm{display:none;min-height:100vh;flex-direction:column}
+.ah{background:var(--b);padding:0 2rem;display:flex;align-items:center;gap:12px;height:60px;position:sticky;top:0;z-index:100}
+.alo{display:flex;align-items:center;gap:8px;color:var(--or);font-weight:800;font-size:16px}
+.alo img{width:32px;height:32px;object-fit:contain}
+.au{font-size:12px;color:rgba(255,255,255,.6);margin-left:auto}
+.bk{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;margin-right:8px}.bk:hover{color:#fff}
+.blg{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
+.ab{display:flex;flex:1}
+/* SIDEBAR */
+.sb{width:220px;background:var(--card);border-right:1px solid var(--bord);padding:1.5rem 0;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
+.ss{font-size:10px;font-weight:700;color:var(--txs);text-transform:uppercase;letter-spacing:.1em;padding:1rem 1.5rem .5rem}
+.si{display:flex;align-items:center;gap:10px;padding:10px 1.5rem;font-size:13px;font-weight:600;color:var(--txs);cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.si:hover{color:var(--tx);background:rgba(255,255,255,.03)}
+.si.on{color:var(--or);border-left-color:var(--or);background:rgba(201,168,76,.06)}
+.si-ic{font-size:16px;width:20px;text-align:center}
+/* MAIN */
+.mn{flex:1;padding:2rem;max-width:1000px}
+.pn{display:none}.pn.on{display:block}
+h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
+.stl{font-size:11px;font-weight:700;color:var(--txs);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem;margin-top:1.5rem}
+/* STATS */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:2rem}
+.sc{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:1.25rem;text-align:center}
+.sv{font-size:28px;font-weight:800;color:var(--or)}.sl{font-size:11px;color:var(--txs);text-transform:uppercase;letter-spacing:.06em;margin-top:6px}
+/* FORMS */
+.fc{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.fd{margin-bottom:1rem}
+.fd label{display:block;font-size:11px;color:var(--txs);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.fd input,.fd select,.fd textarea{width:100%;padding:10px 14px;background:#0A0A0A;border:1px solid var(--bord);border-radius:8px;color:var(--tx);font-size:14px;font-family:inherit;transition:border .15s}
+.fd input:focus,.fd select:focus,.fd textarea:focus{outline:none;border-color:var(--or)}
+.fd textarea{min-height:90px;resize:vertical}
+.fd select option{background:#1A1A1A}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+/* BTNS */
+.bor{padding:10px 20px;background:var(--or);color:#0A0A0A;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.bor:hover{background:var(--orc)}.bor:disabled{opacity:.5;cursor:not-allowed}
+.bdel{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);color:var(--r);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit}
+.bdel:hover{background:rgba(231,76,60,.2)}
+.bgh{padding:8px 16px;background:transparent;border:1px solid var(--bord);color:var(--txs);border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit}
+.bgh:hover{border-color:var(--or);color:var(--or)}
+.bgh.sel{border-color:var(--or);color:var(--or);background:rgba(201,168,76,.08)}
+/* CARDS */
+.alc{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px}
+.alc.rouge{border-left:3px solid var(--r)}.alc.orange{border-left:3px solid var(--o)}
+.alb{font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.rouge .alb{background:rgba(231,76,60,.15);color:var(--r)}.orange .alb{background:rgba(230,126,34,.15);color:var(--o)}
+.alct{flex:1}.alct strong{font-size:14px;display:block;margin-bottom:3px;color:var(--tx)}.alct p{font-size:12px;color:var(--txs);line-height:1.4}
+.artc{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:1.25rem;margin-bottom:10px}
+.artc h4{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:6px}.artc p{font-size:13px;color:var(--txs);line-height:1.5;margin-bottom:10px}
+.cptc{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.cpav{width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--or);font-size:15px;flex-shrink:0}
+.agec{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:1rem;margin-bottom:8px}
+/* SYNC */
+.syn{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txs);background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:8px 14px;margin-bottom:1.5rem}
+.sd{width:7px;height:7px;border-radius:50%;background:var(--g);flex-shrink:0}
+.sd.ld{background:var(--o);animation:pu 1s ease-in-out infinite}.sd.er{background:var(--r)}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.2}}
+.act{padding:8px 0;border-bottom:1px solid #111;font-size:12px;color:var(--txs)}.act:last-child{border-bottom:none}
+/* TOAST */
+.tw{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:8px}
+.t{background:var(--card);border:1px solid var(--g);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--g);animation:si .2s ease}
+.t.e{border-color:var(--r);color:var(--r)}
+@keyframes si{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.em{font-size:12px;color:var(--r);margin-top:8px;display:none}
+.ib{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:1rem 1.25rem;font-size:13px;color:var(--txs);margin-bottom:1.5rem;line-height:1.6}
+.ib strong{color:var(--or)}
+/* HORAIRES */
+.hs{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.hs h3{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.sn{width:22px;height:22px;border-radius:50%;background:var(--or);color:#0A0A0A;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.plist{max-height:280px;overflow-y:auto;border:1px solid var(--bord);border-radius:8px;margin-bottom:1rem}
+.prow{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid #111;font-size:13px}
+.prow:last-child{border-bottom:none}.prow:hover{background:rgba(255,255,255,.02)}
+.plrow{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end;background:#111;border-radius:8px;padding:10px;margin-bottom:8px}
+.plrow .fd{margin:0}
+/* IMAGES */
+.dz{border:2px dashed var(--bord);border-radius:10px;padding:2rem;text-align:center;color:var(--txs);cursor:pointer;transition:all .2s;margin-bottom:1rem}
+.dz:hover,.dz.ov{border-color:var(--or);color:var(--or)}
+.ig{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:1rem}
+.it{background:#111;border-radius:8px;aspect-ratio:16/9;overflow:hidden;position:relative;border:1px solid var(--bord)}
+.it img{width:100%;height:100%;object-fit:cover}
+.idl{position:absolute;top:4px;right:4px;background:rgba(231,76,60,.9);border:none;color:#fff;border-radius:4px;font-size:11px;cursor:pointer;padding:2px 6px}
+/* POPUP */
+.ppv{background:#111;border-radius:10px;padding:1.5rem;margin-top:1rem;border:1px solid var(--bord)}
+@media(max-width:700px){.sb{display:none}.fr2,.fr3{grid-template-columns:1fr}.mn{padding:1.25rem}}
+</style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="login-wrap" id="login-wrap">
-  <div class="login-card">
-    <div class="login-logo">
+<!-- ── LOGIN ──────────────────────────────────────────── -->
+<div class="lw" id="lw">
+  <div class="lc">
+    <div class="ll">
       <img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités">
-      <div><div class="login-title">GGMobilités Admin</div><div class="login-sub">Espace administration</div></div>
+      <div><div class="lt">GGMobilités Admin</div><div class="ls">Espace administration</div></div>
     </div>
-    <div class="field"><label>Identifiant</label><input type="text" id="lu" placeholder="votre identifiant" autocomplete="username"></div>
-    <div class="field"><label>Mot de passe</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password"></div>
-    <div class="err-msg" id="lerr">Identifiant ou mot de passe incorrect.</div>
-    <button class="btn-or" style="width:100%;margin-top:1.25rem" onclick="tryLogin()">Se connecter</button>
+    <div class="fd"><label>Identifiant</label><input type="text" id="lu" placeholder="votre identifiant" autocomplete="username"></div>
+    <div class="fd"><label>Mot de passe</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password"></div>
+    <div class="em" id="lerr">Identifiant ou mot de passe incorrect.</div>
+    <button class="bor" style="width:100%;margin-top:1.25rem" onclick="tryLogin()">Se connecter</button>
     <div style="text-align:center;margin-top:1rem"><a href="index.html" style="font-size:12px;color:var(--txs);text-decoration:none">← Retour au site</a></div>
   </div>
 </div>
 
-<!-- ADMIN -->
-<div class="admin" id="admin">
-  <div class="admin-header">
-    <div class="admin-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="">GGMobilités Admin</div>
-    <span class="admin-user" id="admin-label"></span>
-    <a href="index.html" class="btn-back">← Site public</a>
-    <button class="btn-logout" onclick="logout()">Déconnexion</button>
+<!-- ── ADMIN ───────────────────────────────────────────── -->
+<div class="adm" id="adm">
+  <div class="ah">
+    <div class="alo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="">GGMobilités Admin</div>
+    <span class="au" id="alab"></span>
+    <a href="index.html" class="bk">← Site public</a>
+    <button class="blg" onclick="logout()">Déconnexion</button>
   </div>
-  <div class="admin-body">
-    <div class="sidebar">
-      <div class="sidebar-section">Navigation</div>
-      <div class="sidebar-item active" onclick="sw('dashboard')"><span class="sidebar-icon">📊</span>Tableau de bord</div>
-      <div class="sidebar-item" onclick="sw('infotrafic')"><span class="sidebar-icon">⚠️</span>Infotrafic</div>
-      <div class="sidebar-item" onclick="sw('horaires')"><span class="sidebar-icon">🕐</span>Horaires</div>
-      <div class="sidebar-item" onclick="sw('articles')"><span class="sidebar-icon">📰</span>Actualités</div>
-      <div class="sidebar-item" onclick="sw('agences')"><span class="sidebar-icon">🏢</span>Agences</div>
-      <div class="sidebar-item" onclick="sw('medias')"><span class="sidebar-icon">🖼️</span>Images & médias</div>
-      <div class="sidebar-item" onclick="sw('popup')"><span class="sidebar-icon">💬</span>Pop-up site</div>
-      <div class="sidebar-section">Paramètres</div>
-      <div class="sidebar-item" onclick="sw('comptes')"><span class="sidebar-icon">👥</span>Comptes admin</div>
+  <div class="ab">
+    <div class="sb">
+      <div class="ss">Navigation</div>
+      <div class="si on" onclick="sw('db')"><span class="si-ic">📊</span>Tableau de bord</div>
+      <div class="si" onclick="sw('it')"><span class="si-ic">⚠️</span>Infotrafic</div>
+      <div class="si" onclick="sw('hor')"><span class="si-ic">🕐</span>Horaires</div>
+      <div class="si" onclick="sw('art')"><span class="si-ic">📰</span>Actualités</div>
+      <div class="si" onclick="sw('age')"><span class="si-ic">🏢</span>Agences</div>
+      <div class="si" onclick="sw('med')"><span class="si-ic">🖼️</span>Images</div>
+      <div class="si" onclick="sw('pop')"><span class="si-ic">💬</span>Pop-up</div>
+      <div class="ss">Paramètres</div>
+      <div class="si" onclick="sw('cpt')"><span class="si-ic">👥</span>Comptes</div>
     </div>
-    <div class="main">
+    <div class="mn">
 
       <!-- DASHBOARD -->
-      <div class="panel active" id="panel-dashboard">
+      <div class="pn on" id="pn-db">
         <h2>Tableau de bord</h2>
-        <div class="sync-bar"><span class="sync-dot" id="sync-dot"></span><span id="sync-label">Connexion...</span></div>
-        <div class="stats-grid">
-          <div class="stat-card"><div class="stat-val" id="s-alertes">—</div><div class="stat-label">Alertes actives</div></div>
-          <div class="stat-card"><div class="stat-val" id="s-articles">—</div><div class="stat-label">Articles publiés</div></div>
-          <div class="stat-card"><div class="stat-val" id="s-modifs">—</div><div class="stat-label">Modifs horaires</div></div>
-          <div class="stat-card"><div class="stat-val">14</div><div class="stat-label">Lignes</div></div>
+        <div class="syn"><span class="sd" id="sdot"></span><span id="slab">Connexion...</span></div>
+        <div class="sg">
+          <div class="sc"><div class="sv" id="s-al">—</div><div class="sl">Alertes actives</div></div>
+          <div class="sc"><div class="sv" id="s-ar">—</div><div class="sl">Articles publiés</div></div>
+          <div class="sc"><div class="sv" id="s-hm">—</div><div class="sl">Modifs horaires</div></div>
+          <div class="sc"><div class="sv">14</div><div class="sl">Lignes</div></div>
         </div>
-        <div class="stitle">Activité récente</div>
-        <div class="fcard" id="activity-log" style="padding:0.5rem 1.5rem"><div class="activity-item">Chargement...</div></div>
+        <div class="stl">Activité récente</div>
+        <div class="fc" id="alog" style="padding:.5rem 1.5rem"><div class="act">Chargement...</div></div>
       </div>
 
       <!-- INFOTRAFIC -->
-      <div class="panel" id="panel-infotrafic">
+      <div class="pn" id="pn-it">
         <h2>Infotrafic</h2>
-        <div class="stitle">Nouvelle alerte</div>
-        <div class="fcard">
+        <div class="stl">Nouvelle alerte</div>
+        <div class="fc">
           <div class="fr2" style="margin-bottom:12px">
-            <div class="field" style="margin:0"><label>Ligne</label>
-              <select id="it-ligne"><option>C1</option><option>C2</option><option>C3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>60</option><option>61</option><option>PL1</option></select>
-            </div>
-            <div class="field" style="margin:0"><label>Niveau</label>
-              <select id="it-niveau"><option value="rouge">Perturbé (rouge)</option><option value="orange">Information (orange)</option></select>
-            </div>
+            <div class="fd" style="margin:0"><label>Ligne</label>
+              <select id="it-lg"><option>C1</option><option>C2</option><option>C3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>60</option><option>61</option><option>PL1</option></select></div>
+            <div class="fd" style="margin:0"><label>Niveau</label>
+              <select id="it-nv"><option value="rouge">Perturbé (rouge)</option><option value="orange">Information (orange)</option></select></div>
           </div>
-          <div class="field"><label>Titre</label><input type="text" id="it-titre" placeholder="Ex : Travaux secteur Meylan"></div>
-          <div class="field"><label>Description</label><textarea id="it-desc" placeholder="Détails de la perturbation..."></textarea></div>
-          <button class="btn-or" onclick="addAlerte()">Publier l'alerte</button>
+          <div class="fd"><label>Titre</label><input type="text" id="it-ti" placeholder="Ex : Travaux secteur Meylan"></div>
+          <div class="fd"><label>Description</label><textarea id="it-de" placeholder="Détails de la perturbation..."></textarea></div>
+          <button class="bor" onclick="addAlerte()">Publier l'alerte</button>
         </div>
-        <div class="stitle">Alertes actives</div>
-        <div id="alertes-list"></div>
+        <div class="stl">Alertes actives</div>
+        <div id="al-list"></div>
       </div>
 
-      <!-- HORAIRES (refait) -->
-      <div class="panel" id="panel-horaires">
+      <!-- HORAIRES -->
+      <div class="pn" id="pn-hor">
         <h2>Modification des horaires</h2>
-        <div class="info-box"><strong>Comment ça marche ?</strong><br>1. Choisissez la ligne et la direction. 2. Ajoutez, supprimez un passage ou modifiez une fréquence. 3. Sauvegardez sur GitHub — le site se met à jour automatiquement.</div>
+        <div class="ib"><strong>Mode opératoire :</strong> Sélectionnez la ligne et le jour. Choisissez l'action (ajouter / supprimer un passage ou modifier les fréquences). Puis sauvegardez sur GitHub.</div>
 
-        <!-- Étape 1 : sélection ligne/direction/jour -->
-        <div class="hor-step">
-          <h3><span class="step-num">1</span>Sélectionner la ligne</h3>
+        <div class="hs">
+          <h3><span class="sn">1</span> Sélectionner</h3>
           <div class="fr3">
-            <div class="field" style="margin:0"><label>Ligne</label>
-              <select id="hor-code" onchange="horChargerDirections()">
+            <div class="fd" style="margin:0"><label>Ligne</label>
+              <select id="h-code" onchange="hDir()">
                 <option value="">— Choisir —</option>
                 <option>C1</option><option>C2</option><option>C3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>60</option><option>61</option><option>PL1</option>
-              </select>
-            </div>
-            <div class="field" style="margin:0"><label>Direction (optionnel)</label>
-              <select id="hor-dir" onchange="horChargerJours()"><option value="">— Toutes —</option></select>
-            </div>
-            <div class="field" style="margin:0"><label>Jour</label>
-              <select id="hor-jour" onchange="horChargerContenu()"><option value="">— Choisir —</option><option value="semaine">Lun–Ven</option><option value="samedi">Samedi</option><option value="dimanche">Dimanche</option></select>
-            </div>
+              </select></div>
+            <div class="fd" style="margin:0"><label>Direction (optionnel)</label>
+              <select id="h-dir"><option value="">— Toutes —</option></select></div>
+            <div class="fd" style="margin:0"><label>Jour</label>
+              <select id="h-jour">
+                <option value="">— Choisir —</option>
+                <option value="semaine">Lun–Ven</option>
+                <option value="samedi">Samedi</option>
+                <option value="dimanche">Dimanche</option>
+              </select></div>
           </div>
         </div>
 
-        <!-- Étape 2 : action -->
-        <div class="hor-step" id="hor-action-step" style="display:none">
-          <h3><span class="step-num">2</span>Choisir l'action</h3>
+        <div class="hs" id="h-act-step" style="display:none">
+          <h3><span class="sn">2</span> Choisir l'action</h3>
           <div class="fr3">
-            <button class="btn-ghost" id="btn-add-passage" onclick="horSetAction('ajouter')" style="text-align:center;padding:1rem">➕<br><span style="font-size:12px;margin-top:4px;display:block">Ajouter un passage</span></button>
-            <button class="btn-ghost" id="btn-del-passage" onclick="horSetAction('supprimer')" style="text-align:center;padding:1rem">➖<br><span style="font-size:12px;margin-top:4px;display:block">Supprimer un passage</span></button>
-            <button class="btn-ghost" id="btn-freq" onclick="horSetAction('frequence')" style="text-align:center;padding:1rem">⏱️<br><span style="font-size:12px;margin-top:4px;display:block">Modifier la fréquence</span></button>
+            <button class="bgh" id="btn-add" onclick="hSetAct('add')" style="text-align:center;padding:1.2rem">➕<br><span style="font-size:12px;display:block;margin-top:4px">Ajouter un passage</span></button>
+            <button class="bgh" id="btn-del" onclick="hSetAct('del')" style="text-align:center;padding:1.2rem">➖<br><span style="font-size:12px;display:block;margin-top:4px">Supprimer un passage</span></button>
+            <button class="bgh" id="btn-freq" onclick="hSetAct('freq')" style="text-align:center;padding:1.2rem">⏱️<br><span style="font-size:12px;display:block;margin-top:4px">Modifier la fréquence</span></button>
           </div>
         </div>
 
-        <!-- Étape 3 : modification -->
-        <div class="hor-step" id="hor-edit-step" style="display:none">
-          <h3><span class="step-num">3</span>Modifier</h3>
-          <div id="hor-edit-content"></div>
-          <div style="display:flex;gap:12px;align-items:center;margin-top:1rem">
-            <button class="btn-or" onclick="sauvegarderHoraires()" id="btn-save-hor">Sauvegarder sur GitHub</button>
-            <span id="save-status" style="font-size:13px;color:var(--txs)"></span>
+        <div class="hs" id="h-edit-step" style="display:none">
+          <h3><span class="sn">3</span> Modifier</h3>
+          <div id="h-edit-cnt"></div>
+          <div style="display:flex;gap:12px;align-items:center;margin-top:1.25rem">
+            <button class="bor" id="btn-save" onclick="hSave()">Sauvegarder sur GitHub</button>
+            <span id="h-status" style="font-size:13px;color:var(--txs)"></span>
           </div>
         </div>
       </div>
 
       <!-- ARTICLES -->
-      <div class="panel" id="panel-articles">
+      <div class="pn" id="pn-art">
         <h2>Actualités</h2>
-        <div class="info-box"><strong>Carousel</strong> — Les articles publiés s'affichent en carousel sur la page d'accueil.</div>
-        <div class="stitle">Nouvel article</div>
-        <div class="fcard">
-          <div class="field"><label>Titre</label><input type="text" id="at" placeholder="Titre de l'article"></div>
+        <div class="ib"><strong>Carousel</strong> — Les articles s'affichent en carousel sur la page d'accueil du site.</div>
+        <div class="stl">Nouvel article</div>
+        <div class="fc">
+          <div class="fd"><label>Titre</label><input type="text" id="a-ti" placeholder="Titre de l'article"></div>
           <div class="fr2" style="margin-bottom:12px">
-            <div class="field" style="margin:0"><label>Catégorie</label>
-              <select id="ac"><option value="actualite">Actualité</option><option value="travaux">Travaux</option><option value="evenement">Événement</option><option value="info-reseau">Info réseau</option></select>
-            </div>
-            <div class="field" style="margin:0"><label>Date</label><input type="date" id="ad"></div>
+            <div class="fd" style="margin:0"><label>Catégorie</label>
+              <select id="a-cat"><option value="actualite">Actualité</option><option value="travaux">Travaux</option><option value="evenement">Événement</option><option value="info-reseau">Info réseau</option></select></div>
+            <div class="fd" style="margin:0"><label>Date</label><input type="date" id="a-dt"></div>
           </div>
-          <div class="field"><label>Image (URL)</label><input type="url" id="aimg" placeholder="https://... (optionnel)"></div>
-          <div class="field"><label>Contenu</label><textarea id="acont" style="min-height:120px" placeholder="Rédigez votre article..."></textarea></div>
-          <button class="btn-or" onclick="addArticle()">Publier l'article</button>
+          <div class="fd"><label>Image (URL, optionnel)</label><input type="url" id="a-img" placeholder="https://..."></div>
+          <div class="fd"><label>Contenu</label><textarea id="a-cnt" style="min-height:120px" placeholder="Rédigez votre article..."></textarea></div>
+          <button class="bor" onclick="addArticle()">Publier l'article</button>
         </div>
-        <div class="stitle">Articles publiés</div>
-        <div id="articles-list"></div>
+        <div class="stl">Articles publiés</div>
+        <div id="art-list"></div>
       </div>
 
       <!-- AGENCES -->
-      <div class="panel" id="panel-agences">
+      <div class="pn" id="pn-age">
         <h2>Agences de mobilités</h2>
-        <div class="stitle">Nouvelle agence</div>
-        <div class="fcard">
+        <div class="stl">Nouvelle agence</div>
+        <div class="fc">
           <div class="fr2">
-            <div class="field"><label>Nom</label><input type="text" id="ag-nom" placeholder="Agence Gares"></div>
-            <div class="field"><label>Adresse</label><input type="text" id="ag-adr" placeholder="Place de la Gare, Grenoble"></div>
+            <div class="fd"><label>Nom</label><input type="text" id="ag-n" placeholder="Agence Gares"></div>
+            <div class="fd"><label>Adresse</label><input type="text" id="ag-a" placeholder="Place de la Gare, Grenoble"></div>
           </div>
           <div class="fr2">
-            <div class="field"><label>Horaires semaine</label><input type="text" id="ag-sem" placeholder="Lun–Ven : 8h–19h"></div>
-            <div class="field"><label>Horaires sam/dim</label><input type="text" id="ag-we" placeholder="Sam : 9h–17h · Dim : fermé"></div>
+            <div class="fd"><label>Horaires semaine</label><input type="text" id="ag-s" placeholder="Lun–Ven : 8h–19h"></div>
+            <div class="fd"><label>Horaires sam/dim</label><input type="text" id="ag-w" placeholder="Sam : 9h–17h · Dim : fermé"></div>
           </div>
-          <div class="field"><label>Services disponibles</label><input type="text" id="ag-svc" placeholder="Vente, abonnements, rechargement..."></div>
-          <button class="btn-or" onclick="addAgence()">Ajouter l'agence</button>
+          <div class="fd"><label>Services disponibles</label><input type="text" id="ag-sv" placeholder="Vente, abonnements, rechargement..."></div>
+          <button class="bor" onclick="addAgence()">Ajouter</button>
         </div>
-        <div class="stitle">Agences existantes</div>
-        <div id="agences-list"></div>
+        <div class="stl">Agences existantes</div>
+        <div id="age-list"></div>
       </div>
 
-      <!-- MÉDIAS -->
-      <div class="panel" id="panel-medias">
+      <!-- IMAGES -->
+      <div class="pn" id="pn-med">
         <h2>Images & médias</h2>
-        <div class="info-box"><strong>Images</strong> — Téléversez des images à utiliser dans les articles ou sur le site. Les images sont encodées en base64 et stockées dans JSONBin.</div>
-        <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="handleDrop(event)">
+        <div class="ib"><strong>Images</strong> — Uploadez des images (max 2 Mo). Copiez l'URL base64 pour l'utiliser dans les articles.</div>
+        <div class="dz" id="dz" onclick="document.getElementById('fi').click()"
+          ondragover="event.preventDefault();this.classList.add('ov')"
+          ondragleave="this.classList.remove('ov')"
+          ondrop="hDrop(event)">
           <div style="font-size:32px;margin-bottom:8px">🖼️</div>
-          <div style="font-size:14px;font-weight:600">Cliquez ou glissez vos images ici</div>
+          <div style="font-size:14px;font-weight:600">Cliquer ou glisser des images ici</div>
           <div style="font-size:12px;margin-top:4px">JPG, PNG, WebP — max 2 Mo</div>
         </div>
-        <input type="file" id="file-input" accept="image/*" multiple style="display:none" onchange="handleFiles(this.files)">
-        <div class="img-grid" id="img-grid"></div>
-        <div id="img-urls" style="margin-top:1rem"></div>
+        <input type="file" id="fi" accept="image/*" multiple style="display:none" onchange="hFiles(this.files)">
+        <div class="ig" id="ig"></div>
+        <div id="iurls"></div>
       </div>
 
       <!-- POP-UP -->
-      <div class="panel" id="panel-popup">
+      <div class="pn" id="pn-pop">
         <h2>Pop-up d'accueil</h2>
-        <div class="info-box"><strong>Pop-up</strong> — Ce message s'affiche à l'arrivée sur le site. Laissez le titre vide pour désactiver le pop-up.</div>
-        <div class="fcard">
-          <div class="field"><label>Titre du pop-up</label><input type="text" id="pu-titre" placeholder="Ex : Nouveau service !"></div>
-          <div class="field"><label>Message</label><textarea id="pu-msg" placeholder="Texte affiché dans le pop-up..."></textarea></div>
+        <div class="ib"><strong>Pop-up</strong> — S'affiche à l'arrivée sur le site. Laissez le titre vide pour désactiver.</div>
+        <div class="fc">
+          <div class="fd"><label>Titre</label><input type="text" id="pu-t" placeholder="Ex : Nouveau service !"></div>
+          <div class="fd"><label>Message</label><textarea id="pu-m" placeholder="Texte affiché dans le pop-up..."></textarea></div>
           <div class="fr2">
-            <div class="field"><label>Couleur de fond</label>
-              <select id="pu-couleur">
-                <option value="info">Bleu (information)</option>
-                <option value="alerte">Rouge (alerte)</option>
-                <option value="succes">Vert (succès)</option>
-                <option value="or">Or (annonce)</option>
-              </select>
-            </div>
-            <div class="field"><label>Lien bouton (optionnel)</label><input type="text" id="pu-lien" placeholder="/infotrafic.html"></div>
+            <div class="fd"><label>Couleur</label>
+              <select id="pu-c"><option value="bleu">Bleu (info)</option><option value="rouge">Rouge (alerte)</option><option value="vert">Vert (succès)</option><option value="or">Or (annonce)</option></select></div>
+            <div class="fd"><label>Lien bouton (optionnel)</label><input type="text" id="pu-l" placeholder="/infotrafic.html"></div>
           </div>
-          <div class="field"><label>Texte bouton</label><input type="text" id="pu-btn" placeholder="En savoir plus"></div>
-          <button class="btn-or" onclick="sauvegarderPopup()">Sauvegarder le pop-up</button>
-          <button class="btn-ghost" style="margin-left:10px" onclick="desactiverPopup()">Désactiver</button>
+          <div class="fd"><label>Texte bouton</label><input type="text" id="pu-b" placeholder="En savoir plus"></div>
+          <div style="display:flex;gap:10px">
+            <button class="bor" onclick="savePopup()">Sauvegarder</button>
+            <button class="bgh" onclick="disablePopup()">Désactiver</button>
+          </div>
         </div>
-        <div class="popup-preview" id="popup-preview" style="display:none">
-          <div class="stitle">Aperçu</div>
-          <div id="popup-apercu"></div>
+        <div class="ppv" id="ppv" style="display:none">
+          <div class="stl">Aperçu</div>
+          <div id="ppap"></div>
         </div>
       </div>
 
       <!-- COMPTES -->
-      <div class="panel" id="panel-comptes">
-        <h2>Gestion des comptes admin</h2>
-        <div class="stitle">Comptes existants</div>
-        <div id="comptes-list" style="margin-bottom:2rem"></div>
-        <div class="stitle">Nouveau compte</div>
-        <div class="fcard">
+      <div class="pn" id="pn-cpt">
+        <h2>Comptes administrateurs</h2>
+        <div class="stl">Comptes existants</div>
+        <div id="cpt-list" style="margin-bottom:2rem"></div>
+        <div class="stl">Nouveau compte</div>
+        <div class="fc">
           <div class="fr2" style="margin-bottom:12px">
-            <div class="field" style="margin:0"><label>Identifiant</label><input type="text" id="nu" placeholder="identifiant"></div>
-            <div class="field" style="margin:0"><label>Mot de passe</label><input type="password" id="np" placeholder="••••••••"></div>
+            <div class="fd" style="margin:0"><label>Identifiant</label><input type="text" id="nu" placeholder="identifiant"></div>
+            <div class="fd" style="margin:0"><label>Mot de passe</label><input type="password" id="np" placeholder="••••••••"></div>
           </div>
-          <div class="field"><label>Rôle</label>
-            <select id="nr"><option value="admin">Administrateur (accès complet)</option><option value="infotrafic">Infotrafic uniquement</option><option value="articles">Articles uniquement</option></select>
-          </div>
-          <button class="btn-or" onclick="addCompte()">Créer le compte</button>
+          <div class="fd"><label>Rôle</label>
+            <select id="nr"><option value="admin">Administrateur (accès complet)</option><option value="infotrafic">Infotrafic uniquement</option><option value="articles">Articles uniquement</option></select></div>
+          <button class="bor" onclick="addCpt()">Créer le compte</button>
         </div>
       </div>
 
@@ -325,380 +325,516 @@
   </div>
 </div>
 
-<div class="toast-wrap" id="toast-wrap"></div>
+<div class="tw" id="tw"></div>
 
 <script>
 // ── CONFIG ────────────────────────────────────────────────
-const JSONBIN_ID  = "69d95af5aaba882197e64b7e";
-const JSONBIN_KEY = "$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
-const GITHUB_TOKEN = "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";
-const GITHUB_REPO  = "EliottM38/seal-transport";  // CORRIGÉ
-const GITHUB_BRANCH = "main";
+const JB_ID  = "69d95af5aaba882197e64b7e";
+const JB_KEY = "$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
+const GH_TK  = "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";
+const GH_RPO = "EliottM38/seal-transport";
+const GH_BR  = "main";
+
+// Comptes par défaut — TOUJOURS disponibles même si JSONBin est vide
+const COMPTES_DEF = [
+  {user:"admin", pass:"ggadmin2026", role:"admin", nom:"Administrateur"},
+  {user:"eliott", pass:"eliott123",  role:"admin", nom:"Eliott"},
+];
 
 const LC = {C1:"#185FA5",C2:"#0F6E56",C3:"#993C1D","4":"#534AB7","5":"#3B6D11","6":"#854F0B","7":"#993556","8":"#5F5E5A","9":"#0A6BAB","10":"#0F6E56","11":"#A32D2D","60":"#412402","61":"#3B6D11",PL1:"#1A1A2E"};
 const CATS = {actualite:"Actualité",travaux:"Travaux",evenement:"Événement","info-reseau":"Info réseau"};
 const ROLES = {admin:"Administrateur",infotrafic:"Infotrafic",articles:"Articles"};
-const COMPTES_DEFAULT = [{user:"admin",pass:"ggadmin2026",role:"admin",nom:"Administrateur"},{user:"eliott",pass:"eliott123",role:"admin",nom:"Eliott"}];
 
 const PLAGES_DEF = {"C1": {"semaine": [["05:00", "07:30", 10], ["07:30", "19:00", 7], ["19:00", "00:15", 15]], "samedi": [["06:00", "09:00", 12], ["09:00", "18:00", 10], ["18:00", "00:00", 15]], "dimanche": [["06:00", "10:00", 15], ["10:00", "17:00", 12], ["17:00", "23:00", 15]]}, "C2": {"semaine": [["05:00", "07:30", 9], ["07:30", "19:00", 6], ["19:00", "00:30", 10]], "samedi": [["05:30", "09:00", 10], ["09:00", "18:00", 8], ["18:00", "00:15", 15]], "dimanche": [["05:45", "10:00", 20], ["10:00", "17:00", 15], ["17:00", "00:00", 20]]}, "C3": {"semaine": [["05:00", "07:30", 8], ["07:30", "19:00", 5], ["19:00", "00:30", 15]], "samedi": [["05:30", "09:00", 13], ["09:00", "18:00", 8], ["18:00", "00:00", 15]], "dimanche": [["05:45", "10:00", 16], ["10:00", "17:00", 13], ["17:00", "23:45", 16]]}, "4": {"semaine": [["06:00", "07:30", 15], ["07:30", "18:45", 10], ["18:45", "22:00", 60]], "samedi": [["07:00", "22:00", 15]], "dimanche": [["09:00", "19:00", 30]]}, "5": {"semaine": [["05:30", "07:30", 15], ["07:30", "19:00", 10], ["19:00", "23:30", 40]], "samedi": [["06:00", "09:00", 20], ["09:00", "22:00", 15]], "dimanche": [["08:00", "21:30", 20]]}, "6": {"semaine": [["06:00", "07:30", 15], ["07:30", "18:00", 10], ["18:00", "21:00", 20]], "samedi": [["07:00", "09:00", 30], ["09:00", "18:00", 20], ["18:00", "20:30", 30]], "dimanche": [["09:00", "19:00", 30]]}, "7": {"semaine": [["05:30", "07:30", 20], ["07:30", "19:00", 10], ["19:00", "21:30", 45]], "samedi": [["07:00", "10:00", 60], ["10:00", "17:00", 30], ["17:00", "21:00", 45]], "dimanche": [["10:00", "18:00", 30]]}, "8": {"semaine": [["06:45", "08:00", 30], ["08:00", "18:30", 15], ["18:30", "22:00", 45]], "samedi": [["07:00", "10:00", 45], ["10:00", "16:30", 20], ["16:30", "21:00", 40]], "dimanche": [["08:00", "20:00", 30]]}, "9": {"semaine": [["07:30", "18:00", 15], ["18:00", "21:00", 30]], "samedi": [["08:30", "20:45", 20]], "dimanche": [["10:00", "20:30", 30]]}, "10": {"semaine": [["05:30", "07:30", 20], ["07:30", "19:00", 10], ["19:00", "23:00", 30]], "samedi": [["06:00", "10:00", 30], ["10:00", "18:00", 15], ["18:00", "22:00", 30]], "dimanche": [["07:30", "21:00", 30]]}, "11": {"semaine": [["07:00", "21:30", 30]], "samedi": [["07:00", "21:00", 45]], "dimanche": []}, "60": {"semaine": [["07:00", "20:00", 20]], "samedi": [], "dimanche": []}, "61": {"semaine": [["06:30", "08:00", 30], ["08:00", "21:00", 15]], "samedi": [["08:00", "19:30", 30]], "dimanche": []}, "PL1": {"semaine": [["23:00", "05:00", 60]], "samedi": [["23:00", "06:00", 60]], "dimanche": [["23:00", "06:00", 90]]}};
 
-let db = {alertes:[],articles:[],horaires_modifs:[],comptes:[...COMPTES_DEFAULT],activity:[],agences:[],images:[],popup:{}};
+// ── STATE ─────────────────────────────────────────────────
+let db = {
+  alertes:[], articles:[], horaires_modifs:[], activity:[],
+  agences:[
+    {nom:"Agence Gares",adr:"Place de la Gare, Grenoble",sem:"Lun–Ven : 7h–20h",we:"Sam : 8h–18h · Dim : 10h–17h",svc:"Vente, abonnements, rechargement"},
+    {nom:"Agence Victor Hugo",adr:"Place Victor Hugo, Grenoble",sem:"Lun–Ven : 9h–19h",we:"Sam : 9h–17h · Dim : fermé",svc:"Vente, abonnements"},
+    {nom:"Agence Grand'Place",adr:"Centre commercial Grand'Place, Échirolles",sem:"Lun–Sam : 9h–19h",we:"Dim : fermé",svc:"Vente, rechargement"},
+    {nom:"Agence Universités",adr:"Campus, Saint-Martin-d'Hères",sem:"Lun–Ven : 8h30–18h",we:"Fermé sam et dim",svc:"Vente, abonnements étudiants"},
+  ],
+  images:[], popup:{actif:false},
+  comptes:[...COMPTES_DEF],
+};
 let linesData = [];
-let currentUser = null;
+let curUser = null;
 let saving = false;
-let horAction = null;
+let hAction = null;
+let nbPlages = 0;
 
-// ── JSONBIN ────────────────────────────────────────────────
-function setSyncStatus(s){
-  const dot=document.getElementById('sync-dot'), lbl=document.getElementById('sync-label');
-  if(s==='ok'){dot.className='sync-dot';lbl.textContent='Synchronisé · '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
-  else if(s==='loading'){dot.className='sync-dot loading';lbl.textContent='Synchronisation...';}
-  else{dot.className='sync-dot error';lbl.textContent='Erreur de synchronisation';}
+// ── SYNC ──────────────────────────────────────────────────
+function setSync(s){
+  const d=document.getElementById('sdot'),l=document.getElementById('slab');
+  if(s==='ok'){d.className='sd';l.textContent='Synchronisé · '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
+  else if(s==='ld'){d.className='sd ld';l.textContent='Synchronisation...';}
+  else{d.className='sd er';l.textContent='Erreur de synchronisation';}
 }
 
 async function loadDB(){
-  setSyncStatus('loading');
+  setSync('ld');
   try{
-    const r=await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_ID}/latest`,{headers:{'X-Master-Key':JSONBIN_KEY}});
-    const j=await r.json();
-    const rec=j.record||{};
-    db.alertes=rec.alertes||[];
-    db.articles=rec.articles||[];
-    db.horaires_modifs=rec.horaires_modifs||[];
-    db.activity=rec.activity||[];
-    db.agences=rec.agences||[{nom:"Agence Gares",adr:"Place de la Gare, Grenoble",sem:"Lun–Ven : 7h–20h",we:"Sam : 8h–18h · Dim : 10h–17h",svc:"Vente, abonnements, rechargement"},{nom:"Agence Victor Hugo",adr:"Place Victor Hugo, Grenoble",sem:"Lun–Ven : 9h–19h",we:"Sam : 9h–17h · Dim : fermé",svc:"Vente, abonnements"},{nom:"Agence Grand'Place",adr:"Centre commercial Grand'Place, Échirolles",sem:"Lun–Sam : 9h–19h",we:"Sam : 9h–19h · Dim : fermé",svc:"Vente, rechargement"},{nom:"Agence Universités",adr:"Campus universitaire, Saint-Martin-d'Hères",sem:"Lun–Ven : 8h30–18h",we:"Fermé sam et dim",svc:"Vente, abonnements étudiants"}];
-    db.images=rec.images||[];
-    db.popup=rec.popup||{};
-    if(rec.comptes&&rec.comptes.length) db.comptes=rec.comptes;
-    setSyncStatus('ok');
+    const r=await fetch(`https://api.jsonbin.io/v3/b/${JB_ID}/latest`,{headers:{'X-Master-Key':JB_KEY}});
+    const j=await r.json(); const rec=j.record||{};
+    // Fusionner — les comptes JSONBin sont additionnels aux défauts
+    if(rec.alertes) db.alertes=rec.alertes;
+    if(rec.articles) db.articles=rec.articles;
+    if(rec.horaires_modifs) db.horaires_modifs=rec.horaires_modifs;
+    if(rec.activity) db.activity=rec.activity;
+    if(rec.agences?.length) db.agences=rec.agences;
+    if(rec.images) db.images=rec.images;
+    if(rec.popup) db.popup=rec.popup;
+    // Comptes : toujours garder les défauts + ajouter les nouveaux
+    if(rec.comptes?.length){
+      const extra=rec.comptes.filter(c=>!COMPTES_DEF.find(d=>d.user===c.user));
+      db.comptes=[...COMPTES_DEF,...extra];
+    }
+    setSync('ok'); renderAll();
+  }catch(e){
+    setSync('er');
+    toast('Erreur JSONBin (connexion possible quand même)',true);
+    // Pas d'echec de login : les comptes défauts sont toujours là
     renderAll();
-  }catch(e){setSyncStatus('error');toast('Erreur connexion JSONBin : '+e.message,true);}
+  }
 }
 
 async function saveDB(){
-  if(saving)return;
-  saving=true;setSyncStatus('loading');
+  if(saving)return; saving=true; setSync('ld');
   try{
-    await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_ID}`,{
+    await fetch(`https://api.jsonbin.io/v3/b/${JB_ID}`,{
       method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
-      body:JSON.stringify({alertes:db.alertes,articles:db.articles,horaires_modifs:db.horaires_modifs,comptes:db.comptes,activity:db.activity,agences:db.agences,images:db.images,popup:db.popup})
+      headers:{'Content-Type':'application/json','X-Master-Key':JB_KEY},
+      body:JSON.stringify({alertes:db.alertes,articles:db.articles,horaires_modifs:db.horaires_modifs,
+        comptes:db.comptes,activity:db.activity,agences:db.agences,images:db.images,popup:db.popup})
     });
-    setSyncStatus('ok');
-  }catch(e){setSyncStatus('error');toast('Erreur sauvegarde',true);}
+    setSync('ok');
+  }catch(e){setSync('er');toast('Erreur sauvegarde JSONBin',true);}
   saving=false;
 }
 
-// ── GITHUB ─────────────────────────────────────────────────
-async function getFileSha(path){
-  const r=await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${path}`,{
-    headers:{'Authorization':`token ${GITHUB_TOKEN}`,'Accept':'application/vnd.github.v3+json'}
-  });
-  const j=await r.json();
-  return j.sha;
+// ── GITHUB ────────────────────────────────────────────────
+async function ghSha(path){
+  const r=await fetch(`https://api.github.com/repos/${GH_RPO}/contents/${path}`,
+    {headers:{'Authorization':'token '+GH_TK,'Accept':'application/vnd.github.v3+json'}});
+  return (await r.json()).sha;
 }
-async function pushToGitHub(path,content,message){
-  const sha=await getFileSha(path);
-  const encoded=btoa(unescape(encodeURIComponent(content)));
-  const r=await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${path}`,{
+async function ghPush(path,content,msg){
+  const sha=await ghSha(path);
+  const r=await fetch(`https://api.github.com/repos/${GH_RPO}/contents/${path}`,{
     method:'PUT',
-    headers:{'Authorization':`token ${GITHUB_TOKEN}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
-    body:JSON.stringify({message,content:encoded,sha,branch:GITHUB_BRANCH})
+    headers:{'Authorization':'token '+GH_TK,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+    body:JSON.stringify({message:msg,content:btoa(unescape(encodeURIComponent(content))),sha,branch:GH_BR})
   });
-  if(!r.ok)throw new Error(`GitHub error: ${r.status}`);
+  if(!r.ok)throw new Error('GitHub '+r.status);
   return r.json();
 }
-async function loadLinesFromGitHub(){
+async function ghLoadLines(){
   try{
-    const r=await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/${GITHUB_BRANCH}/lines.json?t=${Date.now()}`,{
-      headers:{'Authorization':`token ${GITHUB_TOKEN}`,'Cache-Control':'no-cache'}
-    });
+    const r=await fetch(`https://raw.githubusercontent.com/${GH_RPO}/${GH_BR}/lines.json?t=${Date.now()}`,
+      {headers:{'Authorization':'token '+GH_TK,'Cache-Control':'no-cache'}});
     if(!r.ok)throw new Error('HTTP '+r.status);
-    linesData=await r.json();
-    return linesData;
-  }catch(e){
-    console.error('Erreur lines.json:',e);
-    toast('Erreur chargement lines.json : '+e.message,true);
-    return[];
+    linesData=await r.json(); return linesData;
+  }catch(e){toast('Erreur lines.json : '+e.message,true);return[];}
+}
+
+// ── AUTH ──────────────────────────────────────────────────
+function tryLogin(){
+  const u=document.getElementById('lu').value.trim();
+  const p=document.getElementById('lp').value;
+  // Chercher dans les comptes actuels (défauts + JSONBin)
+  const c=db.comptes.find(x=>x.user===u&&x.pass===p);
+  if(!c){document.getElementById('lerr').style.display='block';return;}
+  curUser=c;
+  document.getElementById('lw').style.display='none';
+  document.getElementById('adm').style.display='flex';
+  document.getElementById('alab').textContent=c.nom+' · '+ROLES[c.role];
+  document.getElementById('a-dt').value=new Date().toISOString().split('T')[0];
+  // Masquer onglets selon rôle
+  if(c.role==='infotrafic'){
+    document.querySelectorAll('.si').forEach((s,i)=>{if(i!==0&&i!==1)s.style.display='none';});
+  }else if(c.role==='articles'){
+    document.querySelectorAll('.si').forEach((s,i)=>{if(i!==0&&i!==3)s.style.display='none';});
+  }
+  ghLoadLines();
+}
+function logout(){
+  curUser=null;
+  document.getElementById('lw').style.display='flex';
+  document.getElementById('adm').style.display='none';
+  document.getElementById('lu').value='';document.getElementById('lp').value='';
+  document.getElementById('lerr').style.display='none';
+  document.querySelectorAll('.si').forEach(s=>s.style.display='');
+}
+document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
+
+// ── TABS ──────────────────────────────────────────────────
+const TAB_NAMES=['db','it','hor','art','age','med','pop','cpt'];
+function sw(n){
+  document.querySelectorAll('.si').forEach((s,i)=>s.classList.toggle('on',TAB_NAMES[i]===n));
+  document.querySelectorAll('.pn').forEach(p=>p.classList.toggle('on',p.id==='pn-'+n));
+  if(n==='med')renderImages();
+  if(n==='pop')renderPopupPreview();
+}
+
+// ── LOG & TOAST ───────────────────────────────────────────
+function log(msg){
+  const t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  db.activity.unshift('['+t+'] '+(curUser?.nom||'')+' — '+msg);
+  if(db.activity.length>30)db.activity=db.activity.slice(0,30);
+}
+function toast(msg,err=false){
+  const el=document.createElement('div');
+  el.className='t'+(err?' e':'');el.textContent=msg;
+  document.getElementById('tw').appendChild(el);
+  setTimeout(()=>el.remove(),3500);
+}
+
+// ── RENDER ALL ────────────────────────────────────────────
+function renderAll(){
+  document.getElementById('s-al').textContent=db.alertes.length;
+  document.getElementById('s-ar').textContent=db.articles.length;
+  document.getElementById('s-hm').textContent=db.horaires_modifs.length;
+  const al=document.getElementById('alog');
+  al.innerHTML=db.activity.length
+    ?db.activity.slice(0,10).map(a=>'<div class="act">'+a+'</div>').join('')
+    :'<div class="act">Aucune activité récente.</div>';
+  renderAlertes();renderArticles();renderAgences();renderComptes();
+  // Pré-remplir popup
+  if(db.popup?.titre){
+    document.getElementById('pu-t').value=db.popup.titre||'';
+    document.getElementById('pu-m').value=db.popup.msg||'';
+    document.getElementById('pu-c').value=db.popup.couleur||'bleu';
+    document.getElementById('pu-l').value=db.popup.lien||'';
+    document.getElementById('pu-b').value=db.popup.btn||'';
   }
 }
 
-// ── HORAIRES ────────────────────────────────────────────────
-function horChargerDirections(){
-  const code=document.getElementById('hor-code').value;
-  const dirSel=document.getElementById('hor-dir');
-  dirSel.innerHTML='<option value="">— Toutes —</option>';
-  document.getElementById('hor-action-step').style.display='none';
-  document.getElementById('hor-edit-step').style.display='none';
+// ── INFOTRAFIC ────────────────────────────────────────────
+function renderAlertes(){
+  const el=document.getElementById('al-list');
+  if(!db.alertes.length){el.innerHTML='<div style="color:var(--txs);font-size:13px;padding:1rem 0">Aucune alerte active.</div>';return;}
+  el.innerHTML=db.alertes.map((a,i)=>`
+    <div class="alc ${a.niveau}">
+      <div><div class="alb">${a.niveau==='rouge'?'Perturbé':'Info'}</div>
+        <div style="margin-top:8px"><span style="background:${LC[a.ligne]||'#555'};color:white;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">${a.ligne}</span></div></div>
+      <div class="alct"><strong>${a.titre}</strong><p>${a.desc}</p>
+        <div style="font-size:11px;color:var(--txs);margin-top:6px">${a.date} · ${a.auteur||'—'}</div></div>
+      <button class="bdel" onclick="delAlerte(${i})">Supprimer</button>
+    </div>`).join('');
+}
+async function addAlerte(){
+  const l=document.getElementById('it-lg').value,n=document.getElementById('it-nv').value;
+  const t=document.getElementById('it-ti').value.trim(),d=document.getElementById('it-de').value.trim();
+  if(!t||!d){toast('Remplissez titre et description.',true);return;}
+  db.alertes.push({ligne:l,niveau:n,titre:t,desc:d,date:new Date().toLocaleDateString('fr-FR'),auteur:curUser?.nom});
+  document.getElementById('it-ti').value='';document.getElementById('it-de').value='';
+  log('Alerte : '+t+' ('+l+')');renderAll();await saveDB();toast('Alerte publiée !');
+}
+async function delAlerte(i){
+  if(!confirm('Supprimer "'+db.alertes[i].titre+'" ?'))return;
+  log('Alerte supprimée : '+db.alertes[i].titre);db.alertes.splice(i,1);renderAll();await saveDB();toast('Alerte supprimée.');
+}
+
+// ── HORAIRES ──────────────────────────────────────────────
+function hDir(){
+  const code=document.getElementById('h-code').value;
+  const sel=document.getElementById('h-dir');
+  sel.innerHTML='<option value="">— Toutes —</option>';
+  document.getElementById('h-act-step').style.display='none';
+  document.getElementById('h-edit-step').style.display='none';
   if(!code)return;
-  // Charger depuis les plages définies
-  const plages=PLAGES_DEF[code];
-  if(!plages)return;
-  // Les directions disponibles viennent de linesData si chargé, sinon on propose les deux
   if(linesData.length){
     const dirs=[...new Set(linesData.filter(l=>l.code===code&&l.direction).map(l=>l.direction))];
-    dirs.forEach(d=>dirSel.innerHTML+=`<option value="${d}">${d}</option>`);
+    dirs.forEach(d=>sel.innerHTML+=`<option value="${d}">${d}</option>`);
   }
-  document.getElementById('hor-action-step').style.display='block';
+  document.getElementById('h-act-step').style.display='block';
 }
 
-function horChargerJours(){
-  document.getElementById('hor-edit-step').style.display='none';
-}
-
-function horChargerContenu(){
-  const code=document.getElementById('hor-code').value;
-  const jour=document.getElementById('hor-jour').value;
-  if(!code||!jour)return;
-  document.getElementById('hor-action-step').style.display='block';
-}
-
-function horSetAction(action){
-  horAction=action;
-  const code=document.getElementById('hor-code').value;
-  const dir=document.getElementById('hor-dir').value;
-  const jour=document.getElementById('hor-jour').value;
-  if(!code||!jour){toast('Choisissez d'abord la ligne et le jour.',true);return;}
-  const step=document.getElementById('hor-edit-step');
-  const content=document.getElementById('hor-edit-content');
-  step.style.display='block';
-
-  // Mettre en évidence le bouton actif
-  ['btn-add-passage','btn-del-passage','btn-freq'].forEach(id=>{
-    document.getElementById(id).style.borderColor=
-      (id==='btn-add-passage'&&action==='ajouter')||(id==='btn-del-passage'&&action==='supprimer')||(id==='btn-freq'&&action==='frequence')
-      ?'var(--or)':'var(--bord)';
+function hSetAct(act){
+  hAction=act;
+  document.getElementById('h-edit-step').style.display='none';
+  const code=document.getElementById('h-code').value;
+  const jour=document.getElementById('h-jour').value;
+  if(!code||!jour){toast('Choisissez la ligne et le jour.',true);return;}
+  ['btn-add','btn-del','btn-freq'].forEach(id=>{
+    const btn=document.getElementById(id);
+    btn.classList.toggle('sel',
+      (id==='btn-add'&&act==='add')||(id==='btn-del'&&act==='del')||(id==='btn-freq'&&act==='freq'));
   });
+  const cnt=document.getElementById('h-edit-cnt');
+  document.getElementById('h-edit-step').style.display='block';
 
-  if(action==='ajouter'){
-    content.innerHTML=`
-      <div class="field"><label>Heure de départ (depuis le terminus)</label>
-        <input type="time" id="new-heure" style="max-width:200px">
-      </div>
-      <div style="font-size:12px;color:var(--txs);margin-top:-8px;margin-bottom:1rem">Les horaires des arrêts intermédiaires seront calculés automatiquement.</div>`;
-  }else if(action==='supprimer'){
-    // Charger les passages disponibles
-    content.innerHTML='<div style="color:var(--txs);font-size:13px">Chargement des passages...</div>';
-    chargerPassagesPourSuppression(code,dir,jour);
-  }else if(action==='frequence'){
-    const plagesDef=(PLAGES_DEF[code]||{})[jour]||[{debut:'05:00',fin:'23:00',freq:10}];
-    let html='<div style="margin-bottom:12px;font-size:12px;color:var(--txs)">Modifiez les créneaux horaires. Les passages seront régénérés automatiquement.</div>';
+  if(act==='add'){
+    cnt.innerHTML=`
+      <div class="fd"><label>Heure de départ depuis le terminus (ex: 08:32)</label>
+        <input type="time" id="new-h" style="max-width:200px"></div>
+      <div style="font-size:12px;color:var(--txs);margin-top:-8px">Les horaires aux arrêts intermédiaires seront calculés automatiquement à partir des temps de trajet.</div>`;
+  }else if(act==='del'){
+    cnt.innerHTML='<div style="color:var(--txs);font-size:13px">Chargement des passages...</div>';
+    hLoadPassages(code,document.getElementById('h-dir').value,jour);
+  }else{
+    const dir=document.getElementById('h-dir').value;
+    const plagesDef=(PLAGES_DEF[code]||{})[jour]||[["05:00","23:00",10]];
+    nbPlages=plagesDef.length;
+    let html=`<div style="font-size:12px;color:var(--txs);margin-bottom:12px">Modifiez les créneaux. Les passages seront régénérés automatiquement.</div>`;
     plagesDef.forEach((p,i)=>{
-      html+=`<div class="plage-row" id="plage-${i}">
-        <div class="field"><label>Début</label><input type="time" value="${p[0]}" id="pd-${i}"></div>
-        <div class="field"><label>Fin</label><input type="time" value="${p[1]}" id="pf-${i}"></div>
-        <div class="field"><label>Fréquence (min)</label><input type="number" min="1" max="120" value="${p[2]}" id="pq-${i}"></div>
-        <button class="btn-del" onclick="supprimerPlage(${i})" style="align-self:flex-end;margin-bottom:4px">✕</button>
+      html+=`<div class="plrow" id="pr-${i}">
+        <div class="fd"><label>Début</label><input type="time" value="${p[0]}" id="pd-${i}"></div>
+        <div class="fd"><label>Fin</label><input type="time" value="${p[1]}" id="pf-${i}"></div>
+        <div class="fd"><label>Fréq. (min)</label><input type="number" min="1" max="120" value="${p[2]}" id="pq-${i}"></div>
+        <button class="bdel" onclick="delPlage(${i})" style="align-self:flex-end;margin-bottom:4px">✕</button>
       </div>`;
     });
-    html+=`<button class="btn-ghost" onclick="ajouterPlage()" style="margin-top:4px">+ Ajouter un créneau</button>`;
-    content.innerHTML=html;
-    content.dataset.nbPlages=plagesDef.length;
+    html+=`<button class="bgh" onclick="addPlage()">+ Ajouter un créneau</button>`;
+    cnt.innerHTML=html;
   }
 }
 
-function supprimerPlage(i){
-  document.getElementById('plage-'+i)?.remove();
-}
-
-function ajouterPlage(){
-  const nb=parseInt(document.getElementById('hor-edit-content').dataset.nbPlages||0);
-  const newI=nb;
-  document.getElementById('hor-edit-content').dataset.nbPlages=nb+1;
+function delPlage(i){document.getElementById('pr-'+i)?.remove();}
+function addPlage(){
   const div=document.createElement('div');
-  div.className='plage-row';div.id='plage-'+newI;
-  div.innerHTML=`<div class="field"><label>Début</label><input type="time" value="19:00" id="pd-${newI}"></div><div class="field"><label>Fin</label><input type="time" value="23:00" id="pf-${newI}"></div><div class="field"><label>Fréquence (min)</label><input type="number" min="1" max="120" value="20" id="pq-${newI}"></div><button class="btn-del" onclick="supprimerPlage(${newI})" style="align-self:flex-end;margin-bottom:4px">✕</button>`;
-  const btn=document.querySelector('#hor-edit-content .btn-ghost');
-  document.getElementById('hor-edit-content').insertBefore(div,btn);
+  div.className='plrow';div.id='pr-'+nbPlages;
+  div.innerHTML=`<div class="fd"><label>Début</label><input type="time" value="19:00" id="pd-${nbPlages}"></div><div class="fd"><label>Fin</label><input type="time" value="23:00" id="pf-${nbPlages}"></div><div class="fd"><label>Fréq. (min)</label><input type="number" min="1" max="120" value="20" id="pq-${nbPlages}"></div><button class="bdel" onclick="delPlage(${nbPlages})" style="align-self:flex-end;margin-bottom:4px">✕</button>`;
+  document.querySelector('#h-edit-cnt .bgh').before(div);
+  nbPlages++;
 }
 
-async function chargerPassagesPourSuppression(code,dir,jour){
-  const content=document.getElementById('hor-edit-content');
-  if(!linesData.length)await loadLinesFromGitHub();
-  const dirsFiltrees=dir?[dir]:[...new Set(linesData.filter(l=>l.code===code&&l.jour===jour).map(l=>l.direction))];
+async function hLoadPassages(code,dir,jour){
+  if(!linesData.length)await ghLoadLines();
+  const cnt=document.getElementById('h-edit-cnt');
+  const dirs=dir?[dir]:[...new Set(linesData.filter(l=>l.code===code&&l.jour===jour).map(l=>l.direction))];
   let html='';
-  dirsFiltrees.forEach(d=>{
+  dirs.forEach(d=>{
     const l=linesData.find(x=>x.code===code&&x.direction===d&&x.jour===jour);
-    if(!l||!l.horaires?.length)return;
-    html+=`<div style="font-weight:700;color:var(--or);margin-bottom:8px;font-size:13px">${d}</div>`;
-    html+=`<div class="passage-list" id="plist-${d.replace(/[^a-z]/gi,'_')}">`;
-    l.horaires.forEach((h,i)=>{
-      html+=`<div class="passage-row"><span>${h.heure}</span><span style="font-size:11px;color:var(--txs)">${h.destination||d}</span><button class="btn-del" onclick="supprimerPassage('${code}','${d.replace(/'/g,"\'")}','${jour}',${i})">Supprimer</button></div>`;
-    });
-    html+=`</div>`;
+    if(!l?.horaires?.length)return;
+    html+=`<div style="font-weight:700;color:var(--or);margin-bottom:8px;font-size:13px">→ ${d}</div>
+      <div class="plist" id="pl-${d.replace(/[^a-z0-9]/gi,'_')}">
+        ${l.horaires.map((h,i)=>`<div class="prow">
+          <span style="font-weight:700;width:55px;flex-shrink:0">${h.heure}</span>
+          <span style="flex:1;color:var(--txs);font-size:12px">${h.destination||d}</span>
+          <button class="bdel" onclick="hDelPassage('${code}','${d.replace(/'/g,"\'")}','${jour}',${i})">Supprimer</button>
+        </div>`).join('')}
+      </div>`;
   });
-  content.innerHTML=html||'<div style="color:var(--txs)">Aucun passage trouvé.</div>';
+  cnt.innerHTML=html||'<div style="color:var(--txs)">Aucun passage trouvé.</div>';
 }
 
-async function supprimerPassage(code,dir,jour,idx){
+async function hDelPassage(code,dir,jour,idx){
   if(!confirm('Supprimer ce passage ?'))return;
-  if(!linesData.length)await loadLinesFromGitHub();
   const l=linesData.find(x=>x.code===code&&x.direction===dir&&x.jour===jour);
   if(!l)return;
+  const heure=l.horaires[idx]?.heure||'';
   l.horaires.splice(idx,1);
-  log(`Passage supprimé : ${code} → ${dir} (${jour}) idx ${idx}`);
+  log(`Passage supprimé : ${code} → ${dir} (${jour}) à ${heure}`);
   db.horaires_modifs.push({code,dir,jour,type:'suppression',date:new Date().toLocaleDateString('fr-FR')});
   renderAll();
-  await chargerPassagesPourSuppression(code,dir,jour);
-  toast('Passage supprimé. N'oubliez pas de sauvegarder !');
+  hLoadPassages(code,dir,jour);
+  toast('Passage supprimé — pensez à sauvegarder !');
 }
 
-function genererHoraires(plages,destination){
+function genHoraires(plages,dest){
   const h=[];
   for(const p of plages){
-    let[hh,mm]=p.debut.split(':').map(Number);
-    let[fh,fm]=p.fin.split(':').map(Number);
-    let fin=fh*60+fm;
-    if(fin<hh*60+mm)fin+=1440;
-    let cur=hh*60+mm;
+    const[dh,dm]=p[0].split(':').map(Number);
+    let[fh,fm]=p[1].split(':').map(Number);
+    let fin=fh*60+fm; if(fin<dh*60+dm)fin+=1440;
+    let cur=dh*60+dm,freq=parseInt(p[2]);
     while(cur<=fin){
       const rh=Math.floor(cur/60)%24,rm=cur%60;
-      h.push({destination,heure:`${String(rh).padStart(2,'0')}:${String(rm).padStart(2,'0')}`});
-      cur+=parseInt(p.freq);
+      h.push({destination:dest,heure:String(rh).padStart(2,'0')+':'+String(rm).padStart(2,'0')});
+      cur+=freq;
     }
   }
   return h;
 }
 
-async function sauvegarderHoraires(){
-  const code=document.getElementById('hor-code').value;
-  const dir=document.getElementById('hor-dir').value;
-  const jour=document.getElementById('hor-jour').value;
-  const btn=document.getElementById('btn-save-hor');
-  const status=document.getElementById('save-status');
-  btn.disabled=true;btn.textContent='Sauvegarde...';status.textContent='';
-
+async function hSave(){
+  const code=document.getElementById('h-code').value;
+  const dir=document.getElementById('h-dir').value;
+  const jour=document.getElementById('h-jour').value;
+  const btn=document.getElementById('btn-save');
+  const st=document.getElementById('h-status');
+  if(!code||!jour){toast('Choisissez ligne et jour.',true);return;}
+  btn.disabled=true;btn.textContent='Sauvegarde...';st.textContent='';
   try{
-    if(!linesData.length)await loadLinesFromGitHub();
-
-    if(horAction==='ajouter'){
-      const heure=document.getElementById('new-heure')?.value;
+    if(!linesData.length)await ghLoadLines();
+    if(hAction==='add'){
+      const heure=document.getElementById('new-h')?.value;
       if(!heure){toast('Entrez une heure.',true);btn.disabled=false;btn.textContent='Sauvegarder sur GitHub';return;}
-      const dirsCibles=dir?[dir]:[...new Set(linesData.filter(l=>l.code===code&&l.jour===jour).map(l=>l.direction))];
-      dirsCibles.forEach(d=>{
+      const dirs=dir?[dir]:[...new Set(linesData.filter(l=>l.code===code&&l.jour===jour).map(l=>l.direction))];
+      dirs.forEach(d=>{
         const l=linesData.find(x=>x.code===code&&x.direction===d&&x.jour===jour);
         if(!l)return;
         const dest=l.horaires[0]?.destination||d;
         l.horaires.push({destination:dest,heure});
-        l.horaires.sort((a,b)=>{const ma=a.heure.split(':').map(Number);const mb=b.heure.split(':').map(Number);return(ma[0]*60+ma[1])-(mb[0]*60+mb[1]);});
-        log(`Passage ajouté : ${code} → ${d} (${jour}) à ${heure}`);
+        l.horaires.sort((a,b)=>{const ma=a.heure.split(':').map(Number),mb=b.heure.split(':').map(Number);return(ma[0]*60+ma[1])-(mb[0]*60+mb[1]);});
+        log('Passage ajouté : '+code+' → '+d+' ('+jour+') à '+heure);
       });
       db.horaires_modifs.push({code,dir,jour,type:'ajout',heure,date:new Date().toLocaleDateString('fr-FR')});
-    }else if(horAction==='supprimer'){
-      // Déjà modifié en mémoire via supprimerPassage
-    }else if(horAction==='frequence'){
-      const content=document.getElementById('hor-edit-content');
+    }else if(hAction==='freq'){
       const plages=[];
-      content.querySelectorAll('.plage-row').forEach(row=>{
-        const id=row.id.replace('plage-','');
+      document.querySelectorAll('#h-edit-cnt .plrow').forEach(row=>{
+        const id=row.id.replace('pr-','');
         const d=document.getElementById('pd-'+id)?.value;
         const f=document.getElementById('pf-'+id)?.value;
         const q=document.getElementById('pq-'+id)?.value;
-        if(d&&f&&q)plages.push({debut:d,fin:f,freq:parseInt(q)});
+        if(d&&f&&q)plages.push([d,f,parseInt(q)]);
       });
       if(!plages.length){toast('Ajoutez au moins un créneau.',true);btn.disabled=false;btn.textContent='Sauvegarder sur GitHub';return;}
-      const dirsCibles=dir?[dir]:[...new Set(linesData.filter(l=>l.code===code&&l.jour===jour).map(l=>l.direction))];
-      dirsCibles.forEach(d=>{
+      const dirs=dir?[dir]:[...new Set(linesData.filter(l=>l.code===code&&l.jour===jour).map(l=>l.direction))];
+      dirs.forEach(d=>{
         const l=linesData.find(x=>x.code===code&&x.direction===d&&x.jour===jour);
         if(!l)return;
         const dest=l.horaires[0]?.destination||d;
-        l.horaires=genererHoraires(plages,dest);
-        log(`Fréquences modifiées : ${code} → ${d} (${jour})`);
+        l.horaires=genHoraires(plages,dest);
+        log('Fréquences modifiées : '+code+' → '+d+' ('+jour+')');
       });
       db.horaires_modifs.push({code,dir,jour,type:'frequence',date:new Date().toLocaleDateString('fr-FR')});
     }
-
-    const content=JSON.stringify(linesData,null,2);
-    await pushToGitHub('lines.json',content,`Admin: horaires ${code} → ${dir||'toutes'} (${jour})`);
+    // Pousser lines.json sur GitHub
+    await ghPush('lines.json',JSON.stringify(linesData,null,2),'Admin: horaires '+code+' ('+jour+')');
     renderAll();await saveDB();
-    status.textContent='✓ Sauvegardé — Vercel redéploie dans ~30s';
-    status.style.color='var(--vert)';
+    st.textContent='✓ Sauvegardé — Vercel redéploie dans ~30s';
+    st.style.color='var(--g)';
     toast('Horaires mis à jour !');
   }catch(e){
     console.error(e);
-    status.textContent='Erreur : '+e.message;
-    status.style.color='var(--rouge)';
+    st.textContent='Erreur : '+e.message;st.style.color='var(--r)';
     toast('Erreur lors de la sauvegarde',true);
   }
   btn.disabled=false;btn.textContent='Sauvegarder sur GitHub';
 }
 
-// ── INFOTRAFIC ─────────────────────────────────────────────
-async function addAlerte(){
-  const l=document.getElementById('it-ligne').value,n=document.getElementById('it-niveau').value;
-  const t=document.getElementById('it-titre').value.trim(),d=document.getElementById('it-desc').value.trim();
-  if(!t||!d){toast('Remplissez le titre et la description.',true);return;}
-  db.alertes.push({ligne:l,niveau:n,titre:t,desc:d,date:new Date().toLocaleDateString('fr-FR'),auteur:currentUser?.nom});
-  document.getElementById('it-titre').value='';document.getElementById('it-desc').value='';
-  log(`Alerte : ${t} (ligne ${l})`);renderAll();await saveDB();toast('Alerte publiée !');
+// ── ARTICLES ──────────────────────────────────────────────
+function renderArticles(){
+  const el=document.getElementById('art-list');
+  if(!db.articles.length){el.innerHTML='<div style="color:var(--txs);font-size:13px;padding:1rem 0">Aucun article publié.</div>';return;}
+  el.innerHTML=db.articles.map((a,i)=>`
+    <div class="artc">
+      ${a.img?`<img src="${a.img}" style="width:100%;height:110px;object-fit:cover;border-radius:8px;margin-bottom:10px" onerror="this.style.display='none'">`:'' }
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="background:rgba(201,168,76,.15);color:var(--or);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase">${CATS[a.cat]||a.cat}</span>
+        <span style="font-size:11px;color:var(--txs)">${a.date}</span>
+      </div>
+      <h4>${a.titre}</h4>
+      <p>${a.contenu.slice(0,160)}${a.contenu.length>160?'...':''}</p>
+      <button class="bdel" onclick="delArt(${i})">Supprimer</button>
+    </div>`).join('');
 }
-async function delAlerte(i){if(!confirm(`Supprimer "${db.alertes[i].titre}" ?`))return;log(`Alerte supprimée : ${db.alertes[i].titre}`);db.alertes.splice(i,1);renderAll();await saveDB();toast('Alerte supprimée.');}
-
-// ── ARTICLES ────────────────────────────────────────────────
 async function addArticle(){
-  const t=document.getElementById('at').value.trim(),c=document.getElementById('ac').value;
-  const d=document.getElementById('ad').value||new Date().toLocaleDateString('fr-FR');
-  const cont=document.getElementById('acont').value.trim();
-  const img=document.getElementById('aimg').value.trim();
-  if(!t||!cont){toast('Remplissez le titre et le contenu.',true);return;}
-  db.articles.unshift({titre:t,cat:c,date:d,contenu:cont,img,auteur:currentUser?.nom});
-  document.getElementById('at').value='';document.getElementById('acont').value='';document.getElementById('aimg').value='';
-  log(`Article : ${t}`);renderAll();await saveDB();toast('Article publié !');
+  const t=document.getElementById('a-ti').value.trim(),c=document.getElementById('a-cat').value;
+  const d=document.getElementById('a-dt').value||new Date().toLocaleDateString('fr-FR');
+  const cnt=document.getElementById('a-cnt').value.trim();
+  const img=document.getElementById('a-img').value.trim();
+  if(!t||!cnt){toast('Remplissez titre et contenu.',true);return;}
+  db.articles.unshift({titre:t,cat:c,date:d,contenu:cnt,img,auteur:curUser?.nom});
+  document.getElementById('a-ti').value='';document.getElementById('a-cnt').value='';document.getElementById('a-img').value='';
+  log('Article : '+t);renderAll();await saveDB();toast('Article publié !');
 }
-async function delArticle(i){if(!confirm(`Supprimer "${db.articles[i].titre}" ?`))return;log(`Article supprimé : ${db.articles[i].titre}`);db.articles.splice(i,1);renderAll();await saveDB();toast('Article supprimé.');}
+async function delArt(i){
+  if(!confirm('Supprimer "'+db.articles[i].titre+'" ?'))return;
+  log('Article supprimé : '+db.articles[i].titre);db.articles.splice(i,1);renderAll();await saveDB();toast('Article supprimé.');
+}
 
-// ── AGENCES ─────────────────────────────────────────────────
+// ── AGENCES ───────────────────────────────────────────────
+function renderAgences(){
+  const el=document.getElementById('age-list');if(!el)return;
+  el.innerHTML=db.agences.map((a,i)=>`
+    <div class="agec">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <strong style="font-size:14px;color:var(--tx)">${a.nom}</strong>
+        <button class="bdel" onclick="delAge(${i})">Supprimer</button>
+      </div>
+      <div style="font-size:12px;color:var(--txs);margin-bottom:2px">📍 ${a.adr}</div>
+      <div style="font-size:12px;color:var(--txs);margin-bottom:2px">🕐 ${a.sem}</div>
+      <div style="font-size:12px;color:var(--txs);margin-bottom:2px">${a.we}</div>
+      <div style="font-size:12px;color:var(--txs)">🔧 ${a.svc}</div>
+    </div>`).join('');
+}
 async function addAgence(){
-  const nom=document.getElementById('ag-nom').value.trim(),adr=document.getElementById('ag-adr').value.trim();
-  const sem=document.getElementById('ag-sem').value.trim(),we=document.getElementById('ag-we').value.trim();
-  const svc=document.getElementById('ag-svc').value.trim();
-  if(!nom||!adr){toast('Remplissez le nom et l'adresse.',true);return;}
-  db.agences.push({nom,adr,sem,we,svc});
-  document.getElementById('ag-nom').value='';document.getElementById('ag-adr').value='';
-  log(`Agence ajoutée : ${nom}`);renderAll();await saveDB();toast('Agence ajoutée !');
+  const n=document.getElementById('ag-n').value.trim(),a=document.getElementById('ag-a').value.trim();
+  const s=document.getElementById('ag-s').value.trim(),w=document.getElementById('ag-w').value.trim();
+  const sv=document.getElementById('ag-sv').value.trim();
+  if(!n||!a){toast('Remplissez nom et adresse.',true);return;}
+  db.agences.push({nom:n,adr:a,sem:s,we:w,svc:sv});
+  document.getElementById('ag-n').value='';document.getElementById('ag-a').value='';
+  log('Agence ajoutée : '+n);renderAll();await saveDB();toast('Agence ajoutée !');
 }
-async function delAgence(i){if(!confirm(`Supprimer "${db.agences[i].nom}" ?`))return;db.agences.splice(i,1);renderAll();await saveDB();toast('Agence supprimée.');}
+async function delAge(i){
+  if(!confirm('Supprimer "'+db.agences[i].nom+'" ?'))return;
+  db.agences.splice(i,1);renderAll();await saveDB();toast('Agence supprimée.');
+}
 
-// ── MÉDIAS ──────────────────────────────────────────────────
-function handleFiles(files){Array.from(files).forEach(f=>{if(f.size>2097152){toast(f.name+' trop lourde (max 2 Mo)',true);return;}const r=new FileReader();r.onload=e=>{db.images.push({name:f.name,data:e.target.result,date:new Date().toLocaleDateString('fr-FR')});renderImages();saveDB();toast('Image ajoutée !');};r.readAsDataURL(f);});}
-function handleDrop(e){e.preventDefault();document.getElementById('drop-zone').classList.remove('over');handleFiles(e.dataTransfer.files);}
-function delImage(i){if(!confirm('Supprimer cette image ?'))return;db.images.splice(i,1);renderImages();saveDB();toast('Image supprimée.');}
+// ── IMAGES ────────────────────────────────────────────────
+function hFiles(files){
+  Array.from(files).forEach(f=>{
+    if(f.size>2097152){toast(f.name+' trop lourde (max 2 Mo)',true);return;}
+    const r=new FileReader();
+    r.onload=e=>{db.images.push({name:f.name,data:e.target.result,date:new Date().toLocaleDateString('fr-FR')});renderImages();saveDB();toast('Image ajoutée !');};
+    r.readAsDataURL(f);
+  });
+}
+function hDrop(e){e.preventDefault();document.getElementById('dz').classList.remove('ov');hFiles(e.dataTransfer.files);}
+function delImg(i){if(!confirm('Supprimer cette image ?'))return;db.images.splice(i,1);renderImages();saveDB();toast('Image supprimée.');}
 function renderImages(){
-  const grid=document.getElementById('img-grid');
-  const urls=document.getElementById('img-urls');
-  if(!db.images.length){grid.innerHTML='<div style="color:var(--txs);font-size:13px">Aucune image.</div>';urls.innerHTML='';return;}
-  grid.innerHTML=db.images.map((img,i)=>`<div class="img-thumb"><img src="${img.data}" alt="${img.name}" loading="lazy"><button class="img-del" onclick="delImage(${i})">✕</button></div>`).join('');
-  urls.innerHTML='<div class="stitle">URLs des images (à copier dans les articles)</div>'+db.images.map((img,i)=>`<div style="font-size:11px;color:var(--txs);margin-bottom:6px;display:flex;align-items:center;gap:8px"><span style="font-weight:600;color:var(--tx)">${img.name}</span><button class="btn-ghost" style="padding:3px 8px;font-size:11px" onclick="navigator.clipboard.writeText(this.dataset.src);toast('URL copiée !')" data-src="${img.data}">Copier URL</button></div>`).join('');
+  const g=document.getElementById('ig'),u=document.getElementById('iurls');
+  if(!db.images.length){g.innerHTML='<div style="color:var(--txs);font-size:13px">Aucune image.</div>';u.innerHTML='';return;}
+  g.innerHTML=db.images.map((img,i)=>`<div class="it"><img src="${img.data}" alt="${img.name}" loading="lazy"><button class="idl" onclick="delImg(${i})">✕</button></div>`).join('');
+  u.innerHTML='<div class="stl">Copier l'URL d'une image</div>'+db.images.map((img,i)=>
+    `<div style="font-size:11px;color:var(--txs);margin-bottom:6px;display:flex;align-items:center;gap:8px">
+      <span style="font-weight:600;color:var(--tx)">${img.name}</span>
+      <button class="bgh" style="padding:3px 8px;font-size:11px" onclick="navigator.clipboard.writeText(db.images[${i}].data);toast('URL copiée !')">Copier URL</button>
+    </div>`).join('');
 }
 
-// ── POPUP ────────────────────────────────────────────────────
-async function sauvegarderPopup(){
-  const titre=document.getElementById('pu-titre').value.trim();
-  const msg=document.getElementById('pu-msg').value.trim();
-  const couleur=document.getElementById('pu-couleur').value;
-  const lien=document.getElementById('pu-lien').value.trim();
-  const btn=document.getElementById('pu-btn').value.trim();
-  db.popup={titre,msg,couleur,lien,btn,actif:!!titre};
-  log(`Pop-up ${titre?'activé : '+titre:'désactivé'}`);
+// ── POPUP ─────────────────────────────────────────────────
+async function savePopup(){
+  db.popup={
+    actif:!!document.getElementById('pu-t').value.trim(),
+    titre:document.getElementById('pu-t').value.trim(),
+    msg:document.getElementById('pu-m').value.trim(),
+    couleur:document.getElementById('pu-c').value,
+    lien:document.getElementById('pu-l').value.trim(),
+    btn:document.getElementById('pu-b').value.trim(),
+  };
+  log('Pop-up '+(db.popup.actif?'activé : '+db.popup.titre:'désactivé'));
   renderAll();await saveDB();toast('Pop-up sauvegardé !');
-  afficherPopupPreview();
+  renderPopupPreview();
 }
-async function desactiverPopup(){
+async function disablePopup(){
   db.popup={actif:false};
-  document.getElementById('pu-titre').value='';
+  document.getElementById('pu-t').value='';
   log('Pop-up désactivé');renderAll();await saveDB();toast('Pop-up désactivé.');
-  document.getElementById('popup-preview').style.display='none';
+  document.getElementById('ppv').style.display='none';
 }
-function afficherPopupPreview(){
-  if(!db.popup?.titre){document.getElementById('popup-preview').style.display='none';return;}
-  const colors={info:'#1565C0',alerte:'#C0392B',succes:'#27AE60',or:'#C9A84C'};
-  const c=colors[db.popup.couleur]||'#1565C0';
-  document.getElementById('popup-apercu').innerHTML=`<div style="background:${c};color:white;border-radius:12px;padding:1.5rem;max-width:400px"><div style="font-size:16px;font-weight:700;margin-bottom:8px">${db.popup.titre}</div><div style="font-size:13px;opacity:0.9;margin-bottom:12px">${db.popup.msg}</div>${db.popup.lien?`<a href="${db.popup.lien}" style="background:white;color:${c};padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none">${db.popup.btn||'En savoir plus'}</a>`:''}</div>`;
-  document.getElementById('popup-preview').style.display='block';
+function renderPopupPreview(){
+  if(!db.popup?.titre){document.getElementById('ppv').style.display='none';return;}
+  const cols={bleu:'#1565C0',rouge:'#C0392B',vert:'#27AE60',or:'#C9A84C'};
+  const c=cols[db.popup.couleur]||'#1565C0';
+  document.getElementById('ppap').innerHTML=`<div style="background:${c};color:white;border-radius:12px;padding:1.5rem;max-width:400px">
+    <div style="font-size:16px;font-weight:700;margin-bottom:8px">${db.popup.titre}</div>
+    <div style="font-size:13px;opacity:.9;margin-bottom:12px">${db.popup.msg}</div>
+    ${db.popup.lien?`<a href="${db.popup.lien}" style="background:white;color:${c};padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none">${db.popup.btn||'En savoir plus'}</a>`:''}
+  </div>`;
+  document.getElementById('ppv').style.display='block';
 }
 
-// ── COMPTES ─────────────────────────────────────────────────
-async function addCompte(){
+// ── COMPTES ───────────────────────────────────────────────
+function renderComptes(){
+  const el=document.getElementById('cpt-list');
+  el.innerHTML=db.comptes.map((c,i)=>`
+    <div class="cptc">
+      <div class="cpav">${c.nom[0]}</div>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:14px;color:var(--tx)">${c.nom}</div>
+        <div style="font-size:12px;color:var(--txs)">${c.user} · ${ROLES[c.role]||c.role}</div>
+      </div>
+      ${i>=COMPTES_DEF.length?`<button class="bdel" onclick="delCpt(${i})">Supprimer</button>`:'<span style="font-size:11px;color:var(--txs)">Compte principal</span>'}
+    </div>`).join('');
+}
+async function addCpt(){
   const u=document.getElementById('nu').value.trim(),p=document.getElementById('np').value;
   const r=document.getElementById('nr').value;
   if(!u||!p){toast('Remplissez tous les champs.',true);return;}
@@ -706,89 +842,16 @@ async function addCompte(){
   const nom=u.charAt(0).toUpperCase()+u.slice(1);
   db.comptes.push({user:u,pass:p,role:r,nom});
   document.getElementById('nu').value='';document.getElementById('np').value='';
-  log(`Compte créé : ${u}`);renderAll();await saveDB();toast('Compte créé !');
+  log('Compte créé : '+u);renderAll();await saveDB();toast('Compte créé !');
 }
-async function delCompte(i){
-  if(!confirm(`Supprimer le compte "${db.comptes[i].user}" ?`))return;
-  log(`Compte supprimé : ${db.comptes[i].user}`);
-  db.comptes.splice(i,1);renderAll();await saveDB();toast('Compte supprimé.');
-}
-
-// ── LOG ─────────────────────────────────────────────────────
-function log(msg){const t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});db.activity.unshift(`[${t}] ${currentUser?.nom||''} — ${msg}`);if(db.activity.length>30)db.activity=db.activity.slice(0,30);}
-function toast(msg,err=false){const wrap=document.getElementById('toast-wrap');const el=document.createElement('div');el.className='toast'+(err?' err':'');el.textContent=msg;wrap.appendChild(el);setTimeout(()=>el.remove(),3500);}
-
-// ── AUTH ─────────────────────────────────────────────────────
-function tryLogin(){
-  const u=document.getElementById('lu').value.trim(),p=document.getElementById('lp').value;
-  const c=db.comptes.find(x=>x.user===u&&x.pass===p);
-  if(!c){document.getElementById('lerr').style.display='block';return;}
-  currentUser=c;
-  document.getElementById('login-wrap').style.display='none';
-  document.getElementById('admin').style.display='flex';
-  document.getElementById('admin-label').textContent=c.nom+' · '+c.role;
-  document.getElementById('ad').value=new Date().toISOString().split('T')[0];
-  if(c.role==='infotrafic'){document.querySelectorAll('.sidebar-item').forEach((s,i)=>{if(i!==0&&i!==1)s.style.display='none';});}
-  else if(c.role==='articles'){document.querySelectorAll('.sidebar-item').forEach((s,i)=>{if(i!==0&&i!==3)s.style.display='none';});}
-  loadLinesFromGitHub();renderAll();
-}
-function logout(){
-  currentUser=null;
-  document.getElementById('login-wrap').style.display='flex';
-  document.getElementById('admin').style.display='none';
-  document.getElementById('lu').value='';document.getElementById('lp').value='';
-  document.getElementById('lerr').style.display='none';
-  document.querySelectorAll('.sidebar-item').forEach(s=>s.style.display='');
-}
-document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
-
-// ── TABS ─────────────────────────────────────────────────────
-function sw(n){
-  const names=['dashboard','infotrafic','horaires','articles','agences','medias','popup','comptes'];
-  document.querySelectorAll('.sidebar-item').forEach((s,i)=>s.classList.toggle('active',names[i]===n));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+n));
-  if(n==='medias')renderImages();
-  if(n==='popup'&&db.popup?.titre)afficherPopupPreview();
+async function delCpt(i){
+  if(i<COMPTES_DEF.length){toast('Impossible de supprimer un compte principal.',true);return;}
+  if(!confirm('Supprimer "'+db.comptes[i].user+'" ?'))return;
+  log('Compte supprimé : '+db.comptes[i].user);db.comptes.splice(i,1);renderAll();await saveDB();toast('Compte supprimé.');
 }
 
-// ── RENDER ALL ───────────────────────────────────────────────
-function renderAll(){
-  document.getElementById('s-alertes').textContent=db.alertes.length;
-  document.getElementById('s-articles').textContent=db.articles.length;
-  document.getElementById('s-modifs').textContent=db.horaires_modifs.length;
-  const al=document.getElementById('activity-log');
-  al.innerHTML=db.activity.length?db.activity.slice(0,10).map(a=>`<div class="activity-item">${a}</div>`).join(''):'<div class="activity-item">Aucune activité récente.</div>';
-  renderAlertes();renderArticles();renderAgences();renderComptes();
-  // Pré-remplir popup si existant
-  if(db.popup?.titre){
-    document.getElementById('pu-titre').value=db.popup.titre||'';
-    document.getElementById('pu-msg').value=db.popup.msg||'';
-    document.getElementById('pu-couleur').value=db.popup.couleur||'info';
-    document.getElementById('pu-lien').value=db.popup.lien||'';
-    document.getElementById('pu-btn').value=db.popup.btn||'';
-  }
-}
-
-function renderAlertes(){
-  const el=document.getElementById('alertes-list');
-  if(!db.alertes.length){el.innerHTML='<div style="color:var(--txs);font-size:13px;padding:1rem 0">Aucune alerte active.</div>';return;}
-  el.innerHTML=db.alertes.map((a,i)=>`<div class="alert-card ${a.niveau}"><div><div class="alert-badge">${a.niveau==='rouge'?'Perturbé':'Info'}</div><div style="margin-top:8px"><span class="badge-ligne" style="background:${LC[a.ligne]||'#555'}">${a.ligne}</span></div></div><div class="alert-content"><strong>${a.titre}</strong><p>${a.desc}</p><div style="font-size:11px;color:var(--txs);margin-top:6px">${a.date} · ${a.auteur||'—'}</div></div><button class="btn-del" onclick="delAlerte(${i})">Supprimer</button></div>`).join('');
-}
-function renderArticles(){
-  const el=document.getElementById('articles-list');
-  if(!db.articles.length){el.innerHTML='<div style="color:var(--txs);font-size:13px;padding:1rem 0">Aucun article publié.</div>';return;}
-  el.innerHTML=db.articles.map((a,i)=>`<div class="article-card">${a.img?`<img src="${a.img}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:10px" onerror="this.style.display='none'">`:''}<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="background:rgba(201,168,76,0.15);color:var(--or);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase">${CATS[a.cat]||a.cat}</span><span style="font-size:11px;color:var(--txs)">${a.date}</span></div><h4>${a.titre}</h4><p>${a.contenu.slice(0,160)}${a.contenu.length>160?'...':''}</p><button class="btn-del" onclick="delArticle(${i})">Supprimer</button></div>`).join('');
-}
-function renderAgences(){
-  const el=document.getElementById('agences-list');
-  if(!el||!db.agences)return;
-  el.innerHTML=db.agences.map((a,i)=>`<div class="agence-card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><strong style="font-size:14px;color:var(--tx)">${a.nom}</strong><button class="btn-del" onclick="delAgence(${i})">Supprimer</button></div><div style="font-size:12px;color:var(--txs);margin-bottom:3px">📍 ${a.adr}</div><div style="font-size:12px;color:var(--txs);margin-bottom:3px">🕐 ${a.sem}</div><div style="font-size:12px;color:var(--txs);margin-bottom:3px">${a.we}</div><div style="font-size:12px;color:var(--txs)">🔧 ${a.svc}</div></div>`).join('');
-}
-function renderComptes(){
-  const el=document.getElementById('comptes-list');
-  el.innerHTML=db.comptes.map((c,i)=>`<div class="compte-card"><div class="compte-avatar">${c.nom[0]}</div><div style="flex:1"><div style="font-weight:700;font-size:14px;color:var(--tx)">${c.nom}</div><div style="font-size:12px;color:var(--txs)">${c.user} · ${ROLES[c.role]||c.role}</div></div>${i>0?`<button class="btn-del" onclick="delCompte(${i})">Supprimer</button>`:'<span style="font-size:11px;color:var(--txs)">Compte principal</span>'}</div>`).join('');
-}
-
+// ── INIT ──────────────────────────────────────────────────
+// Charger JSONBin en arrière-plan — la connexion fonctionne même si JSONBin échoue
 loadDB();
 </script>
 </body>
