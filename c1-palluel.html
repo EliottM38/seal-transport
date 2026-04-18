@@ -8,48 +8,841 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Style appli M ────────────────────────── */
+    .ligne-hero {
+      background: #185FA5;
+      padding: 1.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .ligne-hero::before {
+      content: '';
+      position: absolute;
+      right: -40px; top: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+    .ligne-hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      position: relative;
+    }
+    .ligne-num-big {
+      font-family: 'Syne', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+      background: rgba(255,255,255,0.15);
+      padding: 10px 20px;
+      border-radius: 12px;
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+    .ligne-hero-info h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+    .ligne-hero-info p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+    }
+    .ligne-hero-btns {
+      margin-left: auto;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .hero-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Syne', sans-serif;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      background: rgba(255,255,255,0.12);
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .hero-btn:hover { background: rgba(255,255,255,0.25); }
+    .hero-btn.primary { background: white; color: #185FA5; border-color: white; }
+
+    /* ── Sélecteur direction/jour/arrêt ────── */
+    .controls-bar {
+      background: var(--noir-card);
+      border-bottom: 1px solid var(--bordure);
+      padding: 12px 2rem;
+      position: sticky;
+      top: 68px;
+      z-index: 50;
+    }
+    .controls-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .ctrl-select {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--bordure);
+      background: var(--noir);
+      color: var(--texte);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+    }
+    .ctrl-select:focus { outline: none; border-color: #185FA5; }
+    .ctrl-label { font-size: 12px; color: var(--texte-sec); font-weight: 600; }
+
+    /* ── Live Tab ───────────────────────────── */
+    .tab-switcher {
+      display: flex;
+      background: var(--noir);
+      border-radius: 10px;
+      padding: 3px;
+      border: 1px solid var(--bordure);
+      margin-left: auto;
+    }
+    .tab-btn {
+      padding: 6px 14px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Syne', sans-serif;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--texte-sec);
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: #185FA5;
+      color: white;
+    }
+
+    /* ── Section principale ─────────────────── */
+    .ligne-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media(max-width:900px){ .ligne-body{grid-template-columns:1fr} }
+
+    /* ── Prochains passages (style M) ────────── */
+    .live-panel {
+      background: var(--noir-card);
+      border: 1px solid var(--bordure);
+      border-radius: 16px;
+      overflow: hidden;
+      position: sticky;
+      top: 130px;
+    }
+    .live-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--bordure);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .live-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--texte);
+    }
+    .live-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0,200,120,0.12);
+      border: 1px solid rgba(0,200,120,0.25);
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #00C878;
+      margin-left: auto;
+    }
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00C878;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    /* Passage card style M */
+    .passage-item {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--bordure);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.15s;
+    }
+    .passage-item:last-child { border-bottom: none; }
+    .passage-item.first-item {
+      background: rgba(255,255,255,0.03);
+    }
+    .passage-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: white;
+      background: #185FA5;
+      min-width: 40px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .passage-dest {
+      flex: 1;
+    }
+    .passage-dest-main {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--texte);
+    }
+    .passage-dest-sub {
+      font-size: 11px;
+      color: var(--texte-sec);
+      margin-top: 1px;
+    }
+    .passage-temps-wrap {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .passage-mins {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .passage-mins.mins-0 { color: #E74C3C; }
+    .passage-mins.mins-soon { color: #E74C3C; }
+    .passage-mins.mins-mid { color: #185FA5; }
+    .passage-mins.mins-far { color: var(--texte-sec); }
+    .passage-label {
+      font-size: 10px;
+      color: var(--texte-sec);
+      margin-top: 1px;
+    }
+    .passage-heure-exacte {
+      font-size: 11px;
+      color: var(--texte-sec);
+      margin-top: 2px;
+    }
+
+    /* Barre de progression */
+    .progress-bar {
+      height: 2px;
+      background: var(--bordure);
+      margin: 0 16px 0;
+      border-radius: 1px;
+    }
+    .progress-fill {
+      height: 2px;
+      background: #185FA5;
+      border-radius: 1px;
+      transition: width 0.5s ease;
+    }
+
+    /* Fin de service */
+    .fin-service {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    /* ── Panneau droite : arrêts & horaires ── */
+    .right-panel { }
+
+    /* Sélecteur arrêt */
+    .arret-search-wrap {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .arret-search {
+      width: 100%;
+      padding: 11px 16px 11px 38px;
+      border-radius: 10px;
+      border: 1px solid var(--bordure);
+      background: var(--noir-card);
+      color: var(--texte);
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .arret-search:focus { outline: none; border-color: #185FA5; }
+    .arret-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+    }
+
+    /* Liste arrêts style M */
+    .arrets-list {
+      background: var(--noir-card);
+      border: 1px solid var(--bordure);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .arret-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0;
+      cursor: pointer;
+      border-bottom: 1px solid var(--bordure);
+      transition: background 0.15s;
+    }
+    .arret-row:last-child { border-bottom: none; }
+    .arret-row:hover { background: rgba(255,255,255,0.03); }
+    .arret-row.selected { background: rgba(24,95,165,0.08); }
+    .arret-timeline {
+      width: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 0;
+      flex-shrink: 0;
+    }
+    .arret-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid #185FA5;
+      background: var(--noir-card);
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .arret-dot.terminus {
+      background: #185FA5;
+    }
+    .arret-trait {
+      width: 2px;
+      flex: 1;
+      background: #185FA5;
+      opacity: 0.4;
+      min-height: 12px;
+    }
+    .arret-info {
+      flex: 1;
+      padding: 10px 12px 10px 4px;
+    }
+    .arret-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--texte);
+    }
+    .arret-correspondances {
+      font-size: 10px;
+      color: var(--texte-sec);
+      margin-top: 2px;
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .corr-badge {
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 9px;
+      font-family: 'Syne', sans-serif;
+    }
+    .arret-prochain {
+      padding: 10px 12px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .arret-prochain-mins {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #185FA5;
+    }
+    .arret-prochain-heure {
+      font-size: 10px;
+      color: var(--texte-sec);
+    }
+
+    /* Vue horaire complet */
+    .horaire-complet {
+      background: var(--noir-card);
+      border: 1px solid var(--bordure);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .horaire-section-title {
+      padding: 10px 16px;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--texte-sec);
+      border-bottom: 1px solid var(--bordure);
+      background: rgba(255,255,255,0.02);
+    }
+    .horaire-passages {
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .horaire-pill {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--noir);
+      border: 1px solid var(--bordure);
+      color: var(--texte-sec);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .horaire-pill:hover { background: #185FA5; color: white; border-color: #185FA5; }
+    .horaire-pill.current { background: #185FA5; color: white; border-color: #185FA5; }
+
+    /* Bouton télécharger PDF */
+    .btn-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: var(--or);
+      color: var(--noir);
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-pdf:hover { background: var(--or-clair); }
+
+    /* Correspondances info */
+    .corr-info {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      color: white;
+    }
+  </style>
 </head>
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="logo.png" alt="GGMobilités">
-      GGMobilités
-    </a>
-    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Lignes structurantes</a><a href="plan.html">Plan du réseau</a><a href="tad.html">Lignes TAD</a><a href="pl1-gares.html">Ligne nocturne</a><a href="infotrafic.html">Infotrafic</a></div></div><a href="horaires.html" class="active">Horaires</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div><a href="horaires.html" class="nav-cta">🕐 Horaires</a></div>
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</a>
+    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html" class="active">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Toutes les lignes</a><a href="infotrafic.html">Infotrafic</a><a href="tad.html">TAD</a></div></div><a href="itineraire.html">Itinéraires</a><a href="plan.html">Plan</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div></div>
   </div>
 </nav>
 <div class="accent-bar"></div>
 
-<div class="page">
-  <div style="margin-bottom:1.5rem">
-    <a href="horaires.html" style="font-size:13px;color:var(--texte-sec);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:1rem">← Retour aux horaires</a>
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-      <span style="background:#185FA5;color:white;font-family:Syne,sans-serif;font-weight:800;font-size:15px;padding:6px 16px;border-radius:8px">C1</span>
-      <h1 style="font-family:Syne,sans-serif;font-size:26px;font-weight:800;color:var(--texte)">Direction Palluel</h1>
-      <span class="live-chip" style="margin-left:auto"><span class="live-dot"></span>En direct</span>
+<!-- Hero ligne -->
+<div class="ligne-hero">
+  <div class="ligne-hero-inner">
+    <div class="ligne-num-big">C1</div>
+    <div class="ligne-hero-info">
+      <h1>Direction Palluel</h1>
+      <p>Gares ↔ Palluel · <span id="hero-jour">Chargement...</span></p>
     </div>
-    <p style="color:var(--texte-sec);margin-top:8px;font-size:14px">Mis à jour automatiquement toutes les 30 secondes</p>
+    <div class="ligne-hero-btns">
+      <button class="hero-btn" onclick="genererPDF()">📄 Fiche horaire</button>
+      <a href="reseau.html" class="hero-btn">← Retour</a>
+    </div>
   </div>
-  <div id="horaires"><div class="empty">Chargement...</div></div>
 </div>
-<script>const CODE="C1";const DIRECTION="Palluel";</script>
-<script src="script.js"></script>
 
-<footer>
-  <div class="accent-bar"></div>
-  <div style="padding:3rem 2rem">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</div>
-        <p class="footer-desc">Le réseau de transport urbain de Grenoble et sa région. Partenaire de vos déplacements quotidiens.</p>
-      </div>
-      <div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan du réseau</a><a href="infotrafic.html">Infotrafic</a><a href="horaires.html">Horaires</a><a href="tad.html">Transport à la demande</a></div>
-      <div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div>
-      <div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div>
+<!-- Barre de contrôles -->
+<div class="controls-bar">
+  <div class="controls-inner">
+    <span class="ctrl-label">Direction</span>
+    <select class="ctrl-select" id="sel-direction" onchange="changerDirection()">
+      <option value="Palluel">Palluel</option>
+      <option value="Gares">Gares</option>
+    </select>
+
+    <span class="ctrl-label">Jour</span>
+    <select class="ctrl-select" id="sel-jour" onchange="recharger()">
+      <option value="auto">Aujourd'hui</option>
+      <option value="semaine">Lun–Ven</option>
+      <option value="samedi">Samedi</option>
+      <option value="dimanche">Dimanche</option>
+    </select>
+
+    <div class="tab-switcher">
+      <button class="tab-btn active" id="tb-live" onclick="setVue('live')">⚡ En direct</button>
+      <button class="tab-btn" id="tb-complet" onclick="setVue('complet')">🕐 Horaire complet</button>
     </div>
-    <div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div>
   </div>
-</footer>
+</div>
+
+<!-- Corps -->
+<div class="ligne-body">
+  <!-- Gauche : prochains passages -->
+  <div>
+    <div class="live-panel">
+      <div class="live-header">
+        <span class="live-title">Prochains passages</span>
+        <span class="live-chip"><span class="live-dot"></span>En direct</span>
+      </div>
+      <div id="live-content">
+        <div style="padding:2rem;text-align:center;color:var(--texte-sec);font-size:14px">Chargement...</div>
+      </div>
+    </div>
+
+    <div id="detail-arret" style="margin-top:1rem"></div>
+  </div>
+
+  <!-- Droite : liste des arrêts -->
+  <div class="right-panel">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div style="font-family:Syne,sans-serif;font-size:16px;font-weight:700;color:var(--texte)">
+        17 arrêts
+      </div>
+      <button class="btn-pdf" onclick="genererPDF()">📄 Télécharger la fiche horaire</button>
+    </div>
+
+    <div class="arret-search-wrap">
+      <span class="arret-search-icon">🔍</span>
+      <input class="arret-search" id="arret-search" placeholder="Rechercher un arrêt..." oninput="filtrerArrets()">
+    </div>
+
+    <div class="arrets-list" id="arrets-list">
+      <!-- Généré par JS -->
+    </div>
+
+    <div id="vue-complet" style="display:none">
+      <!-- Horaire complet -->
+    </div>
+  </div>
+</div>
+
+<script>
+const CODE = "C1";
+const DIRECTION = "Palluel";
+const DIRECTION_RETOUR = "Gares";
+const BADGE_COLOR = "#185FA5";
+const TERMINUSA = "Gares";
+const TERMINUSB = "Palluel";
+
+let LINES_DATA = null;
+let ligneActuelle = null;
+let arretSelectionne = null;
+let vueActuelle = 'live';
+let intervalId = null;
+
+// Perturbation aléatoire simulée (en minutes, -2 à +5)
+function perturbation() {
+  // Simulation réaliste : 70% ponctuel, 20% léger retard, 10% gros retard
+  const r = Math.random();
+  if (r < 0.70) return 0;
+  if (r < 0.85) return Math.floor(Math.random() * 2) + 1;  // +1 ou +2
+  if (r < 0.95) return Math.floor(Math.random() * 3) + 3;  // +3 à +5
+  return -1; // avance exceptionnelle
+}
+
+// Cache des perturbations (cohérent entre rafraîchissements)
+const PERTURB_CACHE = {};
+function getPerturbation(key) {
+  if (!(key in PERTURB_CACHE)) {
+    PERTURB_CACHE[key] = perturbation();
+    // Expirer après 3 min
+    setTimeout(() => delete PERTURB_CACHE[key], 3 * 60 * 1000);
+  }
+  return PERTURB_CACHE[key];
+}
+
+function jourType() {
+  const sel = document.getElementById('sel-jour').value;
+  if (sel !== 'auto') return sel;
+  const j = new Date().getDay();
+  return j === 6 ? 'samedi' : j === 0 ? 'dimanche' : 'semaine';
+}
+
+function minutesAvant(heureStr, perturbMins = 0) {
+  const now = new Date();
+  const [h, m] = heureStr.split(':').map(Number);
+  const p = new Date();
+  p.setHours(h, m + perturbMins, 0, 0);
+  if (p - now < -12 * 3600000) p.setDate(p.getDate() + 1);
+  return Math.round((p - now) / 60000);
+}
+
+function heureFormatee(heureStr, perturbMins = 0) {
+  const [h, m] = heureStr.split(':').map(Number);
+  const t = h * 60 + m + perturbMins;
+  const hh = Math.floor(((t % 1440) + 1440) % 1440 / 60);
+  const mm = ((t % 60) + 60) % 60;
+  return `${hh.toString().padStart(2,'0')}:${mm.toString().padStart(2,'0')}`;
+}
+
+function heureCourante() {
+  const n = new Date();
+  return n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0');
+}
+
+async function charger() {
+  const res = await fetch('lines.json');
+  LINES_DATA = await res.json();
+  recharger();
+}
+
+function trouverLigne() {
+  const jour = jourType();
+  const dir = document.getElementById('sel-direction').value;
+  return LINES_DATA?.find(l => l.code === CODE && l.direction === dir && l.jour === jour) || null;
+}
+
+function recharger() {
+  ligneActuelle = trouverLigne();
+  const jour = jourType();
+  const jourLabel = {semaine:'Lun–Ven', samedi:'Samedi', dimanche:'Dimanche'}[jour];
+  document.getElementById('hero-jour').textContent = jourLabel;
+
+  if (!ligneActuelle || !ligneActuelle.arrets?.length) {
+    document.getElementById('live-content').innerHTML = `
+      <div class="fin-service">
+        <div style="font-size:32px;margin-bottom:8px">🌙</div>
+        <div style="font-family:Syne,sans-serif;font-weight:700;color:var(--texte);margin-bottom:4px">Pas de service</div>
+        <div style="font-size:13px;color:var(--texte-sec)">Aucune circulation ce jour sur cette ligne.</div>
+      </div>`;
+    document.getElementById('arrets-list').innerHTML = '';
+    return;
+  }
+
+  afficherArrets();
+  afficherLive();
+
+  if (intervalId) clearInterval(intervalId);
+  intervalId = setInterval(() => {
+    afficherLive();
+    afficherArrets(); // mise à jour des temps dans la liste
+  }, 30000);
+}
+
+function afficherLive() {
+  if (!ligneActuelle?.arrets?.length) return;
+  const div = document.getElementById('live-content');
+  const arretRef = arretSelectionne !== null
+    ? ligneActuelle.arrets[arretSelectionne]
+    : ligneActuelle.arrets[0];
+
+  const passages = arretRef.passages
+    .map((h, i) => {
+      const p = getPerturbation(`${arretRef.nom}-${i}`);
+      return { heure: h, pertub: p, mins: minutesAvant(h, p), heureAff: heureFormatee(h, p) };
+    })
+    .filter(p => p.mins >= -1 && p.mins <= 90)
+    .sort((a,b) => a.mins - b.mins)
+    .slice(0, 6);
+
+  if (!passages.length) {
+    div.innerHTML = `
+      <div class="fin-service">
+        <div style="font-size:28px;margin-bottom:8px">🌙</div>
+        <div style="font-family:Syne,sans-serif;font-weight:700;color:var(--texte);margin-bottom:4px">Fin de service</div>
+        <div style="font-size:13px;color:var(--texte-sec)">Prochain service demain matin.</div>
+      </div>`;
+    return;
+  }
+
+  const arretNom = arretSelectionne !== null ? arretRef.nom : 'Terminus';
+  let html = `<div style="font-size:11px;color:var(--texte-sec);padding:8px 16px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:6px">
+    <span class="live-dot" style="background:var(--or)"></span>
+    Arrêt : <strong style="color:var(--texte)">${arretNom}</strong>
+    <span style="margin-left:auto">${heureCourante()}</span>
+  </div>`;
+
+  passages.forEach((p, i) => {
+    const isFirst = i === 0;
+    const cls = p.mins <= 0 ? 'mins-0' : p.mins <= 5 ? 'mins-soon' : p.mins <= 15 ? 'mins-mid' : 'mins-far';
+    const label = p.mins <= 0 ? 'À l'arrêt' : p.mins <= 60 ? 'min' : '';
+    const val = p.mins <= 0 ? '0' : p.mins <= 60 ? p.mins : p.heureAff;
+    const retard = p.pertub > 0 ? `<span style="font-size:10px;color:#E67E22;margin-left:4px">+${p.pertub} min</span>` : '';
+    const pct = Math.min(100, Math.round((1 - p.mins/60)*100));
+
+    if (isFirst) {
+      html += `
+        <div class="passage-item first-item">
+          <div class="passage-num">C1</div>
+          <div class="passage-dest">
+            <div class="passage-dest-main">Palluel ${retard}</div>
+            <div class="passage-dest-sub">Départ à ${p.heureAff}</div>
+          </div>
+          <div class="passage-temps-wrap">
+            <div class="passage-mins ${cls}">${val}</div>
+            <div class="passage-label">${label}</div>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${pct}%"></div>
+        </div>`;
+    } else {
+      html += `
+        <div class="passage-item">
+          <div class="passage-num" style="background:rgba(255,255,255,0.1);color:var(--texte-sec)">C1</div>
+          <div class="passage-dest">
+            <div class="passage-dest-main" style="font-size:13px">Palluel ${retard}</div>
+            <div class="passage-dest-sub">à ${p.heureAff}</div>
+          </div>
+          <div class="passage-temps-wrap">
+            <div class="passage-mins ${cls}" style="font-size:16px">${val}</div>
+            <div class="passage-label">${label}</div>
+          </div>
+        </div>`;
+    }
+  });
+
+  div.innerHTML = html;
+}
+
+function afficherArrets() {
+  if (!ligneActuelle?.arrets?.length) return;
+  const q = document.getElementById('arret-search').value.toLowerCase();
+  const list = document.getElementById('arrets-list');
+  const arrets = ligneActuelle.arrets;
+
+  let html = '';
+  arrets.forEach((a, i) => {
+    if (q && !a.nom.toLowerCase().includes(q)) return;
+    const isTerminus = i === 0 || i === arrets.length - 1;
+    const isSelected = arretSelectionne === i;
+
+    // Prochain passage à cet arrêt
+    const prochains = a.passages
+      .map((h, pi) => { const p = getPerturbation(`${a.nom}-${pi}`); return { mins: minutesAvant(h, p), heureAff: heureFormatee(h, p) }; })
+      .filter(p => p.mins >= 0 && p.mins <= 90)
+      .sort((x,y) => x.mins - y.mins);
+    const prochain = prochains[0];
+    const minsStr = prochain ? (prochain.mins <= 60 ? `${prochain.mins} min` : prochain.heureAff) : '—';
+
+    const estDernier = i === arrets.length - 1;
+    html += `
+      <div class="arret-row${isSelected ? ' selected' : ''}" onclick="selectionnerArret(${i})">
+        <div class="arret-timeline">
+          <div class="arret-dot${isTerminus ? ' terminus' : ''}"></div>
+          ${!estDernier ? '<div class="arret-trait"></div>' : ''}
+        </div>
+        <div class="arret-info">
+          <div class="arret-name">${a.nom}</div>
+        </div>
+        <div class="arret-prochain">
+          <div class="arret-prochain-mins">${minsStr}</div>
+          <div class="arret-prochain-heure">${prochain?.heureAff || ''}</div>
+        </div>
+      </div>`;
+  });
+
+  list.innerHTML = html;
+}
+
+function selectionnerArret(idx) {
+  arretSelectionne = idx;
+  afficherArrets();
+  afficherLive();
+
+  // Afficher détail horaire de cet arrêt si vue complet
+  if (vueActuelle === 'complet') {
+    afficherHoraireComplet(idx);
+  }
+}
+
+function filtrerArrets() {
+  afficherArrets();
+}
+
+function changerDirection() {
+  arretSelectionne = null;
+  recharger();
+}
+
+function setVue(vue) {
+  vueActuelle = vue;
+  document.getElementById('tb-live').classList.toggle('active', vue === 'live');
+  document.getElementById('tb-complet').classList.toggle('active', vue === 'complet');
+  document.getElementById('vue-complet').style.display = vue === 'complet' ? 'block' : 'none';
+  document.getElementById('detail-arret').style.display = vue === 'live' ? 'block' : 'none';
+
+  if (vue === 'complet') {
+    afficherHoraireComplet(arretSelectionne);
+  }
+}
+
+function afficherHoraireComplet(arretIdx) {
+  if (!ligneActuelle?.arrets?.length) return;
+  const arret = arretIdx !== null ? ligneActuelle.arrets[arretIdx] : null;
+  const div = document.getElementById('vue-complet');
+
+  // Grouper les passages par tranche horaire
+  const passages = arret ? arret.passages : ligneActuelle.arrets[0].passages;
+  const heureNow = new Date().getHours() * 60 + new Date().getMinutes();
+
+  const tranches = {};
+  passages.forEach(h => {
+    const [hh] = h.split(':').map(Number);
+    const key = `${hh.toString().padStart(2,'0')}h`;
+    if (!tranches[key]) tranches[key] = [];
+    tranches[key].push(h);
+  });
+
+  let html = `<div class="horaire-complet">
+    <div class="horaire-section-title">
+      ${arret ? `Horaire complet — ${arret.nom}` : 'Horaire complet — Terminus'}
+    </div>`;
+
+  Object.entries(tranches).forEach(([tranche, heures]) => {
+    html += `<div class="horaire-section-title" style="background:transparent;font-size:12px;color:var(--texte-sec)">${tranche}</div>
+      <div class="horaire-passages">`;
+    heures.forEach(h => {
+      const [hh2, mm] = h.split(':').map(Number);
+      const mins = hh2 * 60 + mm;
+      const isCurrent = Math.abs(mins - heureNow) < 5;
+      html += `<div class="horaire-pill${isCurrent ? ' current' : ''}" title="${h}">${h}</div>`;
+    });
+    html += `</div>`;
+  });
+
+  html += '</div>';
+  div.innerHTML = html;
+}
+
+function genererPDF() {
+  const dir = document.getElementById('sel-direction').value;
+  const jour = jourType();
+  window.open(`generer-pdf.html?code=${CODE}&direction=${encodeURIComponent(dir)}&jour=${jour}`, '_blank');
+}
+
+charger();
+</script>
 </body>
 </html>

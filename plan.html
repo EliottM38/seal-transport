@@ -2,10 +2,75 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=itineraire.html">
-  <title>Plan — GGMobilités</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan interactif — GGMobilités</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .plan-wrapper {
+      height: calc(100vh - 68px - 3px);
+      display: flex;
+      flex-direction: column;
+    }
+    .plan-topbar {
+      background: var(--noir-card);
+      border-bottom: 1px solid var(--bordure);
+      padding: 10px 2rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .plan-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--texte);
+    }
+    .plan-desc {
+      font-size: 13px;
+      color: var(--texte-sec);
+    }
+    .plan-link {
+      margin-left: auto;
+      color: var(--or);
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .plan-link:hover { color: var(--or-clair); }
+    .plan-iframe {
+      flex: 1;
+      border: none;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-  <script>window.location.href='itineraire.html';</script>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</a>
+    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Toutes les lignes</a><a href="infotrafic.html">Infotrafic</a><a href="tad.html">TAD</a></div></div><a href="itineraire.html">Itinéraires</a><a href="plan.html" class="active">Plan</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div></div>
+  </div>
+</nav>
+<div class="accent-bar"></div>
+<div class="plan-wrapper">
+  <div class="plan-topbar">
+    <div>
+      <div class="plan-title">🗺️ Plan interactif du réseau</div>
+      <div class="plan-desc">Cliquez sur une ligne ou un arrêt pour explorer le réseau GGMobilités</div>
+    </div>
+    <a href="https://metrodreamin.com/view/elNleEM2THNIc1JhSzhSMXI1UUp0c1AzcTBHM3wx" target="_blank" class="plan-link">Ouvrir en plein écran ↗</a>
+  </div>
+  <iframe
+    class="plan-iframe"
+    src="https://metrodreamin.com/view/elNleEM2THNIc1JhSzhSMXI1UUp0c1AzcTBHM3wx"
+    title="Plan interactif GGMobilités"
+    allowfullscreen
+    loading="lazy">
+  </iframe>
+</div>
 </body>
 </html>

@@ -6,254 +6,26 @@
   <title>Le réseau — GGMobilités</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="logo.png" alt="GGMobilités">
-      GGMobilités
-    </a>
-    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html" class="active">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan du réseau</a><a href="lignes-speciales.html">Lignes spéciales</a><a href="tad.html">Lignes TAD</a><a href="infotrafic.html">Infotrafic</a></div></div><a href="horaires.html">Horaires</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div><a href="horaires.html" class="nav-cta">🕐 Horaires</a></div>
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</a>
+    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html" class="active">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Toutes les lignes</a><a href="infotrafic.html">Infotrafic</a><a href="tad.html">TAD</a></div></div><a href="itineraire.html">Itinéraires</a><a href="plan.html">Plan</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div></div>
   </div>
 </nav>
 <div class="accent-bar"></div>
-
-<div class="page">
-  <div style="margin-bottom:2rem">
-    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:800;margin-bottom:6px;color:var(--texte)">Le réseau GGMobilités</h1>
-    <p style="color:var(--texte-sec)">Cliquez sur une ligne pour voir sa fiche complète avec le schéma des arrêts</p>
-  </div>
-
-  <div style="margin-bottom:2.5rem">
-    <div style="font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">Lignes structurantes</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
-<a href="ligne-c1.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#185FA5;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">C1</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Gares ↔ Palluel</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 7 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a><a href="ligne-c2.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#0F6E56;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">C2</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Gares ↔ Les Claverins</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 6 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a><a href="ligne-c3.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#993C1D;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">C3</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Gares ↔ La Vallone</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 5 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a></div></div>
-
-  <div style="margin-bottom:2.5rem">
-    <div style="font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">Lignes urbaines</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
-<a href="ligne-4.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#534AB7;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">4</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Gares ↔ Lycée du Grésivaudan</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 10 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a><a href="ligne-5.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#3B6D11;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">5</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Le Prisme ↔ Universités Bibliothèques</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 10 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a><a href="ligne-6.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#854F0B;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">6</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Grand'Place ↔ Universités Bibliothèques</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 10 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a><a href="ligne-7.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#993556;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">7</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Centre du Graphisme ↔ Victor Hugo</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 10 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a><a href="ligne-8.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#5F5E5A;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">8</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Universités Bibliothèques ↔ Chantefeuille</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 15 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a><a href="ligne-9.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#185FA5;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">9</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">L'Ovalie ↔ Cité Jean Macé</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 15 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a><a href="ligne-10.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#0F6E56;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">10</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Les Claverins ↔ Palais de Justice Gares</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 10 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a><a href="ligne-11.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#A32D2D;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">11</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Le Péage ↔ Verdun Préfecture</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 30 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· Lun–Sam</span>
-      </div>
-    </a></div></div>
-
-  <div style="margin-bottom:2.5rem">
-    <div style="font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">Lignes de proximité</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
-<a href="ligne-60.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#412402;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">60</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Grand'Place ↔ Office de Tourisme</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 20 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· Semaine</span>
-      </div>
-    </a><a href="ligne-61.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#3B6D11;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">61</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Gières Gare Universités ↔ Universités Bibliothèques</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 15 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· Lun–Sam</span>
-      </div>
-    </a></div></div>
-
-  <div style="margin-bottom:2.5rem">
-    <div style="font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">Ligne nocturne</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
-<a href="ligne-pl1.html" style="
-      display:block;background:var(--noir-card);border:1px solid var(--bordure);
-      border-radius:14px;padding:1.25rem;text-decoration:none;transition:all 0.2s;
-    " onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='var(--bordure)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <span style="background:#2C2C2A;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">PL1</span>
-        <span style="font-size:13px;font-weight:600;color:var(--texte)">Le Prisme ↔ Gares</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--or)">⏱ 60 min</span>
-        <span style="font-size:11px;color:var(--texte-sec)">· 7j/7</span>
-      </div>
-    </a></div></div>
-
-  <div>
-    <div style="font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:1rem">Transport à la demande</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
-      <a href="tad.html" style="display:block;background:var(--noir-card);border:1px solid var(--bordure);border-radius:14px;padding:1.25rem;text-decoration:none">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-          <span style="background:#534AB7;color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px">TAD</span>
-          <span style="font-size:13px;font-weight:600;color:var(--texte)">Sur réservation</span>
-        </div>
-        <div style="font-size:11px;color:var(--texte-sec)">Lignes saisonnières et à la demande</div>
-      </a>
-    </div>
-  </div>
-</div>
-
+<div class="page"><div style="margin-bottom:2rem"><h1 style="font-family:Syne,sans-serif;font-size:32px;font-weight:800;margin-bottom:6px;color:var(--texte)">Le réseau GGMobilités</h1><p style="color:var(--texte-sec)">Choisissez une ligne pour voir les horaires et les arrêts en temps réel</p></div><div class="section"><div class="section-title" style="margin-bottom:1rem">Lignes structurantes</div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:10px;overflow:hidden"><div style="padding:10px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#185FA5">C1</span><strong style="font-size:14px">Gares ↔ Palluel</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">7 min en HP</span></div><div style="display:flex"><a href="c1-palluel.html" style="flex:1;padding:10px 14px;text-decoration:none;color:var(--texte-sec);font-size:13px;border-right:1px solid var(--bordure);transition:background 0.15s" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Palluel</a><a href="c1-gares.html" style="flex:1;padding:10px 14px;text-decoration:none;color:var(--texte-sec);font-size:13px;transition:background 0.15s" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Gares</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:10px;overflow:hidden"><div style="padding:10px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#0F6E56">C2</span><strong style="font-size:14px">Gares ↔ Les Claverins</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">6 min en HP</span></div><div style="display:flex"><a href="c2-les_claverins.html" style="flex:1;padding:10px 14px;text-decoration:none;color:var(--texte-sec);font-size:13px;border-right:1px solid var(--bordure);transition:background 0.15s" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Les Claverins</a><a href="c2-gares.html" style="flex:1;padding:10px 14px;text-decoration:none;color:var(--texte-sec);font-size:13px;transition:background 0.15s" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Gares</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:10px;overflow:hidden"><div style="padding:10px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#993C1D">C3</span><strong style="font-size:14px">Gares ↔ La Vallone</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">5 min en HP</span></div><div style="display:flex"><a href="c3-la_vallone.html" style="flex:1;padding:10px 14px;text-decoration:none;color:var(--texte-sec);font-size:13px;border-right:1px solid var(--bordure);transition:background 0.15s" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ La Vallone</a><a href="c3-gares.html" style="flex:1;padding:10px 14px;text-decoration:none;color:var(--texte-sec);font-size:13px;transition:background 0.15s" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Gares</a></div></div></div><div class="section"><div class="section-title" style="margin-bottom:1rem">Lignes urbaines</div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#534AB7">4</span><strong style="font-size:13px">Gares ↔ Lycée du Grésivaudan</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">10 min</span></div><div style="display:flex"><a href="4-lycee_du_gresivaudan.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Lycée du Grésivaudan</a><a href="4-gares.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Gares</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#3B6D11">5</span><strong style="font-size:13px">Le Prisme ↔ Universités Bibliothèques</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">10 min</span></div><div style="display:flex"><a href="5-universites_bibliotheques.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Universités Bibliothèques</a><a href="5-le_prisme.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Le Prisme</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#854F0B">6</span><strong style="font-size:13px">Grand'Place ↔ Universités Bibliothèques</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">10 min</span></div><div style="display:flex"><a href="6-universites_bibliotheques.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Universités Bibliothèques</a><a href="6-grandplace.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Grand'Place</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#993556">7</span><strong style="font-size:13px">Centre du Graphisme ↔ Victor Hugo</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">10 min</span></div><div style="display:flex"><a href="7-victor_hugo.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Victor Hugo</a><a href="7-centre_du_graphisme.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Centre du Graphisme</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#5F5E5A">8</span><strong style="font-size:13px">Universités Bibliothèques ↔ Chantefeuille</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">15 min</span></div><div style="display:flex"><a href="8-chantefeuille.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Chantefeuille</a><a href="8-universites_bibliotheques.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Universités Bibliothèques</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#0A6BAB">9</span><strong style="font-size:13px">Cité Jean Macé ↔ L'Ovalie</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">15 min</span></div><div style="display:flex"><a href="9-lovalie.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ L'Ovalie</a><a href="9-cite_jean_mace.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Cité Jean Macé</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#0F6E56">10</span><strong style="font-size:13px">Palais de Justice Gares ↔ Les Claverins</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">10 min</span></div><div style="display:flex"><a href="10-les_claverins.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Les Claverins</a><a href="10-palais_de_justice_gares.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Palais de Justice Gares</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#A32D2D">11</span><strong style="font-size:13px">Verdun Préfecture ↔ Le Péage</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">30 min</span></div><div style="display:flex"><a href="11-le_peage.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Le Péage</a><a href="11-verdun_prefecture.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Verdun Préfecture</a></div></div></div><div class="section"><div class="section-title" style="margin-bottom:1rem">Soirée, nocturne & TAD</div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#412402">60</span><strong style="font-size:13px">Office de Tourisme ↔ Grand'Place</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">20 min · Semaine</span></div><div style="display:flex"><a href="60-grandplace.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Grand'Place</a><a href="60-office_de_tourisme.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Office de Tourisme</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#3B6D11">61</span><strong style="font-size:13px">Universités Bibliothèques ↔ Gières Gare Universités</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">15 min · Lun–Sam</span></div><div style="display:flex"><a href="61-gieres_gare_universites.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Gières Gare Universités</a><a href="61-universites_bibliotheques.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Universités Bibliothèques</a></div></div><div style="background:var(--noir-card);border:1px solid var(--bordure);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden"><div style="padding:9px 14px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px"><span class="ligne-num" style="background:#2C2C2A">PL1</span><strong style="font-size:13px">Gares ↔ Le Prisme</strong><span style="font-size:12px;color:var(--texte-sec);margin-left:auto">60 min · 23h–5h</span></div><div style="display:flex"><a href="pl1-le_prisme.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px;border-right:1px solid var(--bordure)" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Le Prisme</a><a href="pl1-gares.html" style="flex:1;padding:9px 14px;text-decoration:none;color:var(--texte-sec);font-size:12px" onmouseover="this.style.background='var(--or-pale)'" onmouseout="this.style.background=''">→ Gares</a></div></div><a href="tad.html" class="ligne-row"><span class="ligne-num" style="background:#534AB7">TAD</span><div class="ligne-info"><strong>Sur réservation</strong><span>Contactez-nous</span></div><span class="ligne-arrow">→</span></a></div></div>
 <footer>
   <div class="accent-bar"></div>
-  <div style="padding:3rem 2rem">
+  <div style="padding:2.5rem 2rem">
     <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</div>
-        <p class="footer-desc">Le réseau de transport urbain de Grenoble et sa région.</p>
-      </div>
-      <div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan du réseau</a><a href="lignes-speciales.html">Lignes spéciales</a><a href="infotrafic.html">Infotrafic</a></div>
-      <div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div>
-      <div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div>
+      <div class="footer-brand"><div class="footer-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</div><p class="footer-desc">Réseau de transport de Grenoble et sa région.</p></div>
+      <div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan interactif</a><a href="infotrafic.html">Infotrafic</a></div>
+      <div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="agences.html">Agences</a></div>
+      <div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a></div>
     </div>
     <div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div>
   </div>
