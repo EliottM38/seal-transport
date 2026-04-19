@@ -332,7 +332,7 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
 const JB_ID  = "69d95af5aaba882197e64b7e";
 const JB_KEY = "$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
 const GH_TK  = "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";
-const GH_RPO = "EliottM38/seal-transport";
+const GH_RPO = "EliottM38/GG-Mobilites";
 const GH_BR  = "main";
 
 // Comptes par défaut — TOUJOURS disponibles même si JSONBin est vide
@@ -782,10 +782,10 @@ function renderImages(){
   const g=document.getElementById('ig'),u=document.getElementById('iurls');
   if(!db.images.length){g.innerHTML='<div style="color:var(--txs);font-size:13px">Aucune image.</div>';u.innerHTML='';return;}
   g.innerHTML=db.images.map((img,i)=>`<div class="it"><img src="${img.data}" alt="${img.name}" loading="lazy"><button class="idl" onclick="delImg(${i})">✕</button></div>`).join('');
-  u.innerHTML='<div class="stl">Copier l'URL d'une image</div>'+db.images.map((img,i)=>
+  u.innerHTML='<div class="stl">Copier l\'URL d\'une image</div>'+db.images.map((img,i)=>
     `<div style="font-size:11px;color:var(--txs);margin-bottom:6px;display:flex;align-items:center;gap:8px">
       <span style="font-weight:600;color:var(--tx)">${img.name}</span>
-      <button class="bgh" style="padding:3px 8px;font-size:11px" onclick="navigator.clipboard.writeText(db.images[${i}].data);toast('URL copiée !')">Copier URL</button>
+      <button class="bgh" style="padding:3px 8px;font-size:11px" onclick="navigator.clipboard.writeText(db.images[${i}].data);toast(\'URL copiée \')">Copier URL</button>
     </div>`).join('');
 }
 
