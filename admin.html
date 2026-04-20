@@ -226,7 +226,23 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
       <!-- ARTICLES -->
       <div class="pn" id="pn-art">
         <h2>Actualités</h2>
-        <div class="ib"><strong>Carousel</strong> — Les articles s'affichent en carousel sur la page d'accueil du site.</div>
+
+        <!-- Carousel images -->
+        <div class="stl">Carousel d'images (accueil)</div>
+        <div class="ib"><strong>Carousel</strong> — Images affichées en haut de la page d'accueil, <em>séparées</em> des articles. Ajoutez l'URL de l'image, un titre et une description optionnels.</div>
+        <div class="fc">
+          <div class="fd"><label>Titre du carousel (optionnel)</label><input type="text" id="car-titre" placeholder="À la une, En ce moment..."></div>
+          <div class="fr3" style="margin-bottom:10px">
+            <div class="fd" style="margin:0"><label>URL de l'image</label><input type="url" id="car-img" placeholder="https://..."></div>
+            <div class="fd" style="margin:0"><label>Titre sur l'image</label><input type="text" id="car-itit" placeholder="Titre (optionnel)"></div>
+            <div class="fd" style="margin:0"><label>Description</label><input type="text" id="car-idesc" placeholder="Texte (optionnel)"></div>
+          </div>
+          <button class="bor" onclick="addCarouselImg()">Ajouter au carousel</button>
+        </div>
+        <div id="car-list" style="margin-bottom:1.5rem"></div>
+
+        <!-- Articles -->
+        <div class="ib"><strong>Articles</strong> — Affichés en grille sous le carousel sur la page d'accueil.</div>
         <div class="stl">Nouvel article</div>
         <div class="fc">
           <div class="fd"><label>Titre</label><input type="text" id="a-ti" placeholder="Titre de l'article"></div>
@@ -356,7 +372,7 @@ let db = {
     {nom:"Agence Grand'Place",adr:"Centre commercial Grand'Place, Échirolles",sem:"Lun–Sam : 9h–19h",we:"Dim : fermé",svc:"Vente, rechargement"},
     {nom:"Agence Universités",adr:"Campus, Saint-Martin-d'Hères",sem:"Lun–Ven : 8h30–18h",we:"Fermé sam et dim",svc:"Vente, abonnements étudiants"},
   ],
-  images:[], popup:{actif:false},
+  images:[], popup:{actif:false}, carousel:[], carousel_titre:'',
   comptes:[...COMPTES_DEF],
 };
 let linesData = [];
@@ -385,6 +401,8 @@ async function loadDB(){
     if(rec.activity) db.activity=rec.activity;
     if(rec.agences?.length) db.agences=rec.agences;
     if(rec.images) db.images=rec.images;
+    if(rec.carousel) db.carousel=rec.carousel;
+    if(rec.carousel_titre) db.carousel_titre=rec.carousel_titre;
     if(rec.popup) db.popup=rec.popup;
     // Comptes : toujours garder les défauts + ajouter les nouveaux
     if(rec.comptes?.length){
@@ -407,7 +425,7 @@ async function saveDB(){
       method:'PUT',
       headers:{'Content-Type':'application/json','X-Master-Key':JB_KEY},
       body:JSON.stringify({alertes:db.alertes,articles:db.articles,horaires_modifs:db.horaires_modifs,
-        comptes:db.comptes,activity:db.activity,agences:db.agences,images:db.images,popup:db.popup})
+        comptes:db.comptes,activity:db.activity,agences:db.agences,images:db.images,popup:db.popup,carousel:db.carousel||[],carousel_titre:db.carousel_titre||''})
     });
     setSync('ok');
   }catch(e){setSync('er');toast('Erreur sauvegarde JSONBin',true);}
@@ -431,12 +449,50 @@ async function ghPush(path,content,msg){
   return r.json();
 }
 async function ghLoadLines(){
+  // Méthode 1 : API GitHub Contents (marche toujours, base64)
   try{
-    const r=await fetch(`https://raw.githubusercontent.com/${GH_RPO}/${GH_BR}/lines.json?t=${Date.now()}`,
-      {headers:{'Authorization':'token '+GH_TK,'Cache-Control':'no-cache'}});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    linesData=await r.json(); return linesData;
-  }catch(e){toast('Erreur lines.json : '+e.message,true);return[];}
+    const r=await fetch(
+      "https://api.github.com/repos/"+GH_RPO+"/contents/lines.json",
+      {headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json"}}
+    );
+    if(!r.ok) throw new Error("API "+r.status);
+    const j=await r.json();
+    // décoder le base64
+    const raw=j.content.replace(/\n/g,"");
+    const decoded=decodeURIComponent(Array.prototype.map.call(atob(raw),c=>{
+      return "%"+("00"+c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(""));
+    linesData=JSON.parse(decoded);
+    hRefreshDirs();
+    return linesData;
+  }catch(e1){
+    // Méthode 2 : raw sans auth (repo public)
+    try{
+      const r2=await fetch("https://raw.githubusercontent.com/"+GH_RPO+"/"+GH_BR+"/lines.json?nc="+Date.now());
+      if(!r2.ok) throw new Error("raw "+r2.status);
+      linesData=await r2.json();
+      hRefreshDirs();
+      return linesData;
+    }catch(e2){
+      toast("Erreur lines.json : "+e1.message+" / "+e2.message,true);
+      return[];
+    }
+  }
+}
+
+function hRefreshDirs(){
+  const code=document.getElementById("h-code")?.value;
+  if(!code||!linesData.length) return;
+  const sel=document.getElementById("h-dir");
+  const prev=sel.value;
+  sel.innerHTML='<option value="">— Toutes —</option>';
+  const dirs=[...new Set(linesData.filter(l=>l.code===code&&l.direction).map(l=>l.direction))];
+  dirs.forEach(d=>{
+    const o=document.createElement("option");
+    o.value=d; o.textContent=d;
+    if(d===prev) o.selected=true;
+    sel.appendChild(o);
+  });
 }
 
 // ── AUTH ──────────────────────────────────────────────────
@@ -500,7 +556,11 @@ function renderAll(){
   al.innerHTML=db.activity.length
     ?db.activity.slice(0,10).map(a=>'<div class="act">'+a+'</div>').join('')
     :'<div class="act">Aucune activité récente.</div>';
-  renderAlertes();renderArticles();renderAgences();renderComptes();
+  renderAlertes();renderArticles();renderAgences();renderComptes();renderCarouselList();
+  // Pré-remplir carousel titre
+  if(db.carousel_titre && document.getElementById('car-titre')){
+    document.getElementById('car-titre').value=db.carousel_titre;
+  }
   // Pré-remplir popup
   if(db.popup?.titre){
     document.getElementById('pu-t').value=db.popup.titre||'';
@@ -538,18 +598,26 @@ async function delAlerte(i){
 }
 
 // ── HORAIRES ──────────────────────────────────────────────
-function hDir(){
-  const code=document.getElementById('h-code').value;
-  const sel=document.getElementById('h-dir');
+async function hDir(){
+  const code=document.getElementById("h-code").value;
+  const sel=document.getElementById("h-dir");
+  sel.innerHTML='<option value="">Chargement...</option>';
+  document.getElementById("h-act-step").style.display="none";
+  document.getElementById("h-edit-step").style.display="none";
+  if(!code) return;
+  if(!linesData.length){
+    await ghLoadLines();
+  }
   sel.innerHTML='<option value="">— Toutes —</option>';
-  document.getElementById('h-act-step').style.display='none';
-  document.getElementById('h-edit-step').style.display='none';
-  if(!code)return;
   if(linesData.length){
     const dirs=[...new Set(linesData.filter(l=>l.code===code&&l.direction).map(l=>l.direction))];
-    dirs.forEach(d=>sel.innerHTML+=`<option value="${d}">${d}</option>`);
+    dirs.forEach(d=>{
+      const o=document.createElement("option");
+      o.value=d; o.textContent=d;
+      sel.appendChild(o);
+    });
   }
-  document.getElementById('h-act-step').style.display='block';
+  document.getElementById("h-act-step").style.display="block";
 }
 
 function hSetAct(act){
@@ -602,23 +670,30 @@ function addPlage(){
 }
 
 async function hLoadPassages(code,dir,jour){
-  if(!linesData.length)await ghLoadLines();
-  const cnt=document.getElementById('h-edit-cnt');
+  const cnt=document.getElementById("h-edit-cnt");
+  cnt.innerHTML='<div style="color:var(--txs);font-size:13px;padding:0.5rem 0">Chargement des passages...</div>';
+  if(!linesData.length) await ghLoadLines();
+  if(!linesData.length){
+    cnt.innerHTML='<div style="color:var(--r)">Impossible de charger les données.</div>';
+    return;
+  }
   const dirs=dir?[dir]:[...new Set(linesData.filter(l=>l.code===code&&l.jour===jour).map(l=>l.direction))];
-  let html='';
+  let html="";
   dirs.forEach(d=>{
     const l=linesData.find(x=>x.code===code&&x.direction===d&&x.jour===jour);
-    if(!l?.horaires?.length)return;
-    html+=`<div style="font-weight:700;color:var(--or);margin-bottom:8px;font-size:13px">→ ${d}</div>
-      <div class="plist" id="pl-${d.replace(/[^a-z0-9]/gi,'_')}">
-        ${l.horaires.map((h,i)=>`<div class="prow">
-          <span style="font-weight:700;width:55px;flex-shrink:0">${h.heure}</span>
+    const passages=l?.horaires||[];
+    if(!passages.length) return;
+    const dSafe=d.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+    html+=`<div style="font-weight:700;color:var(--or);margin-bottom:8px;font-size:13px">→ ${d} (${passages.length} passages)</div>
+      <div class="plist">
+        ${passages.map((h,i)=>`<div class="prow">
+          <span style="font-weight:700;width:60px;flex-shrink:0">${h.heure}</span>
           <span style="flex:1;color:var(--txs);font-size:12px">${h.destination||d}</span>
-          <button class="bdel" onclick="hDelPassage('${code}','${d.replace(/'/g,"\'")}','${jour}',${i})">Supprimer</button>
-        </div>`).join('')}
-      </div>`;
+          <button class="bdel" onclick="hDelPassage('${code}','${dSafe}','${jour}',${i})">Supprimer</button>
+        </div>`).join("")}
+      </div><div style="margin-bottom:12px"></div>`;
   });
-  cnt.innerHTML=html||'<div style="color:var(--txs)">Aucun passage trouvé.</div>';
+  cnt.innerHTML=html||'<div style="color:var(--txs);padding:0.5rem 0">Aucun passage trouvé pour cette sélection.</div>';
 }
 
 async function hDelPassage(code,dir,jour,idx){
@@ -705,6 +780,47 @@ async function hSave(){
     toast('Erreur lors de la sauvegarde',true);
   }
   btn.disabled=false;btn.textContent='Sauvegarder sur GitHub';
+}
+
+
+// ── CAROUSEL ADMIN ────────────────────────────────────────
+function renderCarouselList(){
+  const el=document.getElementById("car-list");
+  if(!el) return;
+  const items=db.carousel||[];
+  if(!items.length){el.innerHTML='<div style="color:var(--txs);font-size:13px">Aucune image dans le carousel.</div>';return;}
+  el.innerHTML=items.map((item,i)=>{
+    const img=typeof item==="string"?item:(item.img||"");
+    const titre=typeof item==="object"?(item.titre||""):"";
+    return `<div style="background:#111;border:1px solid var(--bord);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
+      <img src="${img}" style="width:80px;height:48px;object-fit:cover;border-radius:6px;flex-shrink:0" onerror="this.style.display='none'">
+      <div style="flex:1;font-size:13px;color:var(--tx);word-break:break-all">${titre||img.slice(0,60)+"..."}</div>
+      <button class="bdel" onclick="delCarouselImg(${i})">Supprimer</button>
+    </div>`;
+  }).join("");
+}
+async function addCarouselImg(){
+  const img=document.getElementById("car-img").value.trim();
+  const titre=document.getElementById("car-itit").value.trim();
+  const desc=document.getElementById("car-idesc").value.trim();
+  const carTitre=document.getElementById("car-titre").value.trim();
+  if(!img){toast("Entrez une URL d'image.",true);return;}
+  if(!db.carousel) db.carousel=[];
+  db.carousel.push(titre?{img,titre,desc}:img);
+  if(carTitre) db.carousel_titre=carTitre;
+  document.getElementById("car-img").value="";
+  document.getElementById("car-itit").value="";
+  document.getElementById("car-idesc").value="";
+  renderCarouselList();
+  await saveDB();
+  toast("Image ajoutée au carousel !");
+}
+async function delCarouselImg(i){
+  if(!confirm("Supprimer cette image ?")) return;
+  db.carousel.splice(i,1);
+  renderCarouselList();
+  await saveDB();
+  toast("Image supprimée.");
 }
 
 // ── ARTICLES ──────────────────────────────────────────────

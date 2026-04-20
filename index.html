@@ -24,10 +24,11 @@
 <div class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-label">Grand Grenoble Mobilités</div>
+      <div class="hero-label">Réseau urbain de Grenoble</div>
       <h1>Voyagez facilement<br>avec <span>GGMobilités</span></h1>
-      <p class="hero-desc">Bienvenue sur le site de GG Mobilités, ici, vous pourrez retrouvez tout ce qu'il vous faut pour voyager.</p>
+      <p class="hero-desc">Des lignes structurantes aux navettes nocturnes, explorez tout le réseau de transport de l'agglomération grenobloise.</p>
       <div class="hero-btns">
+        <a href="reseau.html" class="btn btn-or">🚌 Voir le réseau</a>
         <a href="reseau.html" class="btn btn-ghost">Voir le réseau</a>
       </div>
       <div class="hero-stats">
@@ -97,6 +98,39 @@
       </a>
     </div>
   </div>
+
+  <!-- ── CAROUSEL (images, séparé des articles) ──────────── -->
+  <div id="sec-carousel" style="display:none">
+    <div class="section-header" style="margin-bottom:1rem">
+      <div class="section-title" id="carousel-titre">À la une</div>
+    </div>
+    <div style="position:relative;overflow:hidden;border-radius:16px;background:#0A2240;min-height:120px">
+      <div id="car-inner" style="display:flex;transition:transform 0.45s ease"></div>
+      <button onclick="carNav(-1)" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;z-index:2">‹</button>
+      <button onclick="carNav(1)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;z-index:2">›</button>
+      <div id="car-dots" style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:2"></div>
+    </div>
+  </div>
+
+  <!-- ── ACTUALITÉS (articles texte, séparés du carousel) ── -->
+  <div id="sec-actu" style="display:none">
+    <div class="section-header">
+      <div class="section-title">Actualités</div>
+      <a href="actualites.html" class="section-link">Tout voir →</a>
+    </div>
+    <div id="actu-grid" class="grid grid-3"></div>
+  </div>
+
+  <!-- ── POP-UP ── -->
+  <div id="popup-ov" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;align-items:center;justify-content:center;padding:2rem">
+    <div id="popup-box" style="max-width:440px;width:100%;border-radius:16px;padding:2rem;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.4)">
+      <button onclick="fermerPopup()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:rgba(255,255,255,0.8);font-size:22px;cursor:pointer;line-height:1">×</button>
+      <div id="pu-titre" style="font-size:18px;font-weight:800;margin-bottom:10px;color:white"></div>
+      <div id="pu-msg" style="font-size:14px;color:rgba(255,255,255,0.9);margin-bottom:16px;line-height:1.6"></div>
+      <a id="pu-btn" href="#" style="display:none;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;background:white"></a>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -122,6 +156,112 @@ async function majWidget() {
   } catch(e){}
 }
 majWidget(); setInterval(majWidget, 30000);
+
+// ── JSONBin : carousel, actu, popup, infotrafic ───────────
+const JB_ID="69d95af5aaba882197e64b7e", JB_KEY="$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
+let carItems=[], carIdx=0;
+
+async function loadFromJB(){
+  try{
+    const r=await fetch("https://api.jsonbin.io/v3/b/"+JB_ID+"/latest",{headers:{"X-Master-Key":JB_KEY}});
+    const j=await r.json(); const rec=j.record||{};
+
+    // Infotrafic
+    const alertes=rec.alertes||[];
+    const alDiv=document.getElementById("alertes-accueil");
+    if(alDiv){
+      if(alertes.length){
+        alDiv.innerHTML=alertes.slice(0,3).map(a=>{
+          const bg=a.niveau==="rouge"?"#E74C3C":"#E67E22";
+          const bgLight=a.niveau==="rouge"?"rgba(231,76,60,0.08)":"rgba(230,126,34,0.08)";
+          const brd=a.niveau==="rouge"?"rgba(231,76,60,0.25)":"rgba(230,126,34,0.25)";
+          return '<div style="background:white;border:1px solid '+brd+';border-left:4px solid '+bg+';border-radius:10px;padding:12px 16px;margin-bottom:10px">'+
+            '<strong style="font-size:14px;color:#0F1923">'+a.ligne+' : '+a.titre+'</strong>'+
+            '<p style="font-size:13px;color:#5A6272;margin-top:4px">'+a.desc+'</p></div>';
+        }).join("");
+      }else{
+        alDiv.innerHTML='<div style="background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.2);border-radius:10px;padding:12px 16px;font-size:13px;color:#27AE60">✓ Aucune perturbation en cours.</div>';
+      }
+    }
+
+    // Carousel images (séparé)
+    const carousel=rec.carousel||[];
+    if(carousel.length){
+      document.getElementById("sec-carousel").style.display="block";
+      if(rec.carousel_titre) document.getElementById("carousel-titre").textContent=rec.carousel_titre;
+      carItems=carousel;
+      renderCar();
+      setInterval(()=>{ if(carItems.length>1) carNav(1); },5000);
+    }
+
+    // Actualités (articles texte)
+    const articles=rec.articles||[];
+    if(articles.length){
+      document.getElementById("sec-actu").style.display="block";
+      document.getElementById("actu-grid").innerHTML=articles.slice(0,3).map(a=>{
+        var imgHtml=a.img?'<img src="'+a.img+'" style="width:100%;height:120px;object-fit:cover;border-radius:10px;margin-bottom:12px" onerror="this.style.display=\'none\'">':'';
+        var catHtml='<span style="background:var(--bleu-pale);color:var(--bleu);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase">'+(a.cat||'Actualité')+'</span>';
+        return '<div class="card">'+imgHtml+'<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+catHtml+'<span style="font-size:11px;color:var(--texte-sec)">'+(a.date||'')+'</span></div><h3 style="font-size:15px;font-weight:700;margin-bottom:6px;color:var(--texte)">'+a.titre+'</h3><p style="font-size:13px;color:var(--texte-sec);line-height:1.5">'+((a.contenu||'').slice(0,120))+'...</p></div>';
+      }).join("");
+    }
+
+    // Pop-up
+    const pu=rec.popup||{};
+    if(pu.actif && pu.titre && !sessionStorage.getItem("pu_seen")){
+      var cols={bleu:"#1565C0",rouge:"#C0392B",vert:"#27AE60",or:"#C9A84C"};
+      var bg=cols[pu.couleur]||"#1565C0";
+      document.getElementById("popup-box").style.background=bg;
+      document.getElementById("pu-titre").textContent=pu.titre;
+      document.getElementById("pu-msg").textContent=pu.msg||"";
+      if(pu.lien && pu.btn){
+        var btn=document.getElementById("pu-btn");
+        btn.href=pu.lien; btn.textContent=pu.btn;
+        btn.style.display="inline-block"; btn.style.color=bg;
+      }
+      var ov=document.getElementById("popup-ov");
+      ov.style.display="flex";
+      ov.addEventListener("click",function(e){ if(e.target===ov) fermerPopup(); });
+    }
+
+  }catch(e){ console.warn("JSONBin:",e.message); }
+}
+
+function fermerPopup(){
+  document.getElementById("popup-ov").style.display="none";
+  sessionStorage.setItem("pu_seen","1");
+}
+
+function renderCar(){
+  if(!carItems.length) return;
+  const inner=document.getElementById("car-inner");
+  const n=carItems.length;
+  inner.style.width=(n*100)+"%";
+  inner.innerHTML=carItems.map(function(item){
+    var img=typeof item==="string"?item:(item.img||"");
+    var titre=typeof item==="object"?(item.titre||""):"";
+    var desc=typeof item==="object"?(item.desc||""):"";
+    var overlay=titre?'<div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.65));padding:1.25rem 1rem"><div style="color:white;font-size:16px;font-weight:700">'+titre+'</div>'+(desc?'<div style="color:rgba(255,255,255,0.8);font-size:13px;margin-top:3px">'+desc+'</div>':'')+'</div>':'';
+    return '<div style="width:'+(100/n)+'%;flex-shrink:0;position:relative"><img src="'+img+'" style="width:100%;height:300px;object-fit:cover;display:block">'+overlay+'</div>';
+  }).join("");
+  // Dots
+  var dots=document.getElementById("car-dots");
+  dots.innerHTML=carItems.map(function(_,i){
+    return '<div onclick="carGo('+i+')" style="width:8px;height:8px;border-radius:50%;cursor:pointer;transition:background 0.2s;background:'+(i===0?"white":"rgba(255,255,255,0.4)")+'"></div>';
+  }).join("");
+  carGo(0);
+}
+
+function carGo(i){
+  carIdx=i;
+  var n=carItems.length;
+  document.getElementById("car-inner").style.transform="translateX(-"+(i*(100/n))+"%)";
+  var dots=document.getElementById("car-dots").children;
+  for(var j=0;j<dots.length;j++) dots[j].style.background=j===i?"white":"rgba(255,255,255,0.4)";
+}
+function carNav(d){ carGo((carIdx+d+carItems.length)%carItems.length); }
+
+loadFromJB();
+
 </script>
 
 <footer>
