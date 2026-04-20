@@ -350,6 +350,8 @@ const JB_KEY = "$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
 const GH_TK  = "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";
 const GH_RPO = "EliottM38/GG-Mobilites";
 const GH_BR  = "main";
+let GH_TK_LIVE=GH_TK;
+let GH_RPO_LIVE=GH_RPO;
 
 // Comptes par défaut — TOUJOURS disponibles même si JSONBin est vide
 const COMPTES_DEF = [
@@ -434,13 +436,13 @@ async function saveDB(){
 
 // ── GITHUB ────────────────────────────────────────────────
 async function ghSha(path){
-  const r=await fetch(`https://api.github.com/repos/${GH_RPO}/contents/${path}`,
+  const r=await fetch(`https://api.github.com/repos/${GH_RPO_LIVE}/contents/${path}`,
     {headers:{'Authorization':'token '+GH_TK,'Accept':'application/vnd.github.v3+json'}});
   return (await r.json()).sha;
 }
 async function ghPush(path,content,msg){
   const sha=await ghSha(path);
-  const r=await fetch(`https://api.github.com/repos/${GH_RPO}/contents/${path}`,{
+  const r=await fetch(`https://api.github.com/repos/${GH_RPO_LIVE}/contents/${path}`,{
     method:'PUT',
     headers:{'Authorization':'token '+GH_TK,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
     body:JSON.stringify({message:msg,content:btoa(unescape(encodeURIComponent(content))),sha,branch:GH_BR})
@@ -452,8 +454,8 @@ async function ghLoadLines(){
   // Méthode 1 : API GitHub Contents (marche toujours, base64)
   try{
     const r=await fetch(
-      "https://api.github.com/repos/"+GH_RPO+"/contents/lines.json",
-      {headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json"}}
+      "https://api.github.com/repos/"+GH_RPO_LIVE+"/contents/lines.json",
+      {headers:{"Authorization":"token "+GH_TK_LIVE,"Accept":"application/vnd.github.v3+json"}}
     );
     if(!r.ok) throw new Error("API "+r.status);
     const j=await r.json();
@@ -468,7 +470,7 @@ async function ghLoadLines(){
   }catch(e1){
     // Méthode 2 : raw sans auth (repo public)
     try{
-      const r2=await fetch("https://raw.githubusercontent.com/"+GH_RPO+"/"+GH_BR+"/lines.json?nc="+Date.now());
+      const r2=await fetch("https://raw.githubusercontent.com/"+GH_RPO_LIVE+"/"+GH_BR+"/lines.json?nc="+Date.now());
       if(!r2.ok) throw new Error("raw "+r2.status);
       linesData=await r2.json();
       hRefreshDirs();
@@ -966,8 +968,35 @@ async function delCpt(i){
   log('Compte supprimé : '+db.comptes[i].user);db.comptes.splice(i,1);renderAll();await saveDB();toast('Compte supprimé.');
 }
 
+
+// ── CONFIG GITHUB ─────────────────────────────────────────
+function loadGHConfig(){
+  const tk=localStorage.getItem("gh_token");
+  const rp=localStorage.getItem("gh_repo");
+  if(tk) GH_TK_LIVE=tk;
+  if(rp) GH_RPO_LIVE=rp;
+}
+function saveGHConfig(){
+  const tk=document.getElementById("gh-token-input").value.trim();
+  const rp=document.getElementById("gh-repo-input").value.trim();
+  if(tk){localStorage.setItem("gh_token",tk);GH_TK_LIVE=tk;}
+  if(rp){localStorage.setItem("gh_repo",rp);GH_RPO_LIVE=rp;}
+  toast("Configuration sauvegardée !");
+}
+async function testGHToken(){
+  const res=document.getElementById("gh-test-result");
+  res.textContent="Test...";res.style.color="var(--txs)";
+  try{
+    const r=await fetch("https://api.github.com/repos/"+GH_RPO_LIVE+"/contents/lines.json",
+      {headers:{"Authorization":"token "+GH_TK_LIVE,"Accept":"application/vnd.github.v3+json"}});
+    if(r.ok){res.textContent="Connexion OK !";res.style.color="var(--g)";}
+    else{res.textContent="Erreur "+r.status+(r.status===401?" — token expiré":"");res.style.color="var(--r)";}
+  }catch(e){res.textContent="Erreur réseau";res.style.color="var(--r)";}
+}
+
 // ── INIT ──────────────────────────────────────────────────
 // Charger JSONBin en arrière-plan — la connexion fonctionne même si JSONBin échoue
+loadGHConfig();
 loadDB();
 </script>
 </body>
