@@ -1,55 +1,195 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>60 → Office de Tourisme — GGMobilités</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>60 → Office de Tourisme — GGMobilités</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap">
-  <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+.lhero{background:#412402;padding:1.25rem 2rem;position:relative;overflow:hidden}
+.lhero::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.07)}
+.lhero-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:1.5rem;position:relative}
+.lhero-info h1{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:white;margin-bottom:3px}
+.lhero-info p{font-size:12px;color:rgba(255,255,255,0.75)}
+.lhero-btns{margin-left:auto;display:flex;gap:8px;flex-shrink:0}
+.hbtn{padding:7px 13px;border-radius:8px;font-size:12px;font-weight:600;font-family:'Syne',sans-serif;cursor:pointer;border:1px solid rgba(255,255,255,0.3);color:white;background:rgba(255,255,255,0.12);transition:all 0.2s;text-decoration:none}
+.hbtn:hover{background:rgba(255,255,255,0.25)}
+.hbtn.primary{background:white;color:#412402;border-color:white}
+.cbar{background:white;border-bottom:1px solid var(--bordure);padding:9px 2rem;position:sticky;top:64px;z-index:50}
+.cbar-in{max-width:1200px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.csel{padding:6px 10px;border-radius:8px;border:1px solid var(--bordure);background:var(--fond);color:var(--texte);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer}
+.csel:focus{outline:none;border-color:#412402}
+.clbl{font-size:11px;color:var(--texte-sec);font-weight:600}
+.ctabs{display:flex;background:var(--fond);border-radius:10px;padding:3px;border:1px solid var(--bordure);margin-left:auto}
+.ctab{padding:5px 13px;border-radius:7px;font-size:12px;font-weight:600;font-family:'Syne',sans-serif;cursor:pointer;border:none;background:transparent;color:var(--texte-sec);transition:all 0.2s}
+.ctab.active{background:#412402;color:white}
+.lbody{max-width:1200px;margin:0 auto;padding:1.25rem 2rem 4rem;display:grid;grid-template-columns:340px 1fr;gap:1.5rem;align-items:start}
+@media(max-width:900px){.lbody{grid-template-columns:1fr}}
+.lpanel{background:white;border:1px solid var(--bordure);border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);position:sticky;top:112px}
+.lpanel-head{padding:12px 15px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:8px}
+.lpanel-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--texte)}
+.lchip{display:inline-flex;align-items:center;gap:4px;background:rgba(0,200,120,0.1);border:1px solid rgba(0,200,120,0.25);border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700;color:#00A86B;margin-left:auto}
+.ldot{width:6px;height:6px;border-radius:50%;background:#00C878;animation:ld 1.2s ease-in-out infinite}
+@keyframes ld{0%,100%{opacity:1}50%{opacity:0.15}}
+.pitem{padding:12px 15px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:10px}
+.pitem:last-child{border-bottom:none}
+.pitem.first{background:rgba(0,0,0,0.015)}
+.pbadge{font-family:'Syne',sans-serif;font-size:11px;font-weight:800;padding:3px 9px;border-radius:5px;color:white;background:#412402;min-width:38px;text-align:center;flex-shrink:0}
+.pdest{flex:1}.pdest-m{font-size:13px;font-weight:500;color:var(--texte)}.pdest-s{font-size:10px;color:var(--texte-sec);margin-top:1px}
+.pmins{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;line-height:1}
+.pmins.m0,.pmins.soon{color:#E74C3C}.pmins.mid{color:#412402}.pmins.far{color:var(--texte-sec)}
+.pmlbl{font-size:9px;color:var(--texte-sec);margin-top:1px}
+.pbar{height:2px;background:var(--bordure);margin:0 15px;border-radius:1px}
+.pfill{height:2px;background:#412402;border-radius:1px;transition:width 0.5s}
+.fsvc{padding:1.5rem;text-align:center}
+.asrch{width:100%;padding:10px 15px 10px 36px;border-radius:10px;border:1px solid var(--bordure);background:white;color:var(--texte);font-size:13px;font-family:'DM Sans',sans-serif}
+.asrch:focus{outline:none;border-color:#412402}
+.alist{background:white;border:1px solid var(--bordure);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.arow{display:flex;align-items:stretch;cursor:pointer;border-bottom:1px solid var(--bordure);transition:background 0.12s}
+.arow:last-child{border-bottom:none}
+.arow:hover{background:var(--bleu-pale)}
+.arow.sel{background:var(--bleu-pale);border-left:3px solid #412402}
+.atl{width:36px;display:flex;flex-direction:column;align-items:center;padding:8px 0;flex-shrink:0}
+.adot{width:9px;height:9px;border-radius:50%;border:2px solid #412402;background:white;flex-shrink:0;z-index:1}
+.adot.t{background:#412402}
+.atrait{width:2px;flex:1;background:#412402;opacity:0.25;min-height:8px}
+.ainfo{flex:1;padding:9px 8px}.aname{font-size:12px;font-weight:500;color:var(--texte)}
+.anext{padding:9px 12px;text-align:right;flex-shrink:0;display:flex;flex-direction:column;justify-content:center}
+.amins{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:#412402}
+.ah{font-size:9px;color:var(--texte-sec)}
+.hcomplet{background:white;border:1px solid var(--bordure);border-radius:14px;overflow:hidden;margin-top:1rem;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.hst{padding:8px 14px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--texte-sec);border-bottom:1px solid var(--bordure);background:var(--fond)}
+.hpills{padding:10px 12px;display:flex;flex-wrap:wrap;gap:4px}
+.hpill{padding:3px 8px;border-radius:5px;font-family:'Syne',sans-serif;font-size:11px;font-weight:600;background:var(--fond);border:1px solid var(--bordure);color:var(--texte-sec);cursor:pointer;transition:all 0.12s}
+.hpill:hover,.hpill.cur{background:#412402;color:white;border-color:#412402}
+.btn-pdf{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;background:var(--or);color:#0F1923;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-pdf:hover{background:var(--or-clair)}
+.swrap{position:relative;margin-bottom:1rem}
+.sicon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:14px}
+</style>
 </head>
 <body>
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="logo.png" alt="GGMobilités">
-      GGMobilités
-    </a>
-    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Lignes structurantes</a><a href="plan.html">Plan du réseau</a><a href="tad.html">Lignes TAD</a><a href="pl1-gares.html">Ligne nocturne</a><a href="infotrafic.html">Infotrafic</a></div></div><a href="horaires.html" class="active">Horaires</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div><a href="horaires.html" class="nav-cta">🕐 Horaires</a></div>
-  </div>
-</nav>
+<nav><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités" style="background:transparent"> GGMobilités</a><div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html" class="active">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Toutes les lignes</a><a href="infotrafic.html">Infotrafic</a><a href="tad.html">TAD</a></div></div><a href="itineraire.html">Itinéraires</a><a href="plan.html">Plan</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div></div></div></nav>
 <div class="accent-bar"></div>
 
-<div class="page">
-  <div style="margin-bottom:1.5rem">
-    <a href="horaires.html" style="font-size:13px;color:var(--texte-sec);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:1rem">← Retour aux horaires</a>
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-      <span style="background:#412402;color:white;font-family:Syne,sans-serif;font-weight:800;font-size:15px;padding:6px 16px;border-radius:8px">60</span>
-      <h1 style="font-family:Syne,sans-serif;font-size:26px;font-weight:800;color:var(--texte)">Direction Office de Tourisme</h1>
-      <span class="live-chip" style="margin-left:auto"><span class="live-dot"></span>En direct</span>
-    </div>
-    <p style="color:var(--texte-sec);margin-top:8px;font-size:14px">Mis à jour automatiquement toutes les 30 secondes</p>
-  </div>
-  <div id="horaires"><div class="empty">Chargement...</div></div>
-</div>
-<script>const CODE="60";const DIRECTION="Office de Tourisme";</script>
-<script src="script.js"></script>
+<div class="lhero"><div class="lhero-in">
+<img src="https://i.postimg.cc/zG3pfCk7/Capture-d-e-cran-2025-11-02-a-22-04-12.png" alt="60" style="height:58px;width:auto;object-fit:contain" onerror="this.outerHTML='<span style=&quot;font-family:Syne,sans-serif;font-size:38px;font-weight:800;color:white;background:rgba(255,255,255,0.15);padding:8px 18px;border-radius:10px&quot;>60</span>'">
+<div class="lhero-info"><h1>Direction Office de Tourisme</h1><p>Office de Tourisme ↔ Grand'Place · <span id="hero-jour">...</span></p></div>
+<div class="lhero-btns"><button class="hbtn primary" onclick="genPDF()">📄 Fiche horaire</button><a href="reseau.html" class="hbtn">← Retour</a></div>
+</div></div>
 
-<footer>
-  <div class="accent-bar"></div>
-  <div style="padding:3rem 2rem">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</div>
-        <p class="footer-desc">Le réseau de transport urbain de Grenoble et sa région. Partenaire de vos déplacements quotidiens.</p>
-      </div>
-      <div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan du réseau</a><a href="infotrafic.html">Infotrafic</a><a href="horaires.html">Horaires</a><a href="tad.html">Transport à la demande</a></div>
-      <div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div>
-      <div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div>
-    </div>
-    <div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div>
-  </div>
-</footer>
+<div class="cbar"><div class="cbar-in">
+<span class="clbl">Direction</span>
+<select class="csel" id="sel-dir" onchange="changerDir()"><option value="Office de Tourisme">Office de Tourisme</option><option value="Grand'Place">Grand'Place</option></select>
+<span class="clbl">Jour</span>
+<select class="csel" id="sel-jour" onchange="reload()"><option value="auto">Aujourd'hui</option><option value="semaine">Lun–Ven</option><option value="samedi">Samedi</option><option value="dimanche">Dimanche</option></select>
+<div class="ctabs"><button class="ctab active" id="tb-live" onclick="setVue('live')">⚡ En direct</button><button class="ctab" id="tb-full" onclick="setVue('full')">🕐 Horaire complet</button></div>
+</div></div>
+
+<div class="lbody">
+<div>
+<div class="lpanel"><div class="lpanel-head"><span class="lpanel-title">Prochains passages</span><span class="lchip"><span class="ldot"></span>En direct</span></div><div id="live-content"><div style="padding:1.5rem;text-align:center;color:var(--texte-sec);font-size:13px">Chargement...</div></div></div>
+<div id="detail-arret"></div>
+</div>
+<div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--texte)">19 arrêts</div><button class="btn-pdf" onclick="genPDF()">📄 Télécharger la fiche</button></div>
+<div class="swrap"><span class="sicon">🔍</span><input class="asrch" id="asrch" placeholder="Rechercher un arrêt..." oninput="filtrer()" style="padding-left:34px"></div>
+<div class="alist" id="alist"></div>
+<div id="vue-full" style="display:none"></div>
+</div>
+</div>
+
+<footer><div class="accent-bar"></div><div style="padding:2.5rem 2rem"><div class="footer-inner"><div class="footer-brand"><div class="footer-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités" style="background:transparent"> GGMobilités</div><p class="footer-desc">Réseau de transport de Grenoble et sa région.</p></div><div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan interactif</a><a href="infotrafic.html">Infotrafic</a></div><div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="agences.html">Agences</a></div><div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a></div></div><div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div></div></footer>
+<script>
+const CODE="60",DIR="Office de Tourisme",DIR_R="Grand\'Place",BADGE="#412402";
+const DATA_DIR={"Office de Tourisme": {"semaine": {"arrets": [{"nom": "Grand'Place", "passages": ["07:12", "07:32", "07:52", "08:12", "08:32", "08:52", "09:12", "09:32", "09:52", "10:12", "10:32", "10:52", "11:12", "11:32", "11:52", "12:12", "12:32", "12:52", "13:12", "13:32", "13:52", "14:12", "14:32", "14:52", "15:12", "15:32", "15:52", "16:12", "16:32", "16:52", "17:12", "17:32", "17:52", "18:12", "18:32", "18:52", "19:12", "19:32", "19:52"]}, {"nom": "Avenue de l'Europe", "passages": ["07:13", "07:33", "07:53", "08:13", "08:33", "08:53", "09:13", "09:33", "09:53", "10:13", "10:33", "10:53", "11:13", "11:33", "11:53", "12:13", "12:33", "12:53", "13:13", "13:33", "13:53", "14:13", "14:33", "14:53", "15:13", "15:33", "15:53", "16:13", "16:33", "16:53", "17:13", "17:33", "17:53", "18:13", "18:33", "18:53", "19:13", "19:33", "19:53"]}, {"nom": "Collège Olympique", "passages": ["07:14", "07:34", "07:54", "08:14", "08:34", "08:54", "09:14", "09:34", "09:54", "10:14", "10:34", "10:54", "11:14", "11:34", "11:54", "12:14", "12:34", "12:54", "13:14", "13:34", "13:54", "14:14", "14:34", "14:54", "15:14", "15:34", "15:54", "16:14", "16:34", "16:54", "17:14", "17:34", "17:54", "18:14", "18:34", "18:54", "19:14", "19:34", "19:54"]}, {"nom": "Reynoard", "passages": ["07:15", "07:35", "07:55", "08:15", "08:35", "08:55", "09:15", "09:35", "09:55", "10:15", "10:35", "10:55", "11:15", "11:35", "11:55", "12:15", "12:35", "12:55", "13:15", "13:35", "13:55", "14:15", "14:35", "14:55", "15:15", "15:35", "15:55", "16:15", "16:35", "16:55", "17:15", "17:35", "17:55", "18:15", "18:35", "18:55", "19:15", "19:35", "19:55"]}, {"nom": "La Bruyère", "passages": ["07:16", "07:36", "07:56", "08:16", "08:36", "08:56", "09:16", "09:36", "09:56", "10:16", "10:36", "10:56", "11:16", "11:36", "11:56", "12:16", "12:36", "12:56", "13:16", "13:36", "13:56", "14:16", "14:36", "14:56", "15:16", "15:36", "15:56", "16:16", "16:36", "16:56", "17:16", "17:36", "17:56", "18:16", "18:36", "18:56", "19:16", "19:36", "19:56"]}, {"nom": "Les Colibris", "passages": ["07:17", "07:37", "07:57", "08:17", "08:37", "08:57", "09:17", "09:37", "09:57", "10:17", "10:37", "10:57", "11:17", "11:37", "11:57", "12:17", "12:37", "12:57", "13:17", "13:37", "13:57", "14:17", "14:37", "14:57", "15:17", "15:37", "15:57", "16:17", "16:37", "16:57", "17:17", "17:37", "17:57", "18:17", "18:37", "18:57", "19:17", "19:37", "19:57"]}, {"nom": "Malherbe", "passages": ["07:18", "07:38", "07:58", "08:18", "08:38", "08:58", "09:18", "09:38", "09:58", "10:18", "10:38", "10:58", "11:18", "11:38", "11:58", "12:18", "12:38", "12:58", "13:18", "13:38", "13:58", "14:18", "14:38", "14:58", "15:18", "15:38", "15:58", "16:18", "16:38", "16:58", "17:18", "17:38", "17:58", "18:18", "18:38", "18:58", "19:18", "19:38", "19:58"]}, {"nom": "MC2 Maison de la Culture", "passages": ["07:19", "07:39", "07:59", "08:19", "08:39", "08:59", "09:19", "09:39", "09:59", "10:19", "10:39", "10:59", "11:19", "11:39", "11:59", "12:19", "12:39", "12:59", "13:19", "13:39", "13:59", "14:19", "14:39", "14:59", "15:19", "15:39", "15:59", "16:19", "16:39", "16:59", "17:19", "17:39", "17:59", "18:19", "18:39", "18:59", "19:19", "19:39", "19:59"]}, {"nom": "Roger Guigue", "passages": ["07:20", "07:40", "08:00", "08:20", "08:40", "09:00", "09:20", "09:40", "10:00", "10:20", "10:40", "11:00", "11:20", "11:40", "12:00", "12:20", "12:40", "13:00", "13:20", "13:40", "14:00", "14:20", "14:40", "15:00", "15:20", "15:40", "16:00", "16:20", "16:40", "17:00", "17:20", "17:40", "18:00", "18:20", "18:40", "19:00", "19:20", "19:40", "20:00"]}, {"nom": "Rue Mallifaud", "passages": ["07:21", "07:41", "08:01", "08:21", "08:41", "09:01", "09:21", "09:41", "10:01", "10:21", "10:41", "11:01", "11:21", "11:41", "12:01", "12:21", "12:41", "13:01", "13:21", "13:41", "14:01", "14:21", "14:41", "15:01", "15:21", "15:41", "16:01", "16:21", "16:41", "17:01", "17:21", "17:41", "18:01", "18:21", "18:41", "19:01", "19:21", "19:41", "20:01"]}, {"nom": "Paul Janet", "passages": ["07:22", "07:42", "08:02", "08:22", "08:42", "09:02", "09:22", "09:42", "10:02", "10:22", "10:42", "11:02", "11:22", "11:42", "12:02", "12:22", "12:42", "13:02", "13:22", "13:42", "14:02", "14:22", "14:42", "15:02", "15:22", "15:42", "16:02", "16:22", "16:42", "17:02", "17:22", "17:42", "18:02", "18:22", "18:42", "19:02", "19:22", "19:42", "20:02"]}, {"nom": "Albert 1er de Belgique", "passages": ["07:23", "07:43", "08:03", "08:23", "08:43", "09:03", "09:23", "09:43", "10:03", "10:23", "10:43", "11:03", "11:23", "11:43", "12:03", "12:23", "12:43", "13:03", "13:23", "13:43", "14:03", "14:23", "14:43", "15:03", "15:23", "15:43", "16:03", "16:23", "16:43", "17:03", "17:23", "17:43", "18:03", "18:23", "18:43", "19:03", "19:23", "19:43", "20:03"]}, {"nom": "Maréchal Joffre", "passages": ["07:24", "07:44", "08:04", "08:24", "08:44", "09:04", "09:24", "09:44", "10:04", "10:24", "10:44", "11:04", "11:24", "11:44", "12:04", "12:24", "12:44", "13:04", "13:24", "13:44", "14:04", "14:24", "14:44", "15:04", "15:24", "15:44", "16:04", "16:24", "16:44", "17:04", "17:24", "17:44", "18:04", "18:24", "18:44", "19:04", "19:24", "19:44", "20:04"]}, {"nom": "Place André Malraux", "passages": ["07:25", "07:45", "08:05", "08:25", "08:45", "09:05", "09:25", "09:45", "10:05", "10:25", "10:45", "11:05", "11:25", "11:45", "12:05", "12:25", "12:45", "13:05", "13:25", "13:45", "14:05", "14:25", "14:45", "15:05", "15:25", "15:45", "16:05", "16:25", "16:45", "17:05", "17:25", "17:45", "18:05", "18:25", "18:45", "19:05", "19:25", "19:45", "20:05"]}, {"nom": "Place d'Apvril", "passages": ["07:26", "07:46", "08:06", "08:26", "08:46", "09:06", "09:26", "09:46", "10:06", "10:26", "10:46", "11:06", "11:26", "11:46", "12:06", "12:26", "12:46", "13:06", "13:26", "13:46", "14:06", "14:26", "14:46", "15:06", "15:26", "15:46", "16:06", "16:26", "16:46", "17:06", "17:26", "17:46", "18:06", "18:26", "18:46", "19:06", "19:26", "19:46", "20:06"]}, {"nom": "Place de Metz", "passages": ["07:27", "07:47", "08:07", "08:27", "08:47", "09:07", "09:27", "09:47", "10:07", "10:27", "10:47", "11:07", "11:27", "11:47", "12:07", "12:27", "12:47", "13:07", "13:27", "13:47", "14:07", "14:27", "14:47", "15:07", "15:27", "15:47", "16:07", "16:27", "16:47", "17:07", "17:27", "17:47", "18:07", "18:27", "18:47", "19:07", "19:27", "19:47", "20:07"]}, {"nom": "Verdun Préfecture", "passages": ["07:28", "07:48", "08:08", "08:28", "08:48", "09:08", "09:28", "09:48", "10:08", "10:28", "10:48", "11:08", "11:28", "11:48", "12:08", "12:28", "12:48", "13:08", "13:28", "13:48", "14:08", "14:28", "14:48", "15:08", "15:28", "15:48", "16:08", "16:28", "16:48", "17:08", "17:28", "17:48", "18:08", "18:28", "18:48", "19:08", "19:28", "19:48", "20:08"]}, {"nom": "Rue Voltaire", "passages": ["07:29", "07:49", "08:09", "08:29", "08:49", "09:09", "09:29", "09:49", "10:09", "10:29", "10:49", "11:09", "11:29", "11:49", "12:09", "12:29", "12:49", "13:09", "13:29", "13:49", "14:09", "14:29", "14:49", "15:09", "15:29", "15:49", "16:09", "16:29", "16:49", "17:09", "17:29", "17:49", "18:09", "18:29", "18:49", "19:09", "19:29", "19:49", "20:09"]}, {"nom": "Office de Tourisme", "passages": ["07:30", "07:50", "08:10", "08:30", "08:50", "09:10", "09:30", "09:50", "10:10", "10:30", "10:50", "11:10", "11:30", "11:50", "12:10", "12:30", "12:50", "13:10", "13:30", "13:50", "14:10", "14:30", "14:50", "15:10", "15:30", "15:50", "16:10", "16:30", "16:50", "17:10", "17:30", "17:50", "18:10", "18:30", "18:50", "19:10", "19:30", "19:50", "20:10"]}]}}, "Grand'Place": {"semaine": {"arrets": [{"nom": "Office de Tourisme", "passages": ["07:00", "07:20", "07:40", "08:00", "08:20", "08:40", "09:00", "09:20", "09:40", "10:00", "10:20", "10:40", "11:00", "11:20", "11:40", "12:00", "12:20", "12:40", "13:00", "13:20", "13:40", "14:00", "14:20", "14:40", "15:00", "15:20", "15:40", "16:00", "16:20", "16:40", "17:00", "17:20", "17:40", "18:00", "18:20", "18:40", "19:00", "19:20", "19:40"]}, {"nom": "Rue Voltaire", "passages": ["07:01", "07:21", "07:41", "08:01", "08:21", "08:41", "09:01", "09:21", "09:41", "10:01", "10:21", "10:41", "11:01", "11:21", "11:41", "12:01", "12:21", "12:41", "13:01", "13:21", "13:41", "14:01", "14:21", "14:41", "15:01", "15:21", "15:41", "16:01", "16:21", "16:41", "17:01", "17:21", "17:41", "18:01", "18:21", "18:41", "19:01", "19:21", "19:41"]}, {"nom": "Verdun Préfecture", "passages": ["07:02", "07:22", "07:42", "08:02", "08:22", "08:42", "09:02", "09:22", "09:42", "10:02", "10:22", "10:42", "11:02", "11:22", "11:42", "12:02", "12:22", "12:42", "13:02", "13:22", "13:42", "14:02", "14:22", "14:42", "15:02", "15:22", "15:42", "16:02", "16:22", "16:42", "17:02", "17:22", "17:42", "18:02", "18:22", "18:42", "19:02", "19:22", "19:42"]}, {"nom": "Place de Metz", "passages": ["07:03", "07:23", "07:43", "08:03", "08:23", "08:43", "09:03", "09:23", "09:43", "10:03", "10:23", "10:43", "11:03", "11:23", "11:43", "12:03", "12:23", "12:43", "13:03", "13:23", "13:43", "14:03", "14:23", "14:43", "15:03", "15:23", "15:43", "16:03", "16:23", "16:43", "17:03", "17:23", "17:43", "18:03", "18:23", "18:43", "19:03", "19:23", "19:43"]}, {"nom": "Place d'Apvril", "passages": ["07:04", "07:24", "07:44", "08:04", "08:24", "08:44", "09:04", "09:24", "09:44", "10:04", "10:24", "10:44", "11:04", "11:24", "11:44", "12:04", "12:24", "12:44", "13:04", "13:24", "13:44", "14:04", "14:24", "14:44", "15:04", "15:24", "15:44", "16:04", "16:24", "16:44", "17:04", "17:24", "17:44", "18:04", "18:24", "18:44", "19:04", "19:24", "19:44"]}, {"nom": "Place André Malraux", "passages": ["07:05", "07:25", "07:45", "08:05", "08:25", "08:45", "09:05", "09:25", "09:45", "10:05", "10:25", "10:45", "11:05", "11:25", "11:45", "12:05", "12:25", "12:45", "13:05", "13:25", "13:45", "14:05", "14:25", "14:45", "15:05", "15:25", "15:45", "16:05", "16:25", "16:45", "17:05", "17:25", "17:45", "18:05", "18:25", "18:45", "19:05", "19:25", "19:45"]}, {"nom": "Maréchal Joffre", "passages": ["07:06", "07:26", "07:46", "08:06", "08:26", "08:46", "09:06", "09:26", "09:46", "10:06", "10:26", "10:46", "11:06", "11:26", "11:46", "12:06", "12:26", "12:46", "13:06", "13:26", "13:46", "14:06", "14:26", "14:46", "15:06", "15:26", "15:46", "16:06", "16:26", "16:46", "17:06", "17:26", "17:46", "18:06", "18:26", "18:46", "19:06", "19:26", "19:46"]}, {"nom": "Albert 1er de Belgique", "passages": ["07:07", "07:27", "07:47", "08:07", "08:27", "08:47", "09:07", "09:27", "09:47", "10:07", "10:27", "10:47", "11:07", "11:27", "11:47", "12:07", "12:27", "12:47", "13:07", "13:27", "13:47", "14:07", "14:27", "14:47", "15:07", "15:27", "15:47", "16:07", "16:27", "16:47", "17:07", "17:27", "17:47", "18:07", "18:27", "18:47", "19:07", "19:27", "19:47"]}, {"nom": "Paul Janet", "passages": ["07:08", "07:28", "07:48", "08:08", "08:28", "08:48", "09:08", "09:28", "09:48", "10:08", "10:28", "10:48", "11:08", "11:28", "11:48", "12:08", "12:28", "12:48", "13:08", "13:28", "13:48", "14:08", "14:28", "14:48", "15:08", "15:28", "15:48", "16:08", "16:28", "16:48", "17:08", "17:28", "17:48", "18:08", "18:28", "18:48", "19:08", "19:28", "19:48"]}, {"nom": "Rue Mallifaud", "passages": ["07:09", "07:29", "07:49", "08:09", "08:29", "08:49", "09:09", "09:29", "09:49", "10:09", "10:29", "10:49", "11:09", "11:29", "11:49", "12:09", "12:29", "12:49", "13:09", "13:29", "13:49", "14:09", "14:29", "14:49", "15:09", "15:29", "15:49", "16:09", "16:29", "16:49", "17:09", "17:29", "17:49", "18:09", "18:29", "18:49", "19:09", "19:29", "19:49"]}, {"nom": "Roger Guigue", "passages": ["07:10", "07:30", "07:50", "08:10", "08:30", "08:50", "09:10", "09:30", "09:50", "10:10", "10:30", "10:50", "11:10", "11:30", "11:50", "12:10", "12:30", "12:50", "13:10", "13:30", "13:50", "14:10", "14:30", "14:50", "15:10", "15:30", "15:50", "16:10", "16:30", "16:50", "17:10", "17:30", "17:50", "18:10", "18:30", "18:50", "19:10", "19:30", "19:50"]}, {"nom": "MC2 Maison de la Culture", "passages": ["07:11", "07:31", "07:51", "08:11", "08:31", "08:51", "09:11", "09:31", "09:51", "10:11", "10:31", "10:51", "11:11", "11:31", "11:51", "12:11", "12:31", "12:51", "13:11", "13:31", "13:51", "14:11", "14:31", "14:51", "15:11", "15:31", "15:51", "16:11", "16:31", "16:51", "17:11", "17:31", "17:51", "18:11", "18:31", "18:51", "19:11", "19:31", "19:51"]}, {"nom": "Malherbe", "passages": ["07:12", "07:32", "07:52", "08:12", "08:32", "08:52", "09:12", "09:32", "09:52", "10:12", "10:32", "10:52", "11:12", "11:32", "11:52", "12:12", "12:32", "12:52", "13:12", "13:32", "13:52", "14:12", "14:32", "14:52", "15:12", "15:32", "15:52", "16:12", "16:32", "16:52", "17:12", "17:32", "17:52", "18:12", "18:32", "18:52", "19:12", "19:32", "19:52"]}, {"nom": "Les Colibris", "passages": ["07:13", "07:33", "07:53", "08:13", "08:33", "08:53", "09:13", "09:33", "09:53", "10:13", "10:33", "10:53", "11:13", "11:33", "11:53", "12:13", "12:33", "12:53", "13:13", "13:33", "13:53", "14:13", "14:33", "14:53", "15:13", "15:33", "15:53", "16:13", "16:33", "16:53", "17:13", "17:33", "17:53", "18:13", "18:33", "18:53", "19:13", "19:33", "19:53"]}, {"nom": "La Bruyère", "passages": ["07:14", "07:34", "07:54", "08:14", "08:34", "08:54", "09:14", "09:34", "09:54", "10:14", "10:34", "10:54", "11:14", "11:34", "11:54", "12:14", "12:34", "12:54", "13:14", "13:34", "13:54", "14:14", "14:34", "14:54", "15:14", "15:34", "15:54", "16:14", "16:34", "16:54", "17:14", "17:34", "17:54", "18:14", "18:34", "18:54", "19:14", "19:34", "19:54"]}, {"nom": "Reynoard", "passages": ["07:15", "07:35", "07:55", "08:15", "08:35", "08:55", "09:15", "09:35", "09:55", "10:15", "10:35", "10:55", "11:15", "11:35", "11:55", "12:15", "12:35", "12:55", "13:15", "13:35", "13:55", "14:15", "14:35", "14:55", "15:15", "15:35", "15:55", "16:15", "16:35", "16:55", "17:15", "17:35", "17:55", "18:15", "18:35", "18:55", "19:15", "19:35", "19:55"]}, {"nom": "Collège Olympique", "passages": ["07:16", "07:36", "07:56", "08:16", "08:36", "08:56", "09:16", "09:36", "09:56", "10:16", "10:36", "10:56", "11:16", "11:36", "11:56", "12:16", "12:36", "12:56", "13:16", "13:36", "13:56", "14:16", "14:36", "14:56", "15:16", "15:36", "15:56", "16:16", "16:36", "16:56", "17:16", "17:36", "17:56", "18:16", "18:36", "18:56", "19:16", "19:36", "19:56"]}, {"nom": "Avenue de l'Europe", "passages": ["07:17", "07:37", "07:57", "08:17", "08:37", "08:57", "09:17", "09:37", "09:57", "10:17", "10:37", "10:57", "11:17", "11:37", "11:57", "12:17", "12:37", "12:57", "13:17", "13:37", "13:57", "14:17", "14:37", "14:57", "15:17", "15:37", "15:57", "16:17", "16:37", "16:57", "17:17", "17:37", "17:57", "18:17", "18:37", "18:57", "19:17", "19:37", "19:57"]}, {"nom": "Grand'Place", "passages": ["07:18", "07:38", "07:58", "08:18", "08:38", "08:58", "09:18", "09:38", "09:58", "10:18", "10:38", "10:58", "11:18", "11:38", "11:58", "12:18", "12:38", "12:58", "13:18", "13:38", "13:58", "14:18", "14:38", "14:58", "15:18", "15:38", "15:58", "16:18", "16:38", "16:58", "17:18", "17:38", "17:58", "18:18", "18:38", "18:58", "19:18", "19:38", "19:58"]}]}}};
+let lg=null,arretSel=null,vue="live",ivl=null;
+const PC={};
+function perturb(k){if(!(k in PC)){const r=Math.random();PC[k]=r<.70?0:r<.85?Math.floor(Math.random()*2)+1:r<.95?Math.floor(Math.random()*3)+3:-1;setTimeout(()=>delete PC[k],180000);}return PC[k];}
+function jourType(){const s=document.getElementById("sel-jour").value;if(s!=="auto")return s;const j=new Date().getDay();return j===6?"samedi":j===0?"dimanche":"semaine";}
+function mAv(h,p){p=p||0;const pts=h.split(":"),hh=parseInt(pts[0]),mm=parseInt(pts[1]);const pass=hh*60+mm+p;const cur=new Date().getHours()*60+new Date().getMinutes();let diff=pass-cur;if(diff<-720)diff+=1440;return Math.round(diff);}
+function hFmt(h,p){p=p||0;const pts=h.split(":"),hh=parseInt(pts[0]),mm=parseInt(pts[1]);const t=hh*60+mm+p;const r=((t%1440)+1440)%1440;return String(Math.floor(r/60)).padStart(2,"0")+":"+String(r%60).padStart(2,"0");}
+function hNow(){const n=new Date();return String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0");}
+function getLigne(dir,jour){const dirData=DATA_DIR[dir]||{};return dirData[jour]||dirData["semaine"]||null;}
+function reload(){
+  const jour=jourType(),dir=document.getElementById("sel-dir").value;
+  lg=getLigne(dir,jour);
+  document.getElementById("hero-jour").textContent={semaine:"Lun–Ven",samedi:"Samedi",dimanche:"Dimanche"}[jour]||jour;
+  arretSel=null;
+  if(!lg?.arrets?.length){
+    document.getElementById("live-content").innerHTML='<div class="fsvc"><div style="font-size:28px;margin-bottom:8px">🌙</div><div style="font-family:Syne,sans-serif;font-weight:700;color:var(--texte);margin-bottom:4px">Pas de service</div><div style="font-size:13px;color:var(--texte-sec)">Aucune circulation ce jour.</div></div>';
+    document.getElementById("alist").innerHTML="";return;
+  }
+  renderA();renderL();
+  if(ivl)clearInterval(ivl);
+  ivl=setInterval(()=>{renderL();renderA();},30000);
+}
+function changerDir(){
+  const dir=document.getElementById("sel-dir").value;
+  if(dir!==DIR){let s=dir.toLowerCase();[["'",""],["é","e"],["è","e"],["à","a"],["ê","e"],["â","a"],["î","i"],["ô","o"],["û","u"],[" ","_"],["/"," "]].forEach(([a,b])=>s=s.split(a).join(b));window.location.href=CODE.toLowerCase()+"-"+s.replace(/\s+/g,"_").replace(/^_|_$/g,"")+".html";}
+}
+function renderL(){
+  if(!lg?.arrets?.length)return;
+  const div=document.getElementById("live-content"),dir=document.getElementById("sel-dir").value;
+  const ref=arretSel!==null?lg.arrets[arretSel]:lg.arrets[0];
+  const pvs=ref.passages.map((h,i)=>{const p=perturb(ref.nom+"-"+i);return{h,p,mins:mAv(h,p),hA:hFmt(h,p)};}).filter(x=>x.mins>=-1&&x.mins<=180).sort((a,b)=>a.mins-b.mins).slice(0,6);
+  if(!pvs.length){div.innerHTML='<div class="fsvc"><div style="font-size:24px;margin-bottom:8px">🌙</div><div style="font-family:Syne,sans-serif;font-weight:700;color:var(--texte);margin-bottom:4px">Fin de service</div><div style="font-size:13px;color:var(--texte-sec)">Prochain service demain.</div></div>';return;}
+  const nom=arretSel!==null?ref.nom:lg.arrets[0].nom;
+  let html='<div style="font-size:10px;color:var(--texte-sec);padding:7px 15px;border-bottom:1px solid var(--bordure);display:flex;align-items:center;gap:5px"><span class="ldot"></span><span>'+nom+'</span><span style="margin-left:auto">'+hNow()+'</span></div>';
+  pvs.forEach((pv,i)=>{
+    const cls=pv.mins<=0?"m0":pv.mins<=5?"soon":pv.mins<=15?"mid":"far";
+    const val=pv.mins<=0?"0":pv.mins<=60?String(pv.mins):pv.hA;
+    const lbl=pv.mins<=0?"À l'arrêt":pv.mins<=60?"min":"";
+    const ret=pv.p>0?'<span style="font-size:9px;color:#E67E22;margin-left:3px">+'+pv.p+'</span>':"";
+    const pct=Math.min(100,Math.round((1-pv.mins/60)*100));
+    if(i===0)html+='<div class="pitem first"><div class="pbadge">'+CODE+'</div><div class="pdest"><div class="pdest-m">'+dir+ret+'</div><div class="pdest-s">à '+pv.hA+'</div></div><div style="text-align:right"><div class="pmins '+cls+'">'+val+'</div><div class="pmlbl">'+lbl+'</div></div></div><div class="pbar"><div class="pfill" style="width:'+pct+'%"></div></div>';
+    else html+='<div class="pitem"><div class="pbadge" style="background:rgba(0,0,0,0.08);color:var(--texte-sec)">'+CODE+'</div><div class="pdest"><div class="pdest-m" style="font-size:12px">'+dir+ret+'</div><div class="pdest-s">à '+pv.hA+'</div></div><div style="text-align:right"><div class="pmins '+cls+'" style="font-size:15px">'+val+'</div><div class="pmlbl">'+lbl+'</div></div></div>';
+  });
+  div.innerHTML=html;
+}
+function renderA(){
+  if(!lg?.arrets?.length)return;
+  const q=(document.getElementById("asrch")?.value||"").toLowerCase();
+  const arrets=lg.arrets;let html="";
+  arrets.forEach((a,i)=>{
+    if(q&&!a.nom.toLowerCase().includes(q))return;
+    const isT=i===0||i===arrets.length-1,isSel=arretSel===i,isLast=i===arrets.length-1;
+    const pvs=a.passages.map((h,pi)=>{const p=perturb(a.nom+"-"+pi);return{mins:mAv(h,p),hA:hFmt(h,p)};}).filter(x=>x.mins>=0&&x.mins<=180).sort((a,b)=>a.mins-b.mins);
+    const pv=pvs[0],mstr=pv?(pv.mins<=60?pv.mins+" min":pv.hA):"—";
+    html+='<div class="arow'+(isSel?" sel":"")+'" onclick="selA('+i+')"><div class="atl"><div class="adot'+(isT?" t":"")+'"></div>'+(isLast?"":'<div class="atrait"></div>')+'</div><div class="ainfo"><div class="aname">'+a.nom+'</div></div><div class="anext"><div class="amins">'+mstr+'</div><div class="ah">'+(pv?.hA||"")+'</div></div></div>';
+  });
+  document.getElementById("alist").innerHTML=html;
+}
+function selA(i){arretSel=i;renderA();renderL();if(vue==="full")renderFull(i);}
+function filtrer(){renderA();}
+function setVue(v){
+  vue=v;
+  document.getElementById("tb-live").classList.toggle("active",v==="live");
+  document.getElementById("tb-full").classList.toggle("active",v==="full");
+  document.getElementById("vue-full").style.display=v==="full"?"block":"none";
+  document.getElementById("detail-arret").style.display=v==="live"?"block":"none";
+  if(v==="full")renderFull(arretSel);
+}
+function renderFull(idx){
+  if(!lg?.arrets?.length)return;
+  const arret=idx!=null?lg.arrets[idx]:lg.arrets[0];
+  const hNowM=new Date().getHours()*60+new Date().getMinutes();
+  const tranches={};
+  arret.passages.forEach(h=>{const hh=parseInt(h.split(":")[0]);const k=String(hh%24).padStart(2,"0")+"h";if(!tranches[k])tranches[k]=[];tranches[k].push(h);});
+  let html='<div class="hcomplet"><div class="hst">Horaire — '+arret.nom+'</div>';
+  Object.entries(tranches).forEach(([t,hs])=>{
+    html+='<div class="hst" style="background:transparent;font-size:10px">'+t+'</div><div class="hpills">';
+    hs.forEach(h=>{const[hh,mm]=h.split(":").map(Number);const cur=Math.abs(hh*60+mm-hNowM)<5;html+='<div class="hpill'+(cur?" cur":"")+'">'+h+'</div>';});
+    html+="</div>";
+  });
+  html+="</div>";
+  document.getElementById("vue-full").innerHTML=html;
+}
+function genPDF(){const dir=document.getElementById("sel-dir").value;window.open("generer-pdf.html?code="+CODE+"&direction="+encodeURIComponent(dir)+"&jour="+jourType(),"_blank");}
+reload();
+</script>
 </body>
 </html>
