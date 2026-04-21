@@ -7,17 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--b:#0A2E5C;--or:#C9A84C;--orc:#E8C96A;--r:#E74C3C;--o:#E67E22;--g:#27AE60;
---bg:#0F0F0F;--card:#1A1A1A;--bord:#2A2A2A;--tx:#F0EDE6;--txs:#9A9080}
+:root{--b:#0A2E5C;--or:#C9A84C;--orc:#E8C96A;--r:#E74C3C;--o:#E67E22;--g:#27AE60;--bg:#0F0F0F;--card:#1A1A1A;--bord:#2A2A2A;--tx:#F0EDE6;--txs:#9A9080}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);font-size:14px}
-/* LOGIN */
 .lw{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
 .lc{background:var(--card);border:1px solid var(--bord);border-radius:16px;padding:2.5rem;width:100%;max-width:380px}
 .ll{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
 .ll img{width:56px;height:56px;object-fit:contain}
-.lt{font-size:20px;font-weight:800;color:var(--or)}
-.ls{font-size:12px;color:var(--txs);margin-top:2px}
-/* ADMIN */
+.lt{font-size:20px;font-weight:800;color:var(--or)}.ls{font-size:12px;color:var(--txs);margin-top:2px}
 .adm{display:none;min-height:100vh;flex-direction:column}
 .ah{background:var(--b);padding:0 2rem;display:flex;align-items:center;gap:12px;height:60px;position:sticky;top:0;z-index:100}
 .alo{display:flex;align-items:center;gap:8px;color:var(--or);font-weight:800;font-size:16px}
@@ -26,23 +22,19 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .bk{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;margin-right:8px}.bk:hover{color:#fff}
 .blg{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
 .ab{display:flex;flex:1}
-/* SIDEBAR */
 .sb{width:220px;background:var(--card);border-right:1px solid var(--bord);padding:1.5rem 0;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
 .ss{font-size:10px;font-weight:700;color:var(--txs);text-transform:uppercase;letter-spacing:.1em;padding:1rem 1.5rem .5rem}
 .si{display:flex;align-items:center;gap:10px;padding:10px 1.5rem;font-size:13px;font-weight:600;color:var(--txs);cursor:pointer;transition:all .15s;border-left:3px solid transparent}
 .si:hover{color:var(--tx);background:rgba(255,255,255,.03)}
 .si.on{color:var(--or);border-left-color:var(--or);background:rgba(201,168,76,.06)}
 .si-ic{font-size:16px;width:20px;text-align:center}
-/* MAIN */
 .mn{flex:1;padding:2rem;max-width:1000px}
 .pn{display:none}.pn.on{display:block}
 h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
 .stl{font-size:11px;font-weight:700;color:var(--txs);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem;margin-top:1.5rem}
-/* STATS */
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:2rem}
 .sc{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:1.25rem;text-align:center}
 .sv{font-size:28px;font-weight:800;color:var(--or)}.sl{font-size:11px;color:var(--txs);text-transform:uppercase;letter-spacing:.06em;margin-top:6px}
-/* FORMS */
 .fc{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
 .fd{margin-bottom:1rem}
 .fd label{display:block;font-size:11px;color:var(--txs);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
@@ -52,7 +44,6 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
 .fd select option{background:#1A1A1A}
 .fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-/* BTNS */
 .bor{padding:10px 20px;background:var(--or);color:#0A0A0A;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
 .bor:hover{background:var(--orc)}.bor:disabled{opacity:.5;cursor:not-allowed}
 .bdel{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);color:var(--r);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit}
@@ -60,7 +51,6 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
 .bgh{padding:8px 16px;background:transparent;border:1px solid var(--bord);color:var(--txs);border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit}
 .bgh:hover{border-color:var(--or);color:var(--or)}
 .bgh.sel{border-color:var(--or);color:var(--or);background:rgba(201,168,76,.08)}
-/* CARDS */
 .alc{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px}
 .alc.rouge{border-left:3px solid var(--r)}.alc.orange{border-left:3px solid var(--o)}
 .alb{font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
@@ -71,13 +61,11 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
 .cptc{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
 .cpav{width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--or);font-size:15px;flex-shrink:0}
 .agec{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:1rem;margin-bottom:8px}
-/* SYNC */
 .syn{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txs);background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:8px 14px;margin-bottom:1.5rem}
 .sd{width:7px;height:7px;border-radius:50%;background:var(--g);flex-shrink:0}
 .sd.ld{background:var(--o);animation:pu 1s ease-in-out infinite}.sd.er{background:var(--r)}
 @keyframes pu{0%,100%{opacity:1}50%{opacity:.2}}
 .act{padding:8px 0;border-bottom:1px solid #111;font-size:12px;color:var(--txs)}.act:last-child{border-bottom:none}
-/* TOAST */
 .tw{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:8px}
 .t{background:var(--card);border:1px solid var(--g);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--g);animation:si .2s ease}
 .t.e{border-color:var(--r);color:var(--r)}
@@ -85,7 +73,6 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
 .em{font-size:12px;color:var(--r);margin-top:8px;display:none}
 .ib{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:1rem 1.25rem;font-size:13px;color:var(--txs);margin-bottom:1.5rem;line-height:1.6}
 .ib strong{color:var(--or)}
-/* HORAIRES */
 .hs{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
 .hs h3{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
 .sn{width:22px;height:22px;border-radius:50%;background:var(--or);color:#0A0A0A;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -94,28 +81,23 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
 .prow:last-child{border-bottom:none}.prow:hover{background:rgba(255,255,255,.02)}
 .plrow{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end;background:#111;border-radius:8px;padding:10px;margin-bottom:8px}
 .plrow .fd{margin:0}
-/* IMAGES */
 .dz{border:2px dashed var(--bord);border-radius:10px;padding:2rem;text-align:center;color:var(--txs);cursor:pointer;transition:all .2s;margin-bottom:1rem}
 .dz:hover,.dz.ov{border-color:var(--or);color:var(--or)}
 .ig{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:1rem}
 .it{background:#111;border-radius:8px;aspect-ratio:16/9;overflow:hidden;position:relative;border:1px solid var(--bord)}
 .it img{width:100%;height:100%;object-fit:cover}
 .idl{position:absolute;top:4px;right:4px;background:rgba(231,76,60,.9);border:none;color:#fff;border-radius:4px;font-size:11px;cursor:pointer;padding:2px 6px}
-/* POPUP */
 .ppv{background:#111;border-radius:10px;padding:1.5rem;margin-top:1rem;border:1px solid var(--bord)}
+.cfg-token{background:#111;border-radius:8px;padding:10px 14px;font-size:12px;color:var(--txs);margin-bottom:1rem;word-break:break-all;font-family:monospace}
 @media(max-width:700px){.sb{display:none}.fr2,.fr3{grid-template-columns:1fr}.mn{padding:1.25rem}}
 </style>
 </head>
 <body>
 
-<!-- ── LOGIN ──────────────────────────────────────────── -->
 <div class="lw" id="lw">
   <div class="lc">
-    <div class="ll">
-      <img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités">
-      <div><div class="lt">GGMobilités Admin</div><div class="ls">Espace administration</div></div>
-    </div>
-    <div class="fd"><label>Identifiant</label><input type="text" id="lu" placeholder="votre identifiant" autocomplete="username"></div>
+    <div class="ll"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités"><div><div class="lt">GGMobilités Admin</div><div class="ls">Espace administration</div></div></div>
+    <div class="fd"><label>Identifiant</label><input type="text" id="lu" placeholder="identifiant" autocomplete="username"></div>
     <div class="fd"><label>Mot de passe</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password"></div>
     <div class="em" id="lerr">Identifiant ou mot de passe incorrect.</div>
     <button class="bor" style="width:100%;margin-top:1.25rem" onclick="tryLogin()">Se connecter</button>
@@ -123,7 +105,6 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
   </div>
 </div>
 
-<!-- ── ADMIN ───────────────────────────────────────────── -->
 <div class="adm" id="adm">
   <div class="ah">
     <div class="alo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="">GGMobilités Admin</div>
@@ -142,17 +123,17 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
       <div class="si" onclick="sw('med')"><span class="si-ic">🖼️</span>Images</div>
       <div class="si" onclick="sw('pop')"><span class="si-ic">💬</span>Pop-up</div>
       <div class="ss">Paramètres</div>
+      <div class="si" onclick="sw('cfg')"><span class="si-ic">⚙️</span>Config GitHub</div>
       <div class="si" onclick="sw('cpt')"><span class="si-ic">👥</span>Comptes</div>
     </div>
     <div class="mn">
 
-      <!-- DASHBOARD -->
       <div class="pn on" id="pn-db">
         <h2>Tableau de bord</h2>
         <div class="syn"><span class="sd" id="sdot"></span><span id="slab">Connexion...</span></div>
         <div class="sg">
-          <div class="sc"><div class="sv" id="s-al">—</div><div class="sl">Alertes actives</div></div>
-          <div class="sc"><div class="sv" id="s-ar">—</div><div class="sl">Articles publiés</div></div>
+          <div class="sc"><div class="sv" id="s-al">—</div><div class="sl">Alertes</div></div>
+          <div class="sc"><div class="sv" id="s-ar">—</div><div class="sl">Articles</div></div>
           <div class="sc"><div class="sv" id="s-hm">—</div><div class="sl">Modifs horaires</div></div>
           <div class="sc"><div class="sv">14</div><div class="sl">Lignes</div></div>
         </div>
@@ -160,50 +141,34 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
         <div class="fc" id="alog" style="padding:.5rem 1.5rem"><div class="act">Chargement...</div></div>
       </div>
 
-      <!-- INFOTRAFIC -->
       <div class="pn" id="pn-it">
         <h2>Infotrafic</h2>
         <div class="stl">Nouvelle alerte</div>
         <div class="fc">
           <div class="fr2" style="margin-bottom:12px">
-            <div class="fd" style="margin:0"><label>Ligne</label>
-              <select id="it-lg"><option>C1</option><option>C2</option><option>C3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>60</option><option>61</option><option>PL1</option></select></div>
-            <div class="fd" style="margin:0"><label>Niveau</label>
-              <select id="it-nv"><option value="rouge">Perturbé (rouge)</option><option value="orange">Information (orange)</option></select></div>
+            <div class="fd" style="margin:0"><label>Ligne</label><select id="it-lg"><option>C1</option><option>C2</option><option>C3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>60</option><option>61</option><option>PL1</option></select></div>
+            <div class="fd" style="margin:0"><label>Niveau</label><select id="it-nv"><option value="rouge">Perturbé (rouge)</option><option value="orange">Information (orange)</option></select></div>
           </div>
           <div class="fd"><label>Titre</label><input type="text" id="it-ti" placeholder="Ex : Travaux secteur Meylan"></div>
-          <div class="fd"><label>Description</label><textarea id="it-de" placeholder="Détails de la perturbation..."></textarea></div>
-          <button class="bor" onclick="addAlerte()">Publier l'alerte</button>
+          <div class="fd"><label>Description</label><textarea id="it-de" placeholder="Détails..."></textarea></div>
+          <button class="bor" onclick="addAlerte()">Publier</button>
         </div>
         <div class="stl">Alertes actives</div>
         <div id="al-list"></div>
       </div>
 
-      <!-- HORAIRES -->
       <div class="pn" id="pn-hor">
         <h2>Modification des horaires</h2>
-        <div class="ib"><strong>Mode opératoire :</strong> Sélectionnez la ligne et le jour. Choisissez l'action (ajouter / supprimer un passage ou modifier les fréquences). Puis sauvegardez sur GitHub.</div>
-
+        <div class="ib"><strong>Mode opératoire :</strong> Sélectionnez la ligne et le jour. Choisissez l'action. Puis sauvegardez sur GitHub.</div>
         <div class="hs">
           <h3><span class="sn">1</span> Sélectionner</h3>
           <div class="fr3">
             <div class="fd" style="margin:0"><label>Ligne</label>
-              <select id="h-code" onchange="hDir()">
-                <option value="">— Choisir —</option>
-                <option>C1</option><option>C2</option><option>C3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>60</option><option>61</option><option>PL1</option>
-              </select></div>
-            <div class="fd" style="margin:0"><label>Direction (optionnel)</label>
-              <select id="h-dir"><option value="">— Toutes —</option></select></div>
-            <div class="fd" style="margin:0"><label>Jour</label>
-              <select id="h-jour">
-                <option value="">— Choisir —</option>
-                <option value="semaine">Lun–Ven</option>
-                <option value="samedi">Samedi</option>
-                <option value="dimanche">Dimanche</option>
-              </select></div>
+              <select id="h-code" onchange="hDir()"><option value="">— Choisir —</option><option>C1</option><option>C2</option><option>C3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>60</option><option>61</option><option>PL1</option></select></div>
+            <div class="fd" style="margin:0"><label>Direction (optionnel)</label><select id="h-dir"><option value="">— Toutes —</option></select></div>
+            <div class="fd" style="margin:0"><label>Jour</label><select id="h-jour"><option value="">— Choisir —</option><option value="semaine">Lun–Ven</option><option value="samedi">Samedi</option><option value="dimanche">Dimanche</option></select></div>
           </div>
         </div>
-
         <div class="hs" id="h-act-step" style="display:none">
           <h3><span class="sn">2</span> Choisir l'action</h3>
           <div class="fr3">
@@ -212,7 +177,6 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
             <button class="bgh" id="btn-freq" onclick="hSetAct('freq')" style="text-align:center;padding:1.2rem">⏱️<br><span style="font-size:12px;display:block;margin-top:4px">Modifier la fréquence</span></button>
           </div>
         </div>
-
         <div class="hs" id="h-edit-step" style="display:none">
           <h3><span class="sn">3</span> Modifier</h3>
           <div id="h-edit-cnt"></div>
@@ -223,46 +187,37 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
         </div>
       </div>
 
-      <!-- ARTICLES -->
       <div class="pn" id="pn-art">
         <h2>Actualités</h2>
-
-        <!-- Carousel images -->
         <div class="stl">Carousel d'images (accueil)</div>
-        <div class="ib"><strong>Carousel</strong> — Images affichées en haut de la page d'accueil, <em>séparées</em> des articles. Ajoutez l'URL de l'image, un titre et une description optionnels.</div>
+        <div class="ib"><strong>Carousel</strong> — Images affichées en haut de la page d'accueil, séparées des articles.</div>
         <div class="fc">
-          <div class="fd"><label>Titre du carousel (optionnel)</label><input type="text" id="car-titre" placeholder="À la une, En ce moment..."></div>
+          <div class="fd"><label>Titre du carousel</label><input type="text" id="car-titre" placeholder="À la une"></div>
           <div class="fr3" style="margin-bottom:10px">
-            <div class="fd" style="margin:0"><label>URL de l'image</label><input type="url" id="car-img" placeholder="https://..."></div>
-            <div class="fd" style="margin:0"><label>Titre sur l'image</label><input type="text" id="car-itit" placeholder="Titre (optionnel)"></div>
-            <div class="fd" style="margin:0"><label>Description</label><input type="text" id="car-idesc" placeholder="Texte (optionnel)"></div>
+            <div class="fd" style="margin:0"><label>URL image</label><input type="url" id="car-img" placeholder="https://..."></div>
+            <div class="fd" style="margin:0"><label>Titre image</label><input type="text" id="car-itit" placeholder="Optionnel"></div>
+            <div class="fd" style="margin:0"><label>Description</label><input type="text" id="car-idesc" placeholder="Optionnel"></div>
           </div>
-          <button class="bor" onclick="addCarouselImg()">Ajouter au carousel</button>
+          <button class="bor" onclick="addCarImg()">Ajouter au carousel</button>
         </div>
         <div id="car-list" style="margin-bottom:1.5rem"></div>
-
-        <!-- Articles -->
-        <div class="ib"><strong>Articles</strong> — Affichés en grille sous le carousel sur la page d'accueil.</div>
-        <div class="stl">Nouvel article</div>
+        <div class="stl">Articles publiés</div>
+        <div class="ib"><strong>Articles</strong> — Affichés en grille sous le carousel.</div>
         <div class="fc">
-          <div class="fd"><label>Titre</label><input type="text" id="a-ti" placeholder="Titre de l'article"></div>
+          <div class="fd"><label>Titre</label><input type="text" id="a-ti" placeholder="Titre"></div>
           <div class="fr2" style="margin-bottom:12px">
-            <div class="fd" style="margin:0"><label>Catégorie</label>
-              <select id="a-cat"><option value="actualite">Actualité</option><option value="travaux">Travaux</option><option value="evenement">Événement</option><option value="info-reseau">Info réseau</option></select></div>
+            <div class="fd" style="margin:0"><label>Catégorie</label><select id="a-cat"><option value="actualite">Actualité</option><option value="travaux">Travaux</option><option value="evenement">Événement</option><option value="info-reseau">Info réseau</option></select></div>
             <div class="fd" style="margin:0"><label>Date</label><input type="date" id="a-dt"></div>
           </div>
-          <div class="fd"><label>Image (URL, optionnel)</label><input type="url" id="a-img" placeholder="https://..."></div>
-          <div class="fd"><label>Contenu</label><textarea id="a-cnt" style="min-height:120px" placeholder="Rédigez votre article..."></textarea></div>
-          <button class="bor" onclick="addArticle()">Publier l'article</button>
+          <div class="fd"><label>Image (URL)</label><input type="url" id="a-img" placeholder="https://..."></div>
+          <div class="fd"><label>Contenu</label><textarea id="a-cnt" style="min-height:100px" placeholder="Texte..."></textarea></div>
+          <button class="bor" onclick="addArt()">Publier</button>
         </div>
-        <div class="stl">Articles publiés</div>
         <div id="art-list"></div>
       </div>
 
-      <!-- AGENCES -->
       <div class="pn" id="pn-age">
         <h2>Agences de mobilités</h2>
-        <div class="stl">Nouvelle agence</div>
         <div class="fc">
           <div class="fr2">
             <div class="fd"><label>Nom</label><input type="text" id="ag-n" placeholder="Agence Gares"></div>
@@ -270,23 +225,19 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
           </div>
           <div class="fr2">
             <div class="fd"><label>Horaires semaine</label><input type="text" id="ag-s" placeholder="Lun–Ven : 8h–19h"></div>
-            <div class="fd"><label>Horaires sam/dim</label><input type="text" id="ag-w" placeholder="Sam : 9h–17h · Dim : fermé"></div>
+            <div class="fd"><label>Horaires sam/dim</label><input type="text" id="ag-w" placeholder="Sam : 9h–17h"></div>
           </div>
-          <div class="fd"><label>Services disponibles</label><input type="text" id="ag-sv" placeholder="Vente, abonnements, rechargement..."></div>
-          <button class="bor" onclick="addAgence()">Ajouter</button>
+          <div class="fd"><label>Services</label><input type="text" id="ag-sv" placeholder="Vente, abonnements..."></div>
+          <button class="bor" onclick="addAge()">Ajouter</button>
         </div>
         <div class="stl">Agences existantes</div>
         <div id="age-list"></div>
       </div>
 
-      <!-- IMAGES -->
       <div class="pn" id="pn-med">
         <h2>Images & médias</h2>
-        <div class="ib"><strong>Images</strong> — Uploadez des images (max 2 Mo). Copiez l'URL base64 pour l'utiliser dans les articles.</div>
-        <div class="dz" id="dz" onclick="document.getElementById('fi').click()"
-          ondragover="event.preventDefault();this.classList.add('ov')"
-          ondragleave="this.classList.remove('ov')"
-          ondrop="hDrop(event)">
+        <div class="ib"><strong>Upload</strong> — max 2 Mo par image. Copiez l'URL pour l'utiliser dans les articles.</div>
+        <div class="dz" id="dz" onclick="document.getElementById('fi').click()" ondragover="event.preventDefault();this.classList.add('ov')" ondragleave="this.classList.remove('ov')" ondrop="hDrop(event)">
           <div style="font-size:32px;margin-bottom:8px">🖼️</div>
           <div style="font-size:14px;font-weight:600">Cliquer ou glisser des images ici</div>
           <div style="font-size:12px;margin-top:4px">JPG, PNG, WebP — max 2 Mo</div>
@@ -296,31 +247,42 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
         <div id="iurls"></div>
       </div>
 
-      <!-- POP-UP -->
       <div class="pn" id="pn-pop">
         <h2>Pop-up d'accueil</h2>
-        <div class="ib"><strong>Pop-up</strong> — S'affiche à l'arrivée sur le site. Laissez le titre vide pour désactiver.</div>
+        <div class="ib"><strong>Pop-up</strong> — S'affiche une fois par session. Laissez le titre vide pour désactiver.</div>
         <div class="fc">
           <div class="fd"><label>Titre</label><input type="text" id="pu-t" placeholder="Ex : Nouveau service !"></div>
-          <div class="fd"><label>Message</label><textarea id="pu-m" placeholder="Texte affiché dans le pop-up..."></textarea></div>
+          <div class="fd"><label>Message</label><textarea id="pu-m" placeholder="Texte du pop-up..."></textarea></div>
           <div class="fr2">
-            <div class="fd"><label>Couleur</label>
-              <select id="pu-c"><option value="bleu">Bleu (info)</option><option value="rouge">Rouge (alerte)</option><option value="vert">Vert (succès)</option><option value="or">Or (annonce)</option></select></div>
-            <div class="fd"><label>Lien bouton (optionnel)</label><input type="text" id="pu-l" placeholder="/infotrafic.html"></div>
+            <div class="fd"><label>Couleur</label><select id="pu-c"><option value="bleu">Bleu</option><option value="rouge">Rouge</option><option value="vert">Vert</option><option value="or">Or</option></select></div>
+            <div class="fd"><label>Lien bouton</label><input type="text" id="pu-l" placeholder="/infotrafic.html"></div>
           </div>
           <div class="fd"><label>Texte bouton</label><input type="text" id="pu-b" placeholder="En savoir plus"></div>
           <div style="display:flex;gap:10px">
-            <button class="bor" onclick="savePopup()">Sauvegarder</button>
-            <button class="bgh" onclick="disablePopup()">Désactiver</button>
+            <button class="bor" onclick="savePop()">Sauvegarder</button>
+            <button class="bgh" onclick="disablePop()">Désactiver</button>
           </div>
         </div>
-        <div class="ppv" id="ppv" style="display:none">
-          <div class="stl">Aperçu</div>
-          <div id="ppap"></div>
+        <div class="ppv" id="ppv" style="display:none"><div class="stl">Aperçu</div><div id="ppap"></div></div>
+      </div>
+
+      <div class="pn" id="pn-cfg">
+        <h2>⚙️ Configuration GitHub</h2>
+        <div class="ib">
+          <strong>Token GitHub expiré ?</strong> Allez sur <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--or)">github.com/settings/tokens</a> → "Generate new token (classic)" → cocher <strong>repo</strong> → copier → coller ci-dessous.<br><br>
+          Token actuel : <span id="gh-cur" style="font-family:monospace;color:var(--orc)">—</span>
+        </div>
+        <div class="fc">
+          <div class="fd"><label>Nouveau token GitHub (ghp_...)</label><input type="password" id="gh-tk" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"></div>
+          <div class="fd"><label>Repo GitHub</label><input type="text" id="gh-rp" value="EliottM38/GG-Mobilites"></div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <button class="bor" onclick="saveCfg()">Sauvegarder</button>
+            <button class="bgh" onclick="testCfg()">Tester la connexion</button>
+            <span id="cfg-res" style="font-size:13px;color:var(--txs)"></span>
+          </div>
         </div>
       </div>
 
-      <!-- COMPTES -->
       <div class="pn" id="pn-cpt">
         <h2>Comptes administrateurs</h2>
         <div class="stl">Comptes existants</div>
@@ -331,672 +293,435 @@ h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:1.5rem}
             <div class="fd" style="margin:0"><label>Identifiant</label><input type="text" id="nu" placeholder="identifiant"></div>
             <div class="fd" style="margin:0"><label>Mot de passe</label><input type="password" id="np" placeholder="••••••••"></div>
           </div>
-          <div class="fd"><label>Rôle</label>
-            <select id="nr"><option value="admin">Administrateur (accès complet)</option><option value="infotrafic">Infotrafic uniquement</option><option value="articles">Articles uniquement</option></select></div>
-          <button class="bor" onclick="addCpt()">Créer le compte</button>
+          <div class="fd"><label>Rôle</label><select id="nr"><option value="admin">Administrateur</option><option value="infotrafic">Infotrafic</option><option value="articles">Articles</option></select></div>
+          <button class="bor" onclick="addCpt()">Créer</button>
         </div>
       </div>
 
     </div>
   </div>
 </div>
-
 <div class="tw" id="tw"></div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────
-const JB_ID  = "69d95af5aaba882197e64b7e";
-const JB_KEY = "$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
-const GH_TK  = "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";
-const GH_RPO = "EliottM38/GG-Mobilites";
-const GH_BR  = "main";
-let GH_TK_LIVE=GH_TK;
-let GH_RPO_LIVE=GH_RPO;
+const JB_ID="69d95af5aaba882197e64b7e", JB_KEY="$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
+const DEF_TK="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";
+const DEF_RPO="EliottM38/GG-Mobilites";
+const GH_BR="main";
 
-// Comptes par défaut — TOUJOURS disponibles même si JSONBin est vide
-const COMPTES_DEF = [
-  {user:"admin", pass:"ggadmin2026", role:"admin", nom:"Administrateur"},
-  {user:"eliott", pass:"eliott123",  role:"admin", nom:"Eliott"},
+// Token dynamique — peut être mis à jour depuis l'interface
+let GH_TK=localStorage.getItem("gh_token")||DEF_TK;
+let GH_RPO=localStorage.getItem("gh_repo")||DEF_RPO;
+
+const CPTES_DEF=[
+  {user:"admin",pass:"ggadmin2026",role:"admin",nom:"Administrateur"},
+  {user:"eliott",pass:"eliott123",role:"admin",nom:"Eliott"},
 ];
+const ROLES={admin:"Administrateur",infotrafic:"Infotrafic",articles:"Articles"};
+const CATS={actualite:"Actualité",travaux:"Travaux",evenement:"Événement","info-reseau":"Info réseau"};
+const LC={C1:"#185FA5",C2:"#0F6E56",C3:"#993C1D","4":"#534AB7","5":"#3B6D11","6":"#854F0B","7":"#993556","8":"#5F5E5A","9":"#0A6BAB","10":"#0F6E56","11":"#A32D2D","60":"#412402","61":"#3B6D11",PL1:"#1A1A2E"};
+const PLAGES_DEF={"C1": {"semaine": [["05:00", "07:30", 10], ["07:30", "19:00", 7], ["19:00", "00:15", 15]], "samedi": [["06:00", "09:00", 12], ["09:00", "18:00", 10], ["18:00", "00:00", 15]], "dimanche": [["06:00", "10:00", 15], ["10:00", "17:00", 12], ["17:00", "23:00", 15]]}, "C2": {"semaine": [["05:00", "07:30", 9], ["07:30", "19:00", 6], ["19:00", "00:30", 10]], "samedi": [["05:30", "09:00", 10], ["09:00", "18:00", 8], ["18:00", "00:15", 15]], "dimanche": [["05:45", "10:00", 20], ["10:00", "17:00", 15], ["17:00", "00:00", 20]]}, "C3": {"semaine": [["05:00", "07:30", 8], ["07:30", "19:00", 5], ["19:00", "00:30", 15]], "samedi": [["05:30", "09:00", 13], ["09:00", "18:00", 8], ["18:00", "00:00", 15]], "dimanche": [["05:45", "10:00", 16], ["10:00", "17:00", 13], ["17:00", "23:45", 16]]}, "4": {"semaine": [["06:00", "07:30", 15], ["07:30", "18:45", 10], ["18:45", "22:00", 60]], "samedi": [["07:00", "22:00", 15]], "dimanche": [["09:00", "19:00", 30]]}, "5": {"semaine": [["05:30", "07:30", 15], ["07:30", "19:00", 10], ["19:00", "23:30", 40]], "samedi": [["06:00", "09:00", 20], ["09:00", "22:00", 15]], "dimanche": [["08:00", "21:30", 20]]}, "6": {"semaine": [["06:00", "07:30", 15], ["07:30", "18:00", 10], ["18:00", "21:00", 20]], "samedi": [["07:00", "09:00", 30], ["09:00", "18:00", 20], ["18:00", "20:30", 30]], "dimanche": [["09:00", "19:00", 30]]}, "7": {"semaine": [["05:30", "07:30", 20], ["07:30", "19:00", 10], ["19:00", "21:30", 45]], "samedi": [["07:00", "10:00", 60], ["10:00", "17:00", 30], ["17:00", "21:00", 45]], "dimanche": [["10:00", "18:00", 30]]}, "8": {"semaine": [["06:45", "08:00", 30], ["08:00", "18:30", 15], ["18:30", "22:00", 45]], "samedi": [["07:00", "10:00", 45], ["10:00", "16:30", 20], ["16:30", "21:00", 40]], "dimanche": [["08:00", "20:00", 30]]}, "9": {"semaine": [["07:30", "18:00", 15], ["18:00", "21:00", 30]], "samedi": [["08:30", "20:45", 20]], "dimanche": [["10:00", "20:30", 30]]}, "10": {"semaine": [["05:30", "07:30", 20], ["07:30", "19:00", 10], ["19:00", "23:00", 30]], "samedi": [["06:00", "10:00", 30], ["10:00", "18:00", 15], ["18:00", "22:00", 30]], "dimanche": [["07:30", "21:00", 30]]}, "11": {"semaine": [["07:00", "21:30", 30]], "samedi": [["07:00", "21:00", 45]], "dimanche": []}, "60": {"semaine": [["07:00", "20:00", 20]], "samedi": [], "dimanche": []}, "61": {"semaine": [["06:30", "08:00", 30], ["08:00", "21:00", 15]], "samedi": [["08:00", "19:30", 30]], "dimanche": []}, "PL1": {"semaine": [["23:00", "05:00", 60]], "samedi": [["23:00", "06:00", 60]], "dimanche": [["23:00", "06:00", 90]]}};
 
-const LC = {C1:"#185FA5",C2:"#0F6E56",C3:"#993C1D","4":"#534AB7","5":"#3B6D11","6":"#854F0B","7":"#993556","8":"#5F5E5A","9":"#0A6BAB","10":"#0F6E56","11":"#A32D2D","60":"#412402","61":"#3B6D11",PL1:"#1A1A2E"};
-const CATS = {actualite:"Actualité",travaux:"Travaux",evenement:"Événement","info-reseau":"Info réseau"};
-const ROLES = {admin:"Administrateur",infotrafic:"Infotrafic",articles:"Articles"};
+let db={alertes:[],articles:[],horaires_modifs:[],activity:[],agences:[{nom:"Agence Gares",adr:"Place de la Gare, Grenoble",sem:"Lun–Ven : 7h–20h",we:"Sam : 8h–18h · Dim : 10h–17h",svc:"Vente, abonnements, rechargement"},{nom:"Agence Victor Hugo",adr:"Place Victor Hugo, Grenoble",sem:"Lun–Ven : 9h–19h",we:"Sam : 9h–17h · Dim : fermé",svc:"Vente, abonnements"},{nom:"Agence Grand'Place",adr:"Centre commercial Grand'Place",sem:"Lun–Sam : 9h–19h",we:"Dim : fermé",svc:"Vente, rechargement"},{nom:"Agence Universités",adr:"Campus, Saint-Martin-d'Hères",sem:"Lun–Ven : 8h30–18h",we:"Fermé sam et dim",svc:"Vente, abonnements étudiants"}],images:[],popup:{actif:false},carousel:[],carousel_titre:"",comptes:[...CPTES_DEF]};
+let linesData=[];
+let curUser=null,saving=false,hAction=null,nbP=0;
 
-const PLAGES_DEF = {"C1": {"semaine": [["05:00", "07:30", 10], ["07:30", "19:00", 7], ["19:00", "00:15", 15]], "samedi": [["06:00", "09:00", 12], ["09:00", "18:00", 10], ["18:00", "00:00", 15]], "dimanche": [["06:00", "10:00", 15], ["10:00", "17:00", 12], ["17:00", "23:00", 15]]}, "C2": {"semaine": [["05:00", "07:30", 9], ["07:30", "19:00", 6], ["19:00", "00:30", 10]], "samedi": [["05:30", "09:00", 10], ["09:00", "18:00", 8], ["18:00", "00:15", 15]], "dimanche": [["05:45", "10:00", 20], ["10:00", "17:00", 15], ["17:00", "00:00", 20]]}, "C3": {"semaine": [["05:00", "07:30", 8], ["07:30", "19:00", 5], ["19:00", "00:30", 15]], "samedi": [["05:30", "09:00", 13], ["09:00", "18:00", 8], ["18:00", "00:00", 15]], "dimanche": [["05:45", "10:00", 16], ["10:00", "17:00", 13], ["17:00", "23:45", 16]]}, "4": {"semaine": [["06:00", "07:30", 15], ["07:30", "18:45", 10], ["18:45", "22:00", 60]], "samedi": [["07:00", "22:00", 15]], "dimanche": [["09:00", "19:00", 30]]}, "5": {"semaine": [["05:30", "07:30", 15], ["07:30", "19:00", 10], ["19:00", "23:30", 40]], "samedi": [["06:00", "09:00", 20], ["09:00", "22:00", 15]], "dimanche": [["08:00", "21:30", 20]]}, "6": {"semaine": [["06:00", "07:30", 15], ["07:30", "18:00", 10], ["18:00", "21:00", 20]], "samedi": [["07:00", "09:00", 30], ["09:00", "18:00", 20], ["18:00", "20:30", 30]], "dimanche": [["09:00", "19:00", 30]]}, "7": {"semaine": [["05:30", "07:30", 20], ["07:30", "19:00", 10], ["19:00", "21:30", 45]], "samedi": [["07:00", "10:00", 60], ["10:00", "17:00", 30], ["17:00", "21:00", 45]], "dimanche": [["10:00", "18:00", 30]]}, "8": {"semaine": [["06:45", "08:00", 30], ["08:00", "18:30", 15], ["18:30", "22:00", 45]], "samedi": [["07:00", "10:00", 45], ["10:00", "16:30", 20], ["16:30", "21:00", 40]], "dimanche": [["08:00", "20:00", 30]]}, "9": {"semaine": [["07:30", "18:00", 15], ["18:00", "21:00", 30]], "samedi": [["08:30", "20:45", 20]], "dimanche": [["10:00", "20:30", 30]]}, "10": {"semaine": [["05:30", "07:30", 20], ["07:30", "19:00", 10], ["19:00", "23:00", 30]], "samedi": [["06:00", "10:00", 30], ["10:00", "18:00", 15], ["18:00", "22:00", 30]], "dimanche": [["07:30", "21:00", 30]]}, "11": {"semaine": [["07:00", "21:30", 30]], "samedi": [["07:00", "21:00", 45]], "dimanche": []}, "60": {"semaine": [["07:00", "20:00", 20]], "samedi": [], "dimanche": []}, "61": {"semaine": [["06:30", "08:00", 30], ["08:00", "21:00", 15]], "samedi": [["08:00", "19:30", 30]], "dimanche": []}, "PL1": {"semaine": [["23:00", "05:00", 60]], "samedi": [["23:00", "06:00", 60]], "dimanche": [["23:00", "06:00", 90]]}};
+// ── TABS (index correspond à l'ordre des .si dans la sidebar) ─────────
+const TABS=["db","it","hor","art","age","med","pop","cfg","cpt"];
+function sw(n){
+  document.querySelectorAll(".si").forEach((s,i)=>s.classList.toggle("on",TABS[i]===n));
+  document.querySelectorAll(".pn").forEach(p=>p.classList.toggle("on",p.id==="pn-"+n));
+  if(n==="med")renderImgs();
+  if(n==="pop")renderPopPrev();
+  if(n==="cfg")openCfg();
+}
 
-// ── STATE ─────────────────────────────────────────────────
-let db = {
-  alertes:[], articles:[], horaires_modifs:[], activity:[],
-  agences:[
-    {nom:"Agence Gares",adr:"Place de la Gare, Grenoble",sem:"Lun–Ven : 7h–20h",we:"Sam : 8h–18h · Dim : 10h–17h",svc:"Vente, abonnements, rechargement"},
-    {nom:"Agence Victor Hugo",adr:"Place Victor Hugo, Grenoble",sem:"Lun–Ven : 9h–19h",we:"Sam : 9h–17h · Dim : fermé",svc:"Vente, abonnements"},
-    {nom:"Agence Grand'Place",adr:"Centre commercial Grand'Place, Échirolles",sem:"Lun–Sam : 9h–19h",we:"Dim : fermé",svc:"Vente, rechargement"},
-    {nom:"Agence Universités",adr:"Campus, Saint-Martin-d'Hères",sem:"Lun–Ven : 8h30–18h",we:"Fermé sam et dim",svc:"Vente, abonnements étudiants"},
-  ],
-  images:[], popup:{actif:false}, carousel:[], carousel_titre:'',
-  comptes:[...COMPTES_DEF],
-};
-let linesData = [];
-let curUser = null;
-let saving = false;
-let hAction = null;
-let nbPlages = 0;
-
-// ── SYNC ──────────────────────────────────────────────────
+// ── SYNC JSONBin ──────────────────────────────────────────────────────
 function setSync(s){
-  const d=document.getElementById('sdot'),l=document.getElementById('slab');
-  if(s==='ok'){d.className='sd';l.textContent='Synchronisé · '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
-  else if(s==='ld'){d.className='sd ld';l.textContent='Synchronisation...';}
-  else{d.className='sd er';l.textContent='Erreur de synchronisation';}
+  const d=document.getElementById("sdot"),l=document.getElementById("slab");
+  if(s==="ok"){d.className="sd";l.textContent="Synchronisé · "+new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});}
+  else if(s==="ld"){d.className="sd ld";l.textContent="Synchronisation...";}
+  else{d.className="sd er";l.textContent="Erreur";}
 }
-
 async function loadDB(){
-  setSync('ld');
+  setSync("ld");
   try{
-    const r=await fetch(`https://api.jsonbin.io/v3/b/${JB_ID}/latest`,{headers:{'X-Master-Key':JB_KEY}});
-    const j=await r.json(); const rec=j.record||{};
-    // Fusionner — les comptes JSONBin sont additionnels aux défauts
-    if(rec.alertes) db.alertes=rec.alertes;
-    if(rec.articles) db.articles=rec.articles;
-    if(rec.horaires_modifs) db.horaires_modifs=rec.horaires_modifs;
-    if(rec.activity) db.activity=rec.activity;
-    if(rec.agences?.length) db.agences=rec.agences;
-    if(rec.images) db.images=rec.images;
-    if(rec.carousel) db.carousel=rec.carousel;
-    if(rec.carousel_titre) db.carousel_titre=rec.carousel_titre;
-    if(rec.popup) db.popup=rec.popup;
-    // Comptes : toujours garder les défauts + ajouter les nouveaux
-    if(rec.comptes?.length){
-      const extra=rec.comptes.filter(c=>!COMPTES_DEF.find(d=>d.user===c.user));
-      db.comptes=[...COMPTES_DEF,...extra];
+    const r=await fetch("https://api.jsonbin.io/v3/b/"+JB_ID+"/latest",{headers:{"X-Master-Key":JB_KEY}});
+    const j=await r.json(),rec=j.record||{};
+    if(rec.alertes)db.alertes=rec.alertes;
+    if(rec.articles)db.articles=rec.articles;
+    if(rec.horaires_modifs)db.horaires_modifs=rec.horaires_modifs;
+    if(rec.activity)db.activity=rec.activity;
+    if(rec.agences&&rec.agences.length)db.agences=rec.agences;
+    if(rec.images)db.images=rec.images;
+    if(rec.popup)db.popup=rec.popup;
+    if(rec.carousel)db.carousel=rec.carousel;
+    if(rec.carousel_titre)db.carousel_titre=rec.carousel_titre;
+    if(rec.comptes&&rec.comptes.length){
+      const extra=rec.comptes.filter(c=>!CPTES_DEF.find(d=>d.user===c.user));
+      db.comptes=[...CPTES_DEF,...extra];
     }
-    setSync('ok'); renderAll();
-  }catch(e){
-    setSync('er');
-    toast('Erreur JSONBin (connexion possible quand même)',true);
-    // Pas d'echec de login : les comptes défauts sont toujours là
-    renderAll();
-  }
+    setSync("ok");renderAll();
+  }catch(e){setSync("er");renderAll();}
 }
-
 async function saveDB(){
-  if(saving)return; saving=true; setSync('ld');
+  if(saving)return;saving=true;setSync("ld");
   try{
-    await fetch(`https://api.jsonbin.io/v3/b/${JB_ID}`,{
-      method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':JB_KEY},
-      body:JSON.stringify({alertes:db.alertes,articles:db.articles,horaires_modifs:db.horaires_modifs,
-        comptes:db.comptes,activity:db.activity,agences:db.agences,images:db.images,popup:db.popup,carousel:db.carousel||[],carousel_titre:db.carousel_titre||''})
-    });
-    setSync('ok');
-  }catch(e){setSync('er');toast('Erreur sauvegarde JSONBin',true);}
+    await fetch("https://api.jsonbin.io/v3/b/"+JB_ID,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":JB_KEY},body:JSON.stringify({alertes:db.alertes,articles:db.articles,horaires_modifs:db.horaires_modifs,comptes:db.comptes,activity:db.activity,agences:db.agences,images:db.images,popup:db.popup,carousel:db.carousel,carousel_titre:db.carousel_titre})});
+    setSync("ok");
+  }catch(e){setSync("er");toast("Erreur sauvegarde JSONBin",true);}
   saving=false;
 }
 
-// ── GITHUB ────────────────────────────────────────────────
+// ── GITHUB ────────────────────────────────────────────────────────────
 async function ghSha(path){
-  const r=await fetch(`https://api.github.com/repos/${GH_RPO_LIVE}/contents/${path}`,
-    {headers:{'Authorization':'token '+GH_TK,'Accept':'application/vnd.github.v3+json'}});
+  const r=await fetch("https://api.github.com/repos/"+GH_RPO+"/contents/"+path,{headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json"}});
+  if(!r.ok)throw new Error("GitHub "+r.status+(r.status===401?" — token expiré/invalide. Allez dans Config GitHub pour le renouveler.":""));
   return (await r.json()).sha;
 }
 async function ghPush(path,content,msg){
   const sha=await ghSha(path);
-  const r=await fetch(`https://api.github.com/repos/${GH_RPO_LIVE}/contents/${path}`,{
-    method:'PUT',
-    headers:{'Authorization':'token '+GH_TK,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
-    body:JSON.stringify({message:msg,content:btoa(unescape(encodeURIComponent(content))),sha,branch:GH_BR})
-  });
-  if(!r.ok)throw new Error('GitHub '+r.status);
+  const r=await fetch("https://api.github.com/repos/"+GH_RPO+"/contents/"+path,{method:"PUT",headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json","Content-Type":"application/json"},body:JSON.stringify({message:msg,content:btoa(unescape(encodeURIComponent(content))),sha:sha,branch:GH_BR})});
+  if(!r.ok)throw new Error("GitHub push "+r.status);
   return r.json();
 }
 async function ghLoadLines(){
-  // Méthode 1 : API GitHub Contents (marche toujours, base64)
+  // Méthode 1 : API Contents (authentifiée)
   try{
-    const r=await fetch(
-      "https://api.github.com/repos/"+GH_RPO_LIVE+"/contents/lines.json",
-      {headers:{"Authorization":"token "+GH_TK_LIVE,"Accept":"application/vnd.github.v3+json"}}
-    );
-    if(!r.ok) throw new Error("API "+r.status);
+    const r=await fetch("https://api.github.com/repos/"+GH_RPO+"/contents/lines.json",{headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json"}});
+    if(!r.ok)throw new Error("API "+r.status);
     const j=await r.json();
-    // décoder le base64
-    const raw=j.content.replace(/\n/g,"");
-    const decoded=decodeURIComponent(Array.prototype.map.call(atob(raw),c=>{
-      return "%"+("00"+c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(""));
+    const decoded=decodeURIComponent(Array.prototype.map.call(atob(j.content.replace(/\n/g,"")),function(c){return"%"+("00"+c.charCodeAt(0).toString(16)).slice(-2);}).join(""));
     linesData=JSON.parse(decoded);
-    hRefreshDirs();
     return linesData;
   }catch(e1){
-    // Méthode 2 : raw sans auth (repo public)
+    // Méthode 2 : raw public sans auth
     try{
-      const r2=await fetch("https://raw.githubusercontent.com/"+GH_RPO_LIVE+"/"+GH_BR+"/lines.json?nc="+Date.now());
-      if(!r2.ok) throw new Error("raw "+r2.status);
+      const r2=await fetch("https://raw.githubusercontent.com/"+GH_RPO+"/"+GH_BR+"/lines.json?nc="+Date.now());
+      if(!r2.ok)throw new Error("raw "+r2.status);
       linesData=await r2.json();
-      hRefreshDirs();
       return linesData;
     }catch(e2){
-      toast("Erreur lines.json : "+e1.message+" / "+e2.message,true);
+      toast("Erreur lines.json : "+e1.message,true);
       return[];
     }
   }
 }
 
-function hRefreshDirs(){
-  const code=document.getElementById("h-code")?.value;
-  if(!code||!linesData.length) return;
-  const sel=document.getElementById("h-dir");
-  const prev=sel.value;
-  sel.innerHTML='<option value="">— Toutes —</option>';
-  const dirs=[...new Set(linesData.filter(l=>l.code===code&&l.direction).map(l=>l.direction))];
-  dirs.forEach(d=>{
-    const o=document.createElement("option");
-    o.value=d; o.textContent=d;
-    if(d===prev) o.selected=true;
-    sel.appendChild(o);
-  });
-}
-
-// ── AUTH ──────────────────────────────────────────────────
+// ── AUTH ──────────────────────────────────────────────────────────────
 function tryLogin(){
-  const u=document.getElementById('lu').value.trim();
-  const p=document.getElementById('lp').value;
-  // Chercher dans les comptes actuels (défauts + JSONBin)
+  const u=document.getElementById("lu").value.trim();
+  const p=document.getElementById("lp").value;
   const c=db.comptes.find(x=>x.user===u&&x.pass===p);
-  if(!c){document.getElementById('lerr').style.display='block';return;}
+  if(!c){document.getElementById("lerr").style.display="block";return;}
   curUser=c;
-  document.getElementById('lw').style.display='none';
-  document.getElementById('adm').style.display='flex';
-  document.getElementById('alab').textContent=c.nom+' · '+ROLES[c.role];
-  document.getElementById('a-dt').value=new Date().toISOString().split('T')[0];
-  // Masquer onglets selon rôle
-  if(c.role==='infotrafic'){
-    document.querySelectorAll('.si').forEach((s,i)=>{if(i!==0&&i!==1)s.style.display='none';});
-  }else if(c.role==='articles'){
-    document.querySelectorAll('.si').forEach((s,i)=>{if(i!==0&&i!==3)s.style.display='none';});
-  }
+  document.getElementById("lw").style.display="none";
+  document.getElementById("adm").style.display="flex";
+  document.getElementById("alab").textContent=c.nom+" · "+ROLES[c.role];
+  document.getElementById("a-dt").value=new Date().toISOString().split("T")[0];
   ghLoadLines();
 }
 function logout(){
   curUser=null;
-  document.getElementById('lw').style.display='flex';
-  document.getElementById('adm').style.display='none';
-  document.getElementById('lu').value='';document.getElementById('lp').value='';
-  document.getElementById('lerr').style.display='none';
-  document.querySelectorAll('.si').forEach(s=>s.style.display='');
+  document.getElementById("lw").style.display="flex";
+  document.getElementById("adm").style.display="none";
+  document.getElementById("lu").value="";document.getElementById("lp").value="";
+  document.getElementById("lerr").style.display="none";
 }
-document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
+document.getElementById("lp").addEventListener("keydown",function(e){if(e.key==="Enter")tryLogin();});
 
-// ── TABS ──────────────────────────────────────────────────
-const TAB_NAMES=['db','it','hor','art','age','med','pop','cpt'];
-function sw(n){
-  document.querySelectorAll('.si').forEach((s,i)=>s.classList.toggle('on',TAB_NAMES[i]===n));
-  document.querySelectorAll('.pn').forEach(p=>p.classList.toggle('on',p.id==='pn-'+n));
-  if(n==='med')renderImages();
-  if(n==='pop')renderPopupPreview();
+// ── CONFIG GITHUB ─────────────────────────────────────────────────────
+function openCfg(){
+  const saved=GH_TK;
+  document.getElementById("gh-cur").textContent=saved&&saved!==DEF_TK?saved.slice(0,8)+"..."+saved.slice(-4)+" (personnalisé)":"Token par défaut (peut être expiré)";
+  document.getElementById("gh-tk").value="";
+  document.getElementById("gh-rp").value=GH_RPO;
 }
-
-// ── LOG & TOAST ───────────────────────────────────────────
-function log(msg){
-  const t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-  db.activity.unshift('['+t+'] '+(curUser?.nom||'')+' — '+msg);
-  if(db.activity.length>30)db.activity=db.activity.slice(0,30);
+function saveCfg(){
+  const tk=document.getElementById("gh-tk").value.trim();
+  const rp=document.getElementById("gh-rp").value.trim();
+  if(tk){GH_TK=tk;localStorage.setItem("gh_token",tk);}
+  if(rp){GH_RPO=rp;localStorage.setItem("gh_repo",rp);}
+  document.getElementById("cfg-res").textContent="Sauvegardé !";
+  document.getElementById("cfg-res").style.color="var(--g)";
+  openCfg();
+  toast("Config GitHub sauvegardée !");
+  ghLoadLines();
 }
-function toast(msg,err=false){
-  const el=document.createElement('div');
-  el.className='t'+(err?' e':'');el.textContent=msg;
-  document.getElementById('tw').appendChild(el);
-  setTimeout(()=>el.remove(),3500);
-}
-
-// ── RENDER ALL ────────────────────────────────────────────
-function renderAll(){
-  document.getElementById('s-al').textContent=db.alertes.length;
-  document.getElementById('s-ar').textContent=db.articles.length;
-  document.getElementById('s-hm').textContent=db.horaires_modifs.length;
-  const al=document.getElementById('alog');
-  al.innerHTML=db.activity.length
-    ?db.activity.slice(0,10).map(a=>'<div class="act">'+a+'</div>').join('')
-    :'<div class="act">Aucune activité récente.</div>';
-  renderAlertes();renderArticles();renderAgences();renderComptes();renderCarouselList();
-  // Pré-remplir carousel titre
-  if(db.carousel_titre && document.getElementById('car-titre')){
-    document.getElementById('car-titre').value=db.carousel_titre;
-  }
-  // Pré-remplir popup
-  if(db.popup?.titre){
-    document.getElementById('pu-t').value=db.popup.titre||'';
-    document.getElementById('pu-m').value=db.popup.msg||'';
-    document.getElementById('pu-c').value=db.popup.couleur||'bleu';
-    document.getElementById('pu-l').value=db.popup.lien||'';
-    document.getElementById('pu-b').value=db.popup.btn||'';
-  }
+async function testCfg(){
+  const res=document.getElementById("cfg-res");
+  res.textContent="Test...";res.style.color="var(--txs)";
+  try{
+    const r=await fetch("https://api.github.com/repos/"+GH_RPO+"/contents/lines.json",{headers:{"Authorization":"token "+GH_TK,"Accept":"application/vnd.github.v3+json"}});
+    if(r.ok){res.textContent="Connexion OK !";res.style.color="var(--g)";}
+    else{res.textContent="Erreur "+r.status+(r.status===401?" — token invalide/expiré":"");res.style.color="var(--r)";}
+  }catch(e){res.textContent="Erreur réseau : "+e.message;res.style.color="var(--r)";}
 }
 
-// ── INFOTRAFIC ────────────────────────────────────────────
-function renderAlertes(){
-  const el=document.getElementById('al-list');
-  if(!db.alertes.length){el.innerHTML='<div style="color:var(--txs);font-size:13px;padding:1rem 0">Aucune alerte active.</div>';return;}
-  el.innerHTML=db.alertes.map((a,i)=>`
-    <div class="alc ${a.niveau}">
-      <div><div class="alb">${a.niveau==='rouge'?'Perturbé':'Info'}</div>
-        <div style="margin-top:8px"><span style="background:${LC[a.ligne]||'#555'};color:white;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">${a.ligne}</span></div></div>
-      <div class="alct"><strong>${a.titre}</strong><p>${a.desc}</p>
-        <div style="font-size:11px;color:var(--txs);margin-top:6px">${a.date} · ${a.auteur||'—'}</div></div>
-      <button class="bdel" onclick="delAlerte(${i})">Supprimer</button>
-    </div>`).join('');
-}
-async function addAlerte(){
-  const l=document.getElementById('it-lg').value,n=document.getElementById('it-nv').value;
-  const t=document.getElementById('it-ti').value.trim(),d=document.getElementById('it-de').value.trim();
-  if(!t||!d){toast('Remplissez titre et description.',true);return;}
-  db.alertes.push({ligne:l,niveau:n,titre:t,desc:d,date:new Date().toLocaleDateString('fr-FR'),auteur:curUser?.nom});
-  document.getElementById('it-ti').value='';document.getElementById('it-de').value='';
-  log('Alerte : '+t+' ('+l+')');renderAll();await saveDB();toast('Alerte publiée !');
-}
-async function delAlerte(i){
-  if(!confirm('Supprimer "'+db.alertes[i].titre+'" ?'))return;
-  log('Alerte supprimée : '+db.alertes[i].titre);db.alertes.splice(i,1);renderAll();await saveDB();toast('Alerte supprimée.');
-}
-
-// ── HORAIRES ──────────────────────────────────────────────
+// ── HORAIRES ──────────────────────────────────────────────────────────
 async function hDir(){
   const code=document.getElementById("h-code").value;
   const sel=document.getElementById("h-dir");
   sel.innerHTML='<option value="">Chargement...</option>';
   document.getElementById("h-act-step").style.display="none";
   document.getElementById("h-edit-step").style.display="none";
-  if(!code) return;
-  if(!linesData.length){
-    await ghLoadLines();
-  }
+  if(!code)return;
+  if(!linesData.length)await ghLoadLines();
   sel.innerHTML='<option value="">— Toutes —</option>';
   if(linesData.length){
     const dirs=[...new Set(linesData.filter(l=>l.code===code&&l.direction).map(l=>l.direction))];
-    dirs.forEach(d=>{
-      const o=document.createElement("option");
-      o.value=d; o.textContent=d;
-      sel.appendChild(o);
-    });
+    dirs.forEach(function(d){const o=document.createElement("option");o.value=d;o.textContent=d;sel.appendChild(o);});
   }
   document.getElementById("h-act-step").style.display="block";
 }
-
 function hSetAct(act){
   hAction=act;
-  document.getElementById('h-edit-step').style.display='none';
-  const code=document.getElementById('h-code').value;
-  const jour=document.getElementById('h-jour').value;
-  if(!code||!jour){toast('Choisissez la ligne et le jour.',true);return;}
-  ['btn-add','btn-del','btn-freq'].forEach(id=>{
-    const btn=document.getElementById(id);
-    btn.classList.toggle('sel',
-      (id==='btn-add'&&act==='add')||(id==='btn-del'&&act==='del')||(id==='btn-freq'&&act==='freq'));
+  document.getElementById("h-edit-step").style.display="none";
+  const code=document.getElementById("h-code").value;
+  const jour=document.getElementById("h-jour").value;
+  if(!code||!jour){toast("Choisissez la ligne et le jour.",true);return;}
+  ["btn-add","btn-del","btn-freq"].forEach(function(id){
+    document.getElementById(id).classList.toggle("sel",(id==="btn-add"&&act==="add")||(id==="btn-del"&&act==="del")||(id==="btn-freq"&&act==="freq"));
   });
-  const cnt=document.getElementById('h-edit-cnt');
-  document.getElementById('h-edit-step').style.display='block';
-
-  if(act==='add'){
-    cnt.innerHTML=`
-      <div class="fd"><label>Heure de départ depuis le terminus (ex: 08:32)</label>
-        <input type="time" id="new-h" style="max-width:200px"></div>
-      <div style="font-size:12px;color:var(--txs);margin-top:-8px">Les horaires aux arrêts intermédiaires seront calculés automatiquement à partir des temps de trajet.</div>`;
-  }else if(act==='del'){
-    cnt.innerHTML='<div style="color:var(--txs);font-size:13px">Chargement des passages...</div>';
-    hLoadPassages(code,document.getElementById('h-dir').value,jour);
+  const cnt=document.getElementById("h-edit-cnt");
+  document.getElementById("h-edit-step").style.display="block";
+  if(act==="add"){
+    cnt.innerHTML='<div class="fd"><label>Heure de départ depuis le terminus (ex: 08h32)</label><input type="time" id="new-h" style="max-width:200px"></div><div style="font-size:12px;color:var(--txs);margin-top:-8px">Les arrêts intermédiaires seront calculés automatiquement.</div>';
+  }else if(act==="del"){
+    cnt.innerHTML='<div style="color:var(--txs);font-size:13px;padding:.5rem 0">Chargement...</div>';
+    hLoadPsg(code,document.getElementById("h-dir").value,jour);
   }else{
-    const dir=document.getElementById('h-dir').value;
-    const plagesDef=(PLAGES_DEF[code]||{})[jour]||[["05:00","23:00",10]];
-    nbPlages=plagesDef.length;
-    let html=`<div style="font-size:12px;color:var(--txs);margin-bottom:12px">Modifiez les créneaux. Les passages seront régénérés automatiquement.</div>`;
-    plagesDef.forEach((p,i)=>{
-      html+=`<div class="plrow" id="pr-${i}">
-        <div class="fd"><label>Début</label><input type="time" value="${p[0]}" id="pd-${i}"></div>
-        <div class="fd"><label>Fin</label><input type="time" value="${p[1]}" id="pf-${i}"></div>
-        <div class="fd"><label>Fréq. (min)</label><input type="number" min="1" max="120" value="${p[2]}" id="pq-${i}"></div>
-        <button class="bdel" onclick="delPlage(${i})" style="align-self:flex-end;margin-bottom:4px">✕</button>
-      </div>`;
-    });
-    html+=`<button class="bgh" onclick="addPlage()">+ Ajouter un créneau</button>`;
+    const plDef=(PLAGES_DEF[code]||{})[jour]||[["05:00","23:00",10]];
+    nbP=plDef.length;
+    let html='<div style="font-size:12px;color:var(--txs);margin-bottom:12px">Modifiez les créneaux. Les passages seront régénérés automatiquement.</div>';
+    plDef.forEach(function(p,i){html+='<div class="plrow" id="pr-'+i+'"><div class="fd"><label>Début</label><input type="time" value="'+p[0]+'" id="pd-'+i+'"></div><div class="fd"><label>Fin</label><input type="time" value="'+p[1]+'" id="pf-'+i+'"></div><div class="fd"><label>Fréq (min)</label><input type="number" min="1" max="120" value="'+p[2]+'" id="pq-'+i+'"></div><button class="bdel" onclick="delPl('+i+')" style="align-self:flex-end;margin-bottom:4px">✕</button></div>';});
+    html+='<button class="bgh" id="add-pl-btn" onclick="addPl()">+ Ajouter un créneau</button>';
     cnt.innerHTML=html;
   }
 }
-
-function delPlage(i){document.getElementById('pr-'+i)?.remove();}
-function addPlage(){
-  const div=document.createElement('div');
-  div.className='plrow';div.id='pr-'+nbPlages;
-  div.innerHTML=`<div class="fd"><label>Début</label><input type="time" value="19:00" id="pd-${nbPlages}"></div><div class="fd"><label>Fin</label><input type="time" value="23:00" id="pf-${nbPlages}"></div><div class="fd"><label>Fréq. (min)</label><input type="number" min="1" max="120" value="20" id="pq-${nbPlages}"></div><button class="bdel" onclick="delPlage(${nbPlages})" style="align-self:flex-end;margin-bottom:4px">✕</button>`;
-  document.querySelector('#h-edit-cnt .bgh').before(div);
-  nbPlages++;
+function delPl(i){document.getElementById("pr-"+i)?.remove();}
+function addPl(){
+  const div=document.createElement("div");div.className="plrow";div.id="pr-"+nbP;
+  div.innerHTML='<div class="fd"><label>Début</label><input type="time" value="19:00" id="pd-'+nbP+'"></div><div class="fd"><label>Fin</label><input type="time" value="23:00" id="pf-'+nbP+'"></div><div class="fd"><label>Fréq (min)</label><input type="number" min="1" max="120" value="20" id="pq-'+nbP+'"></div><button class="bdel" onclick="delPl('+nbP+')" style="align-self:flex-end;margin-bottom:4px">✕</button>';
+  document.getElementById("add-pl-btn").before(div);nbP++;
 }
-
-async function hLoadPassages(code,dir,jour){
+async function hLoadPsg(code,dir,jour){
   const cnt=document.getElementById("h-edit-cnt");
-  cnt.innerHTML='<div style="color:var(--txs);font-size:13px;padding:0.5rem 0">Chargement des passages...</div>';
-  if(!linesData.length) await ghLoadLines();
-  if(!linesData.length){
-    cnt.innerHTML='<div style="color:var(--r)">Impossible de charger les données.</div>';
-    return;
-  }
+  if(!linesData.length)await ghLoadLines();
+  if(!linesData.length){cnt.innerHTML='<div style="color:var(--r)">Impossible de charger les données. Vérifiez le token GitHub dans Config GitHub.</div>';return;}
   const dirs=dir?[dir]:[...new Set(linesData.filter(l=>l.code===code&&l.jour===jour).map(l=>l.direction))];
   let html="";
-  dirs.forEach(d=>{
+  dirs.forEach(function(d){
     const l=linesData.find(x=>x.code===code&&x.direction===d&&x.jour===jour);
-    const passages=l?.horaires||[];
-    if(!passages.length) return;
+    const pgs=l?l.horaires||[]:[];
+    if(!pgs.length)return;
     const dSafe=d.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
-    html+=`<div style="font-weight:700;color:var(--or);margin-bottom:8px;font-size:13px">→ ${d} (${passages.length} passages)</div>
-      <div class="plist">
-        ${passages.map((h,i)=>`<div class="prow">
-          <span style="font-weight:700;width:60px;flex-shrink:0">${h.heure}</span>
-          <span style="flex:1;color:var(--txs);font-size:12px">${h.destination||d}</span>
-          <button class="bdel" onclick="hDelPassage('${code}','${dSafe}','${jour}',${i})">Supprimer</button>
-        </div>`).join("")}
-      </div><div style="margin-bottom:12px"></div>`;
+    html+='<div style="font-weight:700;color:var(--or);margin-bottom:8px;font-size:13px">→ '+d+' ('+pgs.length+' passages)</div><div class="plist">'+pgs.map(function(h,i){return'<div class="prow"><span style="font-weight:700;width:60px;flex-shrink:0">'+h.heure+'</span><span style="flex:1;color:var(--txs);font-size:12px">'+( h.destination||d)+'</span><button class="bdel" onclick="hDelPsg(\''+code+'\',\''+dSafe+'\',\''+jour+'\','+i+')">Supprimer</button></div>';}).join("")+'</div><div style="margin-bottom:12px"></div>';
   });
-  cnt.innerHTML=html||'<div style="color:var(--txs);padding:0.5rem 0">Aucun passage trouvé pour cette sélection.</div>';
+  cnt.innerHTML=html||'<div style="color:var(--txs);padding:.5rem 0">Aucun passage trouvé.</div>';
 }
-
-async function hDelPassage(code,dir,jour,idx){
-  if(!confirm('Supprimer ce passage ?'))return;
+async function hDelPsg(code,dir,jour,idx){
+  if(!confirm("Supprimer ce passage ?"))return;
   const l=linesData.find(x=>x.code===code&&x.direction===dir&&x.jour===jour);
   if(!l)return;
-  const heure=l.horaires[idx]?.heure||'';
+  const h=l.horaires[idx]?.heure||"";
   l.horaires.splice(idx,1);
-  log(`Passage supprimé : ${code} → ${dir} (${jour}) à ${heure}`);
-  db.horaires_modifs.push({code,dir,jour,type:'suppression',date:new Date().toLocaleDateString('fr-FR')});
-  renderAll();
-  hLoadPassages(code,dir,jour);
-  toast('Passage supprimé — pensez à sauvegarder !');
+  log("Passage supprimé : "+code+" → "+dir+" ("+jour+") à "+h);
+  db.horaires_modifs.push({code:code,dir:dir,jour:jour,type:"suppression",date:new Date().toLocaleDateString("fr-FR")});
+  renderAll();hLoadPsg(code,dir,jour);
+  toast("Passage supprimé — pensez à sauvegarder !");
 }
-
-function genHoraires(plages,dest){
+function genHor(plages,dest){
   const h=[];
-  for(const p of plages){
-    const[dh,dm]=p[0].split(':').map(Number);
-    let[fh,fm]=p[1].split(':').map(Number);
-    let fin=fh*60+fm; if(fin<dh*60+dm)fin+=1440;
-    let cur=dh*60+dm,freq=parseInt(p[2]);
-    while(cur<=fin){
-      const rh=Math.floor(cur/60)%24,rm=cur%60;
-      h.push({destination:dest,heure:String(rh).padStart(2,'0')+':'+String(rm).padStart(2,'0')});
-      cur+=freq;
-    }
-  }
+  plages.forEach(function(p){
+    const dpts=p[0].split(":"),fpts=p[1].split(":");
+    let cur=parseInt(dpts[0])*60+parseInt(dpts[1]);
+    let fin=parseInt(fpts[0])*60+parseInt(fpts[1]);
+    if(fin<cur)fin+=1440;
+    const freq=parseInt(p[2]);
+    while(cur<=fin){const rh=Math.floor(cur/60)%24,rm=cur%60;h.push({destination:dest,heure:String(rh).padStart(2,"0")+":"+String(rm).padStart(2,"0")});cur+=freq;}
+  });
   return h;
 }
-
 async function hSave(){
-  const code=document.getElementById('h-code').value;
-  const dir=document.getElementById('h-dir').value;
-  const jour=document.getElementById('h-jour').value;
-  const btn=document.getElementById('btn-save');
-  const st=document.getElementById('h-status');
-  if(!code||!jour){toast('Choisissez ligne et jour.',true);return;}
-  btn.disabled=true;btn.textContent='Sauvegarde...';st.textContent='';
+  const code=document.getElementById("h-code").value;
+  const dir=document.getElementById("h-dir").value;
+  const jour=document.getElementById("h-jour").value;
+  const btn=document.getElementById("btn-save");
+  const st=document.getElementById("h-status");
+  if(!code||!jour){toast("Choisissez ligne et jour.",true);return;}
+  btn.disabled=true;btn.textContent="Sauvegarde...";st.textContent="";
   try{
     if(!linesData.length)await ghLoadLines();
-    if(hAction==='add'){
-      const heure=document.getElementById('new-h')?.value;
-      if(!heure){toast('Entrez une heure.',true);btn.disabled=false;btn.textContent='Sauvegarder sur GitHub';return;}
+    if(hAction==="add"){
+      const heure=document.getElementById("new-h")?.value;
+      if(!heure){toast("Entrez une heure.",true);btn.disabled=false;btn.textContent="Sauvegarder sur GitHub";return;}
       const dirs=dir?[dir]:[...new Set(linesData.filter(l=>l.code===code&&l.jour===jour).map(l=>l.direction))];
-      dirs.forEach(d=>{
+      dirs.forEach(function(d){
         const l=linesData.find(x=>x.code===code&&x.direction===d&&x.jour===jour);
         if(!l)return;
         const dest=l.horaires[0]?.destination||d;
-        l.horaires.push({destination:dest,heure});
-        l.horaires.sort((a,b)=>{const ma=a.heure.split(':').map(Number),mb=b.heure.split(':').map(Number);return(ma[0]*60+ma[1])-(mb[0]*60+mb[1]);});
-        log('Passage ajouté : '+code+' → '+d+' ('+jour+') à '+heure);
+        l.horaires.push({destination:dest,heure:heure});
+        l.horaires.sort(function(a,b){const ma=a.heure.split(":").map(Number),mb=b.heure.split(":").map(Number);return(ma[0]*60+ma[1])-(mb[0]*60+mb[1]);});
+        log("Passage ajouté : "+code+" → "+d+" ("+jour+") à "+heure);
       });
-      db.horaires_modifs.push({code,dir,jour,type:'ajout',heure,date:new Date().toLocaleDateString('fr-FR')});
-    }else if(hAction==='freq'){
+      db.horaires_modifs.push({code:code,dir:dir,jour:jour,type:"ajout",date:new Date().toLocaleDateString("fr-FR")});
+    }else if(hAction==="freq"){
       const plages=[];
-      document.querySelectorAll('#h-edit-cnt .plrow').forEach(row=>{
-        const id=row.id.replace('pr-','');
-        const d=document.getElementById('pd-'+id)?.value;
-        const f=document.getElementById('pf-'+id)?.value;
-        const q=document.getElementById('pq-'+id)?.value;
+      document.querySelectorAll("#h-edit-cnt .plrow").forEach(function(row){
+        const id=row.id.replace("pr-","");
+        const d=document.getElementById("pd-"+id)?.value;
+        const f=document.getElementById("pf-"+id)?.value;
+        const q=document.getElementById("pq-"+id)?.value;
         if(d&&f&&q)plages.push([d,f,parseInt(q)]);
       });
-      if(!plages.length){toast('Ajoutez au moins un créneau.',true);btn.disabled=false;btn.textContent='Sauvegarder sur GitHub';return;}
+      if(!plages.length){toast("Ajoutez au moins un créneau.",true);btn.disabled=false;btn.textContent="Sauvegarder sur GitHub";return;}
       const dirs=dir?[dir]:[...new Set(linesData.filter(l=>l.code===code&&l.jour===jour).map(l=>l.direction))];
-      dirs.forEach(d=>{
+      dirs.forEach(function(d){
         const l=linesData.find(x=>x.code===code&&x.direction===d&&x.jour===jour);
         if(!l)return;
         const dest=l.horaires[0]?.destination||d;
-        l.horaires=genHoraires(plages,dest);
-        log('Fréquences modifiées : '+code+' → '+d+' ('+jour+')');
+        l.horaires=genHor(plages,dest);
+        log("Fréquences modifiées : "+code+" → "+d+" ("+jour+")");
       });
-      db.horaires_modifs.push({code,dir,jour,type:'frequence',date:new Date().toLocaleDateString('fr-FR')});
+      db.horaires_modifs.push({code:code,dir:dir,jour:jour,type:"frequence",date:new Date().toLocaleDateString("fr-FR")});
     }
-    // Pousser lines.json sur GitHub
-    await ghPush('lines.json',JSON.stringify(linesData,null,2),'Admin: horaires '+code+' ('+jour+')');
+    await ghPush("lines.json",JSON.stringify(linesData,null,2),"Admin: horaires "+code+" ("+jour+")");
     renderAll();await saveDB();
-    st.textContent='✓ Sauvegardé — Vercel redéploie dans ~30s';
-    st.style.color='var(--g)';
-    toast('Horaires mis à jour !');
+    st.textContent="✓ Sauvegardé — Vercel redéploie dans ~30s";st.style.color="var(--g)";
+    toast("Horaires mis à jour !");
   }catch(e){
-    console.error(e);
-    st.textContent='Erreur : '+e.message;st.style.color='var(--r)';
-    toast('Erreur lors de la sauvegarde',true);
+    console.error(e);st.textContent="Erreur : "+e.message;st.style.color="var(--r)";
+    toast("Erreur : "+e.message,true);
   }
-  btn.disabled=false;btn.textContent='Sauvegarder sur GitHub';
+  btn.disabled=false;btn.textContent="Sauvegarder sur GitHub";
 }
 
+// ── INFOTRAFIC ────────────────────────────────────────────────────────
+function renderAl(){
+  const el=document.getElementById("al-list");
+  if(!db.alertes.length){el.innerHTML='<div style="color:var(--txs);font-size:13px;padding:1rem 0">Aucune alerte.</div>';return;}
+  el.innerHTML=db.alertes.map(function(a,i){return'<div class="alc '+a.niveau+'"><div><div class="alb">'+(a.niveau==="rouge"?"Perturbé":"Info")+'</div><div style="margin-top:8px"><span style="background:'+(LC[a.ligne]||"#555")+';color:white;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">'+a.ligne+'</span></div></div><div class="alct"><strong>'+a.titre+'</strong><p>'+a.desc+'</p><div style="font-size:11px;color:var(--txs);margin-top:6px">'+a.date+' · '+(a.auteur||"—")+'</div></div><button class="bdel" onclick="delAl('+i+')">Supprimer</button></div>';}).join("");
+}
+async function addAlerte(){
+  const l=document.getElementById("it-lg").value,n=document.getElementById("it-nv").value;
+  const t=document.getElementById("it-ti").value.trim(),d=document.getElementById("it-de").value.trim();
+  if(!t||!d){toast("Remplissez titre et description.",true);return;}
+  db.alertes.push({ligne:l,niveau:n,titre:t,desc:d,date:new Date().toLocaleDateString("fr-FR"),auteur:curUser?.nom});
+  document.getElementById("it-ti").value="";document.getElementById("it-de").value="";
+  log("Alerte : "+t+" ("+l+")");renderAll();await saveDB();toast("Alerte publiée !");
+}
+async function delAl(i){if(!confirm("Supprimer ?"))return;log("Alerte supprimée : "+db.alertes[i].titre);db.alertes.splice(i,1);renderAll();await saveDB();toast("Alerte supprimée.");}
 
-// ── CAROUSEL ADMIN ────────────────────────────────────────
-function renderCarouselList(){
-  const el=document.getElementById("car-list");
-  if(!el) return;
+// ── ARTICLES & CAROUSEL ───────────────────────────────────────────────
+function renderCar(){
+  const el=document.getElementById("car-list");if(!el)return;
   const items=db.carousel||[];
-  if(!items.length){el.innerHTML='<div style="color:var(--txs);font-size:13px">Aucune image dans le carousel.</div>';return;}
-  el.innerHTML=items.map((item,i)=>{
-    const img=typeof item==="string"?item:(item.img||"");
-    const titre=typeof item==="object"?(item.titre||""):"";
-    return `<div style="background:#111;border:1px solid var(--bord);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
-      <img src="${img}" style="width:80px;height:48px;object-fit:cover;border-radius:6px;flex-shrink:0" onerror="this.style.display='none'">
-      <div style="flex:1;font-size:13px;color:var(--tx);word-break:break-all">${titre||img.slice(0,60)+"..."}</div>
-      <button class="bdel" onclick="delCarouselImg(${i})">Supprimer</button>
-    </div>`;
-  }).join("");
+  if(!items.length){el.innerHTML='<div style="color:var(--txs);font-size:13px">Aucune image.</div>';return;}
+  el.innerHTML=items.map(function(item,i){const img=typeof item==="string"?item:(item.img||"");const tit=typeof item==="object"?(item.titre||""):"";return'<div style="background:#111;border:1px solid var(--bord);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px"><img src="'+img+'" style="width:80px;height:48px;object-fit:cover;border-radius:6px;flex-shrink:0" onerror="this.style.display=\'none\'"><div style="flex:1;font-size:13px;color:var(--tx);word-break:break-all">'+(tit||img.slice(0,60)+"...")+'</div><button class="bdel" onclick="delCarImg('+i+')">Supprimer</button></div>';}).join("");
+  if(document.getElementById("car-titre"))document.getElementById("car-titre").value=db.carousel_titre||"";
 }
-async function addCarouselImg(){
+async function addCarImg(){
   const img=document.getElementById("car-img").value.trim();
-  const titre=document.getElementById("car-itit").value.trim();
+  const tit=document.getElementById("car-itit").value.trim();
   const desc=document.getElementById("car-idesc").value.trim();
-  const carTitre=document.getElementById("car-titre").value.trim();
-  if(!img){toast("Entrez une URL d'image.",true);return;}
-  if(!db.carousel) db.carousel=[];
-  db.carousel.push(titre?{img,titre,desc}:img);
-  if(carTitre) db.carousel_titre=carTitre;
-  document.getElementById("car-img").value="";
-  document.getElementById("car-itit").value="";
-  document.getElementById("car-idesc").value="";
-  renderCarouselList();
-  await saveDB();
-  toast("Image ajoutée au carousel !");
+  const titre=document.getElementById("car-titre").value.trim();
+  if(!img){toast("Entrez une URL.",true);return;}
+  if(!db.carousel)db.carousel=[];
+  db.carousel.push(tit?{img:img,titre:tit,desc:desc}:img);
+  if(titre)db.carousel_titre=titre;
+  document.getElementById("car-img").value="";document.getElementById("car-itit").value="";document.getElementById("car-idesc").value="";
+  renderCar();await saveDB();toast("Image ajoutée !");
 }
-async function delCarouselImg(i){
-  if(!confirm("Supprimer cette image ?")) return;
-  db.carousel.splice(i,1);
-  renderCarouselList();
-  await saveDB();
-  toast("Image supprimée.");
+async function delCarImg(i){if(!confirm("Supprimer ?"))return;db.carousel.splice(i,1);renderCar();await saveDB();toast("Image supprimée.");}
+function renderArts(){
+  const el=document.getElementById("art-list");
+  if(!db.articles.length){el.innerHTML='<div style="color:var(--txs);font-size:13px;padding:1rem 0">Aucun article.</div>';return;}
+  el.innerHTML=db.articles.map(function(a,i){return'<div class="artc">'+(a.img?'<img src="'+a.img+'" style="width:100%;height:100px;object-fit:cover;border-radius:8px;margin-bottom:10px" onerror="this.style.display=\'none\'">':'')+'<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="background:rgba(201,168,76,.15);color:var(--or);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase">'+(CATS[a.cat]||a.cat)+'</span><span style="font-size:11px;color:var(--txs)">'+(a.date||"")+'</span></div><h4>'+a.titre+'</h4><p>'+(a.contenu||"").slice(0,140)+(a.contenu&&a.contenu.length>140?"...":"")+'</p><button class="bdel" onclick="delArt('+i+')">Supprimer</button></div>';}).join("");
 }
+async function addArt(){
+  const t=document.getElementById("a-ti").value.trim(),c=document.getElementById("a-cat").value;
+  const d=document.getElementById("a-dt").value||new Date().toLocaleDateString("fr-FR");
+  const cnt=document.getElementById("a-cnt").value.trim(),img=document.getElementById("a-img").value.trim();
+  if(!t||!cnt){toast("Remplissez titre et contenu.",true);return;}
+  db.articles.unshift({titre:t,cat:c,date:d,contenu:cnt,img:img,auteur:curUser?.nom});
+  document.getElementById("a-ti").value="";document.getElementById("a-cnt").value="";document.getElementById("a-img").value="";
+  log("Article : "+t);renderAll();await saveDB();toast("Article publié !");
+}
+async function delArt(i){if(!confirm("Supprimer ?"))return;log("Article supprimé : "+db.articles[i].titre);db.articles.splice(i,1);renderAll();await saveDB();toast("Article supprimé.");}
 
-// ── ARTICLES ──────────────────────────────────────────────
-function renderArticles(){
-  const el=document.getElementById('art-list');
-  if(!db.articles.length){el.innerHTML='<div style="color:var(--txs);font-size:13px;padding:1rem 0">Aucun article publié.</div>';return;}
-  el.innerHTML=db.articles.map((a,i)=>`
-    <div class="artc">
-      ${a.img?`<img src="${a.img}" style="width:100%;height:110px;object-fit:cover;border-radius:8px;margin-bottom:10px" onerror="this.style.display='none'">`:'' }
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-        <span style="background:rgba(201,168,76,.15);color:var(--or);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase">${CATS[a.cat]||a.cat}</span>
-        <span style="font-size:11px;color:var(--txs)">${a.date}</span>
-      </div>
-      <h4>${a.titre}</h4>
-      <p>${a.contenu.slice(0,160)}${a.contenu.length>160?'...':''}</p>
-      <button class="bdel" onclick="delArt(${i})">Supprimer</button>
-    </div>`).join('');
+// ── AGENCES ───────────────────────────────────────────────────────────
+function renderAge(){
+  const el=document.getElementById("age-list");if(!el)return;
+  el.innerHTML=db.agences.map(function(a,i){return'<div class="agec"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><strong style="font-size:14px;color:var(--tx)">'+a.nom+'</strong><button class="bdel" onclick="delAge('+i+')">Supprimer</button></div><div style="font-size:12px;color:var(--txs);margin-bottom:2px">📍 '+a.adr+'</div><div style="font-size:12px;color:var(--txs);margin-bottom:2px">🕐 '+a.sem+'</div><div style="font-size:12px;color:var(--txs);margin-bottom:2px">'+a.we+'</div><div style="font-size:12px;color:var(--txs)">🔧 '+a.svc+'</div></div>';}).join("");
 }
-async function addArticle(){
-  const t=document.getElementById('a-ti').value.trim(),c=document.getElementById('a-cat').value;
-  const d=document.getElementById('a-dt').value||new Date().toLocaleDateString('fr-FR');
-  const cnt=document.getElementById('a-cnt').value.trim();
-  const img=document.getElementById('a-img').value.trim();
-  if(!t||!cnt){toast('Remplissez titre et contenu.',true);return;}
-  db.articles.unshift({titre:t,cat:c,date:d,contenu:cnt,img,auteur:curUser?.nom});
-  document.getElementById('a-ti').value='';document.getElementById('a-cnt').value='';document.getElementById('a-img').value='';
-  log('Article : '+t);renderAll();await saveDB();toast('Article publié !');
-}
-async function delArt(i){
-  if(!confirm('Supprimer "'+db.articles[i].titre+'" ?'))return;
-  log('Article supprimé : '+db.articles[i].titre);db.articles.splice(i,1);renderAll();await saveDB();toast('Article supprimé.');
-}
-
-// ── AGENCES ───────────────────────────────────────────────
-function renderAgences(){
-  const el=document.getElementById('age-list');if(!el)return;
-  el.innerHTML=db.agences.map((a,i)=>`
-    <div class="agec">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <strong style="font-size:14px;color:var(--tx)">${a.nom}</strong>
-        <button class="bdel" onclick="delAge(${i})">Supprimer</button>
-      </div>
-      <div style="font-size:12px;color:var(--txs);margin-bottom:2px">📍 ${a.adr}</div>
-      <div style="font-size:12px;color:var(--txs);margin-bottom:2px">🕐 ${a.sem}</div>
-      <div style="font-size:12px;color:var(--txs);margin-bottom:2px">${a.we}</div>
-      <div style="font-size:12px;color:var(--txs)">🔧 ${a.svc}</div>
-    </div>`).join('');
-}
-async function addAgence(){
-  const n=document.getElementById('ag-n').value.trim(),a=document.getElementById('ag-a').value.trim();
-  const s=document.getElementById('ag-s').value.trim(),w=document.getElementById('ag-w').value.trim();
-  const sv=document.getElementById('ag-sv').value.trim();
-  if(!n||!a){toast('Remplissez nom et adresse.',true);return;}
+async function addAge(){
+  const n=document.getElementById("ag-n").value.trim(),a=document.getElementById("ag-a").value.trim();
+  const s=document.getElementById("ag-s").value.trim(),w=document.getElementById("ag-w").value.trim();
+  const sv=document.getElementById("ag-sv").value.trim();
+  if(!n||!a){toast("Remplissez nom et adresse.",true);return;}
   db.agences.push({nom:n,adr:a,sem:s,we:w,svc:sv});
-  document.getElementById('ag-n').value='';document.getElementById('ag-a').value='';
-  log('Agence ajoutée : '+n);renderAll();await saveDB();toast('Agence ajoutée !');
+  document.getElementById("ag-n").value="";document.getElementById("ag-a").value="";
+  log("Agence : "+n);renderAll();await saveDB();toast("Agence ajoutée !");
 }
-async function delAge(i){
-  if(!confirm('Supprimer "'+db.agences[i].nom+'" ?'))return;
-  db.agences.splice(i,1);renderAll();await saveDB();toast('Agence supprimée.');
+async function delAge(i){if(!confirm("Supprimer ?"))return;db.agences.splice(i,1);renderAll();await saveDB();toast("Agence supprimée.");}
+
+// ── IMAGES ────────────────────────────────────────────────────────────
+function hFiles(files){Array.from(files).forEach(function(f){if(f.size>2097152){toast(f.name+" trop lourde",true);return;}const r=new FileReader();r.onload=function(e){db.images.push({name:f.name,data:e.target.result,date:new Date().toLocaleDateString("fr-FR")});renderImgs();saveDB();toast("Image ajoutée !");};r.readAsDataURL(f);});}
+function hDrop(e){e.preventDefault();document.getElementById("dz").classList.remove("ov");hFiles(e.dataTransfer.files);}
+function delImg(i){if(!confirm("Supprimer ?"))return;db.images.splice(i,1);renderImgs();saveDB();toast("Image supprimée.");}
+function renderImgs(){
+  const g=document.getElementById("ig"),u=document.getElementById("iurls");
+  if(!db.images.length){g.innerHTML='<div style="color:var(--txs);font-size:13px">Aucune image.</div>';u.innerHTML="";return;}
+  g.innerHTML=db.images.map(function(img,i){return'<div class="it"><img src="'+img.data+'" alt="'+img.name+'" loading="lazy"><button class="idl" onclick="delImg('+i+')">✕</button></div>';}).join("");
+  u.innerHTML='<div class="stl">Copier URL</div>'+db.images.map(function(img,i){return'<div style="font-size:11px;color:var(--txs);margin-bottom:6px;display:flex;align-items:center;gap:8px"><span style="font-weight:600;color:var(--tx)">'+img.name+'</span><button class="bgh" style="padding:3px 8px;font-size:11px" onclick="navigator.clipboard.writeText(db.images['+i+'].data);toast(\'URL copiée !\')">Copier</button></div>';}).join("");
 }
 
-// ── IMAGES ────────────────────────────────────────────────
-function hFiles(files){
-  Array.from(files).forEach(f=>{
-    if(f.size>2097152){toast(f.name+' trop lourde (max 2 Mo)',true);return;}
-    const r=new FileReader();
-    r.onload=e=>{db.images.push({name:f.name,data:e.target.result,date:new Date().toLocaleDateString('fr-FR')});renderImages();saveDB();toast('Image ajoutée !');};
-    r.readAsDataURL(f);
-  });
+// ── POPUP ─────────────────────────────────────────────────────────────
+async function savePop(){
+  db.popup={actif:!!document.getElementById("pu-t").value.trim(),titre:document.getElementById("pu-t").value.trim(),msg:document.getElementById("pu-m").value.trim(),couleur:document.getElementById("pu-c").value,lien:document.getElementById("pu-l").value.trim(),btn:document.getElementById("pu-b").value.trim()};
+  log("Pop-up "+(db.popup.actif?"activé":"désactivé"));renderAll();await saveDB();toast("Pop-up sauvegardé !");renderPopPrev();
 }
-function hDrop(e){e.preventDefault();document.getElementById('dz').classList.remove('ov');hFiles(e.dataTransfer.files);}
-function delImg(i){if(!confirm('Supprimer cette image ?'))return;db.images.splice(i,1);renderImages();saveDB();toast('Image supprimée.');}
-function renderImages(){
-  const g=document.getElementById('ig'),u=document.getElementById('iurls');
-  if(!db.images.length){g.innerHTML='<div style="color:var(--txs);font-size:13px">Aucune image.</div>';u.innerHTML='';return;}
-  g.innerHTML=db.images.map((img,i)=>`<div class="it"><img src="${img.data}" alt="${img.name}" loading="lazy"><button class="idl" onclick="delImg(${i})">✕</button></div>`).join('');
-  u.innerHTML='<div class="stl">Copier l\'URL d\'une image</div>'+db.images.map((img,i)=>
-    `<div style="font-size:11px;color:var(--txs);margin-bottom:6px;display:flex;align-items:center;gap:8px">
-      <span style="font-weight:600;color:var(--tx)">${img.name}</span>
-      <button class="bgh" style="padding:3px 8px;font-size:11px" onclick="navigator.clipboard.writeText(db.images[${i}].data);toast(\'URL copiée \')">Copier URL</button>
-    </div>`).join('');
+async function disablePop(){db.popup={actif:false};document.getElementById("pu-t").value="";log("Pop-up désactivé");renderAll();await saveDB();toast("Pop-up désactivé.");document.getElementById("ppv").style.display="none";}
+function renderPopPrev(){
+  if(!db.popup?.titre){document.getElementById("ppv").style.display="none";return;}
+  const cols={bleu:"#1565C0",rouge:"#C0392B",vert:"#27AE60",or:"#C9A84C"};const c=cols[db.popup.couleur]||"#1565C0";
+  document.getElementById("ppap").innerHTML='<div style="background:'+c+';color:white;border-radius:12px;padding:1.5rem;max-width:400px"><div style="font-size:16px;font-weight:700;margin-bottom:8px">'+db.popup.titre+'</div><div style="font-size:13px;opacity:.9;margin-bottom:12px">'+db.popup.msg+'</div>'+(db.popup.lien?'<a href="'+db.popup.lien+'" style="background:white;color:'+c+';padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none">'+(db.popup.btn||"En savoir plus")+'</a>':'')+'</div>';
+  document.getElementById("ppv").style.display="block";
+  document.getElementById("pu-t").value=db.popup.titre||"";document.getElementById("pu-m").value=db.popup.msg||"";document.getElementById("pu-c").value=db.popup.couleur||"bleu";document.getElementById("pu-l").value=db.popup.lien||"";document.getElementById("pu-b").value=db.popup.btn||"";
 }
 
-// ── POPUP ─────────────────────────────────────────────────
-async function savePopup(){
-  db.popup={
-    actif:!!document.getElementById('pu-t').value.trim(),
-    titre:document.getElementById('pu-t').value.trim(),
-    msg:document.getElementById('pu-m').value.trim(),
-    couleur:document.getElementById('pu-c').value,
-    lien:document.getElementById('pu-l').value.trim(),
-    btn:document.getElementById('pu-b').value.trim(),
-  };
-  log('Pop-up '+(db.popup.actif?'activé : '+db.popup.titre:'désactivé'));
-  renderAll();await saveDB();toast('Pop-up sauvegardé !');
-  renderPopupPreview();
-}
-async function disablePopup(){
-  db.popup={actif:false};
-  document.getElementById('pu-t').value='';
-  log('Pop-up désactivé');renderAll();await saveDB();toast('Pop-up désactivé.');
-  document.getElementById('ppv').style.display='none';
-}
-function renderPopupPreview(){
-  if(!db.popup?.titre){document.getElementById('ppv').style.display='none';return;}
-  const cols={bleu:'#1565C0',rouge:'#C0392B',vert:'#27AE60',or:'#C9A84C'};
-  const c=cols[db.popup.couleur]||'#1565C0';
-  document.getElementById('ppap').innerHTML=`<div style="background:${c};color:white;border-radius:12px;padding:1.5rem;max-width:400px">
-    <div style="font-size:16px;font-weight:700;margin-bottom:8px">${db.popup.titre}</div>
-    <div style="font-size:13px;opacity:.9;margin-bottom:12px">${db.popup.msg}</div>
-    ${db.popup.lien?`<a href="${db.popup.lien}" style="background:white;color:${c};padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none">${db.popup.btn||'En savoir plus'}</a>`:''}
-  </div>`;
-  document.getElementById('ppv').style.display='block';
-}
-
-// ── COMPTES ───────────────────────────────────────────────
-function renderComptes(){
-  const el=document.getElementById('cpt-list');
-  el.innerHTML=db.comptes.map((c,i)=>`
-    <div class="cptc">
-      <div class="cpav">${c.nom[0]}</div>
-      <div style="flex:1">
-        <div style="font-weight:700;font-size:14px;color:var(--tx)">${c.nom}</div>
-        <div style="font-size:12px;color:var(--txs)">${c.user} · ${ROLES[c.role]||c.role}</div>
-      </div>
-      ${i>=COMPTES_DEF.length?`<button class="bdel" onclick="delCpt(${i})">Supprimer</button>`:'<span style="font-size:11px;color:var(--txs)">Compte principal</span>'}
-    </div>`).join('');
+// ── COMPTES ───────────────────────────────────────────────────────────
+function renderCpt(){
+  const el=document.getElementById("cpt-list");
+  el.innerHTML=db.comptes.map(function(c,i){return'<div class="cptc"><div class="cpav">'+c.nom[0]+'</div><div style="flex:1"><div style="font-weight:700;font-size:14px;color:var(--tx)">'+c.nom+'</div><div style="font-size:12px;color:var(--txs)">'+c.user+' · '+(ROLES[c.role]||c.role)+'</div></div>'+(i>=CPTES_DEF.length?'<button class="bdel" onclick="delCpt('+i+')">Supprimer</button>':'<span style="font-size:11px;color:var(--txs)">Compte principal</span>')+'</div>';}).join("");
 }
 async function addCpt(){
-  const u=document.getElementById('nu').value.trim(),p=document.getElementById('np').value;
-  const r=document.getElementById('nr').value;
-  if(!u||!p){toast('Remplissez tous les champs.',true);return;}
-  if(db.comptes.find(c=>c.user===u)){toast('Identifiant déjà utilisé.',true);return;}
+  const u=document.getElementById("nu").value.trim(),p=document.getElementById("np").value,r=document.getElementById("nr").value;
+  if(!u||!p){toast("Remplissez tous les champs.",true);return;}
+  if(db.comptes.find(c=>c.user===u)){toast("Identifiant déjà utilisé.",true);return;}
   const nom=u.charAt(0).toUpperCase()+u.slice(1);
-  db.comptes.push({user:u,pass:p,role:r,nom});
-  document.getElementById('nu').value='';document.getElementById('np').value='';
-  log('Compte créé : '+u);renderAll();await saveDB();toast('Compte créé !');
+  db.comptes.push({user:u,pass:p,role:r,nom:nom});
+  document.getElementById("nu").value="";document.getElementById("np").value="";
+  log("Compte créé : "+u);renderAll();await saveDB();toast("Compte créé !");
 }
-async function delCpt(i){
-  if(i<COMPTES_DEF.length){toast('Impossible de supprimer un compte principal.',true);return;}
-  if(!confirm('Supprimer "'+db.comptes[i].user+'" ?'))return;
-  log('Compte supprimé : '+db.comptes[i].user);db.comptes.splice(i,1);renderAll();await saveDB();toast('Compte supprimé.');
+async function delCpt(i){if(i<CPTES_DEF.length){toast("Impossible de supprimer un compte principal.",true);return;}if(!confirm("Supprimer ?"))return;log("Compte supprimé : "+db.comptes[i].user);db.comptes.splice(i,1);renderAll();await saveDB();toast("Compte supprimé.");}
+
+// ── LOG & TOAST ───────────────────────────────────────────────────────
+function log(msg){const t=new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});db.activity.unshift("["+t+"] "+(curUser?.nom||"")+" — "+msg);if(db.activity.length>30)db.activity=db.activity.slice(0,30);}
+function toast(msg,err){const el=document.createElement("div");el.className="t"+(err?" e":"");el.textContent=msg;document.getElementById("tw").appendChild(el);setTimeout(function(){el.remove();},3500);}
+
+// ── RENDER ALL ────────────────────────────────────────────────────────
+function renderAll(){
+  document.getElementById("s-al").textContent=db.alertes.length;
+  document.getElementById("s-ar").textContent=db.articles.length;
+  document.getElementById("s-hm").textContent=db.horaires_modifs.length;
+  const al=document.getElementById("alog");
+  al.innerHTML=db.activity.length?db.activity.slice(0,10).map(function(a){return'<div class="act">'+a+'</div>';}).join(''):'<div class="act">Aucune activité.</div>';
+  renderAl();renderArts();renderCar();renderAge();renderCpt();
+  if(db.popup?.titre)renderPopPrev();
 }
 
-
-// ── CONFIG GITHUB ─────────────────────────────────────────
-function loadGHConfig(){
-  const tk=localStorage.getItem("gh_token");
-  const rp=localStorage.getItem("gh_repo");
-  if(tk) GH_TK_LIVE=tk;
-  if(rp) GH_RPO_LIVE=rp;
-}
-function saveGHConfig(){
-  const tk=document.getElementById("gh-token-input").value.trim();
-  const rp=document.getElementById("gh-repo-input").value.trim();
-  if(tk){localStorage.setItem("gh_token",tk);GH_TK_LIVE=tk;}
-  if(rp){localStorage.setItem("gh_repo",rp);GH_RPO_LIVE=rp;}
-  toast("Configuration sauvegardée !");
-}
-async function testGHToken(){
-  const res=document.getElementById("gh-test-result");
-  res.textContent="Test...";res.style.color="var(--txs)";
-  try{
-    const r=await fetch("https://api.github.com/repos/"+GH_RPO_LIVE+"/contents/lines.json",
-      {headers:{"Authorization":"token "+GH_TK_LIVE,"Accept":"application/vnd.github.v3+json"}});
-    if(r.ok){res.textContent="Connexion OK !";res.style.color="var(--g)";}
-    else{res.textContent="Erreur "+r.status+(r.status===401?" — token expiré":"");res.style.color="var(--r)";}
-  }catch(e){res.textContent="Erreur réseau";res.style.color="var(--r)";}
-}
-
-// ── INIT ──────────────────────────────────────────────────
-// Charger JSONBin en arrière-plan — la connexion fonctionne même si JSONBin échoue
-loadGHConfig();
 loadDB();
 </script>
 </body>
