@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon compte — GGMobilités</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── Variables ── */
+:root{
+  --bleu-gg:#0A2240;
+  --or-gg:#C9A84C;
+  --rouge:#dc241f;
+  --vert:#007229;
+  --fond-sombre:#0F1923;
+  --card-sombre:#17232E;
+}
+
+/* ── Auth overlay ── */
+.auth-overlay{
+position:fixed;inset:0;background:rgba(10,34,64,0.92);
+backdrop-filter:blur(8px);z-index:1000;
+display:flex;align-items:center;justify-content:center;padding:1rem;
+}
+.auth-card{
+background:white;border-radius:20px;width:100%;max-width:440px;
+overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.4);
+animation:slideUp 0.3s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.auth-tabs{display:flex;background:#F7F8FC;border-bottom:1px solid #E0E6F0}
+.auth-tab{flex:1;padding:16px;font-family:‘Syne’,sans-serif;font-size:14px;font-weight:700;
+text-align:center;cursor:pointer;border:none;background:transparent;
+color:#9A9080;border-bottom:3px solid transparent;transition:all 0.2s}
+.auth-tab.on{color:#0A2240;border-bottom-color:#0A2240;background:white}
+.auth-body{padding:2rem}
+.auth-logo{text-align:center;margin-bottom:1.5rem}
+.auth-logo img{width:52px;height:52px;object-fit:contain}
+.auth-title{font-family:‘Syne’,sans-serif;font-size:20px;font-weight:800;
+color:#0A2240;text-align:center;margin-bottom:4px}
+.auth-sub{font-size:13px;color:#9A9080;text-align:center;margin-bottom:1.5rem}
+.form-field{margin-bottom:1rem}
+.form-field label{display:block;font-size:11px;font-weight:700;color:#5A6272;
+text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
+.form-field input{width:100%;padding:12px 14px;border:1.5px solid #E0E6F0;
+border-radius:10px;font-size:14px;font-family:‘DM Sans’,sans-serif;
+color:#0F1923;transition:border 0.2s;background:#F7F8FC}
+.form-field input:focus{outline:none;border-color:#0A2240;background:white}
+.form-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-primary{width:100%;padding:13px;background:#0A2240;color:white;border:none;
+border-radius:10px;font-family:‘Syne’,sans-serif;font-size:14px;font-weight:700;
+cursor:pointer;transition:all 0.2s;margin-top:4px}
+.btn-primary:hover{background:#185FA5;transform:translateY(-1px)}
+.auth-err{font-size:12px;color:#dc241f;text-align:center;margin-top:8px;
+display:none;padding:8px;background:rgba(220,36,31,0.06);border-radius:8px}
+.auth-ok{font-size:12px;color:#007229;text-align:center;margin-top:8px;
+display:none;padding:8px;background:rgba(0,114,41,0.06);border-radius:8px}
+.auth-sep{text-align:center;font-size:12px;color:#9A9080;margin:12px 0;
+position:relative}
+.auth-sep::before,.auth-sep::after{content:’’;position:absolute;top:50%;
+width:38%;height:1px;background:#E0E6F0}
+.auth-sep::before{left:0}.auth-sep::after{right:0}
+.social-btn{width:100%;padding:11px;border:1.5px solid #E0E6F0;border-radius:10px;
+background:white;font-size:14px;font-weight:600;cursor:pointer;
+display:flex;align-items:center;justify-content:center;gap:10px;
+font-family:‘DM Sans’,sans-serif;color:#0F1923;transition:all 0.2s}
+.social-btn:hover{border-color:#0A2240;background:#F7F8FC}
+
+/* ── DASHBOARD ── */
+.account-wrap{max-width:1100px;margin:0 auto;padding:2rem 2rem 5rem;
+display:grid;grid-template-columns:260px 1fr;gap:2rem;align-items:start}
+@media(max-width:860px){.account-wrap{grid-template-columns:1fr}}
+
+/* Sidebar profil */
+.profile-card{background:white;border:1px solid var(–bordure);border-radius:16px;
+overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);position:sticky;top:80px}
+.profile-hero{background:linear-gradient(135deg,#0A2240,#185FA5);padding:2rem 1.5rem;
+text-align:center;position:relative}
+.profile-avatar{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.15);
+border:3px solid rgba(255,255,255,0.4);display:flex;align-items:center;
+justify-content:center;margin:0 auto 12px;font-family:‘Syne’,sans-serif;
+font-size:28px;font-weight:800;color:white;cursor:pointer;overflow:hidden;
+position:relative}
+.avatar-upload{position:absolute;inset:0;opacity:0;cursor:pointer}
+.profile-name{font-family:‘Syne’,sans-serif;font-size:17px;font-weight:700;color:white;margin-bottom:2px}
+.profile-email{font-size:12px;color:rgba(255,255,255,0.6)}
+.profile-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.15);
+border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:3px 10px;
+font-size:11px;font-weight:600;color:white;margin-top:8px}
+.sidebar-nav{padding:1rem 0}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:11px 1.25rem;
+font-size:13px;font-weight:600;color:#5A6272;cursor:pointer;
+transition:all 0.15s;border-left:3px solid transparent}
+.sidebar-item:hover{color:#0A2240;background:#F7F8FC}
+.sidebar-item.on{color:#0A2240;border-left-color:#0A2240;background:#F0F4FA}
+.sidebar-icon{font-size:16px;width:20px;text-align:center}
+.sidebar-sep{height:1px;background:#E0E6F0;margin:6px 0}
+.sidebar-item.danger{color:#dc241f}
+.sidebar-item.danger:hover{background:rgba(220,36,31,0.05)}
+
+/* Panneaux */
+.panel{display:none}.panel.on{display:block}
+.panel-title{font-family:‘Syne’,sans-serif;font-size:22px;font-weight:800;
+color:#0F1923;margin-bottom:1.5rem}
+
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:2rem}
+.stat-box{background:white;border:1px solid var(–bordure);border-radius:12px;
+padding:1.25rem;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.stat-val{font-family:‘Syne’,sans-serif;font-size:26px;font-weight:800;color:#0A2240}
+.stat-lbl{font-size:11px;color:#9A9080;text-transform:uppercase;letter-spacing:0.06em;margin-top:4px}
+
+/* Section card */
+.section-card{background:white;border:1px solid var(–bordure);border-radius:14px;
+padding:1.5rem;margin-bottom:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.section-card h3{font-family:‘Syne’,sans-serif;font-size:15px;font-weight:700;
+color:#0F1923;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+
+/* Favoris arrêts */
+.arret-fav{display:flex;align-items:center;gap:12px;padding:10px 0;
+border-bottom:1px solid #F0F0F0}
+.arret-fav:last-child{border-bottom:none}
+.arret-fav-icon{font-size:20px;flex-shrink:0}
+.arret-fav-info{flex:1}
+.arret-fav-name{font-size:14px;font-weight:600;color:#0F1923}
+.arret-fav-lines{display:flex;gap:4px;margin-top:3px;flex-wrap:wrap}
+.arret-fav-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;color:white}
+.btn-del-fav{background:none;border:none;font-size:16px;cursor:pointer;
+color:#9A9080;padding:4px;border-radius:6px;transition:all 0.15s}
+.btn-del-fav:hover{background:#FEE;color:#dc241f}
+
+/* Favoris itinéraires */
+.itin-fav{padding:12px;background:#F7F8FC;border-radius:10px;margin-bottom:8px;
+display:flex;align-items:center;gap:12px;cursor:pointer;transition:all 0.15s}
+.itin-fav:hover{background:#EEF2F8}
+.itin-fav-route{flex:1}
+.itin-fav-title{font-size:13px;font-weight:600;color:#0F1923}
+.itin-fav-meta{font-size:11px;color:#9A9080;margin-top:2px}
+
+/* Lignes alertes */
+.ligne-alerte-row{display:flex;align-items:center;gap:12px;padding:10px 0;
+border-bottom:1px solid #F0F0F0}
+.ligne-alerte-row:last-child{border-bottom:none}
+.toggle{width:44px;height:24px;background:#E0E6F0;border-radius:20px;
+position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0}
+.toggle.on{background:#007229}
+.toggle::after{content:’’;position:absolute;width:18px;height:18px;
+background:white;border-radius:50%;top:3px;left:3px;
+transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.toggle.on::after{transform:translateX(20px)}
+
+/* Profil edit */
+.profile-edit-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:600px){.profile-edit-row{grid-template-columns:1fr}}
+.btn-save{padding:11px 24px;background:#0A2240;color:white;border:none;
+border-radius:10px;font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;
+cursor:pointer;transition:all 0.2s}
+.btn-save:hover{background:#185FA5}
+.btn-danger{padding:11px 24px;background:transparent;color:#dc241f;
+border:1.5px solid #dc241f;border-radius:10px;font-family:‘Syne’,sans-serif;
+font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-left:8px}
+.btn-danger:hover{background:#dc241f;color:white}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:999;
+display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:#0A2240;color:white;padding:12px 18px;border-radius:10px;
+font-size:13px;animation:toastIn 0.25s ease;pointer-events:none}
+.toast.ok{border-left:3px solid #007229}
+.toast.err{border-left:3px solid #dc241f}
+@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Empty states */
+.empty-state{text-align:center;padding:3rem 1rem;color:#9A9080}
+.empty-icon{font-size:48px;margin-bottom:12px}
+.empty-title{font-family:‘Syne’,sans-serif;font-size:16px;font-weight:700;
+color:#0F1923;margin-bottom:6px}
+
+/* Ajout arrêt favori */
+.add-fav-form{display:flex;gap:8px;margin-bottom:1rem}
+.add-fav-input{flex:1;padding:10px 14px;border:1.5px solid #E0E6F0;
+border-radius:10px;font-size:13px;font-family:‘DM Sans’,sans-serif;
+color:#0F1923;transition:border 0.2s}
+.add-fav-input:focus{outline:none;border-color:#0A2240}
+.add-fav-btn{padding:10px 16px;background:#0A2240;color:white;border:none;
+border-radius:10px;font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;
+cursor:pointer;white-space:nowrap}
+.add-fav-btn:hover{background:#185FA5}
+
+/* Abonnements notifs */
+.notif-info{background:rgba(0,114,41,0.06);border:1px solid rgba(0,114,41,0.2);
+border-radius:10px;padding:1rem;font-size:13px;color:#5A6272;margin-bottom:1rem;line-height:1.6}
+.notif-info strong{color:#007229}
+
+/* Chargement */
+.loading{text-align:center;padding:3rem;color:#9A9080;font-size:14px}
+</style>
+
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités" style="background:transparent"> GGMobilités
+    </a>
+    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Toutes les lignes</a><a href="infotrafic.html">Infotrafic</a><a href="horaires-arret.html">Horaires par arrêt</a><a href="tad.html">TAD</a></div></div><a href="itineraire.html">Itinéraires</a><a href="plan.html">Plan</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div></div>
+    <a href="mon-compte.html" id="nav-compte-btn" style="margin-left:12px;padding:8px 14px;background:#0A2240;color:white;border-radius:8px;font-family:Syne,sans-serif;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:6px">
+      <span id="nav-compte-icon">👤</span>
+      <span id="nav-compte-label">Connexion</span>
+    </a>
+  </div>
+</nav>
+<div class="accent-bar"></div>
+
+<!-- AUTH OVERLAY -->
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button class="auth-tab on" id="tab-login" onclick="switchTab('login')">Se connecter</button>
+      <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Créer un compte</button>
+    </div>
+
+```
+<!-- CONNEXION -->
+<div id="form-login" class="auth-body">
+  <div class="auth-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités"></div>
+  <div class="auth-title">Bon retour !</div>
+  <div class="auth-sub">Connectez-vous à votre espace voyageur</div>
+  <div class="form-field">
+    <label>Email</label>
+    <input type="email" id="l-email" placeholder="votre@email.fr">
+  </div>
+  <div class="form-field">
+    <label>Mot de passe</label>
+    <input type="password" id="l-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+  </div>
+  <div id="l-err" class="auth-err"></div>
+  <button class="btn-primary" onclick="doLogin()">Se connecter</button>
+  <div class="auth-sep" style="margin-top:1.25rem">ou</div>
+  <div style="font-size:12px;text-align:center;color:#9A9080;margin-top:8px">
+    Pas encore de compte ? <span style="color:#0A2240;font-weight:700;cursor:pointer" onclick="switchTab('register')">Créer un compte gratuit</span>
+  </div>
+</div>
+
+<!-- INSCRIPTION -->
+<div id="form-register" class="auth-body" style="display:none">
+  <div class="auth-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités"></div>
+  <div class="auth-title">Créer mon compte</div>
+  <div class="auth-sub">Accédez à vos favoris et alertes personnalisées</div>
+  <div class="form-2col">
+    <div class="form-field" style="margin:0">
+      <label>Prénom</label>
+      <input type="text" id="r-prenom" placeholder="Jean">
+    </div>
+    <div class="form-field" style="margin:0">
+      <label>Nom</label>
+      <input type="text" id="r-nom" placeholder="Dupont">
+    </div>
+  </div>
+  <div class="form-field" style="margin-top:12px">
+    <label>Email</label>
+    <input type="email" id="r-email" placeholder="votre@email.fr">
+  </div>
+  <div class="form-field">
+    <label>Mot de passe</label>
+    <input type="password" id="r-pass" placeholder="8 caractères minimum">
+  </div>
+  <div class="form-field">
+    <label>Confirmer le mot de passe</label>
+    <input type="password" id="r-pass2" placeholder="••••••••" onkeydown="if(event.key==='Enter')doRegister()">
+  </div>
+  <div id="r-err" class="auth-err"></div>
+  <div id="r-ok" class="auth-ok"></div>
+  <button class="btn-primary" onclick="doRegister()">Créer mon compte</button>
+  <div style="font-size:11px;color:#9A9080;text-align:center;margin-top:10px">
+    En créant un compte, vous acceptez nos <a href="#" style="color:#0A2240">conditions d'utilisation</a>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- DASHBOARD (affiché après connexion) -->
+
+<div id="dashboard" style="display:none">
+  <div class="account-wrap">
+
+```
+<!-- SIDEBAR -->
+<div>
+  <div class="profile-card">
+    <div class="profile-hero">
+      <div class="profile-avatar" id="avatar-circle" title="Changer la photo">
+        <span id="avatar-initials">?</span>
+        <input type="file" class="avatar-upload" accept="image/*" onchange="changeAvatar(this)">
+      </div>
+      <div class="profile-name" id="profile-name-display">—</div>
+      <div class="profile-email" id="profile-email-display">—</div>
+      <div class="profile-badge">⭐ Voyageur GG</div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="sidebar-item on" onclick="sw('accueil')"><span class="sidebar-icon">🏠</span>Accueil</div>
+      <div class="sidebar-item" onclick="sw('favoris-arrets')"><span class="sidebar-icon">🚏</span>Arrêts favoris</div>
+      <div class="sidebar-item" onclick="sw('favoris-itin')"><span class="sidebar-icon">🗺️</span>Itinéraires favoris</div>
+      <div class="sidebar-item" onclick="sw('alertes')"><span class="sidebar-icon">🔔</span>Mes alertes lignes</div>
+      <div class="sidebar-sep"></div>
+      <div class="sidebar-item" onclick="sw('profil')"><span class="sidebar-icon">⚙️</span>Mon profil</div>
+      <div class="sidebar-item danger" onclick="doLogout()"><span class="sidebar-icon">🚪</span>Se déconnecter</div>
+    </div>
+  </div>
+</div>
+
+<!-- PANNEAUX -->
+<div>
+
+  <!-- ACCUEIL -->
+  <div class="panel on" id="panel-accueil">
+    <div class="panel-title">Bonjour, <span id="welcome-name">—</span> 👋</div>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-val" id="stat-arrets">0</div>
+        <div class="stat-lbl">Arrêts favoris</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" id="stat-itin">0</div>
+        <div class="stat-lbl">Itinéraires</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" id="stat-alertes">0</div>
+        <div class="stat-lbl">Alertes actives</div>
+      </div>
+    </div>
+
+    <!-- Accès rapide -->
+    <div class="section-card">
+      <h3>🚀 Accès rapide</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">
+        <a href="itineraire.html" style="display:flex;align-items:center;gap:10px;background:#F0F4FA;border-radius:10px;padding:12px;text-decoration:none;color:#0A2240;font-weight:600;font-size:13px;transition:all 0.2s" onmouseover="this.style.background='#E2EAF5'" onmouseout="this.style.background='#F0F4FA'">
+          <span style="font-size:22px">🗺️</span>Calculer un itinéraire
+        </a>
+        <a href="horaires-arret.html" style="display:flex;align-items:center;gap:10px;background:#F0F4FA;border-radius:10px;padding:12px;text-decoration:none;color:#0A2240;font-weight:600;font-size:13px;transition:all 0.2s" onmouseover="this.style.background='#E2EAF5'" onmouseout="this.style.background='#F0F4FA'">
+          <span style="font-size:22px">🕐</span>Horaires par arrêt
+        </a>
+        <a href="reseau.html" style="display:flex;align-items:center;gap:10px;background:#F0F4FA;border-radius:10px;padding:12px;text-decoration:none;color:#0A2240;font-weight:600;font-size:13px;transition:all 0.2s" onmouseover="this.style.background='#E2EAF5'" onmouseout="this.style.background='#F0F4FA'">
+          <span style="font-size:22px">🚌</span>Voir le réseau
+        </a>
+        <span onclick="sw('alertes')" style="display:flex;align-items:center;gap:10px;background:#F0F4FA;border-radius:10px;padding:12px;cursor:pointer;color:#0A2240;font-weight:600;font-size:13px;transition:all 0.2s" onmouseover="this.style.background='#E2EAF5'" onmouseout="this.style.background='#F0F4FA'">
+          <span style="font-size:22px">🔔</span>Gérer mes alertes
+        </span>
+      </div>
+    </div>
+
+    <!-- Alertes infotrafic personnalisées -->
+    <div class="section-card" id="home-alertes-card">
+      <h3>⚠️ Infotrafic sur mes lignes</h3>
+      <div id="home-alertes-content"><div class="loading">Chargement...</div></div>
+    </div>
+
+    <!-- Derniers arrêts favoris -->
+    <div class="section-card">
+      <h3>⭐ Mes derniers arrêts favoris</h3>
+      <div id="home-arrets-content"><div style="color:#9A9080;font-size:13px">Aucun arrêt favori. <span style="color:#0A2240;cursor:pointer;font-weight:600" onclick="sw('favoris-arrets')">En ajouter →</span></div></div>
+    </div>
+  </div>
+
+  <!-- ARRÊTS FAVORIS -->
+  <div class="panel" id="panel-favoris-arrets">
+    <div class="panel-title">🚏 Arrêts favoris</div>
+    <div class="section-card">
+      <h3>Ajouter un arrêt</h3>
+      <div class="add-fav-form">
+        <input class="add-fav-input" id="add-arret-input" placeholder="Nom de l'arrêt (ex: Victor Hugo)..." onkeydown="if(event.key==='Enter')addArretFavori()">
+        <button class="add-fav-btn" onclick="addArretFavori()">+ Ajouter</button>
+      </div>
+      <div id="arret-suggestions" style="display:none;background:white;border:1.5px solid #E0E6F0;border-radius:10px;max-height:200px;overflow-y:auto;margin-top:4px"></div>
+    </div>
+    <div class="section-card">
+      <h3>Mes arrêts sauvegardés</h3>
+      <div id="arrets-fav-list"></div>
+    </div>
+  </div>
+
+  <!-- ITINÉRAIRES FAVORIS -->
+  <div class="panel" id="panel-favoris-itin">
+    <div class="panel-title">🗺️ Itinéraires favoris</div>
+    <div class="section-card">
+      <h3>Mes itinéraires sauvegardés</h3>
+      <p style="font-size:13px;color:#9A9080;margin-bottom:1rem">Sauvegardez un itinéraire depuis <a href="itineraire.html" style="color:#0A2240;font-weight:600">la page Itinéraires</a> en cliquant sur ⭐</p>
+      <div id="itin-fav-list"></div>
+    </div>
+  </div>
+
+  <!-- ALERTES LIGNES -->
+  <div class="panel" id="panel-alertes">
+    <div class="panel-title">🔔 Alertes perturbations</div>
+    <div class="section-card">
+      <div class="notif-info">
+        <strong>Comment ça marche ?</strong><br>
+        Activez les alertes pour les lignes qui vous intéressent. Lorsqu'une perturbation est publiée sur l'une de vos lignes, vous serez notifié sur cette page. Entrez votre email pour recevoir également des notifications par email.
+      </div>
+      <div class="form-field" style="margin-bottom:1rem">
+        <label>Email pour les notifications</label>
+        <div style="display:flex;gap:8px">
+          <input type="email" id="notif-email" placeholder="votre@email.fr" style="flex:1;padding:10px 14px;border:1.5px solid #E0E6F0;border-radius:10px;font-size:13px;font-family:'DM Sans',sans-serif">
+          <button class="add-fav-btn" onclick="saveNotifEmail()">Sauvegarder</button>
+        </div>
+      </div>
+      <h3 style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;margin-bottom:1rem">Choisir mes lignes</h3>
+      <div id="alertes-lignes-list"></div>
+    </div>
+  </div>
+
+  <!-- PROFIL -->
+  <div class="panel" id="panel-profil">
+    <div class="panel-title">⚙️ Mon profil</div>
+    <div class="section-card">
+      <h3>Informations personnelles</h3>
+      <div class="profile-edit-row">
+        <div class="form-field" style="margin:0"><label>Prénom</label><input type="text" id="edit-prenom"></div>
+        <div class="form-field" style="margin:0"><label>Nom</label><input type="text" id="edit-nom"></div>
+      </div>
+      <div class="form-field"><label>Email</label><input type="email" id="edit-email"></div>
+      <button class="btn-save" onclick="saveProfil()">Sauvegarder</button>
+    </div>
+    <div class="section-card">
+      <h3>Changer de mot de passe</h3>
+      <div class="form-field"><label>Ancien mot de passe</label><input type="password" id="old-pass"></div>
+      <div class="form-field"><label>Nouveau mot de passe</label><input type="password" id="new-pass"></div>
+      <div class="form-field"><label>Confirmer</label><input type="password" id="new-pass2"></div>
+      <button class="btn-save" onclick="changePass()">Mettre à jour</button>
+    </div>
+    <div class="section-card">
+      <h3 style="color:#dc241f">Zone dangereuse</h3>
+      <p style="font-size:13px;color:#9A9080;margin-bottom:1rem">La suppression de votre compte est irréversible. Toutes vos données seront effacées.</p>
+      <button class="btn-danger" onclick="deleteAccount()">Supprimer mon compte</button>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+</div>
+
+<footer><div class="accent-bar"></div><div style="padding:2.5rem 2rem"><div class="footer-inner"><div class="footer-brand"><div class="footer-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités" style="background:transparent"> GGMobilités</div><p class="footer-desc">Réseau de transport de Grenoble et sa région.</p></div><div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan interactif</a></div><div class="footer-col"><h4>Mon compte</h4><a href="mon-compte.html">Se connecter</a><a href="mon-compte.html#favoris">Mes favoris</a></div><div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a></div></div><div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span></div></div></footer>
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+// ── Config ────────────────────────────────────────────────────────
+const JB_ID="69d95af5aaba882197e64b7e", JB_KEY="$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
+const BADGE={"C1": "#dc241f", "C2": "#9364cc", "C3": "#f1ab00", "4": "#00afad", "5": "#e86a10", "6": "#894e24", "7": "#007229", "8": "#d799af", "9": "#0019a8", "10": "#ffce00", "11": "#751056", "60": "#76d0bd", "61": "#0019a8", "PL1": "#868f98"};
+const LIGNES=["C1","C2","C3","4","5","6","7","8","9","10","11","60","61","PL1"];
+const ICONES={"C1": "https://i.postimg.cc/52S6cLwx/Capture-decran-2025-11-01-a-14-30-12-1.png", "C2": "https://i.postimg.cc/RFLBhLVp/Capture-d-e-cran-2025-11-01-a-14-28-58.png", "C3": "https://i.postimg.cc/X7z0rJ4f/Capture-d-e-cran-2025-11-01-a-14-29-22.png", "4": "https://i.postimg.cc/D0pgn0HR/Capture-d-e-cran-2025-11-01-a-17-18-17.png", "5": "https://i.postimg.cc/Dzc17mXT/Capture-d-e-cran-2025-11-02-a-08-45-54.png", "6": "https://i.postimg.cc/nVXTGYmb/Capture-d-e-cran-2025-11-02-a-09-01-54.png", "7": "https://i.postimg.cc/pXNQYNx6/Capture-d-e-cran-2025-11-02-a-10-06-52.png", "8": "https://i.postimg.cc/q7gCHQ4p/Capture-d-e-cran-2025-11-02-a-15-09-55.png", "9": "https://i.postimg.cc/2ypgQH22/Capture-d-e-cran-2025-11-02-a-21-01-20.png", "10": "https://i.postimg.cc/xCm41vns/Capture-d-e-cran-2025-11-02-a-21-29-43.png", "11": "https://i.postimg.cc/CxKrqTwS/Capture-d-e-cran-2025-11-02-a-21-53-23.png", "60": "https://i.postimg.cc/zG3pfCk7/Capture-d-e-cran-2025-11-02-a-22-04-12.png", "61": "https://i.postimg.cc/DzTWNF0H/Capture-d-e-cran-2025-11-03-a-18-11-16.png", "PL1": "https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2026/03/Capture-decran-2026-03-18-a-17.32.34.png"};
+
+// ── État ──────────────────────────────────────────────────────────
+let curUser=null;
+let users=[];  // liste des comptes utilisateurs
+let alertesDB=[];  // alertes infotrafic depuis JSONBin
+
+// ── Utils ─────────────────────────────────────────────────────────
+function toast(msg,ok=true){
+  const el=document.createElement("div");
+  el.className="toast "+(ok?"ok":"err");
+  el.textContent=msg;
+  document.getElementById("toast-wrap").appendChild(el);
+  setTimeout(()=>el.remove(),3000);
+}
+
+function hashPass(p){
+  // Simple hash côté client (pas sécurisé pour prod, mais OK pour démo)
+  let h=0;for(let i=0;i<p.length;i++)h=Math.imul(31,h)+p.charCodeAt(i)|0;
+  return h.toString(36);
+}
+
+// ── Persistance locale ────────────────────────────────────────────
+function saveUsers(){localStorage.setItem("gg_users",JSON.stringify(users));}
+function loadUsers(){
+  const raw=localStorage.getItem("gg_users");
+  users=raw?JSON.parse(raw):[];
+}
+function saveSession(u){
+  localStorage.setItem("gg_session",JSON.stringify(u));
+  curUser=u;
+}
+function loadSession(){
+  const raw=localStorage.getItem("gg_session");
+  if(raw)curUser=JSON.parse(raw);
+}
+function clearSession(){localStorage.removeItem("gg_session");curUser=null;}
+
+function saveUserData(){
+  if(!curUser)return;
+  const idx=users.findIndex(u=>u.email===curUser.email);
+  if(idx>=0){users[idx]=curUser;saveUsers();}
+  localStorage.setItem("gg_session",JSON.stringify(curUser));
+}
+
+// ── JSONBin : charger alertes infotrafic ─────────────────────────
+async function loadAlertesDB(){
+  try{
+    const r=await fetch("https://api.jsonbin.io/v3/b/"+JB_ID+"/latest",{headers:{"X-Master-Key":JB_KEY}});
+    const j=await r.json();
+    alertesDB=(j.record||{}).alertes||[];
+  }catch(e){alertesDB=[];}
+}
+
+// ── Auth ──────────────────────────────────────────────────────────
+function switchTab(t){
+  document.getElementById("tab-login").classList.toggle("on",t==="login");
+  document.getElementById("tab-register").classList.toggle("on",t==="register");
+  document.getElementById("form-login").style.display=t==="login"?"block":"none";
+  document.getElementById("form-register").style.display=t==="register"?"block":"none";
+}
+
+function doLogin(){
+  const email=document.getElementById("l-email").value.trim().toLowerCase();
+  const pass=document.getElementById("l-pass").value;
+  const err=document.getElementById("l-err");
+  err.style.display="none";
+  if(!email||!pass){err.textContent="Remplissez tous les champs.";err.style.display="block";return;}
+  loadUsers();
+  const u=users.find(x=>x.email===email&&x.pass===hashPass(pass));
+  if(!u){err.textContent="Email ou mot de passe incorrect.";err.style.display="block";return;}
+  saveSession(u);
+  showDashboard();
+}
+
+function doRegister(){
+  const prenom=document.getElementById("r-prenom").value.trim();
+  const nom=document.getElementById("r-nom").value.trim();
+  const email=document.getElementById("r-email").value.trim().toLowerCase();
+  const pass=document.getElementById("r-pass").value;
+  const pass2=document.getElementById("r-pass2").value;
+  const err=document.getElementById("r-err");
+  const ok=document.getElementById("r-ok");
+  err.style.display="none";ok.style.display="none";
+  if(!prenom||!nom||!email||!pass){err.textContent="Remplissez tous les champs.";err.style.display="block";return;}
+  if(pass.length<8){err.textContent="Le mot de passe doit faire 8 caractères minimum.";err.style.display="block";return;}
+  if(pass!==pass2){err.textContent="Les mots de passe ne correspondent pas.";err.style.display="block";return;}
+  loadUsers();
+  if(users.find(u=>u.email===email)){err.textContent="Cet email est déjà utilisé.";err.style.display="block";return;}
+  const newUser={
+    prenom,nom,email,pass:hashPass(pass),
+    avatar:null,
+    favorisArrets:[],
+    favorisItin:[],
+    alertesLignes:[],
+    notifEmail:email,
+    createdAt:new Date().toLocaleDateString("fr-FR"),
+  };
+  users.push(newUser);
+  saveUsers();
+  saveSession(newUser);
+  showDashboard();
+  toast("Compte créé ! Bienvenue "+prenom+" 🎉");
+}
+
+function doLogout(){
+  if(!confirm("Se déconnecter ?"))return;
+  clearSession();
+  location.reload();
+}
+
+function deleteAccount(){
+  if(!confirm("Supprimer définitivement votre compte ? Cette action est irréversible."))return;
+  loadUsers();
+  users=users.filter(u=>u.email!==curUser.email);
+  saveUsers();clearSession();location.reload();
+}
+
+// ── Dashboard ─────────────────────────────────────────────────────
+function showDashboard(){
+  document.getElementById("auth-overlay").style.display="none";
+  document.getElementById("dashboard").style.display="block";
+  // Nav
+  document.getElementById("nav-compte-icon").textContent="👤";
+  document.getElementById("nav-compte-label").textContent=curUser.prenom;
+  // Profil sidebar
+  const initials=(curUser.prenom[0]+(curUser.nom[0]||"")).toUpperCase();
+  const avatarCircle=document.getElementById("avatar-circle");
+  if(curUser.avatar){
+    avatarCircle.innerHTML='<img src="'+curUser.avatar+'" style="width:100%;height:100%;object-fit:cover"><input type="file" class="avatar-upload" accept="image/*" onchange="changeAvatar(this)">';
+  }else{
+    document.getElementById("avatar-initials").textContent=initials;
+  }
+  document.getElementById("profile-name-display").textContent=curUser.prenom+" "+curUser.nom;
+  document.getElementById("profile-email-display").textContent=curUser.email;
+  document.getElementById("welcome-name").textContent=curUser.prenom;
+  // Stats
+  renderStats();
+  renderHome();
+  renderArretsFav();
+  renderItinFav();
+  renderAlertesLignes();
+  fillProfilForm();
+  if(curUser.notifEmail)document.getElementById("notif-email").value=curUser.notifEmail;
+}
+
+function sw(n){
+  document.querySelectorAll(".sidebar-item").forEach(s=>s.classList.remove("on"));
+  document.querySelectorAll(".sidebar-item").forEach(s=>{if(s.textContent.trim()===getTabLabel(n))s.classList.add("on");});
+  // Trouver le bon item
+  const labels={accueil:"Accueil","favoris-arrets":"Arrêts favoris","favoris-itin":"Itinéraires favoris",alertes:"Mes alertes lignes",profil:"Mon profil"};
+  document.querySelectorAll(".sidebar-item").forEach(s=>{
+    const txt=s.textContent.trim();
+    const isActive=txt===labels[n];
+    s.classList.toggle("on",isActive);
+  });
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("on"));
+  const panel=document.getElementById("panel-"+n);
+  if(panel)panel.classList.add("on");
+}
+function getTabLabel(n){const m={accueil:"Accueil","favoris-arrets":"Arrêts favoris","favoris-itin":"Itinéraires favoris",alertes:"Mes alertes lignes",profil:"Mon profil"};return m[n]||n;}
+
+function renderStats(){
+  document.getElementById("stat-arrets").textContent=(curUser.favorisArrets||[]).length;
+  document.getElementById("stat-itin").textContent=(curUser.favorisItin||[]).length;
+  document.getElementById("stat-alertes").textContent=(curUser.alertesLignes||[]).length;
+}
+
+// ── Accueil : alertes personnalisées ─────────────────────────────
+function renderHome(){
+  const myLines=curUser.alertesLignes||[];
+  const myAlerts=alertesDB.filter(a=>myLines.includes(a.ligne));
+  const el=document.getElementById("home-alertes-content");
+  if(!myLines.length){
+    el.innerHTML='<div style="font-size:13px;color:#9A9080">Vous n'avez pas encore sélectionné de lignes. <span style="color:#0A2240;font-weight:600;cursor:pointer" onclick="sw('alertes')">Configurer mes alertes →</span></div>';
+  }else if(!myAlerts.length){
+    el.innerHTML='<div style="background:rgba(0,114,41,0.06);border:1px solid rgba(0,114,41,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:#007229">✓ Aucune perturbation en cours sur vos lignes.</div>';
+  }else{
+    el.innerHTML=myAlerts.map(a=>'<div style="background:rgba(220,36,31,0.05);border-left:3px solid #dc241f;border-radius:8px;padding:10px 14px;margin-bottom:8px"><div style="font-weight:700;font-size:13px;color:#0F1923"><span style="background:'+BADGE[a.ligne]+';color:white;padding:1px 6px;border-radius:4px;font-size:11px;margin-right:6px">'+a.ligne+'</span>'+a.titre+'</div><div style="font-size:12px;color:#5A6272;margin-top:3px">'+a.desc+'</div></div>').join("");
+  }
+  // Derniers arrêts favoris
+  const arrets=curUser.favorisArrets||[];
+  const el2=document.getElementById("home-arrets-content");
+  if(!arrets.length){
+    el2.innerHTML='<div style="font-size:13px;color:#9A9080">Aucun arrêt favori. <span style="color:#0A2240;font-weight:600;cursor:pointer" onclick="sw('favoris-arrets')">En ajouter →</span></div>';
+  }else{
+    el2.innerHTML=arrets.slice(0,3).map(a=>'<div class="arret-fav"><span class="arret-fav-icon">🚏</span><div class="arret-fav-info"><div class="arret-fav-name">'+a.nom+'</div></div><a href="horaires-arret.html?q='+encodeURIComponent(a.nom)+'" style="font-size:12px;color:#0A2240;font-weight:600;text-decoration:none;padding:4px 10px;background:#F0F4FA;border-radius:6px">Voir →</a></div>').join("");
+  }
+}
+
+// ── Arrêts favoris ────────────────────────────────────────────────
+// Charger tous les arrêts depuis lines.json pour autocomplete
+let tousLesArrets=[];
+async function loadArrets(){
+  try{
+    const r=await fetch("lines.json");const d=await r.json();
+    const set=new Set();
+    d.forEach(l=>{(l.arrets||[]).forEach(a=>set.add(a.nom));});
+    tousLesArrets=[...set].sort();
+  }catch(e){}
+}
+
+document.getElementById("add-arret-input")?.addEventListener("input",function(){
+  const q=this.value.trim().toLowerCase();
+  const sug=document.getElementById("arret-suggestions");
+  if(q.length<2){sug.style.display="none";return;}
+  const matches=tousLesArrets.filter(a=>a.toLowerCase().includes(q)).slice(0,8);
+  if(!matches.length){sug.style.display="none";return;}
+  sug.innerHTML=matches.map(a=>'<div style="padding:10px 14px;cursor:pointer;font-size:13px;border-bottom:1px solid #F0F0F0;transition:background 0.1s" onmouseover="this.style.background='#F0F4FA'" onmouseout="this.style.background=''" onclick="selectArret(''+a+'')">🚏 '+a+'</div>').join("");
+  sug.style.display="block";
+});
+
+function selectArret(nom){
+  document.getElementById("add-arret-input").value=nom;
+  document.getElementById("arret-suggestions").style.display="none";
+  addArretFavori();
+}
+
+function addArretFavori(){
+  const nom=document.getElementById("add-arret-input").value.trim();
+  if(!nom)return;
+  if(!curUser.favorisArrets)curUser.favorisArrets=[];
+  if(curUser.favorisArrets.find(a=>a.nom.toLowerCase()===nom.toLowerCase())){toast("Cet arrêt est déjà dans vos favoris.",false);return;}
+  curUser.favorisArrets.push({nom,ajouteAt:new Date().toLocaleDateString("fr-FR")});
+  document.getElementById("add-arret-input").value="";
+  document.getElementById("arret-suggestions").style.display="none";
+  saveUserData();renderArretsFav();renderStats();renderHome();
+  toast("Arrêt ajouté aux favoris !");
+}
+
+function removeArretFav(nom){
+  curUser.favorisArrets=(curUser.favorisArrets||[]).filter(a=>a.nom!==nom);
+  saveUserData();renderArretsFav();renderStats();renderHome();
+  toast("Arrêt retiré des favoris.");
+}
+
+function renderArretsFav(){
+  const el=document.getElementById("arrets-fav-list");
+  const arrets=curUser.favorisArrets||[];
+  if(!arrets.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">🚏</div><div class="empty-title">Aucun arrêt favori</div><div>Ajoutez vos arrêts habituels pour y accéder rapidement</div></div>';return;}
+  el.innerHTML=arrets.map(a=>'<div class="arret-fav"><span class="arret-fav-icon">🚏</span><div class="arret-fav-info"><div class="arret-fav-name">'+a.nom+'</div><div style="font-size:11px;color:#9A9080">Ajouté le '+a.ajouteAt+'</div></div><a href="horaires-arret.html?q='+encodeURIComponent(a.nom)+'" style="font-size:12px;color:#0A2240;font-weight:600;text-decoration:none;padding:5px 10px;background:#F0F4FA;border-radius:6px;margin-right:6px">Voir horaires</a><button class="btn-del-fav" onclick="removeArretFav(''+a.nom.replace(/'/g,"\'")+'')" title="Supprimer">✕</button></div>').join("");
+}
+
+// ── Itinéraires favoris ───────────────────────────────────────────
+function renderItinFav(){
+  const el=document.getElementById("itin-fav-list");
+  const itins=curUser.favorisItin||[];
+  if(!itins.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">🗺️</div><div class="empty-title">Aucun itinéraire favori</div><div>Sauvegardez un itinéraire depuis <a href="itineraire.html" style="color:#0A2240;font-weight:600">la page Itinéraires</a></div></div>';return;}
+  el.innerHTML=itins.map((itin,i)=>'<div class="itin-fav" onclick="window.location.href='itineraire.html?from='+encodeURIComponent(itin.from)+'&to='+encodeURIComponent(itin.to)+''">'
+    +'<span style="font-size:24px">🗺️</span>'
+    +'<div class="itin-fav-route"><div class="itin-fav-title">'+itin.from+' → '+itin.to+'</div><div class="itin-fav-meta">'+itin.meta+'</div></div>'
+    +'<button class="btn-del-fav" onclick="event.stopPropagation();removeItinFav('+i+')" title="Supprimer">✕</button>'
+    +'</div>').join("");
+}
+
+function removeItinFav(i){
+  curUser.favorisItin.splice(i,1);
+  saveUserData();renderItinFav();renderStats();
+  toast("Itinéraire supprimé.");
+}
+
+// ── Alertes lignes ────────────────────────────────────────────────
+function renderAlertesLignes(){
+  const el=document.getElementById("alertes-lignes-list");
+  const myLines=curUser.alertesLignes||[];
+  el.innerHTML=LIGNES.map(code=>{
+    const on=myLines.includes(code);
+    const badge=BADGE[code]||"#333";
+    return '<div class="ligne-alerte-row">'
+      +'<img src="'+ICONES[code]+'" style="width:36px;height:36px;object-fit:contain;border-radius:6px;background:'+badge+';padding:3px;flex-shrink:0" onerror="this.style.display='none'">'
+      +'<div style="flex:1"><div style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;color:#0F1923">Ligne '+code+'</div>'
+      +'<div style="font-size:11px;color:#9A9080">'+(on?"Alertes activées":"Alertes désactivées")+'</div></div>'
+      +'<div class="toggle '+(on?"on":"")+'" onclick="toggleAlerte(''+code+'')" title="'+(on?"Désactiver":"Activer")+'"></div>'
+      +'</div>';
+  }).join("");
+}
+
+function toggleAlerte(code){
+  if(!curUser.alertesLignes)curUser.alertesLignes=[];
+  const idx=curUser.alertesLignes.indexOf(code);
+  if(idx>=0){curUser.alertesLignes.splice(idx,1);toast("Alertes désactivées pour la ligne "+code);}
+  else{curUser.alertesLignes.push(code);toast("Alertes activées pour la ligne "+code+" !");}
+  saveUserData();renderAlertesLignes();renderStats();renderHome();
+}
+
+function saveNotifEmail(){
+  const email=document.getElementById("notif-email").value.trim();
+  if(!email)return;
+  curUser.notifEmail=email;
+  saveUserData();toast("Email de notification sauvegardé !");
+}
+
+// ── Profil ────────────────────────────────────────────────────────
+function fillProfilForm(){
+  document.getElementById("edit-prenom").value=curUser.prenom||"";
+  document.getElementById("edit-nom").value=curUser.nom||"";
+  document.getElementById("edit-email").value=curUser.email||"";
+}
+
+function saveProfil(){
+  const prenom=document.getElementById("edit-prenom").value.trim();
+  const nom=document.getElementById("edit-nom").value.trim();
+  const email=document.getElementById("edit-email").value.trim().toLowerCase();
+  if(!prenom||!nom||!email){toast("Remplissez tous les champs.",false);return;}
+  // Vérifier que l'email n'est pas pris par un autre compte
+  loadUsers();
+  const conflict=users.find(u=>u.email===email&&u.email!==curUser.email);
+  if(conflict){toast("Cet email est déjà utilisé par un autre compte.",false);return;}
+  const oldEmail=curUser.email;
+  curUser.prenom=prenom;curUser.nom=nom;curUser.email=email;
+  // Mettre à jour dans la liste
+  const idx=users.findIndex(u=>u.email===oldEmail);
+  if(idx>=0){users[idx]=curUser;saveUsers();}
+  saveUserData();
+  document.getElementById("profile-name-display").textContent=prenom+" "+nom;
+  document.getElementById("profile-email-display").textContent=email;
+  document.getElementById("welcome-name").textContent=prenom;
+  document.getElementById("avatar-initials").textContent=(prenom[0]+(nom[0]||"")).toUpperCase();
+  toast("Profil mis à jour !");
+}
+
+function changePass(){
+  const old=document.getElementById("old-pass").value;
+  const n1=document.getElementById("new-pass").value;
+  const n2=document.getElementById("new-pass2").value;
+  if(!old||!n1||!n2){toast("Remplissez tous les champs.",false);return;}
+  if(hashPass(old)!==curUser.pass){toast("Ancien mot de passe incorrect.",false);return;}
+  if(n1!==n2){toast("Les mots de passe ne correspondent pas.",false);return;}
+  if(n1.length<8){toast("8 caractères minimum.",false);return;}
+  curUser.pass=hashPass(n1);
+  document.getElementById("old-pass").value="";
+  document.getElementById("new-pass").value="";
+  document.getElementById("new-pass2").value="";
+  saveUserData();toast("Mot de passe mis à jour !");
+}
+
+function changeAvatar(input){
+  const file=input.files[0];if(!file)return;
+  if(file.size>500000){toast("Image trop lourde (max 500 Ko).",false);return;}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    curUser.avatar=e.target.result;
+    saveUserData();
+    const circle=document.getElementById("avatar-circle");
+    circle.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover"><input type="file" class="avatar-upload" accept="image/*" onchange="changeAvatar(this)">';
+    toast("Photo de profil mise à jour !");
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── Init ─────────────────────────────────────────────────────────
+loadUsers();
+loadSession();
+loadAlertesDB().then(()=>{
+  if(curUser)showDashboard();
+});
+loadArrets();
+
+// Lien depuis nav
+window.addEventListener("DOMContentLoaded",()=>{
+  if(location.hash==="#favoris"){
+    if(curUser)sw("favoris-arrets");
+  }
+});
+</script>
+
+</body>
+</html>
