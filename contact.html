@@ -6,47 +6,147 @@
   <title>Contact — GGMobilités</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="logo.png" alt="GGMobilités">
-      GGMobilités
+    <a href="index.html" class="nav-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités">GGMobilités</a>
+    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Toutes les lignes</a><a href="infotrafic.html">Infotrafic</a><a href="horaires-arret.html">Horaires par arrêt</a><a href="tad.html">TAD</a></div></div><a href="itineraire.html">Itinéraires</a><a href="plan.html">Plan</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div></div><div class="nav-dropdown"><a href="contact.html" class="active">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div>
+    <a href="mon-compte.html" id="nav-compte-btn" style="margin-left:12px;padding:8px 14px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;border-radius:8px;font-family:Syne,sans-serif;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:6px;flex-shrink:0;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+      <span>👤</span><span id="nav-compte-label">Mon compte</span>
     </a>
-    <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Lignes structurantes</a><a href="plan.html">Plan du réseau</a><a href="tad.html">Lignes TAD</a><a href="pl1-gares.html">Ligne nocturne</a><a href="infotrafic.html">Infotrafic</a></div></div><a href="horaires.html">Horaires</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences de mobilités</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div><a href="horaires.html" class="nav-cta">🕐 Horaires</a></div>
   </div>
 </nav>
 <div class="accent-bar"></div>
+
 <div class="page">
-  <div style="margin-bottom:2rem"><h1 style="font-family:Syne,sans-serif;font-size:32px;font-weight:800;margin-bottom:6px;color:var(--texte)">Nous contacter</h1><p style="color:var(--texte-sec)">Une question ? Une réclamation ? Nous sommes là pour vous aider.</p></div>
+  <div style="margin-bottom:2rem">
+    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:800;margin-bottom:6px;color:var(--texte)">Nous contacter</h1>
+    <p style="color:var(--texte-sec)">Une question ? Une réclamation ? Nous sommes là pour vous aider.</p>
+  </div>
   <div class="grid grid-2">
-    <div class="contact-form">
-      <div class="form-row"><div class="form-group"><label>Prénom</label><input type="text" placeholder="Votre prénom"></div><div class="form-group"><label>Nom</label><input type="text" placeholder="Votre nom"></div></div>
-      <div class="form-group"><label>Email *</label><input type="email" placeholder="votre@email.fr"></div>
-      <div class="form-group"><label>Sujet *</label><select><option>— Choisir —</option><option>Dans les bus</option><option>Aux arrêts</option><option>Avec des employés</option><option>Sur le site internet</option><option>Autre</option></select></div>
-      <div class="form-group"><label>Message *</label><textarea placeholder="Votre message..."></textarea></div>
-      <button class="btn btn-or" style="width:100%">Envoyer le message</button>
+    <div class="contact-form" id="contact-form">
+      <div class="form-row">
+        <div class="form-group"><label>Prénom</label><input type="text" id="c-prenom" placeholder="Votre prénom"></div>
+        <div class="form-group"><label>Nom *</label><input type="text" id="c-nom" placeholder="Votre nom"></div>
+      </div>
+      <div class="form-group"><label>Email *</label><input type="email" id="c-email" placeholder="votre@email.fr"></div>
+      <div class="form-group"><label>Sujet *</label>
+        <select id="c-sujet">
+          <option value="">— Choisir —</option>
+          <option>Dans les bus</option>
+          <option>Aux arrêts</option>
+          <option>Avec des employés</option>
+          <option>Sur le site internet</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Message *</label><textarea id="c-message" placeholder="Votre message..."></textarea></div>
+      <button class="btn btn-vert" id="btn-contact" onclick="envoyerContact()" style="width:100%">Envoyer le message</button>
+      <div id="contact-success" style="display:none;margin-top:1rem;background:rgba(46,204,113,0.1);border:1px solid #2ECC71;border-radius:8px;padding:12px 16px;font-size:14px;color:#2ECC71;text-align:center">
+        ✓ Votre message a bien été envoyé ! Nous vous répondrons sous 48h.
+      </div>
+      <div id="contact-error" style="display:none;margin-top:1rem;background:rgba(231,76,60,0.1);border:1px solid #E74C3C;border-radius:8px;padding:12px 16px;font-size:14px;color:#E74C3C;text-align:center">
+        Une erreur est survenue. Veuillez réessayer ou nous contacter par email.
+      </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:12px">
-      <div class="card"><h3 style="margin-bottom:6px">📧 Email</h3><p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c0b3a5b2b6a9a3a5a3aca9a5aeb480a7a7adafa2a9aca9b4a5b3eea6b2">[email&#160;protected]</a></p></div>
+      <div class="card"><h3 style="margin-bottom:6px">📧 Email</h3><p>serviceclient@ggmobilites.fr</p></div>
       <div class="card"><h3 style="margin-bottom:6px">📍 Siège social</h3><p>GGMobilités · Grenoble</p></div>
       <div class="card"><h3 style="margin-bottom:6px">🕐 Service client</h3><p>Lun–Ven : 8h–19h<br>Samedi : 9h–17h</p></div>
     </div>
   </div>
 </div>
+
 <footer>
   <div class="accent-bar"></div>
   <div style="padding:3rem 2rem">
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="logo.png" alt="GGMobilités"> GGMobilités</div>
-        <p class="footer-desc">Le réseau de transport urbain de Grenoble et sa région. Partenaire de vos déplacements quotidiens.</p>
+        <div class="footer-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités"> GGMobilités</div>
+        <p class="footer-desc">Le réseau de transport urbain de Grenoble et sa région.</p>
       </div>
-      <div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="infotrafic.html">Infotrafic</a><a href="horaires.html">Horaires</a><a href="tad.html">Transport à la demande</a></div>
-      <div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a></div>
+      <div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan du réseau</a><a href="infotrafic.html">Infotrafic</a></div>
+      <div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div>
       <div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div>
     </div>
-    <div class="footer-bott
+    <div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div>
+  </div>
+</footer>
+
+<script>
+const JSONBIN_ID = "69d95af5aaba882197e64b7e";
+const JSONBIN_KEY = "$2a$10$0apNc/nNCMR.8/TGHyYHxO5hePLCGZ9bJua1DrAKkJdLf8y8TGbdm";
+
+async function envoyerContact(){
+  const nom = document.getElementById('c-nom').value.trim();
+  const prenom = document.getElementById('c-prenom').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const sujet = document.getElementById('c-sujet').value;
+  const message = document.getElementById('c-message').value.trim();
+
+  if(!nom||!email||!sujet||!message){
+    document.getElementById('contact-error').textContent='Veuillez remplir tous les champs obligatoires (*).';
+    document.getElementById('contact-error').style.display='block';
+    return;
+  }
+
+  const btn = document.getElementById('btn-contact');
+  btn.disabled=true; btn.textContent='Envoi en cours...';
+  document.getElementById('contact-error').style.display='none';
+
+  try{
+    // Charger les données existantes
+    const r = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_ID}/latest`,{headers:{'X-Master-Key':JSONBIN_KEY}});
+    const j = await r.json();
+    const rec = j.record||{};
+    const messages = rec.messages||[];
+
+    // Ajouter le nouveau message
+    messages.push({
+      nom: prenom?prenom+' '+nom:nom,
+      email, sujet, message,
+      date: new Date().toLocaleDateString('fr-FR'),
+      heure: new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
+      lu: false
+    });
+
+    // Sauvegarder
+    await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_ID}`,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
+      body:JSON.stringify({...rec, messages})
+    });
+
+    document.getElementById('contact-success').style.display='block';
+    document.getElementById('c-nom').value='';
+    document.getElementById('c-prenom').value='';
+    document.getElementById('c-email').value='';
+    document.getElementById('c-sujet').value='';
+    document.getElementById('c-message').value='';
+  }catch(e){
+    document.getElementById('contact-error').textContent='Une erreur est survenue. Veuillez réessayer.';
+    document.getElementById('contact-error').style.display='block';
+  }
+  btn.disabled=false; btn.textContent='Envoyer le message';
+}
+</script>
+
+
+<script>
+(function(){
+  try{
+    const s=localStorage.getItem("gg_session");
+    if(s){
+      const u=JSON.parse(s);
+      const lbl=document.getElementById("nav-compte-label");
+      if(lbl&&u.prenom) lbl.textContent=u.prenom;
+    }
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>

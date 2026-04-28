@@ -12,7 +12,11 @@
 <nav><div class="nav-inner">
 <a href="index.html" class="nav-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités" style="background:transparent"> GGMobilités</a>
 <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html" class="active">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Toutes les lignes</a><a href="infotrafic.html">Infotrafic</a><a href="horaires-arret.html">Horaires par arrêt</a><a href="tad.html">TAD</a></div></div><a href="itineraire.html">Itinéraires</a><a href="plan.html">Plan</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div></div>
-</div></nav>
+
+    <a href="mon-compte.html" id="nav-compte-btn" style="margin-left:12px;padding:8px 14px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;border-radius:8px;font-family:Syne,sans-serif;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:6px;flex-shrink:0;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+      <span>👤</span><span id="nav-compte-label">Mon compte</span>
+    </a>
+  </div></nav>
 <div class="accent-bar"></div>
 <div class="page"><div style="margin-bottom:2rem"><h1 style="font-family:Syne,sans-serif;font-size:32px;font-weight:800;margin-bottom:6px;color:var(--texte)">Le réseau GGMobilités</h1><p style="color:var(--texte-sec);font-size:15px">Cliquez sur une ligne pour voir les horaires en temps réel</p></div><div style="margin-bottom:2.5rem"><div style="font-family:Syne,sans-serif;font-size:18px;font-weight:700;color:var(--texte);margin-bottom:1rem;padding-bottom:8px;border-bottom:2px solid var(--bordure)">Lignes structurantes</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px"><a href="c1.html" style="display:block;background:white;border-radius:14px;border:1px solid var(--bordure);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);text-decoration:none;transition:all 0.2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 1px 4px rgba(0,0,0,0.06)'">
   <div style="background:#dc241f;padding:14px 18px;display:flex;align-items:center;gap:14px">
@@ -142,5 +146,19 @@
   </div>
 </a></div><div style="margin-bottom:2.5rem"><div style="font-family:Syne,sans-serif;font-size:18px;font-weight:700;color:var(--texte);margin-bottom:1rem;padding-bottom:8px;border-bottom:2px solid var(--bordure)">Transport à la demande</div><a href="tad.html" style="display:flex;align-items:center;gap:14px;background:white;border:1px solid var(--bordure);border-radius:14px;padding:16px;text-decoration:none;transition:all 0.2s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''"><div style="width:52px;height:52px;border-radius:10px;background:#534AB7;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🚐</div><div><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--texte)">Transport à la demande</div><div style="font-size:12px;color:var(--texte-sec);margin-top:2px">Sur réservation · Contactez-nous</div></div><span style="margin-left:auto;font-size:13px;font-weight:700;color:#534AB7">Voir →</span></a></div></div>
 <footer><div class="accent-bar"></div><div style="padding:2.5rem 2rem"><div class="footer-inner"><div class="footer-brand"><div class="footer-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités" style="background:transparent"> GGMobilités</div><p class="footer-desc">Réseau de transport de Grenoble et sa région.</p></div><div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan interactif</a><a href="infotrafic.html">Infotrafic</a></div><div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a><a href="agences.html">Agences</a></div><div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a></div></div><div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div></div></footer>
+
+<script>
+(function(){
+  try{
+    const s=localStorage.getItem("gg_session");
+    if(s){
+      const u=JSON.parse(s);
+      const lbl=document.getElementById("nav-compte-label");
+      if(lbl&&u.prenom) lbl.textContent=u.prenom;
+    }
+  }catch(e){}
+})();
+</script>
+
 </body>
 </html>

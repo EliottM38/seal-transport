@@ -44,7 +44,11 @@
 <nav><div class="nav-inner">
 <a href="index.html" class="nav-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités" style="background:transparent"> GGMobilités</a>
 <div class="nav-links"><a href="index.html">Accueil</a><div class="nav-dropdown"><a href="reseau.html" class="active">Le réseau ▾</a><div class="dropdown-menu"><a href="reseau.html">Toutes les lignes</a><a href="infotrafic.html">Infotrafic</a><a href="horaires-arret.html">Horaires par arrêt</a><a href="tad.html">TAD</a></div></div><a href="itineraire.html">Itinéraires</a><a href="plan.html">Plan</a><div class="nav-dropdown"><a href="tarifs.html">Tarifs & vente ▾</a><div class="dropdown-menu"><a href="tarifs.html">Les titres</a><a href="ou-acheter.html">Où acheter ?</a><a href="agences.html">Agences</a></div></div><div class="nav-dropdown"><a href="contact.html">GG et vous ▾</a><div class="dropdown-menu"><a href="contact.html">Contact</a><a href="objets-perdus.html">Objets perdus</a><a href="actualites.html">Actualités</a></div></div></div>
-</div></nav>
+
+    <a href="mon-compte.html" id="nav-compte-btn" style="margin-left:12px;padding:8px 14px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;border-radius:8px;font-family:Syne,sans-serif;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:6px;flex-shrink:0;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+      <span>👤</span><span id="nav-compte-label">Mon compte</span>
+    </a>
+  </div></nav>
 <div class="accent-bar"></div>
 
 <div class="page-header">
@@ -138,5 +142,19 @@ setInterval(()=>{if(document.getElementById("main-search").value.trim().length>=
 </script>
 
 <footer><div class="accent-bar"></div><div style="padding:2.5rem 2rem"><div class="footer-inner"><div class="footer-brand"><div class="footer-logo"><img src="https://seal.transport-manager.net/IsereSKI/wp-content/uploads/sites/549/2025/10/cropped-telechargement.png" alt="GGMobilités" style="background:transparent"> GGMobilités</div><p class="footer-desc">Réseau de transport de Grenoble et sa région.</p></div><div class="footer-col"><h4>Le réseau</h4><a href="reseau.html">Toutes les lignes</a><a href="plan.html">Plan interactif</a></div><div class="footer-col"><h4>Tarifs</h4><a href="tarifs.html">Les titres</a></div><div class="footer-col"><h4>GG et vous</h4><a href="contact.html">Contact</a></div></div><div class="footer-bottom"><span>© 2026 GGMobilités · Grenoble</span><span>serviceclient@ggmobilites.fr</span></div></div></footer>
+
+<script>
+(function(){
+  try{
+    const s=localStorage.getItem("gg_session");
+    if(s){
+      const u=JSON.parse(s);
+      const lbl=document.getElementById("nav-compte-label");
+      if(lbl&&u.prenom) lbl.textContent=u.prenom;
+    }
+  }catch(e){}
+})();
+</script>
+
 </body>
 </html>
